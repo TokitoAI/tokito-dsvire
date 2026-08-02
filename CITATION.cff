@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use DS-ViRe / tokito-dsvire, please cite this repository and the technical bible until a paper DOI is available."
+title: "tokito-dsvire — Datasheet Visual Retrieval (DS-ViRe)"
+authors:
+  - name: "VtronTokito contributors"
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/VtronTokito/tokito-dsvire"
+url: "https://github.com/VtronTokito/tokito-dsvire"
+abstract: >-
+  Figure-level, vision-first retrieval over semiconductor datasheets
+  (pinouts, package drawings, timing graphs, reference circuits), with
+  layout-gated indexing, EDA figure ontology, and electrical consistency
+  checks. Open specification and upcoming benchmark/implementation.
+keywords:
+  - document retrieval
+  - multimodal retrieval
+  - electronics datasheets
+  - EDA
+  - ColPali
+  - visual RAG
+  - DS-ViRe
+version: 0.1.0
+date-released: "2026-08-03"

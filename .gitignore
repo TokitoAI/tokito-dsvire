@@ -1,0 +1,45 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+*.code-workspace
+
+# Python (future)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Rust (future)
+target/
+
+# Data / packs (never commit corpora or indexes)
+packs/
+data/raw/
+data/pdfs/
+*.pdf
+*.dsvire
+.cache/
+*.parquet
+qdrant_storage/
+*.sqlite
+*.db
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+credentials.json
+
+# Logs
+*.log
+logs/
