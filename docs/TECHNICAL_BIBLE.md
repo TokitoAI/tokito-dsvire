@@ -1,7 +1,7 @@
 # DS-ViRe technical bible
 
 **Status:** architecture specification (implementation not started)  
-**Updated:** 2026-08-03  
+**Updated:** 2026-08-08  
 **DS-ViRe:** Datasheet Visual Retrieval
 
 Canonical public specification for figure-level, vision-first retrieval over semiconductor datasheets.
@@ -60,7 +60,7 @@ Success means top-k contains the region a competent EE would use, scored at page
 |---|---|
 | Replace CAD symbol/footprint libraries | Different layer; retrieval cites and verifies against figures |
 | Schematic image to netlist | Orthogonal (SINA, OmniSch, etc.) |
-| Datasheet to symbol generation | Downstream of retrieval (SFgen lane) |
+| Generate symbol geometry inside DS-ViRe | A downstream Tokito-native compiler consumes DS-ViRe evidence; retrieval remains independently benchmarkable |
 | Train a frontier VLM from scratch | Fine-tune or call open Col* / layout models |
 | Claim 100% of every PDF | Measure coverage and document failure modes |
 
@@ -207,6 +207,38 @@ flowchart LR
 
 Packages (planned): `core`, `index`, `query`, `bench`, `pack`.
 
+### 4.6 Tokito symbol product integration
+
+DS-ViRe is the evidence boundary for Tokito's datasheet-to-symbol product. It
+does not ask an LLM to emit symbol files or geometry. The downstream compiler
+consumes versioned evidence and deterministically constructs Tokito's canonical
+symbol model.
+
+```text
+datasheet upload
+  -> DS-ViRe index and retrieve
+  -> pinout + pin-table + package evidence bundle
+  -> constrained SymbolSpec extraction and reconciliation
+  -> deterministic Tokito symbol compiler
+  -> native .tokito_sym artifact
+  -> authenticated catalog ingestion
+  -> tokito-mcp unified read surface
+  -> Tokito Desktop placement and schematic embedding
+```
+
+The product must preserve three distinct identities:
+
+- `part_id`: manufacturer + exact MPN + package identity for BOM/procurement.
+- `library_id` / `symbol_id`: catalog geometry identity used for resolution.
+- embedded `.tokito_sym`: immutable schematic-local definition used for stable
+  rendering and netlists.
+
+The catalog's current immutable upstream pack and the future generated-symbol
+store must resolve through one catalog contract. Runtime MCP reads must not
+silently become an unauthenticated write path. See
+[`TOKITO_SYMBOL_PIPELINE.md`](TOKITO_SYMBOL_PIPELINE.md) for the product
+contract, generation rules, publication lifecycle, and ecosystem boundaries.
+
 ---
 
 ## 5. Tech stack
@@ -342,7 +374,7 @@ Embedding `kind`: `mrl64 | mrl512 | col_mv | fde`.
       "mpn": "STM32H743VIT6",
       "datasheet_id": "st-ds-...",
       "page": 42,
-      "bbox": [0.08, 0.12, 0.92, 0.71],
+      "bbox_norm": [0.08, 0.12, 0.92, 0.71],
       "type": "pinout",
       "crop_url": "dsvire://pack/.../r_0182.webp",
       "caption": "Figure 7. LQFP100 pinout",
@@ -479,6 +511,7 @@ tokito-dsvire/
   CITATION.cff
   CONTRIBUTING.md
   docs/TECHNICAL_BIBLE.md
+  docs/TOKITO_SYMBOL_PIPELINE.md
   packages/          # upcoming
   configs/
   scripts/
@@ -519,6 +552,8 @@ Release train (code):
 - [ ] ColQwen2 crop index + Qdrant MaxSim
 - [ ] LGPC vs full-page Col* baselines on DS-ViRe v0.1
 - [ ] Query API + MCP tools
+- [ ] Versioned Tokito symbol evidence-bundle contract
+- [ ] End-to-end generated-symbol vertical slice through the Tokito catalog
 - [ ] SLO dashboards
 
 ### Later
@@ -540,6 +575,8 @@ Release train (code):
 6. Benchmark artifacts before marketing pages.
 7. Client latency is a first-class metric.
 8. Agents get evidence contracts, not raw PDF dumps.
+9. Generated pins retain exact datasheet page, region, bbox, and content-hash provenance.
+10. No model directly publishes symbol geometry or catalog records; deterministic compilers and publication gates own those transitions.
 
 ---
 
@@ -578,5 +615,6 @@ Release train (code):
 |---|---|---|
 | 0.1 | 2026-08-03 | Initial architecture from research synthesis |
 | 0.2 | 2026-08-03 | Public cleanup; Mermaid node ID fixes; internal product plans removed |
+| 0.3 | 2026-08-08 | Tokito symbol product integration (§4.6); provenance/publication rules (§13.9–10); roadmap items for evidence-bundle contract and end-to-end generated-symbol slice; sample JSON `bbox_norm` naming |
 
 Update this file in the same PR as architecture or SLO changes.
