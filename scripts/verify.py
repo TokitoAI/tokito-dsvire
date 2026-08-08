@@ -262,7 +262,7 @@ def verify_symbol_spec(spec: dict, bundle: dict) -> list[Finding]:
 # Canonical properties the compiler must emit into every .tokito_sym.
 REQUIRED_SYMBOL_PROPERTIES = (
     "Reference", "Value", "Datasheet", "Description",
-    "Footprint", "MPN", "Manufacturer", "Package",
+    "Footprint", "MPN", "Manufacturer", "package",
 )
 
 
@@ -309,8 +309,8 @@ def verify_symbol_file(symbol_path: Path, spec: dict) -> list[Finding]:
             f"{field}={value!r} expected={expected!r}",
         ))
 
-    # The native compiler's canonical property is `Package`.
-    pkg_value = _property_value(text, "Package")
+    # The native compiler's canonical property is lowercase `package`.
+    pkg_value = _property_value(text, "package")
     if pkg_value == spec["package"]:
         findings.append(Finding("symbol.package_literal", Outcome.PASS, pkg_value))
     else:

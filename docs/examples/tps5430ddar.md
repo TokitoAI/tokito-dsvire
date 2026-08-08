@@ -93,7 +93,7 @@ Artifact SHA-256 values:
 | Artifact | SHA-256 |
 |---|---|
 | `spec.json` | `b68229b708969b27cfd75829b8285a78f5f5763a27924ea4f6126229f0ad96cb` |
-| `symbol.tokito_sym` | `6213aa8e9c76ed342deec50554595be4209951eb5449064e8326e9c335db1102` |
+| `symbol.tokito_sym` | `a55f281a9c5316046c892e406b93323d934f198fe9270beedd73f561f4a519bb` |
 | `TPS5430DDAR.svg` | `43db2b351be5d36d1f883cb5d1b1a52c85f41af107c2f7a236dfeaeac3dba20f` |
 | `TPS5430DDAR.png` | `7cf3871b6515bda1eb4890ace31da687447d1e721d7ba80c7462305ae4ee7848` |
 

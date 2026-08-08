@@ -59,7 +59,7 @@
 				(font (size 1.27 1.27))
 			)
 		)
-		(property "Package" "SO-PowerPAD-8"
+		(property "package" "SO-PowerPAD-8"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -87,7 +87,7 @@
 				(font (size 1.27 1.27))
 			)
 		)
-		(property "Tokito_Layout_Policy" "layout@0.1.0"
+		(property "Tokito_Layout_Policy" "layout@0.1.1"
 			(at 0 0 0)
 			(hide yes)
 			(effects
