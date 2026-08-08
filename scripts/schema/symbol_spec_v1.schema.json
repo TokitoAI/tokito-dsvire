@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/tokito.symbol-spec.v1.json",
+  "title": "tokito.symbol-spec.v1",
+  "description": "Constrained JSON emitted by the tokito-ai symbol-extractor and consumed by the tokito-catalog symbol compiler. Hand-authored mirror of tokito_catalog::pipeline::spec::SymbolSpec (docs/CONTRACTS.md §2). Both must stay in sync; drift is a contract-break signal.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "manufacturer", "mpn", "package",
+    "reference_prefix", "pins", "properties", "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "tokito.symbol-spec.v1" },
+    "manufacturer": { "type": "string", "minLength": 1 },
+    "mpn": { "type": "string", "minLength": 1 },
+    "package": { "type": "string", "minLength": 1 },
+    "reference_prefix": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4,
+      "pattern": "^[A-Z]+$"
+    },
+    "pins": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/pin" }
+    },
+    "properties": { "$ref": "#/$defs/properties" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "number", "name", "electrical", "style", "unit",
+        "hidden", "confidence", "evidence_region_ids"
+      ],
+      "properties": {
+        "number": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "electrical": {
+          "enum": [
+            "input", "output", "bidirectional", "tri_state", "passive",
+            "free", "unspecified", "power_in", "power_out",
+            "open_collector", "open_emitter", "no_connect"
+          ]
+        },
+        "style": {
+          "enum": [
+            "line", "inverted", "clock", "inverted_clock",
+            "input_low", "clock_low", "output_low",
+            "edge_clock_high", "non_logic"
+          ]
+        },
+        "group": { "type": "string" },
+        "unit": { "type": "integer", "minimum": 1 },
+        "hidden": { "type": "boolean" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence_region_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^r_[a-z0-9_]+$" }
+        }
+      }
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["datasheet", "description", "footprint", "keywords"],
+      "properties": {
+        "datasheet": { "type": "string" },
+        "description": { "type": "string" },
+        "footprint": { "type": "string" },
+        "keywords": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_datasheet_id", "evidence_content_sha256",
+        "extractor_version", "model", "extracted_at"
+      ],
+      "properties": {
+        "evidence_datasheet_id": { "type": "string", "minLength": 1 },
+        "evidence_content_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "extractor_version": { "type": "string", "minLength": 1 },
+        "model": { "type": "string", "minLength": 1 },
+        "extracted_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

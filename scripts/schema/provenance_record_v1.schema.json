@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/tokito.provenance-record.v1.json",
+  "title": "tokito.provenance-record.v1",
+  "description": "Persisted alongside every published generated revision; returned by the tokito-mcp get_symbol_provenance tool. Hand-authored mirror of docs/CONTRACTS.md §5.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "revision_id", "part_id", "library_id", "evidence",
+    "pipeline", "status", "published_at", "content_hash"
+  ],
+  "properties": {
+    "revision_id": {
+      "type": "string",
+      "pattern": "^gen_sha256_[a-f0-9]+$"
+    },
+    "part_id": { "$ref": "#/$defs/part_id" },
+    "library_id": { "$ref": "#/$defs/library_id" },
+    "evidence": { "$ref": "#/$defs/evidence" },
+    "pipeline": { "$ref": "#/$defs/pipeline" },
+    "status": {
+      "enum": ["draft", "validating", "verified", "published", "superseded", "quarantined"]
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    }
+  },
+  "$defs": {
+    "part_id": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manufacturer_norm", "mpn", "package"],
+      "properties": {
+        "manufacturer_norm": {
+          "type": "string",
+          "minLength": 1,
+          "description": "NFC + lowercased + whitespace-collapsed manufacturer name."
+        },
+        "mpn": { "type": "string", "minLength": 1 },
+        "package": { "type": "string", "minLength": 1 }
+      }
+    },
+    "library_id": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lib", "name"],
+      "properties": {
+        "lib": {
+          "type": "string",
+          "pattern": "^(generated|official):[A-Za-z0-9_\\-]+$"
+        },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["datasheet_id", "content_sha256", "region_ids"],
+      "properties": {
+        "datasheet_id": { "type": "string", "minLength": 1 },
+        "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "region_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^r_[a-z0-9_]+$" }
+        }
+      }
+    },
+    "pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extractor_version", "compiler_version", "layout_policy_version",
+        "extractor_model", "dsvire_index_version", "dsvire_model_ids"
+      ],
+      "properties": {
+        "extractor_version": { "type": "string", "minLength": 1 },
+        "compiler_version": { "type": "string", "minLength": 1 },
+        "layout_policy_version": { "type": "string", "minLength": 1 },
+        "extractor_model": { "type": "string", "minLength": 1 },
+        "dsvire_index_version": { "type": "string", "minLength": 1 },
+        "dsvire_model_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

@@ -38,6 +38,9 @@ qdrant_storage/
 # expected sha256 of every crop, so drift is detected by tests/test_fixtures.py.
 fixtures/evidence/crops/
 
+# End-to-end pipeline artifacts produced by scripts/demo_run.py.
+artifacts/
+
 # Secrets
 .env
 .env.*
