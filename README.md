@@ -47,6 +47,7 @@ desktop clients.
 ## Docs
 
 - [Technical bible](docs/TECHNICAL_BIBLE.md): problem, related work, architecture, stack, SLOs, benchmark design
+- [Real retrieval example](docs/examples/tps5430ddar.md): verified pinout and pin-function crops from a TI TPS5430 datasheet
 
 ## Layout
 

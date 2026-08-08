@@ -1,0 +1,54 @@
+{
+  "schema_version": "dsvire.symbol-evidence.v1",
+  "datasheet": {
+    "id": "ds_sha256_83074fc1265c8e5c6639511b",
+    "content_sha256": "83074fc1265c8e5c6639511bdb9f83e96c6e6f993613deadea0d09c3a12a2c07",
+    "manufacturer": "Texas Instruments",
+    "mpn": "TPS5430DDAR",
+    "package": "SO-PowerPAD-8"
+  },
+  "regions": [
+    {
+      "region_id": "r_pinout_01",
+      "type": "pinout",
+      "page": 3,
+      "bbox_norm": [
+        0.035,
+        0.059441,
+        0.965,
+        0.399441
+      ],
+      "crop_uri": "dsvire://pack/83074fc1265c8e5c6639511b/r_pinout_01.webp",
+      "content_hash": "sha256:a76dd05768f97be9a1c6f3ee1b218407a330813b04398f7d33674056466d7587",
+      "verified": true,
+      "verify_confidence": 1.0,
+      "caption": "4 Pin Configuration and Functions"
+    },
+    {
+      "region_id": "r_pin_table_01",
+      "type": "table",
+      "page": 3,
+      "bbox_norm": [
+        0.035,
+        0.300201,
+        0.965,
+        0.720201
+      ],
+      "crop_uri": "dsvire://pack/83074fc1265c8e5c6639511b/r_pin_table_01.webp",
+      "content_hash": "sha256:9d110a02405377acbc15b74400124f2606936fc1b7c6875e6cb1241d87374922",
+      "verified": true,
+      "verify_confidence": 1.0,
+      "caption": "Table 4-1. Pin Functions"
+    }
+  ],
+  "retrieval": {
+    "index_version": "dsvire-baseline@0.1.0",
+    "model_ids": [
+      "pymupdf-layout-text@1"
+    ],
+    "query_ids": [
+      "q_pinout",
+      "q_pin_table"
+    ]
+  }
+}
