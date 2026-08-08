@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/dsvire.symbol-evidence.v1.json",
+  "title": "dsvire.symbol-evidence.v1",
+  "description": "DS-ViRe evidence bundle emitted by the query stage and consumed by the tokito-ai symbol-extractor. This schema is a hand-authored mirror of tokito_catalog::pipeline::evidence::EvidenceBundle (see docs/CONTRACTS.md §1). Both must stay in sync; drift is a contract-break signal.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "datasheet", "regions", "retrieval"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "dsvire.symbol-evidence.v1"
+    },
+    "datasheet": { "$ref": "#/$defs/datasheet" },
+    "regions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/region" }
+    },
+    "retrieval": { "$ref": "#/$defs/retrieval" }
+  },
+  "$defs": {
+    "datasheet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "content_sha256", "manufacturer", "mpn", "package"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Hex sha256 of the exact PDF bytes."
+        },
+        "manufacturer": { "type": "string", "minLength": 1 },
+        "mpn": { "type": "string", "minLength": 1 },
+        "package": { "type": "string", "minLength": 1 }
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "region_id", "type", "page", "bbox_norm",
+        "crop_uri", "content_hash", "verified", "verify_confidence"
+      ],
+      "properties": {
+        "region_id": {
+          "type": "string",
+          "pattern": "^r_[a-z0-9_]+$"
+        },
+        "type": {
+          "enum": ["pinout", "package", "timing", "curve", "block", "app_circuit", "table", "other"]
+        },
+        "page": { "type": "integer", "minimum": 1 },
+        "bbox_norm": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0, "maximum": 1 },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "[x0, y0, x1, y1] in [0,1]; x0 < x1, y0 < y1 (enforced separately)."
+        },
+        "crop_uri": { "type": "string", "minLength": 1 },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "verified": { "type": "boolean" },
+        "verify_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "caption": { "type": "string" }
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index_version", "model_ids", "query_ids"],
+      "properties": {
+        "index_version": { "type": "string", "minLength": 1 },
+        "model_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "query_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

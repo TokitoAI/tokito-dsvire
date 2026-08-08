@@ -33,6 +33,11 @@ qdrant_storage/
 *.sqlite
 *.db
 
+# Fixture crops: derivative of copyrighted datasheets; regenerate with
+# `python3 scripts/build_fixture.py`. The evidence JSON in-repo pins the
+# expected sha256 of every crop, so drift is detected by tests/test_fixtures.py.
+fixtures/evidence/crops/
+
 # Secrets
 .env
 .env.*

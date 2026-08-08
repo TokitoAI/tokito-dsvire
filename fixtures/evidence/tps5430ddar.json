@@ -1,0 +1,54 @@
+{
+  "schema_version": "dsvire.symbol-evidence.v1",
+  "datasheet": {
+    "id": "ti-slvs632l",
+    "content_sha256": "83074fc1265c8e5c6639511bdb9f83e96c6e6f993613deadea0d09c3a12a2c07",
+    "manufacturer": "Texas Instruments",
+    "mpn": "TPS5430DDAR",
+    "package": "SO-PowerPAD-8"
+  },
+  "regions": [
+    {
+      "region_id": "r_pinout_01",
+      "type": "pinout",
+      "page": 3,
+      "bbox_norm": [
+        0.229,
+        0.126,
+        0.776,
+        0.328
+      ],
+      "crop_uri": "dsvire://fixture/tps5430ddar/r_pinout_01.webp",
+      "content_hash": "sha256:5a42314371835832318cd2bd76e0d16626a72f5c067d60c4e40123afacaf58f1",
+      "verified": true,
+      "verify_confidence": 0.97,
+      "caption": "Figure 4-1. DDA Package 8-Pin HSOIC With Thermal Pad (Top View)"
+    },
+    {
+      "region_id": "r_pin_table_01",
+      "type": "table",
+      "page": 3,
+      "bbox_norm": [
+        0.065,
+        0.328,
+        0.935,
+        0.6
+      ],
+      "crop_uri": "dsvire://fixture/tps5430ddar/r_pin_table_01.webp",
+      "content_hash": "sha256:7ba91a7a845405841de343da22a4ca32903a4416f742a47da13f83ddf3f86ee3",
+      "verified": true,
+      "verify_confidence": 0.94,
+      "caption": "Table 4-1. Pin Functions"
+    }
+  ],
+  "retrieval": {
+    "index_version": "fixture@1",
+    "model_ids": [
+      "fixture"
+    ],
+    "query_ids": [
+      "q_pinout",
+      "q_pin_table"
+    ]
+  }
+}
