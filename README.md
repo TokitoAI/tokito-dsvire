@@ -16,16 +16,43 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 |---|---|
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
 | Benchmark design | Specced; corpus and labels not released yet |
-| Index / query implementation | Not started |
+| Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, figure/table scoring, verified crops, and frozen evidence output |
+| Hosted service image | Implemented; private `/v1/evidence/symbol` API with optional service bearer and container healthcheck |
+| Vision-model reranker / benchmark corpus | Not yet implemented; the baseline abstains when structural evidence is insufficient |
+
+The fixture runner is intentionally not presented as an upload product. The
+public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
+DS-ViRe runs behind it on the private service network. The baseline never
+guesses manufacturer, MPN, or package and will fail closed when it cannot
+verify both a pinout and a pin-function table.
+
+## Run and verify
+
+```bash
+python -m pip install -e '.[test]'
+pytest
+dsvire extract-evidence datasheet.pdf \
+  --manufacturer 'Texas Instruments' \
+  --mpn TPS5430DDAR \
+  --package SO-PowerPAD-8 \
+  --out ./artifacts
+```
+
+For the hosted service, build the image and send raw `application/pdf` bytes to
+`POST /v1/evidence/symbol` with the exact identity as query parameters. The
+service accepts at most 64 MiB and 2,000 pages per document. Set
+`DSVIRE_SERVICE_TOKEN` in production; do not expose this private endpoint to
+desktop clients.
 
 ## Docs
 
 - [Technical bible](docs/TECHNICAL_BIBLE.md): problem, related work, architecture, stack, SLOs, benchmark design
+- [Real retrieval example](docs/examples/tps5430ddar.md): verified pinout and pin-function crops from a TI TPS5430 datasheet
 
-## Planned layout
+## Layout
 
 ```text
-packages/    # core, index, query, bench (upcoming)
+src/dsvire/ # deterministic baseline, CLI, and hosted service
 configs/     # pinned model SHAs, DPI, SLO targets
 scripts/     # corpus download, reproduce eval tables
 docs/        # specification

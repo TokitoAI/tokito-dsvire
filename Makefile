@@ -14,8 +14,8 @@ help:
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
 .PHONY: install-dev
-install-dev:  ## Install Python dev deps for tests + fixture generation.
-	$(PIP) install --user -r tests/requirements.txt
+install-dev:  ## Install the service and test dependencies.
+	$(PIP) install -e '.[test]'
 
 .PHONY: build-fixtures
 build-fixtures:  ## Regenerate every evidence fixture (crops + hashes).
@@ -26,7 +26,7 @@ build-fixture:  ## Regenerate one fixture: `make build-fixture FIXTURE_SLUG=tps5
 	$(PY) scripts/build_fixture.py $(FIXTURE_SLUG)
 
 .PHONY: verify
-verify:  ## Verify pipeline artifacts for one MPN slug against §7 criteria.
+verify:  ## Verify pipeline artifacts for one MPN slug against section 7 criteria.
 	$(PY) scripts/verify.py $(FIXTURE_SLUG)
 
 .PHONY: demo
@@ -40,3 +40,12 @@ test:  ## Run the full pytest suite.
 .PHONY: test-verbose
 test-verbose:  ## Run the full pytest suite with per-test output.
 	$(PY) -m pytest tests/ -v
+
+.PHONY: check
+check:  ## Compile Python sources and run tests.
+	$(PY) -m compileall -q src
+	$(PY) -m pytest tests/ -q
+
+.PHONY: serve
+serve:  ## Run the private DS-ViRe service on the container port.
+	uvicorn dsvire.api:app --host 0.0.0.0 --port 8081

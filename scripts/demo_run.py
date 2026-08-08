@@ -10,10 +10,12 @@ vars so the runner keeps working as teammates land their crates:
 
     TOKITO_EXTRACT_CMD    (default: tokito-symbol-extractor)
     TOKITO_COMPILE_CMD    (default: tokito-symbol-compile)
-    TOKITO_AI_URL         (default: http://localhost:8080)
+    TOKITO_AI_URL         (default: https://api.tokito.dev)
     TOKITO_AI_TOKEN       (required for the ingest stage)
     TOKITO_MCP_PACK_CMD   (default: tokito-mcp-pack)
-    TOKITO_MCP_URL        (default: http://localhost:8090/mcp)
+    TOKITO_MCP_URL        (default: https://mcp.tokito.dev/mcp)
+    TOKITO_MCP_DB         (operator-only sync: served symbols.sqlite)
+    TOKITO_GENERATED_DB   (operator-only sync: tokito-ai generated.sqlite)
 
 If a stage's tool is not on PATH or the endpoint is unreachable, the runner
 fails loudly with an actionable message — never a silent fallback or fabricated
@@ -31,6 +33,8 @@ import shlex
 import shutil
 import subprocess
 import sys
+import urllib.error
+import urllib.request
 from pathlib import Path
 from typing import Iterable
 
@@ -51,6 +55,8 @@ class Config:
     tokito_ai_token: str | None
     mcp_pack_cmd: str
     mcp_url: str
+    mcp_db: str | None
+    generated_db: str | None
 
     @classmethod
     def from_env(cls, env: dict[str, str] | None = None) -> "Config":
@@ -58,10 +64,12 @@ class Config:
         return cls(
             extract_cmd=e.get("TOKITO_EXTRACT_CMD", "tokito-symbol-extractor"),
             compile_cmd=e.get("TOKITO_COMPILE_CMD", "tokito-symbol-compile"),
-            tokito_ai_url=e.get("TOKITO_AI_URL", "http://localhost:8080"),
+            tokito_ai_url=e.get("TOKITO_AI_URL", "https://api.tokito.dev"),
             tokito_ai_token=e.get("TOKITO_AI_TOKEN"),
             mcp_pack_cmd=e.get("TOKITO_MCP_PACK_CMD", "tokito-mcp-pack"),
-            mcp_url=e.get("TOKITO_MCP_URL", "http://localhost:8090/mcp"),
+            mcp_url=e.get("TOKITO_MCP_URL", "https://mcp.tokito.dev/mcp"),
+            mcp_db=e.get("TOKITO_MCP_DB"),
+            generated_db=e.get("TOKITO_GENERATED_DB"),
         )
 
 
@@ -143,7 +151,6 @@ def stage_ingest(
         raise StageError(
             "TOKITO_AI_TOKEN is not set; ingest requires an authenticated JWT."
         )
-    _require_tool("curl")
     payload = {
         "spec": json.loads(spec_path.read_text(encoding="utf-8")),
         "evidence": json.loads(bundle_path.read_text(encoding="utf-8")),
@@ -151,16 +158,12 @@ def stage_ingest(
     payload_path = out_dir / "ingest_payload.json"
     payload_path.write_text(json.dumps(payload), encoding="utf-8")
     response_path = out_dir / "ingest_response.json"
-    _run(
-        f"curl --fail --silent --show-error "
-        f"--header 'Authorization: Bearer {cfg.tokito_ai_token}' "
-        f"--header 'Content-Type: application/json' "
-        f"--data-binary @{shlex.quote(str(payload_path))} "
-        f"--output {shlex.quote(str(response_path))} "
-        f"{shlex.quote(cfg.tokito_ai_url.rstrip('/') + '/v1/generated/ingest')}",
-        capture_output=True, text=True,
+    response = _http_json(
+        cfg.tokito_ai_url.rstrip("/") + "/v1/generated/ingest",
+        payload,
+        headers={"Authorization": f"Bearer {cfg.tokito_ai_token}"},
     )
-    response = json.loads(response_path.read_text(encoding="utf-8"))
+    response_path.write_text(json.dumps(response, indent=2), encoding="utf-8")
     if "revision_id" not in response:
         raise StageError(f"ingest response missing revision_id: {response}")
     return response_path
@@ -168,30 +171,145 @@ def stage_ingest(
 
 def stage_sync(cfg: Config) -> None:
     _require_tool(cfg.mcp_pack_cmd)
-    _run(f"{cfg.mcp_pack_cmd} --generated", capture_output=True, text=True)
+    if not cfg.mcp_db or not cfg.generated_db:
+        raise StageError(
+            "sync requires TOKITO_MCP_DB (served symbols.sqlite) and "
+            "TOKITO_GENERATED_DB (tokito-ai generated.sqlite)"
+        )
+    command = shlex.split(cfg.mcp_pack_cmd) + [
+        "generated",
+        "--db",
+        cfg.mcp_db,
+        "--source",
+        cfg.generated_db,
+    ]
+    result = subprocess.run(command, check=False, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise StageError(
+            f"generated-symbol sync failed (rc={result.returncode}): "
+            f"{shlex.join(command)}\n--- stdout ---\n{result.stdout.strip()}\n"
+            f"--- stderr ---\n{result.stderr.strip()}"
+        )
+
+
+def _http_json(
+    url: str,
+    payload: dict,
+    *,
+    headers: dict[str, str] | None = None,
+    session_id: str | None = None,
+) -> tuple[dict, str | None] | dict:
+    request_headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json, text/event-stream",
+        "User-Agent": "tokito-dsvire-demo/0.1.0",
+        **(headers or {}),
+    }
+    if session_id:
+        request_headers["Mcp-Session-Id"] = session_id
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers=request_headers,
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            raw = response.read().decode("utf-8")
+            response_session = response.headers.get("Mcp-Session-Id")
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")[:4096]
+        raise StageError(f"HTTP {exc.code} from {url}: {detail}") from exc
+    except urllib.error.URLError as exc:
+        raise StageError(f"cannot reach {url}: {exc.reason}") from exc
+
+    content_type = response.headers.get_content_type()
+    if content_type == "text/event-stream" or raw.lstrip().startswith("event:"):
+        messages = []
+        for line in raw.splitlines():
+            if line.startswith("data:"):
+                value = line.removeprefix("data:").strip()
+                if value and value != "[DONE]":
+                    messages.append(json.loads(value))
+        if not messages:
+            raise StageError(f"MCP response from {url} contained no JSON event")
+        document = messages[-1]
+    else:
+        try:
+            document = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            raise StageError(f"non-JSON response from {url}: {raw[:4096]}") from exc
+    if response_session is not None:
+        return document, response_session
+    return document
 
 
 def _mcp_call(cfg: Config, tool: str, arguments: dict) -> dict:
     """Invoke an MCP tool over the streamable HTTP transport."""
-    _require_tool("curl")
+    initialized = _http_json(
+        cfg.mcp_url,
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {
+                "protocolVersion": "2025-03-26",
+                "capabilities": {},
+                "clientInfo": {"name": "tokito-dsvire-demo", "version": "0.1.0"},
+            },
+        },
+    )
+    if not isinstance(initialized, tuple) or not initialized[1]:
+        raise StageError("MCP initialize response did not include Mcp-Session-Id")
+    init_body, session_id = initialized
+    if "error" in init_body:
+        raise StageError(f"MCP initialize returned error: {init_body['error']}")
+
+    # Streamable HTTP clients notify the server that initialization is
+    # complete before invoking tools. A notification has no response body;
+    # tolerate an empty 202 response via a small dedicated request.
+    notification = urllib.request.Request(
+        cfg.mcp_url,
+        data=json.dumps({"jsonrpc": "2.0", "method": "notifications/initialized"}).encode(),
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json, text/event-stream",
+            "Mcp-Session-Id": session_id,
+            "User-Agent": "tokito-dsvire-demo/0.1.0",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(notification, timeout=30):
+            pass
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")[:4096]
+        raise StageError(f"MCP initialized notification failed: HTTP {exc.code}: {detail}") from exc
+    except urllib.error.URLError as exc:
+        raise StageError(f"MCP initialized notification failed: {exc.reason}") from exc
+
     request = {
         "jsonrpc": "2.0",
-        "id": 1,
+        "id": 2,
         "method": "tools/call",
         "params": {"name": tool, "arguments": arguments},
     }
-    result = _run(
-        f"curl --fail --silent --show-error "
-        f"--header 'Content-Type: application/json' "
-        f"--header 'Accept: application/json' "
-        f"--data-binary {shlex.quote(json.dumps(request))} "
-        f"{shlex.quote(cfg.mcp_url)}",
-        capture_output=True, text=True,
-    )
-    doc = json.loads(result.stdout)
+    doc = _http_json(cfg.mcp_url, request, session_id=session_id)
+    if isinstance(doc, tuple):
+        doc = doc[0]
     if "error" in doc:
         raise StageError(f"MCP tool {tool!r} returned error: {doc['error']}")
-    return doc["result"]
+    result = doc.get("result", {})
+    if result.get("isError"):
+        raise StageError(f"MCP tool {tool!r} failed: {result.get('content')}")
+    content = result.get("content", [])
+    text_items = [item.get("text") for item in content if item.get("type") == "text"]
+    if not text_items:
+        raise StageError(f"MCP tool {tool!r} returned no text payload: {result}")
+    try:
+        return json.loads(text_items[0])
+    except json.JSONDecodeError as exc:
+        raise StageError(f"MCP tool {tool!r} returned non-JSON text: {text_items[0]}") from exc
 
 
 def stage_resolve(cfg: Config, spec: dict, out_dir: Path) -> Path:
