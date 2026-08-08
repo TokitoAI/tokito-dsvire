@@ -262,7 +262,7 @@ def verify_symbol_spec(spec: dict, bundle: dict) -> list[Finding]:
 # Canonical properties the compiler must emit into every .tokito_sym.
 REQUIRED_SYMBOL_PROPERTIES = (
     "Reference", "Value", "Datasheet", "Description",
-    "Footprint", "MPN", "Manufacturer",
+    "Footprint", "MPN", "Manufacturer", "package",
 )
 
 
@@ -309,9 +309,7 @@ def verify_symbol_file(symbol_path: Path, spec: dict) -> list[Finding]:
             f"{field}={value!r} expected={expected!r}",
         ))
 
-    # Package appears as a canonical property "package" (lowercase, per
-    # TECHNICAL_BIBLE §6.1 property list). Compilers may also embed it in
-    # Value; we assert the property.
+    # The native compiler's canonical property is lowercase `package`.
     pkg_value = _property_value(text, "package")
     if pkg_value == spec["package"]:
         findings.append(Finding("symbol.package_literal", Outcome.PASS, pkg_value))
@@ -485,8 +483,8 @@ class ArtifactPaths:
     resolved: Path
 
 
-def verify_slice(paths: ArtifactPaths) -> Report:
-    """Aggregate every check across the full pipeline artifact set."""
+def verify_slice(paths: ArtifactPaths, *, require_publication: bool = True) -> Report:
+    """Aggregate checks across compiled proof or the full published slice."""
     findings: list[Finding] = []
 
     if not paths.bundle.exists():
@@ -504,7 +502,7 @@ def verify_slice(paths: ArtifactPaths) -> Report:
         findings.extend(verify_symbol_file(paths.symbol, spec))
         if paths.provenance.exists():
             findings.extend(verify_provenance(load_json(paths.provenance), bundle, spec))
-        else:
+        elif require_publication:
             findings.append(Finding(
                 "provenance.file_exists",
                 Outcome.MISSING,
@@ -512,7 +510,7 @@ def verify_slice(paths: ArtifactPaths) -> Report:
             ))
         if paths.resolved.exists():
             findings.extend(verify_resolved_symbol(load_json(paths.resolved), spec))
-        else:
+        elif require_publication:
             findings.append(Finding(
                 "resolved.file_exists",
                 Outcome.MISSING,
@@ -532,10 +530,10 @@ def verify_slice(paths: ArtifactPaths) -> Report:
 # CLI
 # ---------------------------------------------------------------------------
 
-def _paths_for(slug: str, artifacts_root: Path) -> ArtifactPaths:
+def _paths_for(slug: str, artifacts_root: Path, bundle: Path | None = None) -> ArtifactPaths:
     art = artifacts_root / slug
     return ArtifactPaths(
-        bundle=REPO_ROOT / "fixtures" / "evidence" / f"{slug}.json",
+        bundle=bundle or REPO_ROOT / "fixtures" / "evidence" / f"{slug}.json",
         spec=art / "spec.json",
         symbol=art / "symbol.tokito_sym",
         provenance=art / "provenance.json",
@@ -558,13 +556,34 @@ def main(argv: Iterable[str] | None = None) -> int:
         help="root of pipeline artifact directories (default: <repo>/artifacts)",
     )
     ap.add_argument(
+        "--bundle",
+        type=Path,
+        help="explicit evidence bundle (defaults to fixtures/evidence/<slug>.json)",
+    )
+    ap.add_argument(
         "--json",
         action="store_true",
         help="emit the report as machine-readable JSON",
     )
+    ap.add_argument(
+        "--compiled-only",
+        action="store_true",
+        help="verify evidence, spec, and compiled symbol without requiring publication artifacts",
+    )
+    ap.add_argument(
+        "--out",
+        type=Path,
+        help="also write the machine-readable report to this path",
+    )
     args = ap.parse_args(list(argv) if argv is not None else None)
 
-    report = verify_slice(_paths_for(args.slug, args.artifacts))
+    report = verify_slice(
+        _paths_for(args.slug, args.artifacts, args.bundle),
+        require_publication=not args.compiled_only,
+    )
+    if args.out:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        args.out.write_text(json.dumps(report.to_json(), indent=2) + "\n", encoding="utf-8")
 
     if args.json:
         print(json.dumps(report.to_json(), indent=2))

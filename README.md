@@ -17,6 +17,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
 | Benchmark design | Specced; corpus and labels not released yet |
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, figure/table scoring, verified crops, and frozen evidence output |
+| Native symbol proof | Real TPS5430 crops compiled to a validated `.tokito_sym`; see the evidence, render, and reproducible checks in the example |
 | Hosted service image | Implemented; private `/v1/evidence/symbol` API with optional service bearer and container healthcheck |
 | Vision-model reranker / benchmark corpus | Not yet implemented; the baseline abstains when structural evidence is insufficient |
 
@@ -47,7 +48,7 @@ desktop clients.
 ## Docs
 
 - [Technical bible](docs/TECHNICAL_BIBLE.md): problem, related work, architecture, stack, SLOs, benchmark design
-- [Real retrieval example](docs/examples/tps5430ddar.md): verified pinout and pin-function crops from a TI TPS5430 datasheet
+- [Real TPS5430 symbol proof](docs/examples/tps5430ddar.md): verified crops, audited pin spec, native `.tokito_sym`, and rendered output
 
 ## Layout
 
