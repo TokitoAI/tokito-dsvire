@@ -1,0 +1,95 @@
+{
+  "ok": true,
+  "findings": [
+    {
+      "check_id": "evidence.schema",
+      "outcome": "PASS",
+      "detail": "matches dsvire.symbol-evidence.v1"
+    },
+    {
+      "check_id": "evidence.has_verified_pinout",
+      "outcome": "PASS",
+      "detail": "1 verified pinout region(s)"
+    },
+    {
+      "check_id": "evidence.has_verified_table",
+      "outcome": "PASS",
+      "detail": "1 verified table region(s)"
+    },
+    {
+      "check_id": "evidence.bbox_ordered",
+      "outcome": "PASS",
+      "detail": "all bbox_norm entries strictly x0<x1, y0<y1"
+    },
+    {
+      "check_id": "spec.schema",
+      "outcome": "PASS",
+      "detail": "matches tokito.symbol-spec.v1"
+    },
+    {
+      "check_id": "spec.manufacturer_matches_bundle",
+      "outcome": "PASS",
+      "detail": "Texas Instruments"
+    },
+    {
+      "check_id": "spec.mpn_matches_bundle",
+      "outcome": "PASS",
+      "detail": "TPS5430DDAR"
+    },
+    {
+      "check_id": "spec.package_matches_bundle",
+      "outcome": "PASS",
+      "detail": "SO-PowerPAD-8"
+    },
+    {
+      "check_id": "spec.evidence_regions_present",
+      "outcome": "PASS",
+      "detail": "all 18 references resolved"
+    },
+    {
+      "check_id": "spec.provenance_datasheet_matches",
+      "outcome": "PASS",
+      "detail": "ds_sha256_83074fc1265c8e5c6639511b"
+    },
+    {
+      "check_id": "spec.provenance_content_hash_matches",
+      "outcome": "PASS",
+      "detail": "extractor recorded exact bundle sha256"
+    },
+    {
+      "check_id": "spec.pin_numbers_unique",
+      "outcome": "PASS",
+      "detail": "9 unique pin number(s)"
+    },
+    {
+      "check_id": "spec.pin_confidence_floor",
+      "outcome": "PASS",
+      "detail": "all pins \u2265 0.6 confidence"
+    },
+    {
+      "check_id": "symbol.file_exists",
+      "outcome": "PASS",
+      "detail": "symbol.tokito_sym present"
+    },
+    {
+      "check_id": "symbol.canonical_properties",
+      "outcome": "PASS",
+      "detail": "all 8 canonical property keys present"
+    },
+    {
+      "check_id": "symbol.mpn_literal",
+      "outcome": "PASS",
+      "detail": "MPN='TPS5430DDAR' expected='TPS5430DDAR'"
+    },
+    {
+      "check_id": "symbol.manufacturer_literal",
+      "outcome": "PASS",
+      "detail": "Manufacturer='Texas Instruments' expected='Texas Instruments'"
+    },
+    {
+      "check_id": "symbol.package_literal",
+      "outcome": "PASS",
+      "detail": "SO-PowerPAD-8"
+    }
+  ]
+}

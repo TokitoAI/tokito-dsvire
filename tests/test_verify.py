@@ -276,7 +276,7 @@ TOKITO_SYM_VALID_MINIMAL = """
     (property "Footprint" "" (id 4))
     (property "MPN" "STM32H743VIT6" (id 5))
     (property "Manufacturer" "STMicroelectronics" (id 6))
-    (property "package" "LQFP100" (id 7))
+    (property "Package" "LQFP100" (id 7))
   )
 )
 """.strip()
@@ -324,8 +324,8 @@ def test_symbol_file_rejects_wrong_package(tmp_path: Path) -> None:
     p = tmp_path / "symbol.tokito_sym"
     p.write_text(
         TOKITO_SYM_VALID_MINIMAL.replace(
-            '(property "package" "LQFP100"',
-            '(property "package" "LQFP144"',
+            '(property "Package" "LQFP100"',
+            '(property "Package" "LQFP144"',
         ),
         encoding="utf-8",
     )
