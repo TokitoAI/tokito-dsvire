@@ -2,7 +2,7 @@
 
 Report vulnerabilities privately to the maintainers via GitHub Security Advisories on this repository:
 
-https://github.com/VtronTokito/tokito-dsvire/security/advisories/new
+https://github.com/TokitoAI/tokito-dsvire/security/advisories/new
 
 Do not open public issues for undisclosed security problems.
 
