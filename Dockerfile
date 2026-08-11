@@ -8,7 +8,9 @@ RUN useradd --create-home --uid 10001 dsvire
 WORKDIR /app
 COPY pyproject.toml README.md LICENSE ./
 COPY src ./src
-RUN pip install --no-cache-dir .
+RUN python -m pip install --no-cache-dir --upgrade "pip>=26.2,<27" "setuptools>=83,<84" \
+    && python -m pip install --no-cache-dir . \
+    && python -m pip check
 
 RUN mkdir -p /data/dsvire && chown -R dsvire:dsvire /data/dsvire
 USER dsvire

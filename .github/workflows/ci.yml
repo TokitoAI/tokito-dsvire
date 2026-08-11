@@ -28,6 +28,7 @@ jobs:
       - run: python -m compileall -q src
       - run: python -m pytest -q
       - run: python -m build
+      - run: python -m pip_audit . --strict
       - run: docker build --pull -t tokito-dsvire:ci .
       - name: Container refuses unsafe production configuration
         run: |
