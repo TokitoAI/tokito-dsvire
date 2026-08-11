@@ -74,6 +74,29 @@ def test_non_pdf_fails_before_parser(tmp_path: Path) -> None:
         )
 
 
+def test_parser_repaired_pdf_fails_without_publishing_partial_pack(tmp_path: Path) -> None:
+    from dsvire.pipeline import retrieve_symbol_evidence
+
+    # Removing the xref/trailer forces MuPDF's repair path while leaving enough
+    # objects for it to open and render the document. A viewer may tolerate
+    # that recovery; an engineering evidence producer must not.
+    repaired = _synthetic_datasheet()[:-100]
+    pymupdf = pytest.importorskip("pymupdf")
+    document = pymupdf.open(stream=repaired, filetype="pdf")
+    assert document.is_repaired
+    document.close()
+
+    with pytest.raises(RetrievalError, match="required parser repair"):
+        retrieve_symbol_evidence(
+            repaired,
+            DatasheetIdentity("Acme", "A-1", "SOIC-8"),
+            tmp_path,
+        )
+
+    assert not list(tmp_path.glob("*/evidence.json"))
+    assert not list(tmp_path.glob(".*.corrupt"))
+
+
 def test_identical_concurrent_requests_publish_one_complete_pack(tmp_path: Path) -> None:
     from dsvire.pipeline import retrieve_symbol_evidence
 

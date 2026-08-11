@@ -32,7 +32,7 @@ MAX_TEXT_CHARS_PER_PAGE = 250_000
 RENDER_DPI = 220
 MAX_RENDER_SIDE_PIXELS = 12_000
 MAX_RENDER_PIXELS = 40_000_000
-INDEX_VERSION = "dsvire-baseline@0.3.0"
+INDEX_VERSION = "dsvire-baseline@0.3.1"
 EVIDENCE_SCHEMA_VERSION = "dsvire.symbol-evidence.v2"
 IDENTITY_POLICY_VERSION = "dsvire.identity-text@1.0.0"
 REGION_POLICY_VERSION = "dsvire.region-text-layout@1.0.0"
@@ -522,6 +522,13 @@ def retrieve_symbol_evidence(
                 except Exception as exc:
                     raise RetrievalError("PDF parser rejected input") from exc
                 try:
+                    # MuPDF can reconstruct a document whose xref/trailer is
+                    # truncated or inconsistent. That is useful in a viewer,
+                    # but unsafe at an engineering-evidence boundary: repaired
+                    # object relationships are not authoritative datasheet
+                    # content. Require callers to obtain an intact source.
+                    if document.is_repaired:
+                        raise RetrievalError("PDF required parser repair and was rejected")
                     if document.needs_pass:
                         raise RetrievalError("encrypted PDFs are not accepted")
                     candidates = _best_candidates(document)

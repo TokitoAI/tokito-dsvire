@@ -13,6 +13,7 @@ from fastapi.testclient import TestClient
 
 from dsvire import api
 from dsvire.config import ConfigurationError, ServiceConfig
+from dsvire.pipeline import RetrievalError
 from dsvire.worker import WorkerError, WorkerTimeout
 
 TOKEN = "test-service-token-that-is-at-least-32-bytes"
@@ -113,6 +114,20 @@ def test_worker_failures_have_stable_public_errors(
         response = client.post(_url(), content=b"%PDF-fake", headers=_headers())
     assert response.status_code == status
     assert "crashed" not in response.text
+
+
+def test_repaired_pdf_rejection_has_stable_unprocessable_response(
+    monkeypatch, tmp_path: Path
+) -> None:
+    async def reject(*args, **kwargs):
+        raise RetrievalError("PDF required parser repair and was rejected")
+
+    monkeypatch.setattr(api, "run_pdf_job", reject)
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        response = client.post(_url(), content=b"%PDF-repaired", headers=_headers())
+
+    assert response.status_code == 422
+    assert response.json() == {"detail": "PDF required parser repair and was rejected"}
 
 
 def test_capacity_is_bounded_before_upload_processing(monkeypatch, tmp_path: Path) -> None:
