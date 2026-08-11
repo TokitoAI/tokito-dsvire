@@ -23,13 +23,22 @@ from verify import Outcome  # noqa: E402
 # ---------------------------------------------------------------------------
 
 BUNDLE: dict = {
-    "schema_version": "dsvire.symbol-evidence.v1",
+    "schema_version": "dsvire.symbol-evidence.v2",
     "datasheet": {
         "id": "st-ds-h743-r09",
         "content_sha256": "b" * 64,
         "manufacturer": "STMicroelectronics",
         "mpn": "STM32H743VIT6",
         "package": "LQFP100",
+    },
+    "identity_verification": {
+        "method": "exact_text_orderable_part",
+        "policy_version": "fixture.identity-text@1.0.0",
+        "outcome": "accepted",
+        "manufacturer_observed": True,
+        "exact_mpn_observed": True,
+        "package_associated": True,
+        "evidence_region_ids": ["r_package_01"],
     },
     "regions": [
         {
@@ -39,8 +48,13 @@ BUNDLE: dict = {
             "bbox_norm": [0.08, 0.12, 0.92, 0.71],
             "crop_uri": "dsvire://fixture/stm32h743vit6/r_pinout_01.webp",
             "content_hash": "sha256:" + "a" * 64,
-            "verified": True,
-            "verify_confidence": 0.97,
+            "verification": {
+                "method": "text_layout_heuristic",
+                "policy_version": "fixture.text-layout@1.0.0",
+                "outcome": "accepted",
+                "score": 0.97,
+                "score_semantics": "heuristic_evidence_strength",
+            },
         },
         {
             "region_id": "r_pin_table_01",
@@ -49,8 +63,28 @@ BUNDLE: dict = {
             "bbox_norm": [0.10, 0.08, 0.90, 0.94],
             "crop_uri": "dsvire://fixture/stm32h743vit6/r_pin_table_01.webp",
             "content_hash": "sha256:" + "c" * 64,
-            "verified": True,
-            "verify_confidence": 0.94,
+            "verification": {
+                "method": "text_layout_heuristic",
+                "policy_version": "fixture.text-layout@1.0.0",
+                "outcome": "accepted",
+                "score": 0.94,
+                "score_semantics": "heuristic_evidence_strength",
+            },
+        },
+        {
+            "region_id": "r_package_01",
+            "type": "package",
+            "page": 2,
+            "bbox_norm": [0.1, 0.1, 0.9, 0.3],
+            "crop_uri": "dsvire://pack/x/r_package_01.webp",
+            "content_hash": "sha256:" + "d" * 64,
+            "verification": {
+                "method": "text_layout_heuristic",
+                "policy_version": "fixture.text-layout@1.0.0",
+                "outcome": "accepted",
+                "score": 1.0,
+                "score_semantics": "heuristic_evidence_strength",
+            },
         },
     ],
     "retrieval": {
@@ -182,18 +216,25 @@ def test_bundle_baseline_passes() -> None:
     assert all(f.ok for f in findings), findings
 
 
-def test_bundle_rejects_unverified_only_pinout() -> None:
+def test_bundle_rejects_unaccepted_only_pinout() -> None:
     b = _bundle()
-    b["regions"][0]["verified"] = False
+    b["regions"][0]["verification"]["outcome"] = "abstained"
     findings = verify.verify_evidence_bundle(b)
-    assert _find(findings, "evidence.has_verified_pinout").outcome is Outcome.FAIL
+    assert _find(findings, "evidence.has_accepted_pinout").outcome is Outcome.FAIL
+
+
+def test_bundle_rejects_identity_provenance_to_unknown_region() -> None:
+    b = _bundle()
+    b["identity_verification"]["evidence_region_ids"] = ["r_missing"]
+    findings = verify.verify_evidence_bundle(b)
+    assert _find(findings, "evidence.identity_grounded").outcome is Outcome.FAIL
 
 
 def test_bundle_rejects_missing_table() -> None:
     b = _bundle()
     b["regions"] = [b["regions"][0]]  # only pinout
     findings = verify.verify_evidence_bundle(b)
-    assert _find(findings, "evidence.has_verified_table").outcome is Outcome.FAIL
+    assert _find(findings, "evidence.has_accepted_table").outcome is Outcome.FAIL
 
 
 def test_bundle_rejects_extra_top_field() -> None:

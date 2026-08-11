@@ -86,13 +86,22 @@ The generator receives typed evidence, never a raw unbounded PDF dump.
 
 ```json
 {
-  "schema_version": "dsvire.symbol-evidence.v1",
+  "schema_version": "dsvire.symbol-evidence.v2",
   "datasheet": {
     "id": "...",
     "content_sha256": "...",
     "manufacturer": "Texas Instruments",
     "mpn": "TPS5430DDAR",
     "package": "SO-PowerPAD-8"
+  },
+  "identity_verification": {
+    "method": "exact_text_orderable_part",
+    "policy_version": "dsvire.identity-text@1.0.0",
+    "outcome": "accepted",
+    "manufacturer_observed": true,
+    "exact_mpn_observed": true,
+    "package_associated": true,
+    "evidence_region_ids": ["r_package_01"]
   },
   "regions": [
     {
@@ -102,8 +111,13 @@ The generator receives typed evidence, never a raw unbounded PDF dump.
       "bbox_norm": [0.08, 0.12, 0.92, 0.71],
       "crop_uri": "dsvire://pack/.../r_pinout_01.webp",
       "content_hash": "sha256:...",
-      "verified": true,
-      "verify_confidence": 0.97
+      "verification": {
+        "method": "text_layout_heuristic",
+        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "outcome": "accepted",
+        "score": 0.97,
+        "score_semantics": "heuristic_evidence_strength"
+      }
     }
   ],
   "retrieval": {
