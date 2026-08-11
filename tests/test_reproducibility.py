@@ -25,7 +25,7 @@ def test_universal_lock_covers_every_supported_environment() -> None:
 
     pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
     assert 'python_version = "3.11"' in pyproject
-    assert 'module = ["numpy", "numpy.*"]\nfollow_imports = "skip"' in pyproject
+    assert '"numpy>=2.0,<2.5"' in pyproject
 
 
 def test_container_runtime_export_is_exact_and_hash_pinned() -> None:

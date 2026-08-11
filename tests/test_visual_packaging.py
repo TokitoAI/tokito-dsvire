@@ -18,6 +18,7 @@ def test_visual_runtime_is_optional_but_ci_and_release_verify_it() -> None:
     visual = pyproject["project"]["optional-dependencies"]["visual"]
 
     assert visual == [
+        "numpy>=2.0,<2.5",
         "onnxruntime>=1.27,<2",
         "psutil>=7.2.2,<8",
         "rapidocr>=3.9.2,<4",
