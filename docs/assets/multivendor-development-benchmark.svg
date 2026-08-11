@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe multi-vendor development benchmark</title>
+  <desc id="desc">Mean similarity by label for text-layout and RapidOCR, plus elapsed time, throughput, and peak memory for five documents and 34 cases.</desc>
+  <rect width="1200" height="760" rx="28" fill="#090b10"/>
+  <text x="64" y="70" fill="#f4f7fb" font-family="Inter,Segoe UI,sans-serif" font-size="34" font-weight="700">Multi-vendor visual benchmark</text>
+  <text x="64" y="108" fill="#8d96a8" font-family="Inter,Segoe UI,sans-serif" font-size="18">5 official datasheets · 34 adversarial cases · unreviewed development split</text>
+
+  <circle cx="70" cy="155" r="7" fill="#16d6b3"/><text x="88" y="162" fill="#c8d0dc" font-family="Inter,Segoe UI,sans-serif" font-size="16">Text layout</text>
+  <circle cx="230" cy="155" r="7" fill="#8b7cf6"/><text x="248" y="162" fill="#c8d0dc" font-family="Inter,Segoe UI,sans-serif" font-size="16">RapidOCR</text>
+
+  <g font-family="Inter,Segoe UI,sans-serif" font-size="17" fill="#c8d0dc">
+    <text x="64" y="225">Positive</text><text x="64" y="305">Wrong package</text><text x="64" y="385">Wrong variant</text><text x="64" y="465">Wrong view</text><text x="64" y="545">Wrong figure</text>
+  </g>
+  <g fill="#202631"><rect x="250" y="198" width="560" height="22" rx="11"/><rect x="250" y="228" width="560" height="22" rx="11"/><rect x="250" y="278" width="560" height="22" rx="11"/><rect x="250" y="308" width="560" height="22" rx="11"/><rect x="250" y="358" width="560" height="22" rx="11"/><rect x="250" y="388" width="560" height="22" rx="11"/><rect x="250" y="438" width="560" height="22" rx="11"/><rect x="250" y="468" width="560" height="22" rx="11"/><rect x="250" y="518" width="560" height="22" rx="11"/><rect x="250" y="548" width="560" height="22" rx="11"/></g>
+  <g fill="#16d6b3"><rect x="250" y="198" width="424" height="22" rx="11"/><rect x="250" y="278" width="392" height="22" rx="11"/><rect x="250" y="358" width="336" height="22" rx="11"/><rect x="250" y="438" width="1" height="22"/><rect x="250" y="518" width="325" height="22" rx="11"/></g>
+  <g fill="#8b7cf6"><rect x="250" y="228" width="442" height="22" rx="11"/><rect x="250" y="308" width="329" height="22" rx="11"/><rect x="250" y="388" width="271" height="22" rx="11"/><rect x="250" y="468" width="1" height="22"/><rect x="250" y="548" width="319" height="22" rx="11"/></g>
+  <g font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="15" fill="#f4f7fb"><text x="825" y="216">0.757 / 0.790</text><text x="825" y="296">0.700 / 0.587</text><text x="825" y="376">0.600 / 0.484</text><text x="825" y="456">0.000 / 0.000</text><text x="825" y="536">0.581 / 0.569</text></g>
+
+  <rect x="48" y="605" width="1104" height="112" rx="18" fill="#121720" stroke="#293140"/>
+  <g font-family="Inter,Segoe UI,sans-serif"><text x="76" y="642" fill="#8d96a8" font-size="15">TEXT LAYOUT</text><text x="76" y="681" fill="#f4f7fb" font-size="23" font-weight="700">0.480 s · 10.42 docs/s · 69.7 MiB</text><text x="626" y="642" fill="#8d96a8" font-size="15">RAPIDOCR · CPU</text><text x="626" y="681" fill="#f4f7fb" font-size="23" font-weight="700">127.96 s · 0.039 docs/s · 630.3 MiB</text></g>
+  <text x="64" y="742" fill="#697386" font-family="Inter,Segoe UI,sans-serif" font-size="14">Similarity, not probability. No threshold fitted. Not eligible for publication policy.</text>
+</svg>

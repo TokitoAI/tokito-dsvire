@@ -2,7 +2,7 @@
 
 Figure-level search over semiconductor datasheets.
 
-Current release: **v0.2.0**. See [`CHANGELOG.md`](CHANGELOG.md).
+Current release: **v0.3.1**. See [`CHANGELOG.md`](CHANGELOG.md).
 
 Pinouts, package drawings, timing diagrams, and application circuits live in the pictures, not in OCR text. This project indexes those regions with a vision-first cascade, returns crops with page and bbox provenance, and stays small enough to query without stuffing a 400-page PDF into a model.
 
@@ -19,9 +19,9 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
 | Benchmark design | Specced; corpus and labels not released yet |
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
-| Native symbol proof | Real TPS5430 crops compiled to a validated `.tokito_sym`; see the evidence, render, and reproducible checks in the example |
+| Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
-| Vision-model reranker / benchmark corpus | Not yet implemented; the baseline abstains when structural evidence is insufficient |
+| Visual comparators / benchmark corpus | Text-layout, RapidOCR, and pinned OpenCLIP comparators exist; the eight-family visual registry remains unreviewed development data |
 
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
@@ -82,14 +82,12 @@ values fail startup.
 
 - [Technical bible](docs/TECHNICAL_BIBLE.md): problem, related work, architecture, stack, SLOs, benchmark design
 - [Production-readiness audit](docs/PRODUCTION_READINESS.md): evidence, findings, priorities, and remaining gates
-- [Real TPS5430 symbol proof](docs/examples/tps5430ddar.md): verified crops, audited pin spec, native `.tokito_sym`, and rendered output
 
 ## Layout
 
 ```text
 src/dsvire/ # deterministic baseline, CLI, and hosted service
 fixtures/    # contract/evidence fixture metadata (no redistributed PDFs)
-artifacts/   # reproducible public sample outputs
 scripts/     # fixture builder, vertical-slice runner, and verifier
 docs/        # specification
 ```

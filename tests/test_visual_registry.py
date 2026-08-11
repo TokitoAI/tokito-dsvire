@@ -230,14 +230,49 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 3
+    assert len(registry.documents) == 8
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
+        "analog_to_digital_converter",
+        "microcontroller",
         "voltage_regulator",
         "operational_amplifier",
         "timer",
+        "wireless_microcontroller",
     }
+    assert len({document.identity.manufacturer for document in registry.documents}) >= 6
     assert all(document.redistribution == "download_only" for document in registry.documents)
-    assert all(len(document.cases) == 7 for document in registry.documents)
+    assert all(len(document.cases) >= 6 for document in registry.documents)
     assert not list((root / "evaluation").glob("*.pdf"))
+
+
+def test_multivendor_evidence_export_is_bound_to_exact_registry_subset() -> None:
+    root = Path(__file__).parents[1]
+    registry_data = json.loads(
+        (root / "evaluation/visual_registry.v1.json").read_text(encoding="utf-8")
+    )
+    evidence = json.loads(
+        (root / "evaluation/results/multivendor-development-2026-08-12.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    scope = evidence["scope"]
+    selected = set(scope["document_ids"])
+    subset_data = {
+        "schema_version": registry_data["schema_version"],
+        "documents": [
+            document for document in registry_data["documents"] if document["id"] in selected
+        ],
+    }
+    subset = load_visual_registry_data(subset_data)
+
+    assert {document.document_id for document in subset.documents} == selected
+    assert subset.content_sha256 == scope["registry_sha256"]
+    assert len(subset.documents) == scope["documents"]
+    assert sum(len(document.cases) for document in subset.documents) == scope["cases"]
+    assert {document.identity.manufacturer for document in subset.documents} == set(
+        scope["manufacturers"]
+    )
+    assert scope["eligible_for_policy_fitting"] is False
+    assert all(len(comparator["score_sha256"]) == 64 for comparator in evidence["comparators"])

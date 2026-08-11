@@ -36,7 +36,7 @@ the gate stops. Do not overwrite a reviewed hash silently: inspect the new
 revision and add or update its registry entry in the same `document_group` and
 split. Held-out `evaluation` labels and hashes are immutable after first use.
 
-The initial three TI documents are all `development`; their 3/3 positive and
+The identity registry's initial three TI documents are all `development`; their 3/3 positive and
 6/6 expected-abstention result is a regression gate, not a held-out accuracy or
 calibration estimate. Scale the registry toward the planned 500-document,
 2,000-query corpus without changing result-field meanings; new metrics require
@@ -127,13 +127,15 @@ reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
 PDF hash from the TI CDN on all three bounded attempts and correctly produced
 no benchmark artifact; the registered source hash was not relaxed.
 
-`visual_registry.v1.json` seeds this contract with the same three hash-pinned
-official TI development documents used by the identity gate. It records 21
-cases: pinout/table/package positives plus wrong-package, wrong-variant,
-wrong-view, and wrong-figure cases per family. Crop coordinates were generated
-from the v0.3.1 baseline and inspected for internal consistency, but every entry
-is deliberately marked `unreviewed`. Therefore none may enter calibration or
-evaluation, and this seed is not accuracy evidence. PDF bytes remain excluded.
+`visual_registry.v1.json` now contains eight hash-pinned official development
+documents across six manufacturer labels: the original three TI families plus
+ATmega328P, MCP3008, AP2112, ESP32, and RP2040. Its 55 cases include positive
+pinout/table/package evidence and explicit package, variant, view, and figure
+adversaries. The five new families were rendered into local contact sheets and
+each crop was visually inspected; that agent QA is not independent annotation
+review. Every entry therefore remains deliberately `unreviewed`, cannot enter
+calibration/evaluation, and is not accuracy evidence. PDF and contact-sheet
+bytes remain excluded from Git.
 
 Run a frozen comparator against the registry:
 
@@ -154,6 +156,26 @@ python scripts/evaluate_visual.py \
   --adapter openclip \
   --json-out visual-openclip.json
 ```
+
+Render local review sheets from the same hash-pinned bytes before accepting an
+annotation change:
+
+```bash
+python scripts/render_visual_review.py \
+  --cache-dir .cache/dsvire-eval \
+  --out-dir .cache/dsvire-review
+```
+
+The first non-TI tranche has a compact, source-free evidence export at
+[`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).
+On Windows/Python 3.11, text-layout processed the five documents in 0.480 s
+(10.42 documents/s, 69.7 MiB peak RSS); single-threaded RapidOCR took 127.96 s
+(0.039 documents/s, 630.3 MiB peak RSS). RapidOCR raised positive mean
+similarity from 0.757 to 0.790 and reduced wrong-variant mean similarity from
+0.600 to 0.484, but wrong-package and wrong-figure separation remains unsafe.
+These are comparator measurements, not accuracy or calibration claims.
+
+![Multi-vendor development benchmark](../docs/assets/multivendor-development-benchmark.svg)
 
 Use `--offline` once the exact source hashes are cached. The runner binds labels
 from the registry after inference, hashes the registry, adapter implementation,
