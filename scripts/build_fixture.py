@@ -33,7 +33,7 @@ from PIL import Image
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = REPO_ROOT / "fixtures" / "evidence"
 CROP_DIR = FIXTURE_DIR / "crops"
-SCHEMA_VERSION = "dsvire.symbol-evidence.v1"
+SCHEMA_VERSION = "dsvire.symbol-evidence.v2"
 
 # Rendering pins. Bumping either invalidates every committed fixture on purpose.
 RENDER_DPI = 300
@@ -51,16 +51,15 @@ class RegionRecipe:
     type: str
     page: int
     bbox_norm: tuple[float, float, float, float]
-    verified: bool
-    verify_confidence: float
+    verification_score: float
     caption: str | None = None
 
     def __post_init__(self) -> None:
         x0, y0, x1, y1 = self.bbox_norm
         if not (0.0 <= x0 < x1 <= 1.0 and 0.0 <= y0 < y1 <= 1.0):
             raise ValueError(f"invalid bbox_norm for {self.region_id}: {self.bbox_norm}")
-        if not (0.0 <= self.verify_confidence <= 1.0):
-            raise ValueError(f"invalid verify_confidence for {self.region_id}")
+        if not (0.0 <= self.verification_score <= 1.0):
+            raise ValueError(f"invalid verification_score for {self.region_id}")
 
 
 @dataclasses.dataclass(frozen=True)
@@ -105,8 +104,7 @@ TPS5430DDAR = FixtureRecipe(
             # Page 3 (Pin Configuration and Functions). Figure 4-1 sits at
             # (140,100)->(475,260) in 612x792 PDF points. Normalized:
             bbox_norm=(0.229, 0.126, 0.776, 0.328),
-            verified=True,
-            verify_confidence=0.97,
+            verification_score=0.97,
             caption="Figure 4-1. DDA Package 8-Pin HSOIC With Thermal Pad (Top View)",
         ),
         RegionRecipe(
@@ -115,9 +113,16 @@ TPS5430DDAR = FixtureRecipe(
             page=3,
             # Table 4-1 (Pin Functions), including caption and the (1) footnote.
             bbox_norm=(0.065, 0.328, 0.935, 0.600),
-            verified=True,
-            verify_confidence=0.94,
+            verification_score=0.94,
             caption="Table 4-1. Pin Functions",
+        ),
+        RegionRecipe(
+            region_id="r_package_01",
+            type="package",
+            page=3,
+            bbox_norm=(0.229, 0.126, 0.776, 0.328),
+            verification_score=1.0,
+            caption="DDA package identity and top-view pinout",
         ),
     ),
     index_version="fixture@1",
@@ -250,8 +255,13 @@ def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict:
                 "bbox_norm": list(r.bbox_norm),
                 "crop_uri": crop_uri(recipe.slug, r.region_id),
                 "content_hash": f"sha256:{sha256_file(crop_path)}",
-                "verified": r.verified,
-                "verify_confidence": r.verify_confidence,
+                "verification": {
+                    "method": "text_layout_heuristic",
+                    "policy_version": "fixture.text-layout@1.0.0",
+                    "outcome": "accepted",
+                    "score": r.verification_score,
+                    "score_semantics": "heuristic_evidence_strength",
+                },
             }
             if r.caption is not None:
                 region_json["caption"] = r.caption
@@ -265,6 +275,15 @@ def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict:
             "manufacturer": recipe.datasheet.manufacturer,
             "mpn": recipe.datasheet.mpn,
             "package": recipe.datasheet.package,
+        },
+        "identity_verification": {
+            "method": "exact_text_orderable_part",
+            "policy_version": "fixture.identity-text@1.0.0",
+            "outcome": "accepted",
+            "manufacturer_observed": True,
+            "exact_mpn_observed": True,
+            "package_associated": True,
+            "evidence_region_ids": ["r_package_01"],
         },
         "regions": regions_out,
         "retrieval": {

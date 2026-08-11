@@ -1,4 +1,4 @@
-"""Negative tests for scripts/schema/symbol_evidence_v1.schema.json.
+"""Negative tests for scripts/schema/symbol_evidence_v2.schema.json.
 
 Every documented rule in docs/CONTRACTS.md §1 gets one test that constructs
 a valid baseline document, breaks exactly the property under test, and asserts
@@ -16,17 +16,26 @@ import jsonschema
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_PATH = REPO_ROOT / "scripts" / "schema" / "symbol_evidence_v1.schema.json"
+SCHEMA_PATH = REPO_ROOT / "scripts" / "schema" / "symbol_evidence_v2.schema.json"
 
 
 BASE_VALID: dict = {
-    "schema_version": "dsvire.symbol-evidence.v1",
+    "schema_version": "dsvire.symbol-evidence.v2",
     "datasheet": {
         "id": "ex-1",
         "content_sha256": "a" * 64,
         "manufacturer": "Example Corp",
         "mpn": "EX123",
         "package": "SOIC-8",
+    },
+    "identity_verification": {
+        "method": "exact_text_orderable_part",
+        "policy_version": "dsvire.identity-text@1.0.0",
+        "outcome": "accepted",
+        "manufacturer_observed": True,
+        "exact_mpn_observed": True,
+        "package_associated": True,
+        "evidence_region_ids": ["r_pinout_01"],
     },
     "regions": [
         {
@@ -36,8 +45,13 @@ BASE_VALID: dict = {
             "bbox_norm": [0.1, 0.1, 0.9, 0.9],
             "crop_uri": "dsvire://fixture/ex-1/r_pinout_01.webp",
             "content_hash": "sha256:" + "b" * 64,
-            "verified": True,
-            "verify_confidence": 0.9,
+            "verification": {
+                "method": "text_layout_heuristic",
+                "policy_version": "dsvire.region-text-layout@1.0.0",
+                "outcome": "accepted",
+                "score": 0.9,
+                "score_semantics": "heuristic_evidence_strength",
+            },
         }
     ],
     "retrieval": {
@@ -82,7 +96,7 @@ def test_rejects_unknown_top_level_field(validator) -> None:
 
 def test_rejects_wrong_schema_version(validator) -> None:
     doc = _base()
-    doc["schema_version"] = "dsvire.symbol-evidence.v2"
+    doc["schema_version"] = "dsvire.symbol-evidence.v3"
     with pytest.raises(jsonschema.ValidationError):
         validator.validate(doc)
 
@@ -177,16 +191,31 @@ def test_rejects_content_hash_without_algorithm(validator) -> None:
         validator.validate(doc)
 
 
-def test_rejects_verify_confidence_over_one(validator) -> None:
+def test_rejects_verification_score_over_one(validator) -> None:
     doc = _base()
-    doc["regions"][0]["verify_confidence"] = 1.01
+    doc["regions"][0]["verification"]["score"] = 1.01
     with pytest.raises(jsonschema.ValidationError):
         validator.validate(doc)
 
 
-def test_rejects_missing_verified_flag(validator) -> None:
+def test_rejects_missing_verification_block(validator) -> None:
     doc = _base()
-    del doc["regions"][0]["verified"]
+    del doc["regions"][0]["verification"]
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(doc)
+
+
+def test_rejects_ambiguous_v1_verification_fields(validator) -> None:
+    doc = _base()
+    doc["regions"][0]["verified"] = True
+    doc["regions"][0]["verify_confidence"] = 0.9
+    with pytest.raises(jsonschema.ValidationError):
+        validator.validate(doc)
+
+
+def test_rejects_heuristic_claiming_calibrated_probability(validator) -> None:
+    doc = _base()
+    doc["regions"][0]["verification"]["score_semantics"] = "calibrated_probability"
     with pytest.raises(jsonschema.ValidationError):
         validator.validate(doc)
 

@@ -380,8 +380,13 @@ Embedding `kind`: `mrl64 | mrl512 | col_mv | fde`.
       "caption": "Figure 7. LQFP100 pinout",
       "pin_hits": ["VDD", "NRST"],
       "section_path": ["Pinouts and pin description", "LQFP100"],
-      "verified": true,
-      "verify_confidence": 0.91,
+      "verification": {
+        "method": "evidence_gated_visual",
+        "policy_version": "egvv@<model-and-calibration-version>",
+        "outcome": "accepted",
+        "score": 0.91,
+        "score_semantics": "calibrated_probability"
+      },
       "content_hash": "sha256:..."
     }
   ],
@@ -390,7 +395,9 @@ Embedding `kind`: `mrl64 | mrl512 | col_mv | fde`.
 }
 ```
 
-Prefer `verified=true` in agent contexts.
+Only `verification.outcome=accepted` from a method explicitly allowed by the
+consumer's publication policy may enter agent context. Heuristic evidence and
+calibrated EGVV are distinct policy classes.
 
 ---
 

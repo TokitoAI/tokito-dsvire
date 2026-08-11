@@ -32,7 +32,7 @@ import jsonschema
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_DIR = REPO_ROOT / "scripts" / "schema"
 
-SCHEMA_EVIDENCE = SCHEMA_DIR / "symbol_evidence_v1.schema.json"
+SCHEMA_EVIDENCE = SCHEMA_DIR / "symbol_evidence_v2.schema.json"
 SCHEMA_SPEC = SCHEMA_DIR / "symbol_spec_v1.schema.json"
 SCHEMA_PROVENANCE = SCHEMA_DIR / "provenance_record_v1.schema.json"
 
@@ -98,7 +98,7 @@ def load_schema(path: Path) -> jsonschema.Draft202012Validator:
 
 
 def verify_evidence_bundle(bundle: dict) -> list[Finding]:
-    """Structural + semantic checks on a dsvire.symbol-evidence.v1 document."""
+    """Structural + semantic checks on a dsvire.symbol-evidence.v2 document."""
     v = load_schema(SCHEMA_EVIDENCE)
     findings: list[Finding] = []
 
@@ -112,19 +112,42 @@ def verify_evidence_bundle(bundle: dict) -> list[Finding]:
             )
         )
         return findings
-    findings.append(Finding("evidence.schema", Outcome.PASS, "matches dsvire.symbol-evidence.v1"))
+    findings.append(Finding("evidence.schema", Outcome.PASS, "matches dsvire.symbol-evidence.v2"))
 
-    # Required verified region types.
-    for required in ("pinout", "table"):
-        matches = [r for r in bundle["regions"] if r["type"] == required and r["verified"] is True]
+    # Required explicitly accepted region types.
+    for required in ("pinout", "table", "package"):
+        matches = [
+            region
+            for region in bundle["regions"]
+            if region["type"] == required and region["verification"]["outcome"] == "accepted"
+        ]
         outcome = Outcome.PASS if matches else Outcome.FAIL
         findings.append(
             Finding(
-                f"evidence.has_verified_{required}",
+                f"evidence.has_accepted_{required}",
                 outcome,
-                f"{len(matches)} verified {required} region(s)",
+                f"{len(matches)} accepted {required} region(s)",
             )
         )
+
+    identity = bundle["identity_verification"]
+    region_ids = {region["region_id"] for region in bundle["regions"]}
+    identity_grounded = (
+        identity["outcome"] == "accepted"
+        and identity["manufacturer_observed"] is True
+        and identity["exact_mpn_observed"] is True
+        and identity["package_associated"] is True
+        and set(identity["evidence_region_ids"]).issubset(region_ids)
+    )
+    findings.append(
+        Finding(
+            "evidence.identity_grounded",
+            Outcome.PASS if identity_grounded else Outcome.FAIL,
+            "exact identity accepted with region provenance"
+            if identity_grounded
+            else "identity outcome, observations, or region provenance are incomplete",
+        )
+    )
 
     # bbox ordering.
     for r in bundle["regions"]:

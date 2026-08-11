@@ -98,10 +98,17 @@ def test_cache_key_includes_exact_part_identity(tmp_path: Path) -> None:
         retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-2", "SOIC-8"), tmp_path)
     assert len(first["regions"]) == 3
     package = next(region for region in first["regions"] if region["type"] == "package")
-    assert package["verified"] is True
+    assert package["verification"] == {
+        "method": "text_layout_heuristic",
+        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "outcome": "accepted",
+        "score": package["verification"]["score"],
+        "score_semantics": "heuristic_evidence_strength",
+    }
+    assert first["identity_verification"]["evidence_region_ids"] == ["r_package_01"]
     assert package["region_id"] == "r_package_01"
     schema = json.loads(
-        (Path(__file__).parents[1] / "scripts/schema/symbol_evidence_v1.schema.json").read_text(
+        (Path(__file__).parents[1] / "scripts/schema/symbol_evidence_v2.schema.json").read_text(
             encoding="utf-8"
         )
     )

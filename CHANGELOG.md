@@ -3,6 +3,16 @@
 All notable changes to DS-ViRe are recorded here. Releases use immutable
 `vMAJOR.MINOR.PATCH` container tags.
 
+## Unreleased
+
+### Breaking contract
+
+- Replace `dsvire.symbol-evidence.v1` with strict v2 verifier provenance.
+  Ambiguous `verified` and `verify_confidence` fields are removed. Identity and
+  region decisions now name their method, policy version, outcome, score, and
+  score semantics; the deterministic baseline is explicitly heuristic and
+  cannot claim calibrated visual verification.
+
 ## 0.2.0 - 2026-08-11
 
 ### Correctness
@@ -11,7 +21,7 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
   than evidence. Retrieval now abstains unless bounded PDF text independently
   contains the manufacturer and a token-bounded exact MPN associated with the
   requested package in one logical orderable-part row.
-- Emit the grounded association as a third verified `package` crop. Bounded
+- Emit the grounded association as a third accepted `package` crop. Bounded
   wrapped rows are accepted, but adjacent variant rows, MPN prefix/suffix near
   misses, wrong manufacturers, and packages mentioned elsewhere are rejected.
 - Bump the deterministic retrieval/cache policy to `dsvire-baseline@0.2.0`, so

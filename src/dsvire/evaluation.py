@@ -236,13 +236,15 @@ def evaluate_registry(
                     root / document.case_id / "positive",
                 )
                 region_types = sorted(
-                    region["type"] for region in bundle["regions"] if region["verified"]
+                    region["type"]
+                    for region in bundle["regions"]
+                    if region["verification"]["outcome"] == "accepted"
                 )
                 required = {"package", "pinout", "table"}
                 passed = required.issubset(region_types)
                 document_result["positive"] = {
                     "outcome": "pass" if passed else "fail",
-                    "verified_region_types": region_types,
+                    "accepted_region_types": region_types,
                 }
                 positive_passed += int(passed)
             except RetrievalError as exc:
@@ -297,7 +299,7 @@ def evaluate_registry(
         and negative_wrong_reason == 0
     )
     return {
-        "schema_version": "dsvire.identity-eval-result.v1",
+        "schema_version": "dsvire.identity-eval-result.v2",
         "gate_passed": gate_passed,
         "metrics": metrics,
         "documents": results,

@@ -89,13 +89,13 @@ def test_symbol_evidence_runs_isolated_retrieval(monkeypatch, tmp_path: Path) ->
         assert identity.mpn == "TPS5430DDAR"
         assert data_dir == tmp_path
         assert timeout_seconds == 2.0
-        return {"schema_version": "dsvire.symbol-evidence.v1", "regions": []}
+        return {"schema_version": "dsvire.symbol-evidence.v2", "regions": []}
 
     monkeypatch.setattr(api, "run_pdf_job", fake_run)
     with TestClient(api.create_app(_config(tmp_path))) as client:
         response = client.post(_url(), content=b"%PDF-fake", headers=_headers())
     assert response.status_code == 200
-    assert response.json()["schema_version"] == "dsvire.symbol-evidence.v1"
+    assert response.json()["schema_version"] == "dsvire.symbol-evidence.v2"
 
 
 @pytest.mark.parametrize(
@@ -122,7 +122,7 @@ def test_capacity_is_bounded_before_upload_processing(monkeypatch, tmp_path: Pat
     async def blocking_run(*args, **kwargs):
         entered.set()
         await asyncio.to_thread(release.wait, 2)
-        return {"schema_version": "dsvire.symbol-evidence.v1", "regions": []}
+        return {"schema_version": "dsvire.symbol-evidence.v2", "regions": []}
 
     monkeypatch.setattr(api, "run_pdf_job", blocking_run)
     with (

@@ -18,10 +18,10 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = REPO_ROOT / "fixtures" / "evidence"
-SCHEMA_PATH = REPO_ROOT / "scripts" / "schema" / "symbol_evidence_v1.schema.json"
+SCHEMA_PATH = REPO_ROOT / "scripts" / "schema" / "symbol_evidence_v2.schema.json"
 CROP_ROOT = FIXTURE_DIR / "crops"
 
-REQUIRED_REGION_TYPES = ("pinout", "table")
+REQUIRED_REGION_TYPES = ("pinout", "table", "package")
 
 
 def _load_schema() -> dict:
@@ -79,13 +79,17 @@ def test_bbox_norm_invariants(fixture_path: Path) -> None:
 
 
 @pytest.mark.parametrize("fixture_path", FIXTURES, ids=FIXTURE_IDS)
-def test_required_verified_regions_present(fixture_path: Path) -> None:
+def test_required_accepted_regions_present(fixture_path: Path) -> None:
     doc = json.loads(fixture_path.read_text(encoding="utf-8"))
     for required in REQUIRED_REGION_TYPES:
-        matches = [r for r in doc["regions"] if r["type"] == required and r["verified"] is True]
+        matches = [
+            region
+            for region in doc["regions"]
+            if region["type"] == required and region["verification"]["outcome"] == "accepted"
+        ]
         assert matches, (
-            f"{fixture_path.name}: at least one verified region of type "
-            f"{required!r} is required by dsvire.symbol-evidence.v1"
+            f"{fixture_path.name}: at least one accepted region of type "
+            f"{required!r} is required by dsvire.symbol-evidence.v2"
         )
 
 

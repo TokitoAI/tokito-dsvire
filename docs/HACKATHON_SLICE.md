@@ -25,7 +25,7 @@ DS-ViRe evidence bundle
 
 For the hackathon:
 
-- **Bundle input** for the slice is a fixture (checked-in JSON) that matches the `dsvire.symbol-evidence.v1` shape. DS-ViRe itself does not need to be running.
+- **Bundle input** for the slice is a fixture (checked-in JSON) that matches the `dsvire.symbol-evidence.v2` shape. DS-ViRe itself does not need to be running.
 - **MPN** targeted: pick one part with a clean pinout and pin-description table. `STM32H743VIT6` (LQFP100) or `TPS5430DDAR` are both suitable; final pick lives in the fixture.
 - **Success:** the part is placed and wired in Tokito Desktop from a fresh cold start with only the seeded generated revision.
 
@@ -37,7 +37,7 @@ Product completion gates 1–10 from the pipeline doc are the acceptance list. G
 
 All shared schemas are frozen in [`CONTRACTS.md`](CONTRACTS.md). The Rust definitions live in **`tokito-catalog`** so every consumer (`tokito-ai`, `tokito-mcp`, `tokito` desktop) can depend on a single crate. New public module: `tokito_catalog::pipeline`.
 
-- `pipeline::evidence` — `EvidenceBundle` (`dsvire.symbol-evidence.v1`)
+- `pipeline::evidence` — `EvidenceBundle` (`dsvire.symbol-evidence.v2`)
 - `pipeline::spec` — `SymbolSpec` (`tokito.symbol-spec.v1`)
 - `pipeline::identity` — `PartId`, `LibraryId`, `SymbolRevisionId`
 - `pipeline::status` — `PublicationStatus`, `Provenance`

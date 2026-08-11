@@ -1,7 +1,7 @@
 # Pipeline contracts
 
-**Status:** frozen schemas for the hackathon vertical slice
-**Date:** 2026-08-08
+**Status:** versioned production boundary; v2 rollout in progress
+**Updated:** 2026-08-11
 **Home for Rust definitions:** `tokito-catalog::pipeline`
 
 This file is the source of truth for the wire types between DS-ViRe, the extractor, the compiler, the ingestion service, and the MCP read surface. Every producer and consumer must reject unknown fields.
@@ -10,19 +10,28 @@ Rust: all types derive `Serialize, Deserialize` with `#[serde(deny_unknown_field
 
 ---
 
-## 1. `dsvire.symbol-evidence.v1`
+## 1. `dsvire.symbol-evidence.v2`
 
 Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
 
 ```json
 {
-  "schema_version": "dsvire.symbol-evidence.v1",
+  "schema_version": "dsvire.symbol-evidence.v2",
   "datasheet": {
     "id": "st-ds-h743-r09",
     "content_sha256": "b2f1...c3",
     "manufacturer": "STMicroelectronics",
     "mpn": "STM32H743VIT6",
     "package": "LQFP100"
+  },
+  "identity_verification": {
+    "method": "exact_text_orderable_part",
+    "policy_version": "dsvire.identity-text@1.0.0",
+    "outcome": "accepted",
+    "manufacturer_observed": true,
+    "exact_mpn_observed": true,
+    "package_associated": true,
+    "evidence_region_ids": ["r_package_01"]
   },
   "regions": [
     {
@@ -32,8 +41,13 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
       "bbox_norm": [0.08, 0.12, 0.92, 0.71],
       "crop_uri": "dsvire://pack/xxxxxxxx/r_pinout_01.webp",
       "content_hash": "sha256:aa...",
-      "verified": true,
-      "verify_confidence": 0.97,
+      "verification": {
+        "method": "text_layout_heuristic",
+        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "outcome": "accepted",
+        "score": 0.97,
+        "score_semantics": "heuristic_evidence_strength"
+      },
       "caption": "Figure 7. LQFP100 pinout (top view)"
     },
     {
@@ -43,8 +57,28 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
       "bbox_norm": [0.10, 0.08, 0.90, 0.94],
       "crop_uri": "dsvire://pack/xxxxxxxx/r_pin_table_01.webp",
       "content_hash": "sha256:bb...",
-      "verified": true,
-      "verify_confidence": 0.94
+      "verification": {
+        "method": "text_layout_heuristic",
+        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "outcome": "accepted",
+        "score": 0.94,
+        "score_semantics": "heuristic_evidence_strength"
+      }
+    },
+    {
+      "region_id": "r_package_01",
+      "type": "package",
+      "page": 2,
+      "bbox_norm": [0.08, 0.18, 0.92, 0.36],
+      "crop_uri": "dsvire://pack/xxxxxxxx/r_package_01.webp",
+      "content_hash": "sha256:cc...",
+      "verification": {
+        "method": "text_layout_heuristic",
+        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "outcome": "accepted",
+        "score": 1.0,
+        "score_semantics": "heuristic_evidence_strength"
+      }
     }
   ],
   "retrieval": {
@@ -57,8 +91,8 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
 
 **Rules**
 
-- At least one `pinout`, one `table`, and one `package` region marked
-  `verified: true` are required for symbol evidence produced by the hosted
+- At least one `pinout`, one `table`, and one `package` region with
+  `verification.outcome: accepted` are required for symbol evidence produced by the hosted
   baseline.
 - `datasheet.manufacturer` must occur in bounded PDF text. The exact requested
   MPN must match with alphanumeric token boundaries and must occur in the same
@@ -70,21 +104,24 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
 - `bbox_norm` is `[x0, y0, x1, y1]` in `[0,1]`, each strictly `x0 < x1`, `y0 < y1`.
 - `crop_uri` is opaque to the extractor; it is passed through to provenance.
 - `content_hash` is `sha256:<hex>`; used as region provenance.
-- Baseline `verify_confidence` values are versioned deterministic evidence
-  strengths, not calibrated probabilities. Only held-out EGVV evaluation may
-  describe a score as calibrated.
+- `text_layout_heuristic` must use `heuristic_evidence_strength`; it cannot use
+  `calibrated_probability`. Only an `evidence_gated_visual` method backed by
+  held-out calibration may use the latter semantics.
+- Publication policy must explicitly allow a verification method. An accepted
+  heuristic result never silently satisfies a visual-verification policy.
 - `retrieval.model_ids` is required for reproducibility; extractor persists it into the SymbolSpec's provenance block.
 
 **Rust surface** (`tokito_catalog::pipeline::evidence`)
 
 ```rust
-pub const SCHEMA_VERSION: &str = "dsvire.symbol-evidence.v1";
+pub const SCHEMA_VERSION: &str = "dsvire.symbol-evidence.v2";
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct EvidenceBundle {
     pub schema_version: String,
     pub datasheet: DatasheetIdent,
+    pub identity_verification: IdentityVerification,
     pub regions: Vec<Region>,
     pub retrieval: RetrievalMeta,
 }

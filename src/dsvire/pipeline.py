@@ -1,10 +1,11 @@
 """Bounded PDF-to-evidence retrieval for the symbol-generation path.
 
 This is the deterministic production baseline. It deliberately fails closed:
-no fabricated regions, no guessed part identity, and no `verified=true` unless
-the selected crops contain independently checkable pinout/table signals.
+no fabricated regions and no guessed part identity. Every accepted result names
+the deterministic heuristic policy that produced it; it never claims visual or
+calibrated verification.
 Vision model reranking can replace the scoring layer without changing the
-frozen `dsvire.symbol-evidence.v1` output contract.
+frozen `dsvire.symbol-evidence.v2` output contract.
 """
 
 from __future__ import annotations
@@ -32,6 +33,9 @@ RENDER_DPI = 220
 MAX_RENDER_SIDE_PIXELS = 12_000
 MAX_RENDER_PIXELS = 40_000_000
 INDEX_VERSION = "dsvire-baseline@0.2.0"
+EVIDENCE_SCHEMA_VERSION = "dsvire.symbol-evidence.v2"
+IDENTITY_POLICY_VERSION = "dsvire.identity-text@1.0.0"
+REGION_POLICY_VERSION = "dsvire.region-text-layout@1.0.0"
 MODEL_IDS = ["pymupdf-layout-text@1"]
 PACK_LOCK_TIMEOUT_SECONDS = 60
 
@@ -413,7 +417,7 @@ def _load_cached_bundle(
         datasheet = bundle["datasheet"]
         retrieval = bundle["retrieval"]
         if (
-            bundle["schema_version"] != "dsvire.symbol-evidence.v1"
+            bundle["schema_version"] != EVIDENCE_SCHEMA_VERSION
             or datasheet["content_sha256"] != digest
             or datasheet["manufacturer"] != identity.manufacturer.strip()
             or datasheet["mpn"] != identity.mpn.strip()
@@ -431,6 +435,17 @@ def _load_cached_bundle(
             "r_package_01": "package",
         }
         seen: set[str] = set()
+        identity_verification = bundle["identity_verification"]
+        if identity_verification != {
+            "method": "exact_text_orderable_part",
+            "policy_version": IDENTITY_POLICY_VERSION,
+            "outcome": "accepted",
+            "manufacturer_observed": True,
+            "exact_mpn_observed": True,
+            "package_associated": True,
+            "evidence_region_ids": ["r_package_01"],
+        }:
+            return None
         for region in regions:
             if not isinstance(region, dict):
                 return None
@@ -440,6 +455,22 @@ def _load_cached_bundle(
                 or region.get("type") != expected_regions[region_id]
                 or region_id in seen
                 or region.get("crop_uri") != f"dsvire://pack/{pack_dir.name}/{region_id}.webp"
+            ):
+                return None
+            verification = region.get("verification")
+            if not isinstance(verification, dict) or verification != {
+                "method": "text_layout_heuristic",
+                "policy_version": REGION_POLICY_VERSION,
+                "outcome": "accepted",
+                "score": verification.get("score"),
+                "score_semantics": "heuristic_evidence_strength",
+            }:
+                return None
+            score = verification["score"]
+            if (
+                not isinstance(score, (int, float))
+                or isinstance(score, bool)
+                or not 0 <= score <= 1
             ):
                 return None
             seen.add(region_id)
@@ -457,7 +488,7 @@ def _load_cached_bundle(
 def retrieve_symbol_evidence(
     pdf_bytes: bytes, identity: DatasheetIdentity, output_root: Path
 ) -> dict[str, Any]:
-    """Retrieve verified pinout + pin-table evidence from exact PDF bytes."""
+    """Retrieve policy-attributed pinout, table, and package evidence."""
     identity.validate()
     if len(pdf_bytes) < 8 or len(pdf_bytes) > MAX_PDF_BYTES:
         raise RetrievalError(f"PDF size outside 8..={MAX_PDF_BYTES} bytes")
@@ -515,8 +546,13 @@ def retrieve_symbol_evidence(
                                 "bbox_norm": _bbox_norm(candidate, page),
                                 "crop_uri": f"dsvire://pack/{pack_id}/{region_id}.webp",
                                 "content_hash": f"sha256:{hashlib.sha256(crop).hexdigest()}",
-                                "verified": True,
-                                "verify_confidence": candidate.score,
+                                "verification": {
+                                    "method": "text_layout_heuristic",
+                                    "policy_version": REGION_POLICY_VERSION,
+                                    "outcome": "accepted",
+                                    "score": candidate.score,
+                                    "score_semantics": "heuristic_evidence_strength",
+                                },
                                 "caption": candidate.caption,
                             }
                         )
@@ -524,13 +560,22 @@ def retrieve_symbol_evidence(
                     document.close()
 
                 bundle = {
-                    "schema_version": "dsvire.symbol-evidence.v1",
+                    "schema_version": EVIDENCE_SCHEMA_VERSION,
                     "datasheet": {
                         "id": f"ds_sha256_{digest[:24]}",
                         "content_sha256": digest,
                         "manufacturer": identity.manufacturer.strip(),
                         "mpn": identity.mpn.strip(),
                         "package": identity.package.strip(),
+                    },
+                    "identity_verification": {
+                        "method": "exact_text_orderable_part",
+                        "policy_version": IDENTITY_POLICY_VERSION,
+                        "outcome": "accepted",
+                        "manufacturer_observed": True,
+                        "exact_mpn_observed": True,
+                        "package_associated": True,
+                        "evidence_region_ids": ["r_package_01"],
                     },
                     "regions": regions,
                     "retrieval": {
