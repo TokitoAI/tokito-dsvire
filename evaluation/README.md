@@ -76,3 +76,11 @@ document must include positive pinout, table, and package regions plus at least
 one adversarial case. Adapter output is only a map of qualified case IDs to
 scores; labels and splits come from the registry, and missing or injected cases
 are rejected. This prevents a model runner from grading its own predictions.
+
+The first comparator is `dsvire.visual_adapters.TextLayoutAdapter`. It scores
+only text extracted inside each registered crop, verifies exact source bytes,
+rejects repaired/encrypted/out-of-range documents, and binds its normalized
+implementation source plus exact PyMuPDF version into adapter metadata. It is
+deliberately declared as `similarity`, never visual or calibrated probability.
+Its purpose is to quantify what a real OCR/visual candidate improves and expose
+cases (for example graphical pin maps) where the text baseline abstains.
