@@ -17,6 +17,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+visual = [
+  "onnxruntime>=1.27,<2",
+  "rapidocr>=3.9.2,<4",
+]
 test = [
   "build>=1.2,<2",
   "httpx>=0.28,<1",
