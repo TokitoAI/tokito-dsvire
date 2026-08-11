@@ -1,0 +1,59 @@
+name: visual benchmark
+run-name: visual benchmark (${{ inputs.adapter }}) @ ${{ github.sha }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      adapter:
+        description: Frozen comparator adapter to execute
+        required: true
+        type: choice
+        options:
+          - text-layout
+          - rapidocr
+
+permissions:
+  contents: read
+
+concurrency:
+  group: visual-benchmark-${{ github.ref }}-${{ inputs.adapter }}
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install frozen benchmark runtime
+        run: python -m pip install -e '.[test,visual]'
+      - name: Audit resolved benchmark environment
+        run: |
+          python -m pip uninstall -y tokito-dsvire
+          python -m pip_audit --local --strict
+          python -m pip install -e . --no-deps
+      - name: Run hash-pinned visual benchmark
+        env:
+          ADAPTER: ${{ inputs.adapter }}
+          RESULT_DIR: ${{ github.workspace }}/artifacts
+        run: |
+          mkdir -p "$RESULT_DIR"
+          result="$RESULT_DIR/visual-benchmark-${ADAPTER}-${GITHUB_SHA}.json"
+          python scripts/evaluate_visual.py \
+            --cache-dir "$RUNNER_TEMP/dsvire-visual-sources" \
+            --adapter "$ADAPTER" \
+            --json-out "$result"
+          sha256sum "$result" > "$result.sha256"
+      - name: Publish benchmark evidence only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: visual-benchmark-${{ inputs.adapter }}-${{ github.sha }}
+          path: |
+            artifacts/*.json
+            artifacts/*.json.sha256
+          if-no-files-found: error
+          retention-days: 30
