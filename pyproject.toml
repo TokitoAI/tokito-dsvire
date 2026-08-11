@@ -30,6 +30,7 @@ openclip = [
 ]
 test = [
   "build>=1.2,<2",
+  "hatchling>=1.27,<2",
   "httpx>=0.28,<1",
   "jsonschema>=4.23,<5",
   "pip-audit>=2.9,<3",

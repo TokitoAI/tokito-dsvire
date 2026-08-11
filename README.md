@@ -34,14 +34,19 @@ deterministic safety gate, not calibrated visual verification.
 ## Run and verify
 
 ```bash
-python -m pip install -e '.[test]'
-pytest
-dsvire extract-evidence datasheet.pdf \
+uv sync --locked --extra test
+uv run --frozen --no-sync pytest
+uv run --frozen --no-sync dsvire extract-evidence datasheet.pdf \
   --manufacturer 'Texas Instruments' \
   --mpn TPS5430DDAR \
   --package SO-PowerPAD-8 \
   --out ./artifacts
 ```
+
+Development and release environments are resolved from the committed universal
+`uv.lock`. Use uv 0.12.3 and follow
+[`docs/DEPENDENCY_LOCKS.md`](docs/DEPENDENCY_LOCKS.md) when changing a dependency;
+CI rejects stale locks and stale container exports.
 
 For the hosted service, build the image and send raw `application/pdf` bytes to
 `POST /v1/evidence/symbol` with the exact identity as query parameters. The
@@ -82,6 +87,7 @@ values fail startup.
 
 - [Technical bible](docs/TECHNICAL_BIBLE.md): problem, related work, architecture, stack, SLOs, benchmark design
 - [Production-readiness audit](docs/PRODUCTION_READINESS.md): evidence, findings, priorities, and remaining gates
+- [Dependency locks](docs/DEPENDENCY_LOCKS.md): frozen install and intentional update procedure
 
 ## Layout
 

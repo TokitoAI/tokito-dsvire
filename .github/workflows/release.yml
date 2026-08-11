@@ -16,22 +16,25 @@ jobs:
       - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
         with:
           python-version: '3.12'
-          cache: pip
-      - run: python -m pip install -e '.[test,visual]'
-      - run: python -m ruff check .
-      - run: python -m ruff format --check .
-      - run: python -m compileall -q src
-      - run: python -m pytest -q
-      - run: python -m build
-      - run: python -m pip_audit . --strict
-      - name: Audit resolved visual benchmark environment
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
+        with:
+          version: '0.12.3'
+          enable-cache: true
+      - run: python scripts/check_dependency_lock.py
+      - run: uv sync --locked --extra test --extra visual
+      - run: uv run --frozen --no-sync ruff check .
+      - run: uv run --frozen --no-sync ruff format --check .
+      - run: uv run --frozen --no-sync python -m compileall -q src
+      - run: uv run --frozen --no-sync pytest -q
+      - run: uv run --frozen --no-sync python -m build --no-isolation
+      - name: Audit resolved locked environment
         run: |
-          python -m pip uninstall -y tokito-dsvire
-          python -m pip_audit --local --strict
-          python -m pip install -e . --no-deps
+          uv pip uninstall tokito-dsvire
+          uv run --frozen --no-sync pip-audit --local --strict
+          uv sync --locked --extra test --extra visual
       - name: Hash-pinned real-PDF identity gate
         run: |
-          python scripts/evaluate_identity.py \
+          uv run --frozen --no-sync python scripts/evaluate_identity.py \
             --cache-dir "$RUNNER_TEMP/dsvire-eval" \
             --json-out identity-eval.json
       - name: Publish identity evaluation evidence

@@ -5,6 +5,15 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+### Reproducible delivery
+
+- Add a universal, cross-platform uv lock covering runtime, test, visual, and
+  OpenCLIP environments, with frozen CI, release, and benchmark installs.
+- Build the service from a digest-pinned Python base and a generated,
+  hash-pinned runtime export; no package resolution or build backend runs in
+  the container build.
+- Add an executable lock-drift gate and documented dependency update workflow.
+
 ### Evaluation integrity
 
 - Add source-free, content-addressed visual annotation review packets that bind

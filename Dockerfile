@@ -1,16 +1,16 @@
-FROM python:3.12-slim-bookworm
+FROM python:3.12-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    DSVIRE_DATA_DIR=/data/dsvire
+    DSVIRE_DATA_DIR=/data/dsvire \
+    PYTHONPATH=/app/src
 
 RUN useradd --create-home --uid 10001 dsvire
 WORKDIR /app
-COPY pyproject.toml README.md LICENSE ./
-COPY src ./src
-RUN python -m pip install --no-cache-dir --upgrade "pip>=26.2,<27" "setuptools>=83,<84" \
-    && python -m pip install --no-cache-dir . \
+COPY requirements/runtime.lock ./requirements/runtime.lock
+RUN python -m pip install --no-cache-dir --require-hashes -r requirements/runtime.lock \
     && python -m pip check
+COPY src ./src
 
 RUN mkdir -p /data/dsvire && chown -R dsvire:dsvire /data/dsvire
 USER dsvire
