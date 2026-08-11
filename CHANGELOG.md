@@ -3,6 +3,39 @@
 All notable changes to DS-ViRe are recorded here. Releases use immutable
 `vMAJOR.MINOR.PATCH` container tags.
 
+## 0.2.0 - 2026-08-11
+
+### Correctness
+
+- Treat caller-supplied manufacturer, MPN, and package as a hypothesis rather
+  than evidence. Retrieval now abstains unless bounded PDF text independently
+  contains the manufacturer and a token-bounded exact MPN associated with the
+  requested package in one logical orderable-part row.
+- Emit the grounded association as a third verified `package` crop. Bounded
+  wrapped rows are accepted, but adjacent variant rows, MPN prefix/suffix near
+  misses, wrong manufacturers, and packages mentioned elsewhere are rejected.
+- Bump the deterministic retrieval/cache policy to `dsvire-baseline@0.2.0`, so
+  v0.1 packs that lack identity evidence cannot be reused.
+
+### Evaluation and delivery
+
+- Add a strict, hash-pinned development registry for three official TI
+  datasheets without redistributing vendor PDF bytes.
+- Add deterministic JSON metrics, document-family split leakage checks,
+  reason-specific adversarial negatives, offline cache operation, and a hard
+  zero-silent-wrong-identity gate.
+- Require tagged releases to pass the real-PDF gate and publish its JSON result
+  before building the immutable image.
+
+### Compatibility and limitations
+
+- The `dsvire.symbol-evidence.v1` JSON shape remains compatible, but hosted
+  v0.2 output now contains three regions (`pinout`, `table`, and `package`)
+  instead of two. Consumers must accept the already-defined `package` region.
+- Text grounding is a deterministic safety gate, not calibrated visual EGVV.
+  All three seed groups are development data from one vendor; held-out visual
+  labels and the planned 500-document/2,000-query corpus remain open work.
+
 ## 0.1.1 - 2026-08-11
 
 ### Security
