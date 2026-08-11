@@ -29,19 +29,27 @@ jobs:
       - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
         with:
           python-version: '3.12'
-          cache: pip
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
+        with:
+          version: '0.12.3'
+          enable-cache: true
+      - run: python scripts/check_dependency_lock.py
       - name: Install frozen benchmark runtime
         env:
           ADAPTER: ${{ inputs.adapter }}
         run: |
-          extras='test,visual'
-          if [ "$ADAPTER" = openclip ]; then extras="$extras,openclip"; fi
-          python -m pip install -e ".[${extras}]"
-      - name: Audit resolved benchmark environment
+          extras=(--extra test --extra visual)
+          if [ "$ADAPTER" = openclip ]; then extras+=(--extra openclip); fi
+          uv sync --locked "${extras[@]}"
+      - name: Audit resolved locked benchmark environment
+        env:
+          ADAPTER: ${{ inputs.adapter }}
         run: |
-          python -m pip uninstall -y tokito-dsvire
-          python -m pip_audit --local --strict
-          python -m pip install -e . --no-deps
+          uv pip uninstall tokito-dsvire
+          uv run --frozen --no-sync pip-audit --local --strict
+          extras=(--extra test --extra visual)
+          if [ "$ADAPTER" = openclip ]; then extras+=(--extra openclip); fi
+          uv sync --locked "${extras[@]}"
       - name: Run hash-pinned visual benchmark
         env:
           ADAPTER: ${{ inputs.adapter }}
@@ -49,7 +57,7 @@ jobs:
         run: |
           mkdir -p "$RESULT_DIR"
           result="$RESULT_DIR/visual-benchmark-${ADAPTER}-${GITHUB_SHA}.json"
-          python scripts/evaluate_visual.py \
+          uv run --frozen --no-sync python scripts/evaluate_visual.py \
             --cache-dir "$RUNNER_TEMP/dsvire-visual-sources" \
             --adapter "$ADAPTER" \
             --json-out "$result"

@@ -24,9 +24,10 @@ def test_visual_runtime_is_optional_but_ci_and_release_verify_it() -> None:
     ]
     for workflow_name in ["ci.yml", "release.yml"]:
         workflow = (root / ".github/workflows" / workflow_name).read_text(encoding="utf-8")
-        assert ".[test,visual]" in workflow
-        assert "pip_audit --local --strict" in workflow
-        assert "pip install -e . --no-deps" in workflow
+        assert "uv sync --locked --extra test --extra visual" in workflow
+        assert "pip-audit --local --strict" in workflow
+        assert "uv pip uninstall tokito-dsvire" in workflow
+        assert "uv run --frozen --no-sync" in workflow
 
 
 def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> None:
@@ -45,6 +46,9 @@ def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> 
     assert 'if [ "$ADAPTER" = openclip ]' in workflow
     assert "actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd" in workflow
     assert "actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c" in workflow
+    assert "astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78" in workflow
+    assert "uv sync --locked" in workflow
+    assert "--extra openclip" in workflow
     upload_artifact = "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
     assert upload_artifact in workflow
     assert upload_artifact in (root / ".github/workflows/release.yml").read_text(encoding="utf-8")

@@ -150,7 +150,7 @@ python scripts/evaluate_visual.py \
   --adapter rapidocr \
   --json-out visual-rapidocr.json
 
-python -m pip install -e '.[test,visual,openclip]'
+uv sync --locked --extra test --extra visual --extra openclip
 python scripts/evaluate_visual.py \
   --cache-dir .cache/dsvire-eval \
   --adapter openclip \
