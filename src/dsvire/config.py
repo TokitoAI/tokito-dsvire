@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 import os
 from collections.abc import Mapping
+from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -172,3 +173,18 @@ class ServiceConfig:
             raise ConfigurationError(
                 "DSVIRE_WORKER_CPU_SECONDS must not exceed DSVIRE_JOB_TIMEOUT_SECONDS"
             )
+
+    def prepare(self) -> None:
+        """Validate configuration and prove the persistent data path is writable."""
+        self.validate()
+        self.data_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+        with suppress(OSError):
+            self.data_dir.chmod(0o700)
+        probe = self.data_dir / f".write-probe-{os.getpid()}"
+        try:
+            with probe.open("xb") as handle:
+                handle.write(b"ready")
+                handle.flush()
+                os.fsync(handle.fileno())
+        finally:
+            probe.unlink(missing_ok=True)

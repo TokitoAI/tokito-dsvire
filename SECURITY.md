@@ -17,6 +17,9 @@ Do not open public issues for undisclosed security problems.
 - Production and staging fail startup unless `DSVIRE_SERVICE_TOKEN` is set to a
   secret of at least 32 bytes. Unauthenticated mode requires both an explicit
   development/test environment and `DSVIRE_ALLOW_INSECURE_DEV=true`.
+- The container's parent process validates authentication configuration and
+  proves the data volume writable before Uvicorn forks. Child startup failure is
+  not relied upon as the container failure signal.
 - Authenticate before accepting or buffering PDF bodies. Keep the service on a
   private network; Tokito Cloud is the public authorization and rate-limit
   boundary.

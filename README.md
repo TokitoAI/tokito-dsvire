@@ -45,7 +45,9 @@ service accepts at most 64 MiB and 2,000 pages per document. Production and
 staging refuse to start without a `DSVIRE_SERVICE_TOKEN` of at least 32 bytes;
 do not expose this private endpoint to desktop clients. CPU-heavy parsing runs
 in a disposable subprocess and admission is bounded before request bodies are
-buffered.
+buffered. The container entrypoint performs configuration and persistent-volume
+preflight in PID 1 before starting Uvicorn workers, so unsafe startup exits
+nonzero for orchestrators and CI.
 
 Local unauthenticated development must be explicit and loopback-only:
 

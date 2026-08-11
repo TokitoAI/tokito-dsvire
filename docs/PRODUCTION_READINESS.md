@@ -12,7 +12,7 @@ the retrieval system, corpus, deployment, or user workflow is production-ready.
 
 | Evidence | Result | Scope / limitation |
 |---|---|---|
-| `python -m pytest -q` on Windows/Python 3.11 | 94 passed, 1 skipped after boundary hardening | Unit/fixture/API tests; not corpus accuracy or load evidence |
+| `python -m pytest -q` on Windows/Python 3.11 | 96 passed, 1 skipped after boundary hardening | Unit/fixture/API tests; not corpus accuracy or load evidence |
 | `python scripts/verify.py 83074fc1265c8e5c6639511b --bundle artifacts/83074fc1265c8e5c6639511b/evidence.json --compiled-only --json` | PASS, 18 findings | One checked-in TPS5430 proof only; no publication/live-service evidence |
 | Local Uvicorn smoke, one worker | readiness 200; unauthenticated evidence request 401; authenticated malformed PDF 422; process and scratch cleaned | Windows process boundary; not Linux container/resource-limit evidence |
 | Main CI before this audit | Green on Python 3.12, package compile, tests, Docker build, health smoke | The old smoke allowed an empty service token and did not test rejection, overload, or worker failure |

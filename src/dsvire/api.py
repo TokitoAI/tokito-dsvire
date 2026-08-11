@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import asyncio
 import hmac
-import os
 from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager, suppress
+from contextlib import asynccontextmanager
 
 from fastapi import APIRouter, FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
@@ -119,18 +118,7 @@ def create_app(config: ServiceConfig | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         active = ServiceConfig.from_env() if config is None else config
-        active.validate()
-        active.data_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
-        with suppress(OSError):
-            active.data_dir.chmod(0o700)
-        probe = active.data_dir / f".write-probe-{os.getpid()}"
-        try:
-            with probe.open("xb") as handle:
-                handle.write(b"ready")
-                handle.flush()
-                os.fsync(handle.fileno())
-        finally:
-            probe.unlink(missing_ok=True)
+        active.prepare()
         application.state.config = active
         application.state.admission = asyncio.Semaphore(active.max_concurrent_jobs)
         yield
