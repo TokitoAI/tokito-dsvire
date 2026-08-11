@@ -102,3 +102,27 @@ wrong-view, and wrong-figure cases per family. Crop coordinates were generated
 from the v0.3.1 baseline and inspected for internal consistency, but every entry
 is deliberately marked `unreviewed`. Therefore none may enter calibration or
 evaluation, and this seed is not accuracy evidence. PDF bytes remain excluded.
+
+Run either frozen comparator against the registry:
+
+```bash
+python scripts/evaluate_visual.py \
+  --cache-dir .cache/dsvire-eval \
+  --adapter text-layout \
+  --json-out visual-text-layout.json
+
+python scripts/evaluate_visual.py \
+  --cache-dir .cache/dsvire-eval \
+  --adapter rapidocr \
+  --json-out visual-rapidocr.json
+```
+
+Use `--offline` once the exact source hashes are cached. The runner binds labels
+from the registry after inference, hashes the registry, adapter implementation,
+model/preprocessing identity, and score map into `score_sha256`, and records
+per-document latency, throughput, peak process RSS, and external cost. Timing
+and memory fields are deliberately excluded from the deterministic score hash.
+
+The committed seed is unreviewed development data. These outputs are comparator
+and operations evidence only: `eligible_for_policy_fitting` remains false, no
+threshold may be calibrated from them, and they cannot authorize publication.
