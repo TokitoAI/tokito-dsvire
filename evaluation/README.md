@@ -95,6 +95,12 @@ calibrated probability. Install it with `tokito-dsvire[visual]`. CI and tagged
 release verification install the visual extra, run a real-engine rendered-crop
 smoke, and audit the fully resolved environment.
 
+The RapidOCR adapter fixes ONNX CPU inference to one intra-op and one inter-op
+thread and quantizes its similarity output to five decimal places. This removes
+the observed one-millionth scheduling jitter from score artifacts; the adapter
+and preprocessing IDs version that contract. Quantization does not make the
+score a probability or relax any held-out acceptance threshold.
+
 `visual_registry.v1.json` seeds this contract with the same three hash-pinned
 official TI development documents used by the identity gate. It records 21
 cases: pinout/table/package positives plus wrong-package, wrong-variant,
