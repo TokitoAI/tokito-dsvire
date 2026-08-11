@@ -1,0 +1,216 @@
+{
+  "schema_version": "dsvire.visual-eval-registry.v1",
+  "documents": [
+    {
+      "id": "ti-tps5430-rev-l-2026-04",
+      "document_group": "ti-tps5430-family",
+      "split": "development",
+      "category": "voltage_regulator",
+      "source": {
+        "url": "https://www.ti.com/lit/ds/symlink/tps5430.pdf",
+        "revision": "Rev. L, April 2026; packaging addendum observed August 2026"
+      },
+      "content_sha256": "3d75dd36979b1790b65f2c41ce91307ffcf69b8984f369354a09ce8b6af84595",
+      "redistribution": "download_only",
+      "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "TPS5430DDAR",
+        "package": "SO-PowerPAD-8"
+      },
+      "review": {
+        "status": "unreviewed",
+        "reviewers": [],
+        "reviewed_at": null,
+        "annotation_revision": "auto-seed-dsvire-baseline@0.3.1"
+      },
+      "cases": [
+        {
+          "id": "pinout-positive",
+          "label": "positive",
+          "region_type": "pinout",
+          "page": 3,
+          "bbox_norm": [0.035, 0.059441, 0.965, 0.399441],
+          "view": "top",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDAR", "package": "SO-PowerPAD-8"},
+          "rationale": "Auto-seeded from the v0.3.1 pinout crop; Figure 4-1 states DDA package top view. Independent review pending."
+        },
+        {
+          "id": "table-positive",
+          "label": "positive",
+          "region_type": "table",
+          "page": 3,
+          "bbox_norm": [0.035, 0.300201, 0.965, 0.720201],
+          "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDAR", "package": "SO-PowerPAD-8"},
+          "rationale": "Auto-seeded from the v0.3.1 Table 4-1 pin-functions crop. Independent review pending."
+        },
+        {
+          "id": "package-positive",
+          "label": "positive",
+          "region_type": "package",
+          "page": 31,
+          "bbox_norm": [0.035, 0.527551, 0.965, 0.687551],
+          "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDAR", "package": "SO-PowerPAD-8"},
+          "rationale": "Auto-seeded from the exact TPS5430DDAR SO PowerPAD DDA 8-pin orderable row. Independent review pending."
+        },
+        {
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "region_type": "package",
+          "page": 31,
+          "bbox_norm": [0.035, 0.527551, 0.965, 0.687551],
+          "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDAR", "package": "TSSOP-8"},
+          "rationale": "The exact orderable row supports SO PowerPAD/DDA, not the adversarial TSSOP-8 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "region_type": "package",
+          "page": 31,
+          "bbox_norm": [0.035, 0.527551, 0.965, 0.687551],
+          "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDARX", "package": "SO-PowerPAD-8"},
+          "rationale": "Token-bounded orderable text supports TPS5430DDAR, not the suffix near-miss TPS5430DDARX. Independent review pending."
+        },
+        {
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "region_type": "pinout",
+          "page": 3,
+          "bbox_norm": [0.035, 0.059441, 0.965, 0.399441],
+          "view": "bottom",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDAR", "package": "SO-PowerPAD-8"},
+          "rationale": "Figure 4-1 is explicitly top view; bottom view is the adversarial orientation. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout",
+          "label": "wrong_figure",
+          "region_type": "pinout",
+          "page": 31,
+          "bbox_norm": [0.035, 0.527551, 0.965, 0.687551],
+          "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "TPS5430DDAR", "package": "SO-PowerPAD-8"},
+          "rationale": "The crop is an orderable-package row, not a pinout figure. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "ti-lm358-rev-ab-2024-10",
+      "document_group": "ti-lm358-family",
+      "split": "development",
+      "category": "operational_amplifier",
+      "source": {
+        "url": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
+        "revision": "Rev. AB, October 2024; packaging addendum observed August 2026"
+      },
+      "content_sha256": "08372f104636d6e88ea1aa697bba46e5afd20cf9ca72dbae63023fbae46c219f",
+      "redistribution": "download_only",
+      "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-dsvire-baseline@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.035, 0.059441, 0.965, 0.399441], "view": "top",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
+          "rationale": "Auto-seeded from Figure 4-1 covering the D SOIC top view. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 3,
+          "bbox_norm": [0.035, 0.462629, 0.965, 0.882629], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
+          "rationale": "Auto-seeded from Table 4-1 pin functions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 39,
+          "bbox_norm": [0.035, 0.609334, 0.965, 0.769334], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
+          "rationale": "Auto-seeded from the exact LM358DR SOIC D 8-pin orderable row. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 39,
+          "bbox_norm": [0.035, 0.609334, 0.965, 0.769334], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "TSSOP-8"},
+          "rationale": "LM358DR is associated with SOIC D, not the adversarial TSSOP-8 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 39,
+          "bbox_norm": [0.035, 0.609334, 0.965, 0.769334], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DRX", "package": "SOIC-8"},
+          "rationale": "The exact row supports LM358DR, not the suffix near-miss LM358DRX. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.035, 0.059441, 0.965, 0.399441], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
+          "rationale": "Figure 4-1 identifies the package drawing as top view; bottom is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 39,
+          "bbox_norm": [0.035, 0.609334, 0.965, 0.769334], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
+          "rationale": "The crop is an orderable-device table, not a pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "ti-ne555-rev-k",
+      "document_group": "ti-xx555-family",
+      "split": "development",
+      "category": "timer",
+      "source": {"url": "https://www.ti.com/lit/ds/symlink/ne555.pdf", "revision": "Rev. K; packaging addendum observed August 2026"},
+      "content_sha256": "3d4a27dad8697cdd8547bbe8228cacaac360768b60b18e6d686d858ca5412dfd",
+      "redistribution": "download_only",
+      "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-dsvire-baseline@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.035, 0.059441, 0.965, 0.399441], "view": "top",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
+          "rationale": "Auto-seeded from the D-package top-view pin configuration. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 3,
+          "bbox_norm": [0.035, 0.322765, 0.965, 0.742765], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
+          "rationale": "Auto-seeded from Table 4-1 pin functions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 21,
+          "bbox_norm": [0.035, 0.487043, 0.965, 0.647043], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
+          "rationale": "Auto-seeded from the exact NE555DR SOIC D 8-pin orderable row. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 21,
+          "bbox_norm": [0.035, 0.487043, 0.965, 0.647043], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "TSSOP-8"},
+          "rationale": "NE555DR is associated with SOIC D, not the adversarial TSSOP-8 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 21,
+          "bbox_norm": [0.035, 0.487043, 0.965, 0.647043], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DRX", "package": "SOIC-8"},
+          "rationale": "The exact row supports NE555DR, not the suffix near-miss NE555DRX. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.035, 0.059441, 0.965, 0.399441], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
+          "rationale": "The D-package diagram is top view; bottom is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 21,
+          "bbox_norm": [0.035, 0.487043, 0.965, 0.647043], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
+          "rationale": "The crop is an orderable-device table, not a pinout. Independent review pending."
+        }
+      ]
+    }
+  ]
+}

@@ -94,3 +94,11 @@ attenuates a structural similarity score; it remains `similarity`, not a
 calibrated probability. Install it with `tokito-dsvire[visual]`. CI and tagged
 release verification install the visual extra, run a real-engine rendered-crop
 smoke, and audit the fully resolved environment.
+
+`visual_registry.v1.json` seeds this contract with the same three hash-pinned
+official TI development documents used by the identity gate. It records 21
+cases: pinout/table/package positives plus wrong-package, wrong-variant,
+wrong-view, and wrong-figure cases per family. Crop coordinates were generated
+from the v0.3.1 baseline and inspected for internal consistency, but every entry
+is deliberately marked `unreviewed`. Therefore none may enter calibration or
+evaluation, and this seed is not accuracy evidence. PDF bytes remain excluded.

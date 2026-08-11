@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 
@@ -221,3 +223,21 @@ def test_adapter_score_set_must_match_registry_exactly() -> None:
     invalid = {**expected, next(iter(expected)): float("nan")}
     with pytest.raises(VisualRegistryError, match="finite"):
         bind_prediction_scores(registry, invalid)
+
+
+def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> None:
+    root = Path(__file__).parents[1]
+    path = root / "evaluation/visual_registry.v1.json"
+    registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
+
+    assert len(registry.documents) == 3
+    assert {document.split for document in registry.documents} == {"development"}
+    assert {document.review.status for document in registry.documents} == {"unreviewed"}
+    assert {document.category for document in registry.documents} == {
+        "voltage_regulator",
+        "operational_amplifier",
+        "timer",
+    }
+    assert all(document.redistribution == "download_only" for document in registry.documents)
+    assert all(len(document.cases) == 7 for document in registry.documents)
+    assert not list((root / "evaluation").glob("*.pdf"))
