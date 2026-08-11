@@ -1,0 +1,116 @@
+{
+  "schema_version": "dsvire.identity-eval-registry.v1",
+  "documents": [
+    {
+      "id": "ti-tps5430-rev-l-2026-04",
+      "document_group": "ti-tps5430-family",
+      "split": "development",
+      "source": {
+        "url": "https://www.ti.com/lit/ds/symlink/tps5430.pdf",
+        "revision": "Rev. L, April 2026; packaging addendum observed August 2026"
+      },
+      "content_sha256": "3d75dd36979b1790b65f2c41ce91307ffcf69b8984f369354a09ce8b6af84595",
+      "redistribution": "download_only",
+      "license_note": "Official Texas Instruments datasheet; URL and hash only, PDF bytes are not redistributed.",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "TPS5430DDAR",
+        "package": "SO-PowerPAD-8"
+      },
+      "negatives": [
+        {
+          "id": "mpn-suffix-near-miss",
+          "identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TPS5430DDARX",
+            "package": "SO-PowerPAD-8"
+          },
+          "expected_error_contains": "exact token-bounded MPN"
+        },
+        {
+          "id": "wrong-package",
+          "identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TPS5430DDAR",
+            "package": "TSSOP-8"
+          },
+          "expected_error_contains": "not associated"
+        }
+      ]
+    },
+    {
+      "id": "ti-lm358-rev-ab-2024-10",
+      "document_group": "ti-lm358-family",
+      "split": "development",
+      "source": {
+        "url": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
+        "revision": "Rev. AB, October 2024; packaging addendum observed August 2026"
+      },
+      "content_sha256": "08372f104636d6e88ea1aa697bba46e5afd20cf9ca72dbae63023fbae46c219f",
+      "redistribution": "download_only",
+      "license_note": "Official Texas Instruments datasheet; URL and hash only, PDF bytes are not redistributed.",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "LM358DR",
+        "package": "SOIC-8"
+      },
+      "negatives": [
+        {
+          "id": "mpn-suffix-near-miss",
+          "identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "LM358DRX",
+            "package": "SOIC-8"
+          },
+          "expected_error_contains": "exact token-bounded MPN"
+        },
+        {
+          "id": "wrong-package",
+          "identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "LM358DR",
+            "package": "TSSOP-8"
+          },
+          "expected_error_contains": "not associated"
+        }
+      ]
+    },
+    {
+      "id": "ti-ne555-rev-k",
+      "document_group": "ti-xx555-family",
+      "split": "development",
+      "source": {
+        "url": "https://www.ti.com/lit/ds/symlink/ne555.pdf",
+        "revision": "Rev. K; packaging addendum observed August 2026"
+      },
+      "content_sha256": "3d4a27dad8697cdd8547bbe8228cacaac360768b60b18e6d686d858ca5412dfd",
+      "redistribution": "download_only",
+      "license_note": "Official Texas Instruments datasheet; URL and hash only, PDF bytes are not redistributed.",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "NE555DR",
+        "package": "SOIC-8"
+      },
+      "negatives": [
+        {
+          "id": "mpn-suffix-near-miss",
+          "identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "NE555DRX",
+            "package": "SOIC-8"
+          },
+          "expected_error_contains": "exact token-bounded MPN"
+        },
+        {
+          "id": "wrong-package",
+          "identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "NE555DR",
+            "package": "TSSOP-8"
+          },
+          "expected_error_contains": "not associated"
+        }
+      ]
+    }
+  ]
+}
