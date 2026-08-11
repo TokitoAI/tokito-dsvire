@@ -66,3 +66,13 @@ positive-coverage gate. This module is evaluation infrastructure, not proof
 that any current model is calibrated and not authorization to enable automated
 publication. The versioned multi-vendor annotations and candidate adapters must
 land and meet the held-out gate first.
+
+`dsvire.visual_registry` owns the corresponding annotation contract. It binds
+each source to an HTTPS revision and SHA-256, keeps document families in one
+split, requires reviewed calibration/evaluation labels with reviewer/time
+provenance, validates normalized page regions and view orientation, and makes
+positive/wrong-package/wrong-variant identity relationships explicit. Every
+document must include positive pinout, table, and package regions plus at least
+one adversarial case. Adapter output is only a map of qualified case IDs to
+scores; labels and splits come from the registry, and missing or injected cases
+are rejected. This prevents a model runner from grading its own predictions.
