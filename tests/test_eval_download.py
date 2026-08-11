@@ -17,6 +17,7 @@ def _fetch(payload: bytes, cache_dir: Path, *, offline: bool = False) -> bytes:
         content_sha256=hashlib.sha256(payload).hexdigest(),
         cache_dir=cache_dir,
         offline=offline,
+        retry_delay_seconds=0,
     )
 
 
@@ -118,9 +119,28 @@ def test_hash_mismatch_removes_partial_download(
         ),
     )
 
-    with pytest.raises(EvaluationDownloadError, match="downloaded SHA-256 mismatch"):
+    with pytest.raises(EvaluationDownloadError, match="mismatch after 3 attempts"):
         _fetch(expected, tmp_path)
     assert list(tmp_path.iterdir()) == []
+
+
+def test_transient_download_hash_mismatch_retries_only_until_exact_bytes(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    expected = b"%PDF-1.7\nexpected"
+    responses = iter([b"%PDF-1.7\nsubstituted", expected])
+    calls = 0
+
+    def respond(*_args: object, **_kwargs: object) -> _Response:
+        nonlocal calls
+        calls += 1
+        return _Response(next(responses), url="https://example.invalid/fixture.pdf")
+
+    monkeypatch.setattr("urllib.request.urlopen", respond)
+
+    assert _fetch(expected, tmp_path) == expected
+    assert calls == 2
+    assert list(tmp_path.glob("*.tmp")) == []
 
 
 def test_declared_oversize_download_is_rejected_before_writing(
