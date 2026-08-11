@@ -84,3 +84,13 @@ implementation source plus exact PyMuPDF version into adapter metadata. It is
 deliberately declared as `similarity`, never visual or calibrated probability.
 Its purpose is to quantify what a real OCR/visual candidate improves and expose
 cases (for example graphical pin maps) where the text baseline abstains.
+
+`dsvire.visual_adapters.RapidOcrAdapter` is the first pixel-reading candidate.
+It renders the registered crop at the bounded production DPI and runs the
+bundled RapidOCR/ONNX Runtime models on those pixels, independent of the PDF
+text layer. Metadata binds the adapter implementation, every bundled ONNX model
+byte, and exact RapidOCR/ONNX Runtime/PyMuPDF versions. OCR confidence only
+attenuates a structural similarity score; it remains `similarity`, not a
+calibrated probability. Install it with `tokito-dsvire[visual]`. CI and tagged
+release verification install the visual extra, run a real-engine rendered-crop
+smoke, and audit the fully resolved environment.

@@ -10,12 +10,17 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import inspect
+from functools import cached_property
 from importlib.metadata import version
+from importlib.resources import files
 from typing import Protocol
 
 from .pipeline import (
     MAX_PAGES,
+    MAX_RENDER_PIXELS,
+    MAX_RENDER_SIDE_PIXELS,
     MAX_TEXT_CHARS_PER_PAGE,
+    RENDER_DPI,
     _contains_exact_mpn,
     _contains_ordered_tokens,
     _contains_phrase,
@@ -24,6 +29,7 @@ from .pipeline import (
 from .visual_registry import VisualCase, VisualDocument
 
 TEXT_LAYOUT_ADAPTER_ID = "dsvire.visual-adapter.text-layout@1.0.0"
+RAPID_OCR_ADAPTER_ID = "dsvire.visual-adapter.rapidocr@1.0.0"
 
 
 class AdapterError(RuntimeError):
@@ -34,6 +40,7 @@ class AdapterError(RuntimeError):
 class AdapterMetadata:
     adapter_id: str
     implementation_sha256: str
+    model_sha256: str | None
     preprocessing_id: str
     score_semantics: str
 
@@ -53,7 +60,7 @@ class TextLayoutAdapter:
     real visual/OCR adapter improves over the production heuristic family.
     """
 
-    @property
+    @cached_property
     def metadata(self) -> AdapterMetadata:
         implementation = "\n".join(
             inspect.getsource(component).replace("\r\n", "\n")
@@ -69,6 +76,7 @@ class TextLayoutAdapter:
         return AdapterMetadata(
             TEXT_LAYOUT_ADAPTER_ID,
             digest,
+            None,
             f"pymupdf-{version('PyMuPDF')}-clip-text-normalized-bbox@1",
             "similarity",
         )
@@ -98,21 +106,138 @@ class TextLayoutAdapter:
         if len(text) > MAX_TEXT_CHARS_PER_PAGE:
             raise AdapterError(f"registered crop text exceeds {MAX_TEXT_CHARS_PER_PAGE} characters")
 
-        if case.region_type == "package":
-            # Manufacturer branding frequently sits outside an orderable-part
-            # row. The identity reconciliation stage owns manufacturer proof;
-            # this crop score asks whether the exact MPN/package pair is here.
-            score = (
-                float(_contains_exact_mpn(text, case.claimed_identity.mpn))
-                + float(_contains_ordered_tokens(text, case.claimed_identity.package))
-            ) / 2
-        else:
-            score, _verified = score_candidate(case.region_type, text)
+        return _semantic_score(text, case)
 
-        if case.view in {"top", "bottom"}:
-            requested_view_present = _contains_phrase(text, f"{case.view} view")
-            score *= float(requested_view_present)
-        return round(min(1.0, max(0.0, score)), 6)
+
+def _semantic_score(text: str, case: VisualCase) -> float:
+    if case.region_type == "package":
+        # Manufacturer branding frequently sits outside an orderable-part row.
+        # Identity reconciliation owns manufacturer proof; this crop score asks
+        # whether the exact MPN/package pair is present.
+        score = (
+            float(_contains_exact_mpn(text, case.claimed_identity.mpn))
+            + float(_contains_ordered_tokens(text, case.claimed_identity.package))
+        ) / 2
+    else:
+        score, _verified = score_candidate(case.region_type, text)
+    if case.view in {"top", "bottom"}:
+        score *= float(_contains_phrase(text, f"{case.view} view"))
+    return round(min(1.0, max(0.0, score)), 6)
+
+
+def _implementation_digest(*components: object) -> str:
+    source = "\n".join(
+        inspect.getsource(component).replace("\r\n", "\n") for component in components
+    ).encode()
+    return hashlib.sha256(source).hexdigest()
+
+
+def _rapidocr_model_digest() -> str:
+    try:
+        model_dir = files("rapidocr").joinpath("models")
+        models = sorted(
+            (item for item in model_dir.iterdir() if item.name.casefold().endswith(".onnx")),
+            key=lambda item: item.name,
+        )
+        if not models:
+            raise AdapterError("RapidOCR package contains no ONNX model files")
+        digest = hashlib.sha256()
+        for model in models:
+            digest.update(model.name.encode())
+            digest.update(model.read_bytes())
+        return digest.hexdigest()
+    except (ImportError, OSError) as exc:
+        raise AdapterError("RapidOCR model files are unavailable") from exc
+
+
+class RapidOcrAdapter:
+    """CPU-capable pixel OCR comparator backed by bundled RapidOCR ONNX models.
+
+    OCR reads the rendered crop, not the PDF text layer. Its confidence only
+    attenuates a structural similarity score; it is not treated as a calibrated
+    probability until a separate held-out calibration policy proves that claim.
+    """
+
+    def __init__(self, engine: object | None = None) -> None:
+        if engine is None:
+            try:
+                from rapidocr import RapidOCR
+            except ImportError as exc:
+                raise AdapterError("install tokito-dsvire[visual] for RapidOCR") from exc
+            engine = RapidOCR()
+        self._engine = engine
+
+    @cached_property
+    def metadata(self) -> AdapterMetadata:
+        return AdapterMetadata(
+            RAPID_OCR_ADAPTER_ID,
+            _implementation_digest(
+                RapidOcrAdapter,
+                _semantic_score,
+                _contains_exact_mpn,
+                _contains_ordered_tokens,
+                _contains_phrase,
+                score_candidate,
+            ),
+            _rapidocr_model_digest(),
+            (
+                f"rapidocr-{version('rapidocr')}-onnxruntime-{version('onnxruntime')}-"
+                f"pymupdf-{version('PyMuPDF')}-rgb-{RENDER_DPI}dpi@1"
+            ),
+            "similarity",
+        )
+
+    def score(self, document: object, case: VisualCase) -> float:
+        page_count = getattr(document, "page_count", 0)
+        if not isinstance(page_count, int) or page_count < 1 or page_count > MAX_PAGES:
+            raise AdapterError(f"PDF page count {page_count} outside 1..={MAX_PAGES}")
+        if case.page > page_count:
+            raise AdapterError(
+                f"case {case.case_id!r} references page {case.page}, PDF has {page_count}"
+            )
+        try:
+            import pymupdf
+
+            page = document.load_page(case.page - 1)
+            x0, y0, x1, y1 = case.bbox_norm
+            width = (x1 - x0) * float(page.rect.width) * RENDER_DPI / 72
+            height = (y1 - y0) * float(page.rect.height) * RENDER_DPI / 72
+            if (
+                width <= 0
+                or height <= 0
+                or width > MAX_RENDER_SIDE_PIXELS
+                or height > MAX_RENDER_SIDE_PIXELS
+                or width * height > MAX_RENDER_PIXELS
+            ):
+                raise AdapterError("registered crop exceeds render safety limit")
+            clip = pymupdf.Rect(
+                x0 * float(page.rect.width),
+                y0 * float(page.rect.height),
+                x1 * float(page.rect.width),
+                y1 * float(page.rect.height),
+            )
+            image = page.get_pixmap(clip=clip, dpi=RENDER_DPI, alpha=False).tobytes("png")
+            result = self._engine(image)
+            texts = tuple(getattr(result, "txts", ()) or ())
+            confidences = tuple(getattr(result, "scores", ()) or ())
+        except AdapterError:
+            raise
+        except Exception as exc:
+            raise AdapterError(f"OCR failed for registered crop {case.case_id!r}") from exc
+        if len(texts) != len(confidences):
+            raise AdapterError("OCR returned mismatched text and confidence arrays")
+        if not texts:
+            return 0.0
+        text = "\n".join(str(value) for value in texts)
+        if len(text) > MAX_TEXT_CHARS_PER_PAGE:
+            raise AdapterError("OCR text exceeds safety limit")
+        weights = [max(1, len(str(value))) for value in texts]
+        confidence = sum(
+            float(score) * weight for score, weight in zip(confidences, weights, strict=True)
+        ) / sum(weights)
+        if not 0 <= confidence <= 1:
+            raise AdapterError("OCR confidence must be within 0..=1")
+        return round(_semantic_score(text, case) * confidence, 6)
 
 
 def score_document(
