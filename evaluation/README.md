@@ -41,3 +41,28 @@ The initial three TI documents are all `development`; their 3/3 positive and
 calibration estimate. Scale the registry toward the planned 500-document,
 2,000-query corpus without changing result-field meanings; new metrics require
 a new result schema version.
+
+## Visual-verifier calibration contract
+
+`dsvire.visual_metrics` is the model-independent policy boundary for the EGVV
+benchmark tracked in TokitoAI/tokito#350. Candidate adapters emit one reviewed
+case score plus its document group, split, and ground-truth error class. The
+metric engine then:
+
+- rejects duplicate cases and document-family leakage across development,
+  calibration, and evaluation;
+- selects a threshold only from the calibration split, maximizing positive
+  coverage subject to zero accepted wrong-package/variant cases and the 2%
+  verified-path wrong-visual ceiling;
+- freezes the model digest, preprocessing version, dataset digest, metric
+  version, threshold, score semantics, and coverage floor into a hashed policy;
+- applies that policy unchanged to evaluation and reports coverage, wrong-case
+  counts/rates, and AURC;
+- reports Brier score and 10-bin ECE only when an adapter explicitly supplies
+  probabilities. Similarity scores never receive probability metric names.
+
+The abstain-all threshold is a valid safe output but cannot pass the default
+positive-coverage gate. This module is evaluation infrastructure, not proof
+that any current model is calibrated and not authorization to enable automated
+publication. The versioned multi-vendor annotations and candidate adapters must
+land and meet the held-out gate first.
