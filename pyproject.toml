@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tokito-dsvire"
-version = "0.1.1"
+version = "0.2.0"
 description = "Figure-level evidence retrieval for semiconductor datasheets"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
