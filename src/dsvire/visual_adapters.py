@@ -10,9 +10,11 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import inspect
+import io
 from functools import cached_property
 from importlib.metadata import version
 from importlib.resources import files
+from pathlib import Path
 from typing import Protocol
 
 from .pipeline import (
@@ -30,6 +32,15 @@ from .visual_registry import VisualCase, VisualDocument
 
 TEXT_LAYOUT_ADAPTER_ID = "dsvire.visual-adapter.text-layout@1.0.0"
 RAPID_OCR_ADAPTER_ID = "dsvire.visual-adapter.rapidocr@1.1.0"
+OPENCLIP_ADAPTER_ID = "dsvire.visual-adapter.openclip-vit-b-32@1.0.0"
+OPENCLIP_MODEL_NAME = "ViT-B-32"
+OPENCLIP_MODEL_REVISION = "1a25a446712ba5ee05982a381eed697ef9b435cf"
+OPENCLIP_MODEL_SHA256 = "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6"
+OPENCLIP_MODEL_BYTES = 605_143_316
+OPENCLIP_MODEL_URL = (
+    "https://huggingface.co/laion/CLIP-ViT-B-32-laion2B-s34B-b79K/resolve/"
+    f"{OPENCLIP_MODEL_REVISION}/open_clip_model.safetensors"
+)
 
 
 class AdapterError(RuntimeError):
@@ -200,35 +211,8 @@ class RapidOcrAdapter:
         )
 
     def score(self, document: object, case: VisualCase) -> float:
-        page_count = getattr(document, "page_count", 0)
-        if not isinstance(page_count, int) or page_count < 1 or page_count > MAX_PAGES:
-            raise AdapterError(f"PDF page count {page_count} outside 1..={MAX_PAGES}")
-        if case.page > page_count:
-            raise AdapterError(
-                f"case {case.case_id!r} references page {case.page}, PDF has {page_count}"
-            )
         try:
-            import pymupdf
-
-            page = document.load_page(case.page - 1)
-            x0, y0, x1, y1 = case.bbox_norm
-            width = (x1 - x0) * float(page.rect.width) * RENDER_DPI / 72
-            height = (y1 - y0) * float(page.rect.height) * RENDER_DPI / 72
-            if (
-                width <= 0
-                or height <= 0
-                or width > MAX_RENDER_SIDE_PIXELS
-                or height > MAX_RENDER_SIDE_PIXELS
-                or width * height > MAX_RENDER_PIXELS
-            ):
-                raise AdapterError("registered crop exceeds render safety limit")
-            clip = pymupdf.Rect(
-                x0 * float(page.rect.width),
-                y0 * float(page.rect.height),
-                x1 * float(page.rect.width),
-                y1 * float(page.rect.height),
-            )
-            image = page.get_pixmap(clip=clip, dpi=RENDER_DPI, alpha=False).tobytes("png")
+            image = _render_registered_crop(document, case)
             result = self._engine(image)
             texts = tuple(getattr(result, "txts", ()) or ())
             confidences = tuple(getattr(result, "scores", ()) or ())
@@ -250,6 +234,149 @@ class RapidOcrAdapter:
         if not 0 <= confidence <= 1:
             raise AdapterError("OCR confidence must be within 0..=1")
         return _stable_rapidocr_score(_semantic_score(text, case) * confidence)
+
+
+def _render_registered_crop(document: object, case: VisualCase) -> bytes:
+    page_count = getattr(document, "page_count", 0)
+    if not isinstance(page_count, int) or page_count < 1 or page_count > MAX_PAGES:
+        raise AdapterError(f"PDF page count {page_count} outside 1..={MAX_PAGES}")
+    if case.page > page_count:
+        raise AdapterError(
+            f"case {case.case_id!r} references page {case.page}, PDF has {page_count}"
+        )
+    try:
+        import pymupdf
+
+        page = document.load_page(case.page - 1)
+        x0, y0, x1, y1 = case.bbox_norm
+        width = (x1 - x0) * float(page.rect.width) * RENDER_DPI / 72
+        height = (y1 - y0) * float(page.rect.height) * RENDER_DPI / 72
+        if (
+            width <= 0
+            or height <= 0
+            or width > MAX_RENDER_SIDE_PIXELS
+            or height > MAX_RENDER_SIDE_PIXELS
+            or width * height > MAX_RENDER_PIXELS
+        ):
+            raise AdapterError("registered crop exceeds render safety limit")
+        clip = pymupdf.Rect(
+            x0 * float(page.rect.width),
+            y0 * float(page.rect.height),
+            x1 * float(page.rect.width),
+            y1 * float(page.rect.height),
+        )
+        return page.get_pixmap(clip=clip, dpi=RENDER_DPI, alpha=False).tobytes("png")
+    except AdapterError:
+        raise
+    except Exception as exc:
+        raise AdapterError(f"failed to render registered crop {case.case_id!r}") from exc
+
+
+def _openclip_prompt(case: VisualCase) -> str:
+    region = {
+        "pinout": "pin configuration diagram",
+        "table": "pin functions table",
+        "package": "orderable package table row",
+    }[case.region_type]
+    orientation = "" if case.view in {"not_applicable", "unknown"} else f", {case.view} view"
+    identity = case.claimed_identity
+    return (
+        f"semiconductor datasheet {region} for {identity.manufacturer} "
+        f"{identity.mpn}, package {identity.package}{orientation}"
+    )
+
+
+class _OpenClipBackend:
+    """Pinned local OpenCLIP inference; construction performs no downloads."""
+
+    def __init__(self, model_path: Path) -> None:
+        try:
+            import open_clip
+            import torch
+        except ImportError as exc:
+            raise AdapterError("install tokito-dsvire[openclip] for OpenCLIP") from exc
+        if not model_path.is_file():
+            raise AdapterError(f"OpenCLIP model file does not exist: {model_path}")
+        if model_path.stat().st_size != OPENCLIP_MODEL_BYTES:
+            raise AdapterError("OpenCLIP model size does not match the pinned artifact")
+        with model_path.open("rb") as source:
+            digest = hashlib.file_digest(source, "sha256").hexdigest()
+        if digest != OPENCLIP_MODEL_SHA256:
+            raise AdapterError("OpenCLIP model SHA-256 does not match the pinned artifact")
+        torch.set_num_threads(1)
+        try:
+            torch.set_num_interop_threads(1)
+        except RuntimeError:
+            if torch.get_num_interop_threads() != 1:
+                raise AdapterError(
+                    "OpenCLIP CPU inter-op thread policy could not be applied"
+                ) from None
+        model, _, preprocess = open_clip.create_model_and_transforms(
+            OPENCLIP_MODEL_NAME,
+            pretrained=str(model_path),
+            device="cpu",
+        )
+        self._torch = torch
+        self._model = model.eval()
+        self._preprocess = preprocess
+        self._tokenizer = open_clip.get_tokenizer(OPENCLIP_MODEL_NAME)
+
+    def similarity(self, png: bytes, prompt: str) -> float:
+        try:
+            from PIL import Image
+
+            with Image.open(io.BytesIO(png)) as source:
+                image = self._preprocess(source.convert("RGB")).unsqueeze(0)
+            text = self._tokenizer([prompt])
+            with self._torch.inference_mode():
+                image_features = self._model.encode_image(image)
+                text_features = self._model.encode_text(text)
+                image_features /= image_features.norm(dim=-1, keepdim=True)
+                text_features /= text_features.norm(dim=-1, keepdim=True)
+                cosine = float((image_features @ text_features.T).item())
+        except Exception as exc:
+            raise AdapterError("OpenCLIP inference failed") from exc
+        if not -1.000001 <= cosine <= 1.000001:
+            raise AdapterError("OpenCLIP cosine similarity is outside -1..=1")
+        return min(1.0, max(0.0, (cosine + 1.0) / 2.0))
+
+
+class OpenClipAdapter:
+    """Rendered-pixel image/text comparator backed by a pinned OpenCLIP model."""
+
+    def __init__(self, model_path: Path, backend: object | None = None) -> None:
+        self._model_path = model_path
+        self._backend = _OpenClipBackend(model_path) if backend is None else backend
+
+    @cached_property
+    def metadata(self) -> AdapterMetadata:
+        return AdapterMetadata(
+            OPENCLIP_ADAPTER_ID,
+            _implementation_digest(
+                OpenClipAdapter,
+                _OpenClipBackend,
+                _openclip_prompt,
+                _render_registered_crop,
+            ),
+            OPENCLIP_MODEL_SHA256,
+            (
+                f"open-clip-torch-{version('open_clip_torch')}-torch-{version('torch')}-"
+                f"pillow-{version('Pillow')}-pymupdf-{version('PyMuPDF')}-"
+                f"{OPENCLIP_MODEL_NAME.lower()}-cpu-single-thread-rgb-{RENDER_DPI}dpi-"
+                "prompt-v1-score-5dp@1"
+            ),
+            "similarity",
+        )
+
+    def score(self, document: object, case: VisualCase) -> float:
+        png = _render_registered_crop(document, case)
+        similarity = getattr(self._backend, "similarity", None)
+        if not callable(similarity):
+            raise AdapterError("OpenCLIP backend does not implement similarity")
+        value = float(similarity(png, _openclip_prompt(case)))
+        if not 0 <= value <= 1:
+            raise AdapterError("OpenCLIP similarity must be within 0..=1")
+        return round(value, 5)
 
 
 def score_document(

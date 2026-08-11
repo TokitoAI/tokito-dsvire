@@ -1,0 +1,17 @@
+{
+  "schema_version": "dsvire.visual-model-registry.v1",
+  "models": [
+    {
+      "id": "openclip-vit-b-32-laion2b-s34b-b79k",
+      "architecture": "ViT-B-32",
+      "implementation": "open_clip_torch",
+      "source_url": "https://huggingface.co/laion/CLIP-ViT-B-32-laion2B-s34B-b79K/resolve/1a25a446712ba5ee05982a381eed697ef9b435cf/open_clip_model.safetensors",
+      "source_revision": "1a25a446712ba5ee05982a381eed697ef9b435cf",
+      "content_sha256": "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6",
+      "content_bytes": 605143316,
+      "license": "MIT",
+      "redistribution": "download_only",
+      "terms_note": "LAION OpenCLIP ViT-B-32 model artifact. The benchmark records provenance and downloads exact bytes on operator request; Tokito does not redistribute the weights."
+    }
+  ]
+}

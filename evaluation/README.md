@@ -101,6 +101,27 @@ the observed one-millionth scheduling jitter from score artifacts; the adapter
 and preprocessing IDs version that contract. Quantization does not make the
 score a probability or relax any held-out acceptance threshold.
 
+`dsvire.visual_adapters.OpenClipAdapter` is the first maintained visual-encoder
+comparator. It renders the same bounded crops and compares them with a
+registry-derived image/text prompt using OpenCLIP ViT-B-32. The LAION model
+revision, 605,143,316-byte safetensors artifact, SHA-256, license, and
+download-only handling are frozen in `visual_models.v1.json` and asserted
+against the adapter constants in CI. The adapter accepts only that local,
+hash-verified file and never asks OpenCLIP or Hugging Face to download weights.
+Inference is CPU-only, single-threaded, and five-decimal quantized. Its cosine
+mapping remains `similarity`; it is not a calibrated probability and cannot
+by itself verify an alphanumeric orderable-part identity.
+
+Two independent Windows CPU executions over the three-family seed produced the
+same score digest,
+`dae68875ad4952fdc7e96d35c893fb8ccb22a8239e61d8cbd5b2d5c95bccb0ff`.
+The cached run took 6.13 seconds at 1.05 GB peak RSS; the first run took 76.20
+seconds at 772 MB peak RSS because first-use CPU kernel setup dominated its
+first document. Positive mean similarity was 0.65395, while wrong-variant mean
+similarity was 0.64261 and wrong-view mean similarity was higher at 0.66903.
+This is decisive rejection evidence for standalone identity/orientation use,
+not a threshold candidate. OCR/exact-token reconciliation remains necessary.
+
 `visual_registry.v1.json` seeds this contract with the same three hash-pinned
 official TI development documents used by the identity gate. It records 21
 cases: pinout/table/package positives plus wrong-package, wrong-variant,
@@ -109,7 +130,7 @@ from the v0.3.1 baseline and inspected for internal consistency, but every entry
 is deliberately marked `unreviewed`. Therefore none may enter calibration or
 evaluation, and this seed is not accuracy evidence. PDF bytes remain excluded.
 
-Run either frozen comparator against the registry:
+Run a frozen comparator against the registry:
 
 ```bash
 python scripts/evaluate_visual.py \
@@ -121,6 +142,12 @@ python scripts/evaluate_visual.py \
   --cache-dir .cache/dsvire-eval \
   --adapter rapidocr \
   --json-out visual-rapidocr.json
+
+python -m pip install -e '.[test,visual,openclip]'
+python scripts/evaluate_visual.py \
+  --cache-dir .cache/dsvire-eval \
+  --adapter openclip \
+  --json-out visual-openclip.json
 ```
 
 Use `--offline` once the exact source hashes are cached. The runner binds labels

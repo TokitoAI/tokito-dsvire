@@ -11,6 +11,7 @@ on:
         options:
           - text-layout
           - rapidocr
+          - openclip
 
 permissions:
   contents: read
@@ -30,7 +31,12 @@ jobs:
           python-version: '3.12'
           cache: pip
       - name: Install frozen benchmark runtime
-        run: python -m pip install -e '.[test,visual]'
+        env:
+          ADAPTER: ${{ inputs.adapter }}
+        run: |
+          extras='test,visual'
+          if [ "$ADAPTER" = openclip ]; then extras="$extras,openclip"; fi
+          python -m pip install -e ".[${extras}]"
       - name: Audit resolved benchmark environment
         run: |
           python -m pip uninstall -y tokito-dsvire
