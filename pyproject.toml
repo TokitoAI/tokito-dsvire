@@ -70,3 +70,7 @@ untyped_calls_exclude = ["pymupdf"]
 [[tool.mypy.overrides]]
 module = ["open_clip", "torch"]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["numpy", "numpy.*"]
+follow_imports = "skip"

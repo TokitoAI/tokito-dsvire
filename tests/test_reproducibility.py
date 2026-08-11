@@ -23,6 +23,10 @@ def test_universal_lock_covers_every_supported_environment() -> None:
     ]:
         assert f'name = "{package}"' in lock
 
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert 'python_version = "3.11"' in pyproject
+    assert 'module = ["numpy", "numpy.*"]\nfollow_imports = "skip"' in pyproject
+
 
 def test_container_runtime_export_is_exact_and_hash_pinned() -> None:
     runtime_lock = (ROOT / "requirements/runtime.lock").read_text(encoding="utf-8")
