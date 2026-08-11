@@ -82,10 +82,7 @@ def test_bbox_norm_invariants(fixture_path: Path) -> None:
 def test_required_verified_regions_present(fixture_path: Path) -> None:
     doc = json.loads(fixture_path.read_text(encoding="utf-8"))
     for required in REQUIRED_REGION_TYPES:
-        matches = [
-            r for r in doc["regions"]
-            if r["type"] == required and r["verified"] is True
-        ]
+        matches = [r for r in doc["regions"] if r["type"] == required and r["verified"] is True]
         assert matches, (
             f"{fixture_path.name}: at least one verified region of type "
             f"{required!r} is required by dsvire.symbol-evidence.v1"

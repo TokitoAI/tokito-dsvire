@@ -23,9 +23,9 @@ import dataclasses
 import hashlib
 import json
 import re
-from enum import Enum
+from collections.abc import Iterable
+from enum import StrEnum
 from pathlib import Path
-from typing import Iterable
 
 import jsonschema
 
@@ -41,7 +41,8 @@ SCHEMA_PROVENANCE = SCHEMA_DIR / "provenance_record_v1.schema.json"
 # Result types
 # ---------------------------------------------------------------------------
 
-class Outcome(str, Enum):
+
+class Outcome(StrEnum):
     PASS = "PASS"
     FAIL = "FAIL"
     MISSING = "MISSING"  # artifact not yet produced by upstream stage
@@ -80,6 +81,7 @@ class Report:
 # Loaders
 # ---------------------------------------------------------------------------
 
+
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -94,6 +96,7 @@ def load_schema(path: Path) -> jsonschema.Draft202012Validator:
 # Pure checks
 # ---------------------------------------------------------------------------
 
+
 def verify_evidence_bundle(bundle: dict) -> list[Finding]:
     """Structural + semantic checks on a dsvire.symbol-evidence.v1 document."""
     v = load_schema(SCHEMA_EVIDENCE)
@@ -101,41 +104,48 @@ def verify_evidence_bundle(bundle: dict) -> list[Finding]:
 
     errors = sorted(v.iter_errors(bundle), key=lambda e: e.absolute_path)
     if errors:
-        findings.append(Finding(
-            "evidence.schema",
-            Outcome.FAIL,
-            "; ".join(f"{'/'.join(map(str, e.absolute_path))}: {e.message}" for e in errors),
-        ))
+        findings.append(
+            Finding(
+                "evidence.schema",
+                Outcome.FAIL,
+                "; ".join(f"{'/'.join(map(str, e.absolute_path))}: {e.message}" for e in errors),
+            )
+        )
         return findings
     findings.append(Finding("evidence.schema", Outcome.PASS, "matches dsvire.symbol-evidence.v1"))
 
     # Required verified region types.
     for required in ("pinout", "table"):
-        matches = [r for r in bundle["regions"]
-                   if r["type"] == required and r["verified"] is True]
+        matches = [r for r in bundle["regions"] if r["type"] == required and r["verified"] is True]
         outcome = Outcome.PASS if matches else Outcome.FAIL
-        findings.append(Finding(
-            f"evidence.has_verified_{required}",
-            outcome,
-            f"{len(matches)} verified {required} region(s)",
-        ))
+        findings.append(
+            Finding(
+                f"evidence.has_verified_{required}",
+                outcome,
+                f"{len(matches)} verified {required} region(s)",
+            )
+        )
 
     # bbox ordering.
     for r in bundle["regions"]:
         x0, y0, x1, y1 = r["bbox_norm"]
         if not (x0 < x1 and y0 < y1):
-            findings.append(Finding(
-                "evidence.bbox_ordered",
-                Outcome.FAIL,
-                f"{r['region_id']}: bbox_norm not strictly increasing",
-            ))
+            findings.append(
+                Finding(
+                    "evidence.bbox_ordered",
+                    Outcome.FAIL,
+                    f"{r['region_id']}: bbox_norm not strictly increasing",
+                )
+            )
             break
     else:
-        findings.append(Finding(
-            "evidence.bbox_ordered",
-            Outcome.PASS,
-            "all bbox_norm entries strictly x0<x1, y0<y1",
-        ))
+        findings.append(
+            Finding(
+                "evidence.bbox_ordered",
+                Outcome.PASS,
+                "all bbox_norm entries strictly x0<x1, y0<y1",
+            )
+        )
 
     return findings
 
@@ -147,31 +157,39 @@ def verify_symbol_spec(spec: dict, bundle: dict) -> list[Finding]:
 
     errors = sorted(v.iter_errors(spec), key=lambda e: e.absolute_path)
     if errors:
-        findings.append(Finding(
-            "spec.schema",
-            Outcome.FAIL,
-            "; ".join(f"{'/'.join(map(str, e.absolute_path))}: {e.message}" for e in errors),
-        ))
+        findings.append(
+            Finding(
+                "spec.schema",
+                Outcome.FAIL,
+                "; ".join(f"{'/'.join(map(str, e.absolute_path))}: {e.message}" for e in errors),
+            )
+        )
         return findings
     findings.append(Finding("spec.schema", Outcome.PASS, "matches tokito.symbol-spec.v1"))
 
     # Identity cross-check.
     if spec["manufacturer"] != bundle["datasheet"]["manufacturer"]:
-        findings.append(Finding(
-            "spec.manufacturer_matches_bundle",
-            Outcome.FAIL,
-            f"spec={spec['manufacturer']!r} bundle={bundle['datasheet']['manufacturer']!r}",
-        ))
+        findings.append(
+            Finding(
+                "spec.manufacturer_matches_bundle",
+                Outcome.FAIL,
+                f"spec={spec['manufacturer']!r} bundle={bundle['datasheet']['manufacturer']!r}",
+            )
+        )
     else:
-        findings.append(Finding("spec.manufacturer_matches_bundle", Outcome.PASS, spec["manufacturer"]))
+        findings.append(
+            Finding("spec.manufacturer_matches_bundle", Outcome.PASS, spec["manufacturer"])
+        )
 
     for field in ("mpn", "package"):
         if spec[field] != bundle["datasheet"][field]:
-            findings.append(Finding(
-                f"spec.{field}_matches_bundle",
-                Outcome.FAIL,
-                f"spec={spec[field]!r} bundle={bundle['datasheet'][field]!r}",
-            ))
+            findings.append(
+                Finding(
+                    f"spec.{field}_matches_bundle",
+                    Outcome.FAIL,
+                    f"spec={spec[field]!r} bundle={bundle['datasheet'][field]!r}",
+                )
+            )
         else:
             findings.append(Finding(f"spec.{field}_matches_bundle", Outcome.PASS, spec[field]))
 
@@ -183,86 +201,112 @@ def verify_symbol_spec(spec: dict, bundle: dict) -> list[Finding]:
             if rid not in bundle_regions:
                 orphans.append(f"{pin['number']}({pin['name']})→{rid}")
     if orphans:
-        findings.append(Finding(
-            "spec.evidence_regions_present",
-            Outcome.FAIL,
-            "pin(s) reference regions not in the bundle: " + ", ".join(orphans),
-        ))
+        findings.append(
+            Finding(
+                "spec.evidence_regions_present",
+                Outcome.FAIL,
+                "pin(s) reference regions not in the bundle: " + ", ".join(orphans),
+            )
+        )
     else:
-        findings.append(Finding(
-            "spec.evidence_regions_present",
-            Outcome.PASS,
-            f"all {sum(len(p['evidence_region_ids']) for p in spec['pins'])} references resolved",
-        ))
+        findings.append(
+            Finding(
+                "spec.evidence_regions_present",
+                Outcome.PASS,
+                f"all {sum(len(p['evidence_region_ids']) for p in spec['pins'])} references resolved",
+            )
+        )
 
     # Provenance must match the source bundle identity.
     if spec["provenance"]["evidence_datasheet_id"] != bundle["datasheet"]["id"]:
-        findings.append(Finding(
-            "spec.provenance_datasheet_matches",
-            Outcome.FAIL,
-            f"spec={spec['provenance']['evidence_datasheet_id']!r} "
-            f"bundle={bundle['datasheet']['id']!r}",
-        ))
+        findings.append(
+            Finding(
+                "spec.provenance_datasheet_matches",
+                Outcome.FAIL,
+                f"spec={spec['provenance']['evidence_datasheet_id']!r} "
+                f"bundle={bundle['datasheet']['id']!r}",
+            )
+        )
     else:
-        findings.append(Finding(
-            "spec.provenance_datasheet_matches",
-            Outcome.PASS,
-            spec["provenance"]["evidence_datasheet_id"],
-        ))
+        findings.append(
+            Finding(
+                "spec.provenance_datasheet_matches",
+                Outcome.PASS,
+                spec["provenance"]["evidence_datasheet_id"],
+            )
+        )
 
     if spec["provenance"]["evidence_content_sha256"] != bundle["datasheet"]["content_sha256"]:
-        findings.append(Finding(
-            "spec.provenance_content_hash_matches",
-            Outcome.FAIL,
-            "extractor's provenance sha256 diverges from bundle datasheet sha256",
-        ))
+        findings.append(
+            Finding(
+                "spec.provenance_content_hash_matches",
+                Outcome.FAIL,
+                "extractor's provenance sha256 diverges from bundle datasheet sha256",
+            )
+        )
     else:
-        findings.append(Finding(
-            "spec.provenance_content_hash_matches",
-            Outcome.PASS,
-            "extractor recorded exact bundle sha256",
-        ))
+        findings.append(
+            Finding(
+                "spec.provenance_content_hash_matches",
+                Outcome.PASS,
+                "extractor recorded exact bundle sha256",
+            )
+        )
 
     # Duplicate pin numbers only allowed on jumper devices — the spec itself
     # does not carry the SymbolFlags jumper bit (that's on the compiled Symbol),
     # so at this layer we require uniqueness.
     numbers = [p["number"] for p in spec["pins"]]
     if len(numbers) != len(set(numbers)):
-        findings.append(Finding(
-            "spec.pin_numbers_unique",
-            Outcome.FAIL,
-            "duplicate pin numbers in spec (jumpers must be encoded on the compiled Symbol, not here)",
-        ))
+        findings.append(
+            Finding(
+                "spec.pin_numbers_unique",
+                Outcome.FAIL,
+                "duplicate pin numbers in spec (jumpers must be encoded on the compiled Symbol, not here)",
+            )
+        )
     else:
-        findings.append(Finding(
-            "spec.pin_numbers_unique",
-            Outcome.PASS,
-            f"{len(numbers)} unique pin number(s)",
-        ))
+        findings.append(
+            Finding(
+                "spec.pin_numbers_unique",
+                Outcome.PASS,
+                f"{len(numbers)} unique pin number(s)",
+            )
+        )
 
     # Confidence floor (per CONTRACTS.md §2 rules: <0.6 aborts the whole spec).
     low = [p for p in spec["pins"] if p["confidence"] < 0.6]
     if low:
-        findings.append(Finding(
-            "spec.pin_confidence_floor",
-            Outcome.FAIL,
-            f"{len(low)} pin(s) below 0.6 confidence floor: "
-            + ", ".join(f"{p['number']}({p['name']})={p['confidence']}" for p in low),
-        ))
+        findings.append(
+            Finding(
+                "spec.pin_confidence_floor",
+                Outcome.FAIL,
+                f"{len(low)} pin(s) below 0.6 confidence floor: "
+                + ", ".join(f"{p['number']}({p['name']})={p['confidence']}" for p in low),
+            )
+        )
     else:
-        findings.append(Finding(
-            "spec.pin_confidence_floor",
-            Outcome.PASS,
-            "all pins ≥ 0.6 confidence",
-        ))
+        findings.append(
+            Finding(
+                "spec.pin_confidence_floor",
+                Outcome.PASS,
+                "all pins ≥ 0.6 confidence",
+            )
+        )
 
     return findings
 
 
 # Canonical properties the compiler must emit into every .tokito_sym.
 REQUIRED_SYMBOL_PROPERTIES = (
-    "Reference", "Value", "Datasheet", "Description",
-    "Footprint", "MPN", "Manufacturer", "package",
+    "Reference",
+    "Value",
+    "Datasheet",
+    "Description",
+    "Footprint",
+    "MPN",
+    "Manufacturer",
+    "package",
 )
 
 
@@ -287,38 +331,45 @@ def verify_symbol_file(symbol_path: Path, spec: dict) -> list[Finding]:
 
     missing_props = [p for p in REQUIRED_SYMBOL_PROPERTIES if _property_present(text, p) is False]
     if missing_props:
-        findings.append(Finding(
-            "symbol.canonical_properties",
-            Outcome.FAIL,
-            f"missing property key(s): {', '.join(missing_props)}",
-        ))
+        findings.append(
+            Finding(
+                "symbol.canonical_properties",
+                Outcome.FAIL,
+                f"missing property key(s): {', '.join(missing_props)}",
+            )
+        )
     else:
-        findings.append(Finding(
-            "symbol.canonical_properties",
-            Outcome.PASS,
-            f"all {len(REQUIRED_SYMBOL_PROPERTIES)} canonical property keys present",
-        ))
+        findings.append(
+            Finding(
+                "symbol.canonical_properties",
+                Outcome.PASS,
+                f"all {len(REQUIRED_SYMBOL_PROPERTIES)} canonical property keys present",
+            )
+        )
 
-    for field, expected in (("MPN", spec["mpn"]),
-                            ("Manufacturer", spec["manufacturer"])):
+    for field, expected in (("MPN", spec["mpn"]), ("Manufacturer", spec["manufacturer"])):
         value = _property_value(text, field)
         outcome = Outcome.PASS if value == expected else Outcome.FAIL
-        findings.append(Finding(
-            f"symbol.{field.lower()}_literal",
-            outcome,
-            f"{field}={value!r} expected={expected!r}",
-        ))
+        findings.append(
+            Finding(
+                f"symbol.{field.lower()}_literal",
+                outcome,
+                f"{field}={value!r} expected={expected!r}",
+            )
+        )
 
     # The native compiler's canonical property is lowercase `package`.
     pkg_value = _property_value(text, "package")
     if pkg_value == spec["package"]:
         findings.append(Finding("symbol.package_literal", Outcome.PASS, pkg_value))
     else:
-        findings.append(Finding(
-            "symbol.package_literal",
-            Outcome.FAIL,
-            f"package={pkg_value!r} expected={spec['package']!r}",
-        ))
+        findings.append(
+            Finding(
+                "symbol.package_literal",
+                Outcome.FAIL,
+                f"package={pkg_value!r} expected={spec['package']!r}",
+            )
+        )
 
     return findings
 
@@ -347,67 +398,84 @@ def verify_provenance(provenance: dict, bundle: dict, spec: dict) -> list[Findin
 
     errors = sorted(v.iter_errors(provenance), key=lambda e: e.absolute_path)
     if errors:
-        findings.append(Finding(
-            "provenance.schema",
-            Outcome.FAIL,
-            "; ".join(f"{'/'.join(map(str, e.absolute_path))}: {e.message}" for e in errors),
-        ))
+        findings.append(
+            Finding(
+                "provenance.schema",
+                Outcome.FAIL,
+                "; ".join(f"{'/'.join(map(str, e.absolute_path))}: {e.message}" for e in errors),
+            )
+        )
         return findings
-    findings.append(Finding("provenance.schema", Outcome.PASS, "matches tokito.provenance-record.v1"))
+    findings.append(
+        Finding("provenance.schema", Outcome.PASS, "matches tokito.provenance-record.v1")
+    )
 
     if provenance["part_id"]["mpn"] != spec["mpn"]:
-        findings.append(Finding(
-            "provenance.mpn_matches_spec",
-            Outcome.FAIL,
-            f"provenance={provenance['part_id']['mpn']} spec={spec['mpn']}",
-        ))
+        findings.append(
+            Finding(
+                "provenance.mpn_matches_spec",
+                Outcome.FAIL,
+                f"provenance={provenance['part_id']['mpn']} spec={spec['mpn']}",
+            )
+        )
     else:
         findings.append(Finding("provenance.mpn_matches_spec", Outcome.PASS, spec["mpn"]))
 
     if provenance["part_id"]["package"] != spec["package"]:
-        findings.append(Finding(
-            "provenance.package_matches_spec",
-            Outcome.FAIL,
-            f"provenance={provenance['part_id']['package']} spec={spec['package']}",
-        ))
+        findings.append(
+            Finding(
+                "provenance.package_matches_spec",
+                Outcome.FAIL,
+                f"provenance={provenance['part_id']['package']} spec={spec['package']}",
+            )
+        )
     else:
         findings.append(Finding("provenance.package_matches_spec", Outcome.PASS, spec["package"]))
 
     bundle_regions = {r["region_id"] for r in bundle["regions"]}
-    orphans = [rid for rid in provenance["evidence"]["region_ids"]
-               if rid not in bundle_regions]
+    orphans = [rid for rid in provenance["evidence"]["region_ids"] if rid not in bundle_regions]
     if orphans:
-        findings.append(Finding(
-            "provenance.regions_present_in_bundle",
-            Outcome.FAIL,
-            f"provenance references regions not in bundle: {', '.join(orphans)}",
-        ))
+        findings.append(
+            Finding(
+                "provenance.regions_present_in_bundle",
+                Outcome.FAIL,
+                f"provenance references regions not in bundle: {', '.join(orphans)}",
+            )
+        )
     else:
-        findings.append(Finding(
-            "provenance.regions_present_in_bundle",
-            Outcome.PASS,
-            f"all {len(provenance['evidence']['region_ids'])} region ids in bundle",
-        ))
+        findings.append(
+            Finding(
+                "provenance.regions_present_in_bundle",
+                Outcome.PASS,
+                f"all {len(provenance['evidence']['region_ids'])} region ids in bundle",
+            )
+        )
 
     if provenance["evidence"]["content_sha256"] != bundle["datasheet"]["content_sha256"]:
-        findings.append(Finding(
-            "provenance.content_hash_matches_bundle",
-            Outcome.FAIL,
-            "provenance datasheet sha256 diverges from source bundle",
-        ))
+        findings.append(
+            Finding(
+                "provenance.content_hash_matches_bundle",
+                Outcome.FAIL,
+                "provenance datasheet sha256 diverges from source bundle",
+            )
+        )
     else:
-        findings.append(Finding(
-            "provenance.content_hash_matches_bundle",
-            Outcome.PASS,
-            "provenance recorded exact bundle sha256",
-        ))
+        findings.append(
+            Finding(
+                "provenance.content_hash_matches_bundle",
+                Outcome.PASS,
+                "provenance recorded exact bundle sha256",
+            )
+        )
 
     if provenance["status"] != "published":
-        findings.append(Finding(
-            "provenance.status_published",
-            Outcome.FAIL,
-            f"revision is {provenance['status']!r}, demo requires 'published'",
-        ))
+        findings.append(
+            Finding(
+                "provenance.status_published",
+                Outcome.FAIL,
+                f"revision is {provenance['status']!r}, demo requires 'published'",
+            )
+        )
     else:
         findings.append(Finding("provenance.status_published", Outcome.PASS, "published"))
 
@@ -430,42 +498,52 @@ def verify_resolved_symbol(resolved: dict, spec: dict) -> list[Finding]:
     required = ("lib", "name", "body")
     missing = [k for k in required if k not in resolved]
     if missing:
-        return [Finding(
-            "resolved.shape",
-            Outcome.FAIL,
-            f"missing required key(s): {', '.join(missing)}",
-        )]
+        return [
+            Finding(
+                "resolved.shape",
+                Outcome.FAIL,
+                f"missing required key(s): {', '.join(missing)}",
+            )
+        ]
     findings.append(Finding("resolved.shape", Outcome.PASS, "top-level keys present"))
 
     if not resolved["lib"].startswith("generated:"):
-        findings.append(Finding(
-            "resolved.lib_generated_namespace",
-            Outcome.FAIL,
-            f"lib={resolved['lib']!r} — generated symbols must live under generated:*",
-        ))
+        findings.append(
+            Finding(
+                "resolved.lib_generated_namespace",
+                Outcome.FAIL,
+                f"lib={resolved['lib']!r} — generated symbols must live under generated:*",
+            )
+        )
     else:
-        findings.append(Finding(
-            "resolved.lib_generated_namespace",
-            Outcome.PASS,
-            resolved["lib"],
-        ))
+        findings.append(
+            Finding(
+                "resolved.lib_generated_namespace",
+                Outcome.PASS,
+                resolved["lib"],
+            )
+        )
 
     resolved_pin_numbers = {p["number"] for p in resolved["body"].get("pins", [])}
     spec_pin_numbers = {p["number"] for p in spec["pins"]}
     if not spec_pin_numbers.issubset(resolved_pin_numbers):
         missing_pins = sorted(spec_pin_numbers - resolved_pin_numbers)
-        findings.append(Finding(
-            "resolved.pins_superset_of_spec",
-            Outcome.FAIL,
-            f"resolved symbol is missing pin(s): {', '.join(missing_pins)}",
-        ))
+        findings.append(
+            Finding(
+                "resolved.pins_superset_of_spec",
+                Outcome.FAIL,
+                f"resolved symbol is missing pin(s): {', '.join(missing_pins)}",
+            )
+        )
     else:
-        findings.append(Finding(
-            "resolved.pins_superset_of_spec",
-            Outcome.PASS,
-            f"{len(spec_pin_numbers)} spec pins all present in resolved symbol "
-            f"({len(resolved_pin_numbers)} total)",
-        ))
+        findings.append(
+            Finding(
+                "resolved.pins_superset_of_spec",
+                Outcome.PASS,
+                f"{len(spec_pin_numbers)} spec pins all present in resolved symbol "
+                f"({len(resolved_pin_numbers)} total)",
+            )
+        )
 
     return findings
 
@@ -473,6 +551,7 @@ def verify_resolved_symbol(resolved: dict, spec: dict) -> list[Finding]:
 # ---------------------------------------------------------------------------
 # End-to-end aggregator
 # ---------------------------------------------------------------------------
+
 
 @dataclasses.dataclass(frozen=True)
 class ArtifactPaths:
@@ -488,11 +567,15 @@ def verify_slice(paths: ArtifactPaths, *, require_publication: bool = True) -> R
     findings: list[Finding] = []
 
     if not paths.bundle.exists():
-        return Report((Finding(
-            "evidence.file_exists",
-            Outcome.MISSING,
-            f"{paths.bundle} not found; run scripts/build_fixture.py",
-        ),))
+        return Report(
+            (
+                Finding(
+                    "evidence.file_exists",
+                    Outcome.MISSING,
+                    f"{paths.bundle} not found; run scripts/build_fixture.py",
+                ),
+            )
+        )
     bundle = load_json(paths.bundle)
     findings.extend(verify_evidence_bundle(bundle))
 
@@ -503,25 +586,31 @@ def verify_slice(paths: ArtifactPaths, *, require_publication: bool = True) -> R
         if paths.provenance.exists():
             findings.extend(verify_provenance(load_json(paths.provenance), bundle, spec))
         elif require_publication:
-            findings.append(Finding(
-                "provenance.file_exists",
-                Outcome.MISSING,
-                f"{paths.provenance} not written; run the ingest + resolve stages",
-            ))
+            findings.append(
+                Finding(
+                    "provenance.file_exists",
+                    Outcome.MISSING,
+                    f"{paths.provenance} not written; run the ingest + resolve stages",
+                )
+            )
         if paths.resolved.exists():
             findings.extend(verify_resolved_symbol(load_json(paths.resolved), spec))
         elif require_publication:
-            findings.append(Finding(
-                "resolved.file_exists",
-                Outcome.MISSING,
-                f"{paths.resolved} not written; run the resolve_by_mpn stage",
-            ))
+            findings.append(
+                Finding(
+                    "resolved.file_exists",
+                    Outcome.MISSING,
+                    f"{paths.resolved} not written; run the resolve_by_mpn stage",
+                )
+            )
     else:
-        findings.append(Finding(
-            "spec.file_exists",
-            Outcome.MISSING,
-            f"{paths.spec} not written; run the extract stage",
-        ))
+        findings.append(
+            Finding(
+                "spec.file_exists",
+                Outcome.MISSING,
+                f"{paths.spec} not written; run the extract stage",
+            )
+        )
 
     return Report(tuple(findings))
 
@@ -529,6 +618,7 @@ def verify_slice(paths: ArtifactPaths, *, require_publication: bool = True) -> R
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+
 
 def _paths_for(slug: str, artifacts_root: Path, bundle: Path | None = None) -> ArtifactPaths:
     art = artifacts_root / slug
@@ -547,6 +637,7 @@ def _sha256_bytes(data: bytes) -> str:
 
 def main(argv: Iterable[str] | None = None) -> int:
     import argparse
+
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("slug", help="fixture slug, e.g. tps5430ddar")
     ap.add_argument(

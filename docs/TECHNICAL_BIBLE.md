@@ -539,6 +539,25 @@ Release train (code):
 | OCR / captions | Untrusted input; schema-constrained tools |
 | Model licenses | Track in NOTICE |
 
+### 11.1 Hosted baseline enforcement
+
+The private hosted baseline fails startup unless a service bearer of at least
+32 bytes is configured. Unauthenticated execution is restricted to an explicit
+development/test mode and must bind to loopback. Authentication occurs before
+the request body is buffered.
+
+PDF parsing and rendering run in a disposable spawned process rather than the
+API process. The API applies bounded admission, a wall-clock deadline, and
+termination on timeout or cancellation. Linux workers additionally receive
+CPU, address-space, output-file, descriptor, and core-dump resource limits.
+Persistent evidence packs use an exact-input/identity/version cache key, keyed
+file locking, integrity checks, staging directories, and atomic publication.
+
+These controls are a parser containment baseline, not a claim that arbitrary
+PDFs are safe. Production deployment must also enforce container CPU, memory,
+PID, filesystem, and network policy and maintain a parser vulnerability-update
+process. See [`PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md).
+
 ---
 
 ## 12. Roadmap (public)
@@ -616,5 +635,6 @@ Release train (code):
 | 0.1 | 2026-08-03 | Initial architecture from research synthesis |
 | 0.2 | 2026-08-03 | Public cleanup; Mermaid node ID fixes; internal product plans removed |
 | 0.3 | 2026-08-08 | Tokito symbol product integration (§4.6); provenance/publication rules (§13.9–10); roadmap items for evidence-bundle contract and end-to-end generated-symbol slice; sample JSON `bbox_norm` naming |
+| 0.4 | 2026-08-11 | Fail-closed hosted authentication, bounded admission, isolated PDF workers, resource limits, and atomic evidence-pack publication (§11.1) |
 
 Update this file in the same PR as architecture or SLO changes.

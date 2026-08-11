@@ -35,8 +35,8 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = REPO_ROOT / "fixtures" / "evidence"
@@ -46,6 +46,7 @@ ARTIFACTS_ROOT = REPO_ROOT / "artifacts"
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
+
 
 @dataclasses.dataclass(frozen=True)
 class Config:
@@ -59,7 +60,7 @@ class Config:
     generated_db: str | None
 
     @classmethod
-    def from_env(cls, env: dict[str, str] | None = None) -> "Config":
+    def from_env(cls, env: dict[str, str] | None = None) -> Config:
         e = env if env is not None else os.environ
         return cls(
             extract_cmd=e.get("TOKITO_EXTRACT_CMD", "tokito-symbol-extractor"),
@@ -76,6 +77,7 @@ class Config:
 # ---------------------------------------------------------------------------
 # Stage errors
 # ---------------------------------------------------------------------------
+
 
 class StageError(RuntimeError):
     """Raised when a stage cannot proceed. Bubbles up with a clear message."""
@@ -113,6 +115,7 @@ def _run(command: str, /, **kwargs) -> subprocess.CompletedProcess:
 # Stages
 # ---------------------------------------------------------------------------
 
+
 def stage_extract(cfg: Config, bundle_path: Path, out_dir: Path) -> Path:
     _require_tool(cfg.extract_cmd)
     out = out_dir / "spec.json"
@@ -120,7 +123,8 @@ def stage_extract(cfg: Config, bundle_path: Path, out_dir: Path) -> Path:
         f"{cfg.extract_cmd} extract "
         f"--evidence {shlex.quote(str(bundle_path))} "
         f"--out {shlex.quote(str(out))}",
-        capture_output=True, text=True,
+        capture_output=True,
+        text=True,
     )
     if not out.exists():
         raise StageError(f"extract stage did not produce {out}")
@@ -131,10 +135,9 @@ def stage_compile(cfg: Config, spec_path: Path, out_dir: Path) -> Path:
     _require_tool(cfg.compile_cmd)
     out = out_dir / "symbol.tokito_sym"
     _run(
-        f"{cfg.compile_cmd} "
-        f"--spec {shlex.quote(str(spec_path))} "
-        f"--out {shlex.quote(str(out))}",
-        capture_output=True, text=True,
+        f"{cfg.compile_cmd} --spec {shlex.quote(str(spec_path))} --out {shlex.quote(str(out))}",
+        capture_output=True,
+        text=True,
     )
     if not out.exists():
         raise StageError(f"compile stage did not produce {out}")
@@ -148,9 +151,7 @@ def stage_ingest(
     out_dir: Path,
 ) -> Path:
     if not cfg.tokito_ai_token:
-        raise StageError(
-            "TOKITO_AI_TOKEN is not set; ingest requires an authenticated JWT."
-        )
+        raise StageError("TOKITO_AI_TOKEN is not set; ingest requires an authenticated JWT.")
     payload = {
         "spec": json.loads(spec_path.read_text(encoding="utf-8")),
         "evidence": json.loads(bundle_path.read_text(encoding="utf-8")),
@@ -176,7 +177,8 @@ def stage_sync(cfg: Config) -> None:
             "sync requires TOKITO_MCP_DB (served symbols.sqlite) and "
             "TOKITO_GENERATED_DB (tokito-ai generated.sqlite)"
         )
-    command = shlex.split(cfg.mcp_pack_cmd) + [
+    command = [
+        *shlex.split(cfg.mcp_pack_cmd),
         "generated",
         "--db",
         cfg.mcp_db,
@@ -336,7 +338,13 @@ def stage_provenance(cfg: Config, revision_id: str, out_dir: Path) -> Path:
 # ---------------------------------------------------------------------------
 
 STAGE_ORDER = (
-    "extract", "compile", "ingest", "sync", "resolve", "provenance", "verify",
+    "extract",
+    "compile",
+    "ingest",
+    "sync",
+    "resolve",
+    "provenance",
+    "verify",
 )
 
 
@@ -382,6 +390,7 @@ def run(slug: str, cfg: Config, artifacts_root: Path, stages: Iterable[str]) -> 
             elif stage == "verify":
                 sys.path.insert(0, str(REPO_ROOT / "scripts"))
                 import verify as v  # local import: avoids startup cost
+
                 paths = v.ArtifactPaths(
                     bundle=bundle_path,
                     spec=out_dir / "spec.json",

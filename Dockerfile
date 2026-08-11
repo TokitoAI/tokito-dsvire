@@ -15,4 +15,4 @@ USER dsvire
 EXPOSE 8081
 HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
   CMD python -c 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8081/v1/health", timeout=2)' || exit 1
-CMD ["uvicorn", "dsvire.api:app", "--host", "0.0.0.0", "--port", "8081", "--workers", "2", "--no-access-log"]
+CMD ["uvicorn", "dsvire.api:app", "--host", "0.0.0.0", "--port", "8081", "--workers", "2", "--limit-concurrency", "32", "--timeout-keep-alive", "5", "--no-access-log"]

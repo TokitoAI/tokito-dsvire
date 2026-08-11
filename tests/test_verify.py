@@ -12,14 +12,11 @@ import copy
 import sys
 from pathlib import Path
 
-import pytest
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 import verify  # noqa: E402
 from verify import Outcome  # noqa: E402
-
 
 # ---------------------------------------------------------------------------
 # Baselines matching CONTRACTS.md exactly
@@ -152,10 +149,20 @@ RESOLVED: dict = {
 }
 
 
-def _bundle() -> dict: return copy.deepcopy(BUNDLE)
-def _spec() -> dict: return copy.deepcopy(SPEC)
-def _provenance() -> dict: return copy.deepcopy(PROVENANCE)
-def _resolved() -> dict: return copy.deepcopy(RESOLVED)
+def _bundle() -> dict:
+    return copy.deepcopy(BUNDLE)
+
+
+def _spec() -> dict:
+    return copy.deepcopy(SPEC)
+
+
+def _provenance() -> dict:
+    return copy.deepcopy(PROVENANCE)
+
+
+def _resolved() -> dict:
+    return copy.deepcopy(RESOLVED)
 
 
 def _find(findings: list[verify.Finding], check_id: str) -> verify.Finding:
@@ -168,6 +175,7 @@ def _find(findings: list[verify.Finding], check_id: str) -> verify.Finding:
 # ---------------------------------------------------------------------------
 # Evidence bundle
 # ---------------------------------------------------------------------------
+
 
 def test_bundle_baseline_passes() -> None:
     findings = verify.verify_evidence_bundle(_bundle())
@@ -198,6 +206,7 @@ def test_bundle_rejects_extra_top_field() -> None:
 # ---------------------------------------------------------------------------
 # Symbol spec
 # ---------------------------------------------------------------------------
+
 
 def test_spec_baseline_passes() -> None:
     findings = verify.verify_symbol_spec(_spec(), _bundle())
@@ -311,7 +320,8 @@ def test_symbol_file_rejects_missing_manufacturer_property(tmp_path: Path) -> No
     p = tmp_path / "symbol.tokito_sym"
     p.write_text(
         "\n".join(
-            line for line in TOKITO_SYM_VALID_MINIMAL.splitlines()
+            line
+            for line in TOKITO_SYM_VALID_MINIMAL.splitlines()
             if 'property "Manufacturer"' not in line
         ),
         encoding="utf-8",
@@ -336,6 +346,7 @@ def test_symbol_file_rejects_wrong_package(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 # Provenance record
 # ---------------------------------------------------------------------------
+
 
 def test_provenance_baseline_passes() -> None:
     findings = verify.verify_provenance(_provenance(), _bundle(), _spec())
@@ -388,6 +399,7 @@ def test_provenance_schema_rejects_bad_status_value() -> None:
 # Resolved symbol (MCP response)
 # ---------------------------------------------------------------------------
 
+
 def test_resolved_baseline_passes() -> None:
     findings = verify.verify_resolved_symbol(_resolved(), _spec())
     assert all(f.ok for f in findings), findings
@@ -418,6 +430,7 @@ def test_resolved_rejects_shape_missing_body() -> None:
 # End-to-end aggregator
 # ---------------------------------------------------------------------------
 
+
 def test_verify_slice_missing_stages_reports_missing(tmp_path: Path) -> None:
     bundle_path = tmp_path / "bundle.json"
     bundle_path.write_text(__import__("json").dumps(_bundle()), encoding="utf-8")
@@ -436,6 +449,7 @@ def test_verify_slice_missing_stages_reports_missing(tmp_path: Path) -> None:
 
 def test_verify_slice_full_happy_path(tmp_path: Path) -> None:
     import json as _json
+
     (tmp_path / "bundle.json").write_text(_json.dumps(_bundle()), encoding="utf-8")
     (tmp_path / "spec.json").write_text(_json.dumps(_spec()), encoding="utf-8")
     (tmp_path / "symbol.tokito_sym").write_text(TOKITO_SYM_VALID_MINIMAL, encoding="utf-8")
@@ -449,6 +463,4 @@ def test_verify_slice_full_happy_path(tmp_path: Path) -> None:
         resolved=tmp_path / "resolved.json",
     )
     report = verify.verify_slice(paths)
-    assert report.ok, [
-        (f.check_id, f.outcome.value, f.detail) for f in report.findings if not f.ok
-    ]
+    assert report.ok, [(f.check_id, f.outcome.value, f.detail) for f in report.findings if not f.ok]

@@ -13,24 +13,45 @@ import dataclasses
 import hashlib
 import io
 import json
+import os
 import re
+import shutil
+import tempfile
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
+
+from filelock import FileLock
+from filelock import Timeout as FileLockTimeout
 
 MAX_PDF_BYTES = 64 * 1024 * 1024
 MAX_PAGES = 2_000
 MAX_TEXT_CHARS_PER_PAGE = 250_000
 RENDER_DPI = 220
+MAX_RENDER_SIDE_PIXELS = 12_000
+MAX_RENDER_PIXELS = 40_000_000
 INDEX_VERSION = "dsvire-baseline@0.1.0"
 MODEL_IDS = ["pymupdf-layout-text@1"]
+PACK_LOCK_TIMEOUT_SECONDS = 60
 
 PINOUT_TERMS = (
-    "pinout", "pin out", "pin configuration", "terminal configuration",
-    "top view", "bottom view", "ball map", "pin assignment",
+    "pinout",
+    "pin out",
+    "pin configuration",
+    "terminal configuration",
+    "top view",
+    "bottom view",
+    "ball map",
+    "pin assignment",
 )
 PIN_TABLE_TERMS = (
-    "pin functions", "pin function", "pin description", "terminal functions",
-    "terminal function", "pin name", "signal name",
+    "pin functions",
+    "pin function",
+    "pin description",
+    "terminal functions",
+    "terminal function",
+    "pin name",
+    "signal name",
 )
 TABLE_HEADER_TERMS = ("description", "function", "type", "name", "pin")
 PIN_TOKEN = re.compile(
@@ -133,7 +154,9 @@ def _extract_blocks(page: Any) -> list[TextBlock]:
     return blocks
 
 
-def _candidate_for_page(kind: str, page_index: int, page: Any, blocks: list[TextBlock]) -> Candidate | None:
+def _candidate_for_page(
+    kind: str, page_index: int, page: Any, blocks: list[TextBlock]
+) -> Candidate | None:
     page_rect = page.rect
     terms = PINOUT_TERMS if kind == "pinout" else PIN_TABLE_TERMS
     anchors = [block for block in blocks if _term_hits(block.text, terms)]
@@ -151,9 +174,7 @@ def _candidate_for_page(kind: str, page_index: int, page: Any, blocks: list[Text
     bottom = min(page_h, max(anchor.bbox[3] + page_h * 0.16, top + height))
     bbox = (page_w * 0.035, top, page_w * 0.965, bottom)
     nearby = "\n".join(
-        block.text
-        for block in blocks
-        if block.bbox[3] >= top and block.bbox[1] <= bottom
+        block.text for block in blocks if block.bbox[3] >= top and block.bbox[1] <= bottom
     )
     score, verified = score_candidate(kind, nearby)
     return Candidate(
@@ -192,13 +213,29 @@ def _bbox_norm(candidate: Candidate, page: Any) -> list[float]:
     width = float(page.rect.width)
     height = float(page.rect.height)
     x0, y0, x1, y1 = candidate.bbox
-    return [round(x0 / width, 6), round(y0 / height, 6), round(x1 / width, 6), round(y1 / height, 6)]
+    return [
+        round(x0 / width, 6),
+        round(y0 / height, 6),
+        round(x1 / width, 6),
+        round(y1 / height, 6),
+    ]
 
 
 def _render_crop(page: Any, bbox: tuple[float, float, float, float]) -> bytes:
     import pymupdf
     from PIL import Image
 
+    x0, y0, x1, y1 = bbox
+    pixel_width = (x1 - x0) * RENDER_DPI / 72.0
+    pixel_height = (y1 - y0) * RENDER_DPI / 72.0
+    if (
+        pixel_width <= 0
+        or pixel_height <= 0
+        or pixel_width > MAX_RENDER_SIDE_PIXELS
+        or pixel_height > MAX_RENDER_SIDE_PIXELS
+        or pixel_width * pixel_height > MAX_RENDER_PIXELS
+    ):
+        raise RetrievalError("candidate crop exceeds render safety limit")
     pix = page.get_pixmap(clip=pymupdf.Rect(*bbox), dpi=RENDER_DPI, alpha=False)
     # PyMuPDF does not provide a WebP encoder on all supported builds. Encode
     # a lossless PNG in-memory first, then use Pillow's consistently packaged
@@ -209,7 +246,71 @@ def _render_crop(page: Any, bbox: tuple[float, float, float, float]) -> bytes:
     return output.getvalue()
 
 
-def retrieve_symbol_evidence(pdf_bytes: bytes, identity: DatasheetIdentity, output_root: Path) -> dict[str, Any]:
+def _artifact_id(content_sha256: str, identity: DatasheetIdentity) -> str:
+    """Key cached evidence by bytes, exact identity, and retrieval implementation."""
+    key = {
+        "content_sha256": content_sha256,
+        "manufacturer": identity.manufacturer.strip(),
+        "mpn": identity.mpn.strip(),
+        "package": identity.package.strip(),
+        "index_version": INDEX_VERSION,
+        "model_ids": MODEL_IDS,
+    }
+    encoded = json.dumps(key, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()[:32]
+
+
+def _load_cached_bundle(
+    pack_dir: Path, identity: DatasheetIdentity, digest: str
+) -> dict[str, Any] | None:
+    manifest = pack_dir / "evidence.json"
+    if not manifest.is_file():
+        return None
+    try:
+        bundle = json.loads(manifest.read_text(encoding="utf-8"))
+        datasheet = bundle["datasheet"]
+        retrieval = bundle["retrieval"]
+        if (
+            bundle["schema_version"] != "dsvire.symbol-evidence.v1"
+            or datasheet["content_sha256"] != digest
+            or datasheet["manufacturer"] != identity.manufacturer.strip()
+            or datasheet["mpn"] != identity.mpn.strip()
+            or datasheet["package"] != identity.package.strip()
+            or retrieval["index_version"] != INDEX_VERSION
+            or retrieval["model_ids"] != MODEL_IDS
+        ):
+            return None
+        regions = bundle["regions"]
+        if not isinstance(regions, list) or len(regions) != 2:
+            return None
+        expected_regions = {"r_pinout_01": "pinout", "r_pin_table_01": "table"}
+        seen: set[str] = set()
+        for region in regions:
+            if not isinstance(region, dict):
+                return None
+            region_id = region.get("region_id")
+            if (
+                region_id not in expected_regions
+                or region.get("type") != expected_regions[region_id]
+                or region_id in seen
+                or region.get("crop_uri") != f"dsvire://pack/{pack_dir.name}/{region_id}.webp"
+            ):
+                return None
+            seen.add(region_id)
+            crop_path = pack_dir / "crops" / f"{region['region_id']}.webp"
+            crop = crop_path.read_bytes()
+            if region["content_hash"] != f"sha256:{hashlib.sha256(crop).hexdigest()}":
+                return None
+        if seen != set(expected_regions):
+            return None
+        return bundle
+    except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def retrieve_symbol_evidence(
+    pdf_bytes: bytes, identity: DatasheetIdentity, output_root: Path
+) -> dict[str, Any]:
     """Retrieve verified pinout + pin-table evidence from exact PDF bytes."""
     identity.validate()
     if len(pdf_bytes) < 8 or len(pdf_bytes) > MAX_PDF_BYTES:
@@ -223,57 +324,83 @@ def retrieve_symbol_evidence(pdf_bytes: bytes, identity: DatasheetIdentity, outp
         raise RetrievalError("PyMuPDF is required; install tokito-dsvire") from exc
 
     digest = hashlib.sha256(pdf_bytes).hexdigest()
-    pack_id = digest[:24]
+    pack_id = _artifact_id(digest, identity)
+    output_root.mkdir(parents=True, exist_ok=True, mode=0o700)
+    lock_dir = output_root / ".locks"
+    lock_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
     pack_dir = output_root / pack_id
-    crop_dir = pack_dir / "crops"
-    crop_dir.mkdir(parents=True, exist_ok=True)
-
+    lock = FileLock(lock_dir / f"{pack_id}.lock", timeout=PACK_LOCK_TIMEOUT_SECONDS)
     try:
-        document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
-    except Exception as exc:
-        raise RetrievalError(f"PDF parser rejected input: {exc}") from exc
-    try:
-        if document.needs_pass:
-            raise RetrievalError("encrypted PDFs are not accepted")
-        candidates = _best_candidates(document)
-        regions = []
-        for kind, query_id in (("pinout", "q_pinout"), ("table", "q_pin_table")):
-            candidate = candidates[kind]
-            page = document.load_page(candidate.page_index)
-            crop = _render_crop(page, candidate.bbox)
-            region_id = "r_pinout_01" if kind == "pinout" else "r_pin_table_01"
-            crop_path = crop_dir / f"{region_id}.webp"
-            crop_path.write_bytes(crop)
-            regions.append({
-                "region_id": region_id,
-                "type": kind,
-                "page": candidate.page_index + 1,
-                "bbox_norm": _bbox_norm(candidate, page),
-                "crop_uri": f"dsvire://pack/{pack_id}/{region_id}.webp",
-                "content_hash": f"sha256:{hashlib.sha256(crop).hexdigest()}",
-                "verified": True,
-                "verify_confidence": candidate.score,
-                "caption": candidate.caption,
-            })
-    finally:
-        document.close()
+        with lock:
+            cached = _load_cached_bundle(pack_dir, identity, digest)
+            if cached is not None:
+                return cached
 
-    bundle = {
-        "schema_version": "dsvire.symbol-evidence.v1",
-        "datasheet": {
-            "id": f"ds_sha256_{pack_id}",
-            "content_sha256": digest,
-            "manufacturer": identity.manufacturer.strip(),
-            "mpn": identity.mpn.strip(),
-            "package": identity.package.strip(),
-        },
-        "regions": regions,
-        "retrieval": {
-            "index_version": INDEX_VERSION,
-            "model_ids": MODEL_IDS,
-            "query_ids": ["q_pinout", "q_pin_table"],
-        },
-    }
-    manifest_path = pack_dir / "evidence.json"
-    manifest_path.write_text(json.dumps(bundle, indent=2) + "\n", encoding="utf-8")
-    return bundle
+            staging = Path(tempfile.mkdtemp(prefix=f".{pack_id}-", dir=output_root))
+            try:
+                crop_dir = staging / "crops"
+                crop_dir.mkdir(mode=0o700)
+                try:
+                    document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
+                except Exception as exc:
+                    raise RetrievalError("PDF parser rejected input") from exc
+                try:
+                    if document.needs_pass:
+                        raise RetrievalError("encrypted PDFs are not accepted")
+                    candidates = _best_candidates(document)
+                    regions = []
+                    for kind in ("pinout", "table"):
+                        candidate = candidates[kind]
+                        page = document.load_page(candidate.page_index)
+                        crop = _render_crop(page, candidate.bbox)
+                        region_id = "r_pinout_01" if kind == "pinout" else "r_pin_table_01"
+                        crop_path = crop_dir / f"{region_id}.webp"
+                        crop_path.write_bytes(crop)
+                        regions.append(
+                            {
+                                "region_id": region_id,
+                                "type": kind,
+                                "page": candidate.page_index + 1,
+                                "bbox_norm": _bbox_norm(candidate, page),
+                                "crop_uri": f"dsvire://pack/{pack_id}/{region_id}.webp",
+                                "content_hash": f"sha256:{hashlib.sha256(crop).hexdigest()}",
+                                "verified": True,
+                                "verify_confidence": candidate.score,
+                                "caption": candidate.caption,
+                            }
+                        )
+                finally:
+                    document.close()
+
+                bundle = {
+                    "schema_version": "dsvire.symbol-evidence.v1",
+                    "datasheet": {
+                        "id": f"ds_sha256_{digest[:24]}",
+                        "content_sha256": digest,
+                        "manufacturer": identity.manufacturer.strip(),
+                        "mpn": identity.mpn.strip(),
+                        "package": identity.package.strip(),
+                    },
+                    "regions": regions,
+                    "retrieval": {
+                        "index_version": INDEX_VERSION,
+                        "model_ids": MODEL_IDS,
+                        "query_ids": ["q_pinout", "q_pin_table"],
+                    },
+                }
+                (staging / "evidence.json").write_text(
+                    json.dumps(bundle, indent=2) + "\n", encoding="utf-8"
+                )
+                if pack_dir.exists():
+                    corrupt = output_root / f".{pack_id}.corrupt"
+                    if corrupt.exists():
+                        shutil.rmtree(corrupt)
+                    os.replace(pack_dir, corrupt)
+                    shutil.rmtree(corrupt)
+                os.replace(staging, pack_dir)
+                return bundle
+            finally:
+                if staging.exists():
+                    shutil.rmtree(staging)
+    except FileLockTimeout as exc:
+        raise RetrievalError("evidence pack is busy; retry the request") from exc

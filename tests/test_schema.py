@@ -65,11 +65,13 @@ def _base() -> dict:
 
 # ----- positive baseline ---------------------------------------------------
 
+
 def test_baseline_document_is_valid(validator) -> None:
     validator.validate(_base())
 
 
 # ----- top-level rules -----------------------------------------------------
+
 
 def test_rejects_unknown_top_level_field(validator) -> None:
     doc = _base()
@@ -101,6 +103,7 @@ def test_rejects_empty_regions(validator) -> None:
 
 # ----- datasheet -----------------------------------------------------------
 
+
 def test_rejects_unknown_datasheet_field(validator) -> None:
     doc = _base()
     doc["datasheet"]["extra"] = "no"
@@ -123,6 +126,7 @@ def test_rejects_uppercase_sha256(validator) -> None:
 
 
 # ----- region --------------------------------------------------------------
+
 
 def test_rejects_unknown_region_field(validator) -> None:
     doc = _base()
@@ -194,6 +198,7 @@ def test_accepts_optional_caption(validator) -> None:
 
 
 # ----- retrieval -----------------------------------------------------------
+
 
 def test_rejects_empty_model_ids(validator) -> None:
     doc = _base()

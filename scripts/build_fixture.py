@@ -25,11 +25,10 @@ import json
 import subprocess
 import sys
 import tempfile
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Sequence
 
 from PIL import Image
-
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = REPO_ROOT / "fixtures" / "evidence"
@@ -44,6 +43,7 @@ CWEBP_ARGS = ("-lossless", "-z", "9", "-m", "6", "-quiet")
 # ---------------------------------------------------------------------------
 # Recipe types
 # ---------------------------------------------------------------------------
+
 
 @dataclasses.dataclass(frozen=True)
 class RegionRecipe:
@@ -134,6 +134,7 @@ RECIPES: dict[str, FixtureRecipe] = {
 # Build helpers
 # ---------------------------------------------------------------------------
 
+
 def sha256_file(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as f:
@@ -153,8 +154,7 @@ def download_pdf(url: str, expected_sha256: str, cache_dir: Path) -> Path:
     if not dest.exists():
         tmp = dest.with_suffix(".pdf.part")
         subprocess.run(
-            ["curl", "--fail", "--silent", "--show-error", "--location",
-             "--output", str(tmp), url],
+            ["curl", "--fail", "--silent", "--show-error", "--location", "--output", str(tmp), url],
             check=True,
         )
         got = sha256_file(tmp)
@@ -177,8 +177,18 @@ def render_page(pdf: Path, page: int, dpi: int, out_dir: Path) -> Path:
     """Render one PDF page to PNG via pdftoppm at a fixed DPI."""
     prefix = out_dir / f"p{page:04d}"
     subprocess.run(
-        ["pdftoppm", "-r", str(dpi), "-f", str(page), "-l", str(page),
-         "-png", str(pdf), str(prefix)],
+        [
+            "pdftoppm",
+            "-r",
+            str(dpi),
+            "-f",
+            str(page),
+            "-l",
+            str(page),
+            "-png",
+            str(pdf),
+            str(prefix),
+        ],
         check=True,
     )
     # pdftoppm emits <prefix>-<page>.png with variable zero-padding across
@@ -189,18 +199,17 @@ def render_page(pdf: Path, page: int, dpi: int, out_dir: Path) -> Path:
     return matches[0]
 
 
-def crop_region(page_png: Path, bbox_norm: tuple[float, float, float, float],
-                dest: Path) -> None:
+def crop_region(page_png: Path, bbox_norm: tuple[float, float, float, float], dest: Path) -> None:
     """Crop by normalized bbox, encode as lossless WebP via cwebp for determinism."""
     with Image.open(page_png) as img:
         w, h = img.size
         x0, y0, x1, y1 = bbox_norm
         # Round inward to keep the crop inside the page pixel grid.
         px = (
-            int(round(x0 * w)),
-            int(round(y0 * h)),
-            int(round(x1 * w)),
-            int(round(y1 * h)),
+            round(x0 * w),
+            round(y0 * h),
+            round(x1 * w),
+            round(y1 * h),
         )
         crop = img.crop(px)
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tf:

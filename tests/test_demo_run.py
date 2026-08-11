@@ -8,7 +8,6 @@ we verify the runner fails loudly and cleanly instead of silently.
 
 from __future__ import annotations
 
-import io
 import sys
 from pathlib import Path
 
@@ -33,14 +32,16 @@ def test_config_from_env_defaults() -> None:
 
 
 def test_config_from_env_overrides() -> None:
-    cfg = demo_run.Config.from_env({
-        "TOKITO_EXTRACT_CMD": "cargo run --manifest-path ../tokito-ai/Cargo.toml --bin sx --",
-        "TOKITO_AI_URL": "https://api.tokito.dev",
-        "TOKITO_AI_TOKEN": "jwt-xxx",
-        "TOKITO_MCP_URL": "https://mcp.tokito.dev/mcp",
-        "TOKITO_MCP_DB": "/srv/tokito/symbols.sqlite",
-        "TOKITO_GENERATED_DB": "/srv/tokito/generated.sqlite",
-    })
+    cfg = demo_run.Config.from_env(
+        {
+            "TOKITO_EXTRACT_CMD": "cargo run --manifest-path ../tokito-ai/Cargo.toml --bin sx --",
+            "TOKITO_AI_URL": "https://api.tokito.dev",
+            "TOKITO_AI_TOKEN": "jwt-xxx",
+            "TOKITO_MCP_URL": "https://mcp.tokito.dev/mcp",
+            "TOKITO_MCP_DB": "/srv/tokito/symbols.sqlite",
+            "TOKITO_GENERATED_DB": "/srv/tokito/generated.sqlite",
+        }
+    )
     assert cfg.extract_cmd.startswith("cargo run")
     assert cfg.tokito_ai_url == "https://api.tokito.dev"
     assert cfg.tokito_ai_token == "jwt-xxx"
