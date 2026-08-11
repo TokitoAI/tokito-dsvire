@@ -23,16 +23,40 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: python -m pip install -e '.[test]'
+      - run: python -m ruff check .
+      - run: python -m ruff format --check .
       - run: python -m compileall -q src
       - run: python -m pytest -q
+      - run: python -m build
+      - run: python -m pip_audit . --strict
       - run: docker build --pull -t tokito-dsvire:ci .
-      - name: Container health smoke
+      - name: Container refuses unsafe production configuration
         run: |
-          docker run -d --name dsvire-ci -p 127.0.0.1::8081 tokito-dsvire:ci
+          if docker run --rm tokito-dsvire:ci; then
+            echo "container unexpectedly started without DSVIRE_SERVICE_TOKEN" >&2
+            exit 1
+          fi
+      - name: Container health smoke
+        env:
+          DSVIRE_CI_TOKEN: ci-service-token-that-is-at-least-32-bytes
+        run: |
+          docker run -d --name dsvire-ci \
+            -e DSVIRE_SERVICE_TOKEN="$DSVIRE_CI_TOKEN" \
+            -p 127.0.0.1::8081 tokito-dsvire:ci
           port=$(docker port dsvire-ci 8081/tcp | sed 's/.*://')
           for i in $(seq 1 30); do
-            if curl -fsS "http://127.0.0.1:${port}/v1/health"; then
-              exit 0
+            if curl -fsS "http://127.0.0.1:${port}/v1/ready"; then
+              status=$(curl -sS -o /dev/null -w '%{http_code}' \
+                -X POST -H 'content-type: application/pdf' \
+                "http://127.0.0.1:${port}/v1/evidence/symbol?manufacturer=Acme&mpn=A1&package=SOIC-8")
+              test "$status" = 401
+              authenticated_status=$(curl -sS -o /dev/null -w '%{http_code}' \
+                -X POST -H 'content-type: application/pdf' \
+                -H "authorization: Bearer $DSVIRE_CI_TOKEN" \
+                --data-binary '%PDF-fake' \
+                "http://127.0.0.1:${port}/v1/evidence/symbol?manufacturer=Acme&mpn=A1&package=SOIC-8")
+              test "$authenticated_status" = 422
+              exit
             fi
             sleep 1
           done

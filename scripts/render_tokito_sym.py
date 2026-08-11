@@ -12,7 +12,6 @@ import math
 import re
 from pathlib import Path
 
-
 RECT_RE = re.compile(
     r"\(rectangle\s+\(start\s+([-\d.]+)\s+([-\d.]+)\)\s+"
     r"\(end\s+([-\d.]+)\s+([-\d.]+)\)",
@@ -69,17 +68,21 @@ def render(source: Path, output: Path) -> None:
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width:.0f}" height="{height:.0f}" viewBox="0 0 {width:.0f} {height:.0f}">',
         '<rect width="100%" height="100%" fill="#f7f8fb"/>',
-        '<style>text{font-family:Inter,Arial,sans-serif;fill:#182235}.pin{stroke:#27364f;stroke-width:3}.body{fill:#fff;stroke:#182235;stroke-width:4}.name{font-size:18px;font-weight:650}.num{font-size:14px;fill:#52627a}.title{font-size:24px;font-weight:750}.meta{font-size:14px;fill:#68758a}</style>',
+        "<style>text{font-family:Inter,Arial,sans-serif;fill:#182235}.pin{stroke:#27364f;stroke-width:3}.body{fill:#fff;stroke:#182235;stroke-width:4}.name{font-size:18px;font-weight:650}.num{font-size:14px;fill:#52627a}.title{font-size:24px;font-weight:750}.meta{font-size:14px;fill:#68758a}</style>",
         f'<text x="{width / 2:.1f}" y="31" text-anchor="middle" class="title">{html.escape(value.group(1))}</text>',
         f'<text x="{width / 2:.1f}" y="53" text-anchor="middle" class="meta">native Tokito symbol · {len(parsed)} connectivity pins · layout@0.1.0</text>',
-        f'<rect x="{sx(body_left):.1f}" y="{sy(body_top):.1f}" width="{(body_right-body_left)*scale:.1f}" height="{(body_top-body_bottom)*scale:.1f}" rx="5" class="body"/>',
+        f'<rect x="{sx(body_left):.1f}" y="{sy(body_top):.1f}" width="{(body_right - body_left) * scale:.1f}" height="{(body_top - body_bottom) * scale:.1f}" rx="5" class="body"/>',
     ]
 
     for electrical, x, y, bx, by, angle, name, number in parsed:
-        parts.append(f'<line x1="{sx(x):.1f}" y1="{sy(y):.1f}" x2="{sx(bx):.1f}" y2="{sy(by):.1f}" class="pin"/>')
+        parts.append(
+            f'<line x1="{sx(x):.1f}" y1="{sy(y):.1f}" x2="{sx(bx):.1f}" y2="{sy(by):.1f}" class="pin"/>'
+        )
         if electrical == "no_connect":
             px, py = sx(x), sy(y)
-            parts.append(f'<path d="M {px-6:.1f} {py-6:.1f} L {px+6:.1f} {py+6:.1f} M {px+6:.1f} {py-6:.1f} L {px-6:.1f} {py+6:.1f}" stroke="#bf3a4b" stroke-width="3"/>')
+            parts.append(
+                f'<path d="M {px - 6:.1f} {py - 6:.1f} L {px + 6:.1f} {py + 6:.1f} M {px + 6:.1f} {py - 6:.1f} L {px - 6:.1f} {py + 6:.1f}" stroke="#bf3a4b" stroke-width="3"/>'
+            )
 
         if angle == 0:
             name_x, name_y, name_anchor = sx(bx) + 9, sy(by) + 6, "start"
@@ -94,10 +97,14 @@ def render(source: Path, output: Path) -> None:
             name_x, name_y, name_anchor = sx(bx), sy(by) + 20, "middle"
             num_x, num_y, num_anchor = sx(x), sy(y) - 10, "middle"
 
-        parts.append(f'<text x="{name_x:.1f}" y="{name_y:.1f}" text-anchor="{name_anchor}" class="name">{html.escape(name)}</text>')
-        parts.append(f'<text x="{num_x:.1f}" y="{num_y:.1f}" text-anchor="{num_anchor}" class="num">{html.escape(number)}</text>')
+        parts.append(
+            f'<text x="{name_x:.1f}" y="{name_y:.1f}" text-anchor="{name_anchor}" class="name">{html.escape(name)}</text>'
+        )
+        parts.append(
+            f'<text x="{num_x:.1f}" y="{num_y:.1f}" text-anchor="{num_anchor}" class="num">{html.escape(number)}</text>'
+        )
 
-    parts.append('</svg>\n')
+    parts.append("</svg>\n")
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text("\n".join(parts), encoding="utf-8")
 

@@ -6,7 +6,15 @@ import argparse
 import json
 from pathlib import Path
 
-from .pipeline import DatasheetIdentity, RetrievalError, retrieve_symbol_evidence
+from .pipeline import MAX_PDF_BYTES, DatasheetIdentity, RetrievalError, retrieve_symbol_evidence
+
+
+def _read_pdf(path: Path) -> bytes:
+    with path.open("rb") as handle:
+        payload = handle.read(MAX_PDF_BYTES + 1)
+    if len(payload) < 8 or len(payload) > MAX_PDF_BYTES:
+        raise RetrievalError(f"PDF size outside 8..={MAX_PDF_BYTES} bytes")
+    return payload
 
 
 def main() -> int:
@@ -23,7 +31,7 @@ def main() -> int:
 
     try:
         bundle = retrieve_symbol_evidence(
-            args.pdf.read_bytes(),
+            _read_pdf(args.pdf),
             DatasheetIdentity(args.manufacturer, args.mpn, args.package, args.source_url),
             args.out,
         )

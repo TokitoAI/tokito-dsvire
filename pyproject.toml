@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 dependencies = [
   "fastapi>=0.116,<1",
+  "filelock>=3.20,<4",
   "pillow>=11.3,<13",
   "pymupdf>=1.26,<2",
   "uvicorn[standard]>=0.35,<1",
@@ -17,9 +18,13 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
+  "build>=1.2,<2",
   "httpx>=0.28,<1",
   "jsonschema>=4.23,<5",
+  "pip-audit>=2.9,<3",
   "pytest>=8.4,<10",
+  "ruff>=0.12,<1",
+  "setuptools>=83,<84",
 ]
 
 [project.scripts]
@@ -30,3 +35,11 @@ packages = ["src/dsvire"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["E501"]

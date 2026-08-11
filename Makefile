@@ -48,4 +48,5 @@ check:  ## Compile Python sources and run tests.
 
 .PHONY: serve
 serve:  ## Run the private DS-ViRe service on the container port.
-	uvicorn dsvire.api:app --host 0.0.0.0 --port 8081
+	DSVIRE_ENVIRONMENT=development DSVIRE_ALLOW_INSECURE_DEV=true \
+		uvicorn dsvire.api:app --host 127.0.0.1 --port 8081
