@@ -121,6 +121,11 @@ first document. Positive mean similarity was 0.65395, while wrong-variant mean
 similarity was 0.64261 and wrong-view mean similarity was higher at 0.66903.
 This is decisive rejection evidence for standalone identity/orientation use,
 not a threshold candidate. OCR/exact-token reconciliation remains necessary.
+Clean GitHub runs `31538248265` and `31538257537` (attempt 2) independently
+reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
+1.485/1.485 GB peak RSS. Attempt 1 of the latter received a different TPS5430
+PDF hash from the TI CDN on all three bounded attempts and correctly produced
+no benchmark artifact; the registered source hash was not relaxed.
 
 `visual_registry.v1.json` seeds this contract with the same three hash-pinned
 official TI development documents used by the identity gate. It records 21
