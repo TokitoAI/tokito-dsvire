@@ -126,3 +126,12 @@ and memory fields are deliberately excluded from the deterministic score hash.
 The committed seed is unreviewed development data. These outputs are comparator
 and operations evidence only: `eligible_for_policy_fitting` remains false, no
 threshold may be calibrated from them, and they cannot authorize publication.
+
+Repository operators can run the same network/model benchmark from GitHub's
+**visual benchmark** workflow by selecting a frozen adapter. The workflow is
+manual-only, uses least-privilege read permissions and pinned actions, downloads
+hash-checked vendor PDFs only into ephemeral runner storage, and uploads only
+the commit-bound result JSON plus its SHA-256 checksum for 30 days. It does not
+cache or publish vendor PDFs. A successful workflow proves reproducibility and
+operability; it does not change the registry's review status or calibration
+eligibility.
