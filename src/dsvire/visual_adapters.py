@@ -29,7 +29,7 @@ from .pipeline import (
 from .visual_registry import VisualCase, VisualDocument
 
 TEXT_LAYOUT_ADAPTER_ID = "dsvire.visual-adapter.text-layout@1.0.0"
-RAPID_OCR_ADAPTER_ID = "dsvire.visual-adapter.rapidocr@1.0.0"
+RAPID_OCR_ADAPTER_ID = "dsvire.visual-adapter.rapidocr@1.1.0"
 
 
 class AdapterError(RuntimeError):
@@ -150,6 +150,11 @@ def _rapidocr_model_digest() -> str:
         raise AdapterError("RapidOCR model files are unavailable") from exc
 
 
+def _stable_rapidocr_score(value: float) -> float:
+    """Remove sub-precision ONNX CPU scheduling noise from comparator output."""
+    return round(value, 5)
+
+
 class RapidOcrAdapter:
     """CPU-capable pixel OCR comparator backed by bundled RapidOCR ONNX models.
 
@@ -164,7 +169,12 @@ class RapidOcrAdapter:
                 from rapidocr import RapidOCR
             except ImportError as exc:
                 raise AdapterError("install tokito-dsvire[visual] for RapidOCR") from exc
-            engine = RapidOCR()
+            engine = RapidOCR(
+                params={
+                    "EngineConfig.onnxruntime.intra_op_num_threads": 1,
+                    "EngineConfig.onnxruntime.inter_op_num_threads": 1,
+                }
+            )
         self._engine = engine
 
     @cached_property
@@ -178,11 +188,13 @@ class RapidOcrAdapter:
                 _contains_ordered_tokens,
                 _contains_phrase,
                 score_candidate,
+                _stable_rapidocr_score,
             ),
             _rapidocr_model_digest(),
             (
                 f"rapidocr-{version('rapidocr')}-onnxruntime-{version('onnxruntime')}-"
-                f"pymupdf-{version('PyMuPDF')}-rgb-{RENDER_DPI}dpi@1"
+                f"pymupdf-{version('PyMuPDF')}-rgb-{RENDER_DPI}dpi-"
+                "onnx-cpu-single-thread-score-5dp@2"
             ),
             "similarity",
         )
@@ -237,7 +249,7 @@ class RapidOcrAdapter:
         ) / sum(weights)
         if not 0 <= confidence <= 1:
             raise AdapterError("OCR confidence must be within 0..=1")
-        return round(_semantic_score(text, case) * confidence, 6)
+        return _stable_rapidocr_score(_semantic_score(text, case) * confidence)
 
 
 def score_document(

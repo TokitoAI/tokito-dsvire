@@ -145,6 +145,8 @@ def test_ocr_adapter_scores_rendered_pixels_and_keeps_similarity_semantics() -> 
 
     assert engine.seen_png
     assert adapter.metadata.score_semantics == "similarity"
+    assert adapter.metadata.adapter_id.endswith("@1.1.0")
+    assert "onnx-cpu-single-thread-score-5dp@2" in adapter.metadata.preprocessing_id
     assert len(adapter.metadata.model_sha256 or "") == 64
     assert scores["acme-a1/pinout"] > 0.7
     assert scores["acme-a1/package"] > 0.9
@@ -167,6 +169,31 @@ def test_real_rapidocr_engine_reads_rendered_datasheet_crop() -> None:
 
     assert score > 0.8
     assert adapter.metadata.preprocessing_id.startswith("rapidocr-3.9.2-")
+    assert adapter._engine.cfg.EngineConfig.onnxruntime.intra_op_num_threads == 1
+    assert adapter._engine.cfg.EngineConfig.onnxruntime.inter_op_num_threads == 1
+
+
+class _ConfidenceOcr:
+    def __init__(self, confidence: float) -> None:
+        self._confidence = confidence
+
+    def __call__(self, _image: bytes) -> SimpleNamespace:
+        return SimpleNamespace(txts=("Acme A-1 SOIC-8",), scores=(self._confidence,))
+
+
+def test_ocr_score_quantization_removes_observed_subprecision_runtime_jitter() -> None:
+    pymupdf = pytest.importorskip("pymupdf")
+    payload = _pdf()
+    registry = load_visual_registry_data(_registry(payload))
+    package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
+    document = pymupdf.open(stream=payload, filetype="pdf")
+    try:
+        first = RapidOcrAdapter(_ConfidenceOcr(0.963058)).score(document, package_case)
+        second = RapidOcrAdapter(_ConfidenceOcr(0.963057)).score(document, package_case)
+    finally:
+        document.close()
+
+    assert first == second == 0.96306
 
 
 def test_adapter_rejects_source_hash_mismatch() -> None:
