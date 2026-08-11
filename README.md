@@ -48,6 +48,13 @@ Development and release environments are resolved from the committed universal
 [`docs/DEPENDENCY_LOCKS.md`](docs/DEPENDENCY_LOCKS.md) when changing a dependency;
 CI rejects stale locks and stale container exports.
 
+Run the same aggregate gate used by CI and tagged releases with:
+
+```bash
+uv run --frozen --no-sync python scripts/verify_release.py \
+  --json-out release-verification.json
+```
+
 For the hosted service, build the image and send raw `application/pdf` bytes to
 `POST /v1/evidence/symbol` with the exact identity as query parameters. The
 service accepts at most 64 MiB and 2,000 pages per document. Production and

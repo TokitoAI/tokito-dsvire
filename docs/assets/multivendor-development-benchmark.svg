@@ -17,6 +17,6 @@
   <g font-family="ui-monospace,SFMono-Regular,Consolas,monospace" font-size="15" fill="#f4f7fb"><text x="825" y="216">0.757 / 0.790</text><text x="825" y="296">0.700 / 0.587</text><text x="825" y="376">0.600 / 0.484</text><text x="825" y="456">0.000 / 0.000</text><text x="825" y="536">0.581 / 0.569</text></g>
 
   <rect x="48" y="605" width="1104" height="112" rx="18" fill="#121720" stroke="#293140"/>
-  <g font-family="Inter,Segoe UI,sans-serif"><text x="76" y="642" fill="#8d96a8" font-size="15">TEXT LAYOUT</text><text x="76" y="681" fill="#f4f7fb" font-size="23" font-weight="700">0.480 s · 10.42 docs/s · 69.7 MiB</text><text x="626" y="642" fill="#8d96a8" font-size="15">RAPIDOCR · CPU</text><text x="626" y="681" fill="#f4f7fb" font-size="23" font-weight="700">127.96 s · 0.039 docs/s · 630.3 MiB</text></g>
+  <g font-family="Inter,Segoe UI,sans-serif"><text x="76" y="642" fill="#8d96a8" font-size="15">TEXT LAYOUT</text><text x="76" y="681" fill="#f4f7fb" font-size="23" font-weight="700">0.474 s · 10.55 docs/s · 69.7 MiB</text><text x="626" y="642" fill="#8d96a8" font-size="15">RAPIDOCR · CPU</text><text x="626" y="681" fill="#f4f7fb" font-size="23" font-weight="700">115.66 s · 0.043 docs/s · 631.3 MiB</text></g>
   <text x="64" y="742" fill="#697386" font-family="Inter,Segoe UI,sans-serif" font-size="14">Similarity, not probability. No threshold fitted. Not eligible for publication policy.</text>
 </svg>

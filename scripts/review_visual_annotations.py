@@ -7,9 +7,10 @@ import json
 import os
 import tempfile
 from pathlib import Path
+from typing import Any, cast
 
 from dsvire.eval_download import fetch_hash_pinned_pdf
-from dsvire.visual_registry import load_visual_registry_data
+from dsvire.visual_registry import VisualDocument, load_visual_registry_data
 from dsvire.visual_review import (
     VisualReviewError,
     apply_review_decision,
@@ -78,7 +79,7 @@ def main() -> int:
             selected = set(args.document_id) if args.document_id else None
             payloads: dict[str, bytes] = {}
 
-            def load(document):
+            def load(document: VisualDocument) -> bytes:
                 if document.document_id not in payloads:
                     payloads[document.document_id] = fetch_hash_pinned_pdf(
                         case_id=document.document_id,
@@ -90,7 +91,8 @@ def main() -> int:
                 return payloads[document.document_id]
 
             packet = build_review_packet(registry, load, document_ids=selected)
-            packet_ids = {document["id"] for document in packet["documents"]}
+            packet_documents = cast(list[dict[str, Any]], packet["documents"])
+            packet_ids = {document["id"] for document in packet_documents}
             for document in registry.documents:
                 if document.document_id in packet_ids:
                     write_review_sheet(load(document), document, args.out_dir)
@@ -107,7 +109,7 @@ def main() -> int:
                 "review_url": args.review_url,
                 "decisions": [
                     {"case_id": case["case_id"], "outcome": "accepted", "note": ""}
-                    for document in packet["documents"]
+                    for document in cast(list[dict[str, Any]], packet["documents"])
                     for case in document["cases"]
                 ],
             }

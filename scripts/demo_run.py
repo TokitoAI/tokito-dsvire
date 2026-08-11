@@ -37,6 +37,7 @@ import urllib.error
 import urllib.request
 from collections.abc import Iterable
 from pathlib import Path
+from typing import Any, cast
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = REPO_ROOT / "fixtures" / "evidence"
@@ -99,7 +100,7 @@ def _require_tool(name: str) -> str:
     return name
 
 
-def _run(command: str, /, **kwargs) -> subprocess.CompletedProcess:
+def _run(command: str, /, **kwargs: Any) -> subprocess.CompletedProcess[str]:
     """Run a shell-like command with clear failure semantics."""
     result = subprocess.run(shlex.split(command), check=False, **kwargs)
     if result.returncode != 0:
@@ -196,11 +197,11 @@ def stage_sync(cfg: Config) -> None:
 
 def _http_json(
     url: str,
-    payload: dict,
+    payload: dict[str, Any],
     *,
     headers: dict[str, str] | None = None,
     session_id: str | None = None,
-) -> tuple[dict, str | None] | dict:
+) -> tuple[dict[str, Any], str | None] | dict[str, Any]:
     request_headers = {
         "Content-Type": "application/json",
         "Accept": "application/json, text/event-stream",
@@ -241,12 +242,13 @@ def _http_json(
             document = json.loads(raw)
         except json.JSONDecodeError as exc:
             raise StageError(f"non-JSON response from {url}: {raw[:4096]}") from exc
+    parsed = cast(dict[str, Any], document)
     if response_session is not None:
-        return document, response_session
-    return document
+        return parsed, response_session
+    return parsed
 
 
-def _mcp_call(cfg: Config, tool: str, arguments: dict) -> dict:
+def _mcp_call(cfg: Config, tool: str, arguments: dict[str, Any]) -> dict[str, Any]:
     """Invoke an MCP tool over the streamable HTTP transport."""
     initialized = _http_json(
         cfg.mcp_url,
@@ -264,6 +266,7 @@ def _mcp_call(cfg: Config, tool: str, arguments: dict) -> dict:
     if not isinstance(initialized, tuple) or not initialized[1]:
         raise StageError("MCP initialize response did not include Mcp-Session-Id")
     init_body, session_id = initialized
+    assert session_id is not None
     if "error" in init_body:
         raise StageError(f"MCP initialize returned error: {init_body['error']}")
 
@@ -309,12 +312,12 @@ def _mcp_call(cfg: Config, tool: str, arguments: dict) -> dict:
     if not text_items:
         raise StageError(f"MCP tool {tool!r} returned no text payload: {result}")
     try:
-        return json.loads(text_items[0])
+        return cast(dict[str, Any], json.loads(text_items[0]))
     except json.JSONDecodeError as exc:
         raise StageError(f"MCP tool {tool!r} returned non-JSON text: {text_items[0]}") from exc
 
 
-def stage_resolve(cfg: Config, spec: dict, out_dir: Path) -> Path:
+def stage_resolve(cfg: Config, spec: dict[str, Any], out_dir: Path) -> Path:
     payload = {
         "manufacturer": spec["manufacturer"],
         "mpn": spec["mpn"],

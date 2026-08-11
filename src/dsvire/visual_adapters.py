@@ -11,11 +11,12 @@ import dataclasses
 import hashlib
 import inspect
 import io
+from collections.abc import Callable
 from functools import cached_property
 from importlib.metadata import version
 from importlib.resources import files
 from pathlib import Path
-from typing import Protocol
+from typing import Any, Protocol, cast
 
 from .pipeline import (
     MAX_PAGES,
@@ -93,6 +94,7 @@ class TextLayoutAdapter:
         )
 
     def score(self, document: object, case: VisualCase) -> float:
+        pdf_document: Any = document
         page_count = getattr(document, "page_count", 0)
         if not isinstance(page_count, int) or page_count < 1 or page_count > MAX_PAGES:
             raise AdapterError(f"PDF page count {page_count} outside 1..={MAX_PAGES}")
@@ -103,7 +105,7 @@ class TextLayoutAdapter:
         try:
             import pymupdf
 
-            page = document.load_page(case.page - 1)
+            page = pdf_document.load_page(case.page - 1)
             x0, y0, x1, y1 = case.bbox_norm
             clip = pymupdf.Rect(
                 x0 * float(page.rect.width),
@@ -136,7 +138,7 @@ def _semantic_score(text: str, case: VisualCase) -> float:
     return round(min(1.0, max(0.0, score)), 6)
 
 
-def _implementation_digest(*components: object) -> str:
+def _implementation_digest(*components: Any) -> str:
     source = "\n".join(
         inspect.getsource(component).replace("\r\n", "\n") for component in components
     ).encode()
@@ -186,7 +188,7 @@ class RapidOcrAdapter:
                     "EngineConfig.onnxruntime.inter_op_num_threads": 1,
                 }
             )
-        self._engine = engine
+        self._engine = cast(Callable[[bytes], Any], engine)
 
     @cached_property
     def metadata(self) -> AdapterMetadata:
@@ -249,7 +251,8 @@ def render_registered_crop(document: object, case: VisualCase) -> bytes:
     try:
         import pymupdf
 
-        page = document.load_page(case.page - 1)
+        pdf_document: Any = document
+        page = pdf_document.load_page(case.page - 1)
         x0, y0, x1, y1 = case.bbox_norm
         width = (x1 - x0) * float(page.rect.width) * RENDER_DPI / 72
         height = (y1 - y0) * float(page.rect.height) * RENDER_DPI / 72
@@ -267,7 +270,7 @@ def render_registered_crop(document: object, case: VisualCase) -> bytes:
             x1 * float(page.rect.width),
             y1 * float(page.rect.height),
         )
-        return page.get_pixmap(clip=clip, dpi=RENDER_DPI, alpha=False).tobytes("png")
+        return cast(bytes, page.get_pixmap(clip=clip, dpi=RENDER_DPI, alpha=False).tobytes("png"))
     except AdapterError:
         raise
     except Exception as exc:

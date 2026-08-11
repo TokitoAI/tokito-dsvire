@@ -77,10 +77,10 @@ def fetch_hash_pinned_file(
                 f"{artifact_id}: cached size mismatch; expected {expected_bytes}, got {actual_bytes}"
             )
         with path.open("rb") as source:
-            digest = hashlib.file_digest(source, "sha256").hexdigest()
-        if digest != content_sha256:
+            cached_digest = hashlib.file_digest(source, "sha256").hexdigest()
+        if cached_digest != content_sha256:
             raise EvaluationDownloadError(
-                f"{artifact_id}: cached SHA-256 mismatch; expected {content_sha256}, got {digest}"
+                f"{artifact_id}: cached SHA-256 mismatch; expected {content_sha256}, got {cached_digest}"
             )
         return path
     if offline:
@@ -122,7 +122,7 @@ def fetch_hash_pinned_file(
                     delete=False,
                 ) as target:
                     temporary = Path(target.name)
-                    digest = hashlib.sha256()
+                    download_digest = hashlib.sha256()
                     total = 0
                     while chunk := response.read(1024 * 1024):
                         total += len(chunk)
@@ -132,13 +132,13 @@ def fetch_hash_pinned_file(
                             raise EvaluationDownloadError(
                                 f"{artifact_id}: download exceeds expected size"
                             )
-                        digest.update(chunk)
+                        download_digest.update(chunk)
                         target.write(chunk)
             if expected_bytes is not None and total != expected_bytes:
                 raise EvaluationDownloadError(
                     f"{artifact_id}: downloaded size mismatch; expected {expected_bytes}, got {total}"
                 )
-            actual_digest = digest.hexdigest()
+            actual_digest = download_digest.hexdigest()
             if actual_digest == content_sha256:
                 assert temporary is not None
                 temporary.replace(path)

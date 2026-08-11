@@ -27,6 +27,7 @@ import sys
 import tempfile
 from collections.abc import Sequence
 from pathlib import Path
+from typing import Any
 
 from PIL import Image
 
@@ -236,7 +237,7 @@ def crop_uri(mpn_slug: str, region_id: str) -> str:
     return f"dsvire://fixture/{mpn_slug}/{region_id}.webp"
 
 
-def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict:
+def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict[str, Any]:
     pdf = download_pdf(recipe.datasheet.url, recipe.datasheet.content_sha256, cache_dir)
     with tempfile.TemporaryDirectory() as raw:
         raw_dir = Path(raw)
@@ -248,7 +249,7 @@ def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict:
         for r in recipe.regions:
             crop_path = CROP_DIR / recipe.slug / f"{r.region_id}.webp"
             crop_region(page_pngs[r.page], r.bbox_norm, crop_path)
-            region_json: dict = {
+            region_json: dict[str, Any] = {
                 "region_id": r.region_id,
                 "type": r.type,
                 "page": r.page,
@@ -294,7 +295,7 @@ def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict:
     }
 
 
-def write_json(fixture: dict, dest: Path) -> None:
+def write_json(fixture: dict[str, Any], dest: Path) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     # Deterministic serialization: sort_keys=False (spec has a fixed field order),
     # trailing newline, indent=2, LF line endings, no whitespace jitter.

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import importlib
 import json
 import multiprocessing
 import os
@@ -12,7 +13,7 @@ from collections.abc import Callable
 from contextlib import suppress
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Protocol, cast
 
 from .pipeline import DatasheetIdentity, RetrievalError, retrieve_symbol_evidence
 
@@ -35,7 +36,7 @@ class WorkerLimits:
 def _apply_resource_limits(limits: WorkerLimits) -> None:
     """Apply kernel-enforced limits on Unix; the process boundary still applies elsewhere."""
     try:
-        import resource
+        resource: Any = importlib.import_module("resource")
     except ImportError:  # pragma: no cover - Windows has no resource module
         return
 
@@ -78,7 +79,17 @@ def _worker_main(
         )
 
 
-def _terminate(process: multiprocessing.Process) -> None:
+class _Process(Protocol):
+    @property
+    def exitcode(self) -> int | None: ...
+
+    def is_alive(self) -> bool: ...
+    def join(self, timeout: float | None = None) -> None: ...
+    def terminate(self) -> None: ...
+    def kill(self) -> None: ...
+
+
+def _terminate(process: _Process) -> None:
     if not process.is_alive():
         process.join(timeout=0.1)
         return
@@ -139,7 +150,7 @@ async def run_pdf_job(
             raise RetrievalError(str(result.get("detail", "retrieval failed")))
         if result.get("status") != "ok" or not isinstance(result.get("bundle"), dict):
             raise WorkerError(str(result.get("detail", "PDF worker failed")))
-        return result["bundle"]
+        return cast(dict[str, Any], result["bundle"])
     finally:
         process_obj = locals().get("process")
         if process_obj is not None:

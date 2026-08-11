@@ -214,8 +214,8 @@ generated the initial annotations.
 The first non-TI tranche has a compact, source-free evidence export at
 [`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).
 On Windows/Python 3.11, text-layout processed the five documents in 0.480 s
-(10.42 documents/s, 69.7 MiB peak RSS); single-threaded RapidOCR took 127.96 s
-(0.039 documents/s, 630.3 MiB peak RSS). RapidOCR raised positive mean
+(10.55 documents/s, 69.7 MiB peak RSS); single-threaded RapidOCR took 115.66 s
+(0.043 documents/s, 631.3 MiB peak RSS). RapidOCR raised positive mean
 similarity from 0.757 to 0.790 and reduced wrong-variant mean similarity from
 0.600 to 0.484, but wrong-package and wrong-figure separation remains unsafe.
 These are comparator measurements, not accuracy or calibration claims.

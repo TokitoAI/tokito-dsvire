@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from dsvire.visual_adapters import RapidOcrAdapter, TextLayoutAdapter
 from dsvire.visual_registry import (
     VisualRegistryError,
     bind_prediction_scores,
@@ -276,3 +277,12 @@ def test_multivendor_evidence_export_is_bound_to_exact_registry_subset() -> None
     )
     assert scope["eligible_for_policy_fitting"] is False
     assert all(len(comparator["score_sha256"]) == 64 for comparator in evidence["comparators"])
+
+    adapters = [TextLayoutAdapter(), RapidOcrAdapter(engine=lambda _image: None)]
+    implementations = {
+        adapter.metadata.adapter_id: adapter.metadata.implementation_sha256 for adapter in adapters
+    }
+    assert {
+        comparator["adapter_id"]: comparator["implementation_sha256"]
+        for comparator in evidence["comparators"]
+    } == implementations
