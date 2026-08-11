@@ -18,6 +18,7 @@ def test_visual_runtime_is_optional_but_ci_and_release_verify_it() -> None:
     visual = pyproject["project"]["optional-dependencies"]["visual"]
 
     assert visual == [
+        "numpy>=2.0,<2.5",
         "onnxruntime>=1.27,<2",
         "psutil>=7.2.2,<8",
         "rapidocr>=3.9.2,<4",
@@ -25,8 +26,7 @@ def test_visual_runtime_is_optional_but_ci_and_release_verify_it() -> None:
     for workflow_name in ["ci.yml", "release.yml"]:
         workflow = (root / ".github/workflows" / workflow_name).read_text(encoding="utf-8")
         assert "uv sync --locked --extra test --extra visual" in workflow
-        assert "pip-audit --local --strict" in workflow
-        assert "uv pip uninstall tokito-dsvire" in workflow
+        assert "python scripts/verify_release.py" in workflow
         assert "uv run --frozen --no-sync" in workflow
 
 

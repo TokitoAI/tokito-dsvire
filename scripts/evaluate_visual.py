@@ -14,6 +14,7 @@ from dsvire.visual_adapters import (
     OpenClipAdapter,
     RapidOcrAdapter,
     TextLayoutAdapter,
+    VisualAdapter,
 )
 from dsvire.visual_benchmark import benchmark_registry
 from dsvire.visual_registry import load_visual_registry_data
@@ -28,12 +29,27 @@ def main() -> int:
     parser.add_argument("--cache-dir", type=Path, required=True)
     parser.add_argument("--adapter", choices=["text-layout", "rapidocr", "openclip"], required=True)
     parser.add_argument("--offline", action="store_true")
+    parser.add_argument("--document-id", action="append", default=[])
     parser.add_argument("--json-out", type=Path)
     args = parser.parse_args()
     try:
-        registry = load_visual_registry_data(json.loads(args.registry.read_text(encoding="utf-8")))
+        registry_data = json.loads(args.registry.read_text(encoding="utf-8"))
+        if args.document_id:
+            selected = set(args.document_id)
+            known = {document["id"] for document in registry_data["documents"]}
+            if unknown := selected - known:
+                raise ValueError(f"unknown document IDs: {sorted(unknown)}")
+            registry_data = {
+                "schema_version": registry_data["schema_version"],
+                "documents": [
+                    document
+                    for document in registry_data["documents"]
+                    if document["id"] in selected
+                ],
+            }
+        registry = load_visual_registry_data(registry_data)
         if args.adapter == "text-layout":
-            adapter = TextLayoutAdapter()
+            adapter: VisualAdapter = TextLayoutAdapter()
         elif args.adapter == "rapidocr":
             adapter = RapidOcrAdapter()
         else:

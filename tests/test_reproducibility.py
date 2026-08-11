@@ -23,6 +23,10 @@ def test_universal_lock_covers_every_supported_environment() -> None:
     ]:
         assert f'name = "{package}"' in lock
 
+    pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert 'python_version = "3.11"' in pyproject
+    assert '"numpy>=2.0,<2.5"' in pyproject
+
 
 def test_container_runtime_export_is_exact_and_hash_pinned() -> None:
     runtime_lock = (ROOT / "requirements/runtime.lock").read_text(encoding="utf-8")
@@ -51,7 +55,10 @@ def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
         workflow = (ROOT / ".github/workflows" / name).read_text(encoding="utf-8")
         assert SETUP_UV in workflow
         assert "version: '0.12.3'" in workflow
-        assert "python scripts/check_dependency_lock.py" in workflow
         assert "uv sync --locked" in workflow
         assert "uv run --frozen --no-sync" in workflow
         assert "pip install -e" not in workflow
+        if name == "visual-benchmark.yml":
+            assert "python scripts/check_dependency_lock.py" in workflow
+        else:
+            assert "python scripts/verify_release.py" in workflow

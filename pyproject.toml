@@ -18,6 +18,7 @@ dependencies = [
 
 [project.optional-dependencies]
 visual = [
+  "numpy>=2.0,<2.5",
   "onnxruntime>=1.27,<2",
   "psutil>=7.2.2,<8",
   "rapidocr>=3.9.2,<4",
@@ -33,10 +34,13 @@ test = [
   "hatchling>=1.27,<2",
   "httpx>=0.28,<1",
   "jsonschema>=4.23,<5",
+  "mypy>=1.19,<2",
   "pip-audit>=2.9,<3",
   "pytest>=8.4,<10",
   "ruff>=0.12,<1",
   "setuptools>=83,<84",
+  "types-jsonschema>=4.23,<5",
+  "types-psutil>=7.2,<8",
 ]
 
 [project.scripts]
@@ -55,3 +59,15 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
 ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+pretty = true
+show_error_codes = true
+untyped_calls_exclude = ["pymupdf"]
+
+[[tool.mypy.overrides]]
+module = ["open_clip", "torch"]
+ignore_missing_imports = true

@@ -21,7 +21,7 @@ import tempfile
 import unicodedata
 from collections.abc import Iterable
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from filelock import FileLock
 from filelock import Timeout as FileLockTimeout
@@ -223,7 +223,8 @@ def _extract_blocks(page: Any) -> list[TextBlock]:
         chars += len(text)
         if chars > MAX_TEXT_CHARS_PER_PAGE:
             raise RetrievalError("page text exceeds safety limit")
-        blocks.append(TextBlock(tuple(map(float, item[:4])), text))
+        x0, y0, x1, y1 = map(float, item[:4])
+        blocks.append(TextBlock((x0, y0, x1, y1), text))
     return blocks
 
 
@@ -480,7 +481,7 @@ def _load_cached_bundle(
                 return None
         if seen != set(expected_regions):
             return None
-        return bundle
+        return cast(dict[str, Any], bundle)
     except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError):
         return None
 

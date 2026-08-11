@@ -26,6 +26,7 @@ import re
 from collections.abc import Iterable
 from enum import StrEnum
 from pathlib import Path
+from typing import Any, cast
 
 import jsonschema
 
@@ -67,7 +68,7 @@ class Report:
     def ok(self) -> bool:
         return all(f.ok for f in self.findings)
 
-    def to_json(self) -> dict:
+    def to_json(self) -> dict[str, Any]:
         return {
             "ok": self.ok,
             "findings": [
@@ -82,8 +83,8 @@ class Report:
 # ---------------------------------------------------------------------------
 
 
-def load_json(path: Path) -> dict:
-    return json.loads(path.read_text(encoding="utf-8"))
+def load_json(path: Path) -> dict[str, Any]:
+    return cast(dict[str, Any], json.loads(path.read_text(encoding="utf-8")))
 
 
 def load_schema(path: Path) -> jsonschema.Draft202012Validator:
@@ -97,7 +98,7 @@ def load_schema(path: Path) -> jsonschema.Draft202012Validator:
 # ---------------------------------------------------------------------------
 
 
-def verify_evidence_bundle(bundle: dict) -> list[Finding]:
+def verify_evidence_bundle(bundle: dict[str, Any]) -> list[Finding]:
     """Structural + semantic checks on a dsvire.symbol-evidence.v2 document."""
     v = load_schema(SCHEMA_EVIDENCE)
     findings: list[Finding] = []
@@ -173,7 +174,7 @@ def verify_evidence_bundle(bundle: dict) -> list[Finding]:
     return findings
 
 
-def verify_symbol_spec(spec: dict, bundle: dict) -> list[Finding]:
+def verify_symbol_spec(spec: dict[str, Any], bundle: dict[str, Any]) -> list[Finding]:
     """Schema + cross-reference: every pin's evidence_region_ids exists in bundle."""
     v = load_schema(SCHEMA_SPEC)
     findings: list[Finding] = []
@@ -333,7 +334,7 @@ REQUIRED_SYMBOL_PROPERTIES = (
 )
 
 
-def verify_symbol_file(symbol_path: Path, spec: dict) -> list[Finding]:
+def verify_symbol_file(symbol_path: Path, spec: dict[str, Any]) -> list[Finding]:
     """Surface-level checks on the compiled .tokito_sym artifact.
 
     Deep semantic validation lives in tokito-catalog::compiler::tests (byte-
@@ -384,7 +385,7 @@ def verify_symbol_file(symbol_path: Path, spec: dict) -> list[Finding]:
     # The native compiler's canonical property is lowercase `package`.
     pkg_value = _property_value(text, "package")
     if pkg_value == spec["package"]:
-        findings.append(Finding("symbol.package_literal", Outcome.PASS, pkg_value))
+        findings.append(Finding("symbol.package_literal", Outcome.PASS, cast(str, pkg_value)))
     else:
         findings.append(
             Finding(
@@ -414,7 +415,9 @@ def _property_value(text: str, key: str) -> str | None:
     return None
 
 
-def verify_provenance(provenance: dict, bundle: dict, spec: dict) -> list[Finding]:
+def verify_provenance(
+    provenance: dict[str, Any], bundle: dict[str, Any], spec: dict[str, Any]
+) -> list[Finding]:
     """Schema + cross-reference: provenance's region_ids/manufacturer/mpn match."""
     v = load_schema(SCHEMA_PROVENANCE)
     findings: list[Finding] = []
@@ -505,7 +508,7 @@ def verify_provenance(provenance: dict, bundle: dict, spec: dict) -> list[Findin
     return findings
 
 
-def verify_resolved_symbol(resolved: dict, spec: dict) -> list[Finding]:
+def verify_resolved_symbol(resolved: dict[str, Any], spec: dict[str, Any]) -> list[Finding]:
     """A ResolvedSymbol back from tokito-mcp must match the compiled spec identity.
 
     ResolvedSymbol is defined in tokito_catalog::model::ResolvedSymbol; the wire

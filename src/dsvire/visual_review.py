@@ -12,7 +12,7 @@ import tempfile
 import urllib.request
 from collections.abc import Callable, Mapping
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from .visual_adapters import AdapterError, render_registered_crop
 from .visual_metrics import ALLOWED_LABELS
@@ -242,13 +242,13 @@ def build_review_packet(
             raise VisualReviewError(
                 f"{annotation.document_id}: only unreviewed annotations may be exported"
             )
-        payload = pdf_loader(annotation)
-        if hashlib.sha256(payload).hexdigest() != annotation.content_sha256:
+        pdf_bytes = pdf_loader(annotation)
+        if hashlib.sha256(pdf_bytes).hexdigest() != annotation.content_sha256:
             raise VisualReviewError(f"{annotation.document_id}: source SHA-256 mismatch")
         try:
             import pymupdf
 
-            document = pymupdf.open(stream=payload, filetype="pdf")
+            document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
         except Exception as exc:
             raise VisualReviewError(f"{annotation.document_id}: PDF parser rejected input") from exc
         try:
@@ -419,7 +419,8 @@ def load_review_decision_data(value: Any, packet: Mapping[str, Any]) -> dict[str
         raise VisualReviewError(
             "review decision.review_url must identify a TokitoAI pull-request review"
         )
-    expected = {case["case_id"] for document in packet["documents"] for case in document["cases"]}
+    packet_documents = cast(list[dict[str, Any]], packet["documents"])
+    expected = {case["case_id"] for document in packet_documents for case in document["cases"]}
     decisions = value["decisions"]
     if not isinstance(decisions, list):
         raise VisualReviewError("review decision.decisions must be an array")
@@ -462,12 +463,14 @@ def apply_review_decision(
     verify_github_review_provenance(decision, provenance_loader)
     if registry.content_sha256 != packet["registry_sha256"]:
         raise VisualReviewError("current registry does not match reviewed registry digest")
-    rejected = [item["case_id"] for item in decision["decisions"] if item["outcome"] == "rejected"]
+    decisions = cast(list[dict[str, Any]], decision["decisions"])
+    rejected = [item["case_id"] for item in decisions if item["outcome"] == "rejected"]
     if rejected:
         raise VisualReviewError(f"cannot apply a review containing rejections: {rejected}")
 
-    selected = {document["id"]: document for document in packet["documents"]}
-    output = json.loads(json.dumps(registry_data))
+    packet_documents = cast(list[dict[str, Any]], packet["documents"])
+    selected = {document["id"]: document for document in packet_documents}
+    output = cast(dict[str, Any], json.loads(json.dumps(registry_data)))
     for document in output["documents"]:
         packet_document = selected.get(document["id"])
         if packet_document is None:
@@ -489,4 +492,4 @@ def apply_review_decision(
             "annotation_revision": document["review"]["annotation_revision"],
         }
     load_visual_registry_data(output)
-    return output
+    return cast(dict[str, object], output)

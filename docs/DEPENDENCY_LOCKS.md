@@ -26,13 +26,8 @@ uv export --locked --format requirements.txt --no-dev --no-emit-project \
   --no-header --output-file requirements/runtime.lock
 python scripts/check_dependency_lock.py
 uv sync --locked --extra test --extra visual
-uv run --frozen --no-sync ruff check .
-uv run --frozen --no-sync ruff format --check .
-uv run --frozen --no-sync pytest -q
-uv run --frozen --no-sync python -m build --no-isolation
-uv pip uninstall tokito-dsvire
-uv run --frozen --no-sync pip-audit --local --strict
-uv sync --locked --extra test --extra visual
+uv run --frozen --no-sync python scripts/verify_release.py \
+  --json-out release-verification.json
 ```
 
 For an OpenCLIP dependency update, also install `--extra openclip` and run the

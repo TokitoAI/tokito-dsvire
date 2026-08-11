@@ -13,6 +13,9 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
   hash-pinned runtime export; no package resolution or build backend runs in
   the container build.
 - Add an executable lock-drift gate and documented dependency update workflow.
+- Add strict static typing across the package and operational scripts, plus one
+  fail-closed release verifier covering locks, source quality, tests, committed
+  artifact contracts, packaging, and the hash-pinned runtime audit.
 
 ### Evaluation integrity
 

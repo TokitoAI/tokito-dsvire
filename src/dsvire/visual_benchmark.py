@@ -45,7 +45,7 @@ class _PeakRssSampler:
 
     @property
     def peak_bytes(self) -> int:
-        return self._peak
+        return int(self._peak)
 
 
 def _percentile(values: list[float], quantile: float) -> float:

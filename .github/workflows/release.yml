@@ -20,18 +20,19 @@ jobs:
         with:
           version: '0.12.3'
           enable-cache: true
-      - run: python scripts/check_dependency_lock.py
       - run: uv sync --locked --extra test --extra visual
-      - run: uv run --frozen --no-sync ruff check .
-      - run: uv run --frozen --no-sync ruff format --check .
-      - run: uv run --frozen --no-sync python -m compileall -q src
-      - run: uv run --frozen --no-sync pytest -q
-      - run: uv run --frozen --no-sync python -m build --no-isolation
-      - name: Audit resolved locked environment
-        run: |
-          uv pip uninstall tokito-dsvire
-          uv run --frozen --no-sync pip-audit --local --strict
-          uv sync --locked --extra test --extra visual
+      - name: Run release-wide verification
+        run: >-
+          uv run --frozen --no-sync python scripts/verify_release.py
+          --json-out release-verification.json
+      - name: Publish release verification evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-verification-${{ github.ref_name }}
+          path: release-verification.json
+          if-no-files-found: warn
+          retention-days: 90
       - name: Hash-pinned real-PDF identity gate
         run: |
           uv run --frozen --no-sync python scripts/evaluate_identity.py \
