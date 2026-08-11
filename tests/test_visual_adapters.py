@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import hashlib
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
 from dsvire.visual_adapters import (
+    OPENCLIP_MODEL_SHA256,
     AdapterError,
+    OpenClipAdapter,
     RapidOcrAdapter,
     TextLayoutAdapter,
     score_document,
@@ -210,3 +213,63 @@ def test_adapter_rejects_case_page_outside_document() -> None:
     registry = load_visual_registry_data(data)
     with pytest.raises(AdapterError, match="references page 2"):
         score_document(TextLayoutAdapter(), payload, registry.documents[0])
+
+
+class _FakeOpenClip:
+    def __init__(self, value: float = 0.8123456) -> None:
+        self.value = value
+        self.seen_png = False
+        self.prompt = ""
+
+    def similarity(self, png: bytes, prompt: str) -> float:
+        self.seen_png = png.startswith(b"\x89PNG")
+        self.prompt = prompt
+        return self.value
+
+
+def test_openclip_adapter_scores_pixels_with_identity_bound_prompt(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = _pdf()
+    registry = load_visual_registry_data(_registry(payload))
+    package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
+    backend = _FakeOpenClip()
+    monkeypatch.setattr(
+        "dsvire.visual_adapters.version",
+        lambda package: {
+            "open_clip_torch": "3.3.0",
+            "torch": "2.13.0",
+            "Pillow": "12.1.1",
+            "PyMuPDF": "1.28.2",
+        }[package],
+    )
+    adapter = OpenClipAdapter(tmp_path / "injected-model.safetensors", backend=backend)
+    pymupdf = pytest.importorskip("pymupdf")
+    document = pymupdf.open(stream=payload, filetype="pdf")
+    try:
+        score = adapter.score(document, package_case)
+    finally:
+        document.close()
+
+    assert backend.seen_png
+    assert "Acme A-1" in backend.prompt
+    assert "package SOIC-8" in backend.prompt
+    assert "orderable package table row" in backend.prompt
+    assert score == 0.81235
+    assert adapter.metadata.score_semantics == "similarity"
+    assert adapter.metadata.model_sha256 == OPENCLIP_MODEL_SHA256
+    assert "cpu-single-thread" in adapter.metadata.preprocessing_id
+
+
+def test_openclip_adapter_rejects_backend_score_outside_similarity_range(tmp_path: Path) -> None:
+    payload = _pdf()
+    registry = load_visual_registry_data(_registry(payload))
+    package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
+    adapter = OpenClipAdapter(tmp_path / "injected-model.safetensors", backend=_FakeOpenClip(1.1))
+    pymupdf = pytest.importorskip("pymupdf")
+    document = pymupdf.open(stream=payload, filetype="pdf")
+    try:
+        with pytest.raises(AdapterError, match=r"within 0\.\.=1"):
+            adapter.score(document, package_case)
+    finally:
+        document.close()

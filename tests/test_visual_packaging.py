@@ -1,7 +1,15 @@
 from __future__ import annotations
 
+import json
 import tomllib
 from pathlib import Path
+
+from dsvire.visual_adapters import (
+    OPENCLIP_MODEL_BYTES,
+    OPENCLIP_MODEL_REVISION,
+    OPENCLIP_MODEL_SHA256,
+    OPENCLIP_MODEL_URL,
+)
 
 
 def test_visual_runtime_is_optional_but_ci_and_release_verify_it() -> None:
@@ -33,6 +41,8 @@ def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> 
     assert "timeout-minutes: 20" in workflow
     assert "- text-layout" in workflow
     assert "- rapidocr" in workflow
+    assert "- openclip" in workflow
+    assert 'if [ "$ADAPTER" = openclip ]' in workflow
     assert "actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd" in workflow
     assert "actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c" in workflow
     upload_artifact = "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
@@ -46,3 +56,29 @@ def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> 
     assert "retention-days: 30" in workflow
     assert "actions/cache" not in workflow
     assert "*.pdf" not in workflow
+
+
+def test_openclip_model_registry_matches_the_fail_closed_runtime_contract() -> None:
+    root = Path(__file__).parents[1]
+    registry = json.loads((root / "evaluation/visual_models.v1.json").read_text(encoding="utf-8"))
+
+    assert registry["schema_version"] == "dsvire.visual-model-registry.v1"
+    assert len(registry["models"]) == 1
+    model = registry["models"][0]
+    assert set(model) == {
+        "id",
+        "architecture",
+        "implementation",
+        "source_url",
+        "source_revision",
+        "content_sha256",
+        "content_bytes",
+        "license",
+        "redistribution",
+        "terms_note",
+    }
+    assert model["source_url"] == OPENCLIP_MODEL_URL
+    assert model["source_revision"] == OPENCLIP_MODEL_REVISION
+    assert model["content_sha256"] == OPENCLIP_MODEL_SHA256
+    assert model["content_bytes"] == OPENCLIP_MODEL_BYTES
+    assert model["redistribution"] == "download_only"

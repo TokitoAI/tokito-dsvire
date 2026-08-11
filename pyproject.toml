@@ -22,6 +22,12 @@ visual = [
   "psutil>=7.2.2,<8",
   "rapidocr>=3.9.2,<4",
 ]
+openclip = [
+  "open_clip_torch>=3.3,<4",
+  "safetensors>=0.6,<1",
+  "torch>=2.9,<3",
+  "torchvision>=0.24,<1",
+]
 test = [
   "build>=1.2,<2",
   "httpx>=0.28,<1",

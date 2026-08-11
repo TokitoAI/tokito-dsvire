@@ -6,7 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from dsvire.eval_download import EvaluationDownloadError, fetch_hash_pinned_pdf
+from dsvire.eval_download import (
+    EvaluationDownloadError,
+    fetch_hash_pinned_file,
+    fetch_hash_pinned_pdf,
+)
 from dsvire.pipeline import MAX_PDF_BYTES
 
 
@@ -158,4 +162,67 @@ def test_declared_oversize_download_is_rejected_before_writing(
 
     with pytest.raises(EvaluationDownloadError, match="declared download size exceeds"):
         _fetch(payload, tmp_path)
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_exact_size_artifact_download_is_streamed_verified_and_reused_offline(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = b"pinned-model-weights"
+    digest = hashlib.sha256(payload).hexdigest()
+    calls = 0
+
+    def respond(*_args: object, **_kwargs: object) -> _Response:
+        nonlocal calls
+        calls += 1
+        return _Response(
+            payload,
+            url="https://cdn.example.invalid/model.safetensors",
+            content_length=str(len(payload)),
+        )
+
+    monkeypatch.setattr("urllib.request.urlopen", respond)
+    args = {
+        "artifact_id": "fixture-model",
+        "source_url": "https://example.invalid/model.safetensors",
+        "content_sha256": digest,
+        "expected_bytes": len(payload),
+        "max_bytes": len(payload),
+        "cache_dir": tmp_path,
+        "suffix": ".safetensors",
+    }
+
+    path = fetch_hash_pinned_file(**args, offline=False, retry_delay_seconds=0)
+    cached = fetch_hash_pinned_file(**args, offline=True)
+
+    assert path == cached
+    assert path.read_bytes() == payload
+    assert calls == 1
+    assert list(tmp_path.glob("*.tmp")) == []
+
+
+def test_exact_size_artifact_rejects_declared_size_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    payload = b"short"
+    monkeypatch.setattr(
+        "urllib.request.urlopen",
+        lambda *_args, **_kwargs: _Response(
+            payload,
+            url="https://cdn.example.invalid/model.safetensors",
+            content_length=str(len(payload)),
+        ),
+    )
+
+    with pytest.raises(EvaluationDownloadError, match="declared size mismatch"):
+        fetch_hash_pinned_file(
+            artifact_id="fixture-model",
+            source_url="https://example.invalid/model.safetensors",
+            content_sha256=hashlib.sha256(b"expected").hexdigest(),
+            expected_bytes=len(payload) + 1,
+            max_bytes=len(payload) + 1,
+            cache_dir=tmp_path,
+            suffix=".safetensors",
+            offline=False,
+        )
     assert list(tmp_path.iterdir()) == []
