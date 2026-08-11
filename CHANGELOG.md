@@ -3,7 +3,7 @@
 All notable changes to DS-ViRe are recorded here. Releases use immutable
 `vMAJOR.MINOR.PATCH` container tags.
 
-## Unreleased
+## 0.3.0 - 2026-08-11
 
 ### Breaking contract
 
@@ -12,6 +12,12 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
   region decisions now name their method, policy version, outcome, score, and
   score semantics; the deterministic baseline is explicitly heuristic and
   cannot claim calibrated visual verification.
+- Require accepted pinout, table, and package evidence plus exact-identity
+  region citations. Cached v1 manifests are rejected and rebuilt under
+  `dsvire-baseline@0.3.0`.
+- Preserve the fail-closed production posture: v0.3.0 emits attributable
+  `text_layout_heuristic` evidence, while automated publication requires a
+  separately calibrated `evidence_gated_visual` policy.
 
 ## 0.2.0 - 2026-08-11
 
