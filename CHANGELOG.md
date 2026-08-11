@@ -3,6 +3,16 @@
 All notable changes to DS-ViRe are recorded here. Releases use immutable
 `vMAJOR.MINOR.PATCH` container tags.
 
+## 0.3.1 - 2026-08-11
+
+### Security and correctness
+
+- Reject PDFs that MuPDF had to structurally repair instead of treating
+  reconstructed object relationships as authoritative engineering evidence.
+- Bump the retrieval/cache policy to `dsvire-baseline@0.3.1`, preventing any
+  previously cached evidence from a repaired document from bypassing the new
+  admission rule.
+
 ## 0.3.0 - 2026-08-11
 
 ### Breaking contract
