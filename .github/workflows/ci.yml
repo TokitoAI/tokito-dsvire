@@ -22,13 +22,18 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-      - run: python -m pip install -e '.[test]'
+      - run: python -m pip install -e '.[test,visual]'
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m compileall -q src
       - run: python -m pytest -q
       - run: python -m build
       - run: python -m pip_audit . --strict
+      - name: Audit resolved visual benchmark environment
+        run: |
+          python -m pip uninstall -y tokito-dsvire
+          python -m pip_audit --local --strict
+          python -m pip install -e . --no-deps
       - run: docker build --pull -t tokito-dsvire:ci .
       - name: Container refuses unsafe production configuration
         run: |

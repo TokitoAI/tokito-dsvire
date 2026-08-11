@@ -1,10 +1,16 @@
 from __future__ import annotations
 
 import hashlib
+from types import SimpleNamespace
 
 import pytest
 
-from dsvire.visual_adapters import AdapterError, TextLayoutAdapter, score_document
+from dsvire.visual_adapters import (
+    AdapterError,
+    RapidOcrAdapter,
+    TextLayoutAdapter,
+    score_document,
+)
 from dsvire.visual_registry import bind_prediction_scores, load_visual_registry_data
 
 
@@ -111,6 +117,56 @@ def test_text_layout_adapter_scores_without_receiving_ground_truth_labels() -> N
     assert by_id["acme-a1/wrong-package"] < 1.0
     assert by_id["acme-a1/wrong-variant"] < 1.0
     assert by_id["acme-a1/wrong-view"] == 0.0
+
+
+class _FakeOcr:
+    def __init__(self) -> None:
+        self.seen_png = False
+
+    def __call__(self, image: bytes) -> SimpleNamespace:
+        self.seen_png = image.startswith(b"\x89PNG")
+        return SimpleNamespace(
+            txts=(
+                "Acme A-1 SOIC-8",
+                "Pin Configuration - top view",
+                "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+                "Pin Functions Pin Name Type Description",
+            ),
+            scores=(0.99, 0.98, 0.97, 0.96),
+        )
+
+
+def test_ocr_adapter_scores_rendered_pixels_and_keeps_similarity_semantics() -> None:
+    payload = _pdf()
+    registry = load_visual_registry_data(_registry(payload))
+    engine = _FakeOcr()
+    adapter = RapidOcrAdapter(engine)
+    scores = score_document(adapter, payload, registry.documents[0])
+
+    assert engine.seen_png
+    assert adapter.metadata.score_semantics == "similarity"
+    assert len(adapter.metadata.model_sha256 or "") == 64
+    assert scores["acme-a1/pinout"] > 0.7
+    assert scores["acme-a1/package"] > 0.9
+    assert scores["acme-a1/wrong-package"] < scores["acme-a1/package"]
+    assert scores["acme-a1/wrong-variant"] < scores["acme-a1/package"]
+    assert scores["acme-a1/wrong-view"] == 0.0
+
+
+def test_real_rapidocr_engine_reads_rendered_datasheet_crop() -> None:
+    pymupdf = pytest.importorskip("pymupdf")
+    payload = _pdf()
+    registry = load_visual_registry_data(_registry(payload))
+    package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
+    document = pymupdf.open(stream=payload, filetype="pdf")
+    try:
+        adapter = RapidOcrAdapter()
+        score = adapter.score(document, package_case)
+    finally:
+        document.close()
+
+    assert score > 0.8
+    assert adapter.metadata.preprocessing_id.startswith("rapidocr-3.9.2-")
 
 
 def test_adapter_rejects_source_hash_mismatch() -> None:
