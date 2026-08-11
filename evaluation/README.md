@@ -122,6 +122,9 @@ from the registry after inference, hashes the registry, adapter implementation,
 model/preprocessing identity, and score map into `score_sha256`, and records
 per-document latency, throughput, peak process RSS, and external cost. Timing
 and memory fields are deliberately excluded from the deterministic score hash.
+Fresh downloads retry a hash mismatch at most three times to tolerate an
+inconsistent vendor CDN edge, but accept only the registered digest. Cached
+corruption and every other source-contract violation still fail immediately.
 
 The committed seed is unreviewed development data. These outputs are comparator
 and operations evidence only: `eligible_for_policy_fitting` remains false, no

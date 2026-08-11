@@ -35,9 +35,12 @@ def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> 
     assert "- rapidocr" in workflow
     assert "actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd" in workflow
     assert "actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c" in workflow
-    assert "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02" in workflow
+    upload_artifact = "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+    assert upload_artifact in workflow
+    assert upload_artifact in (root / ".github/workflows/release.yml").read_text(encoding="utf-8")
     assert '"$RUNNER_TEMP/dsvire-visual-sources"' in workflow
     assert "sha256sum" in workflow
+    assert 'cd "$RESULT_DIR"' in workflow
     assert "artifacts/*.json" in workflow
     assert "artifacts/*.json.sha256" in workflow
     assert "retention-days: 30" in workflow
