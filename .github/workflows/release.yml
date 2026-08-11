@@ -24,6 +24,18 @@ jobs:
       - run: python -m pytest -q
       - run: python -m build
       - run: python -m pip_audit . --strict
+      - name: Hash-pinned real-PDF identity gate
+        run: |
+          python scripts/evaluate_identity.py \
+            --cache-dir "$RUNNER_TEMP/dsvire-eval" \
+            --json-out identity-eval.json
+      - name: Publish identity evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: identity-eval-${{ github.ref_name }}
+          path: identity-eval.json
+          if-no-files-found: warn
       - run: docker build --pull -t tokito-dsvire:release-check .
       - name: Container boundary smoke
         env:

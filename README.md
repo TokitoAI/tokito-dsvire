@@ -53,6 +53,17 @@ buffered. The container entrypoint performs configuration and persistent-volume
 preflight in PID 1 before starting Uvicorn workers, so unsafe startup exits
 nonzero for orchestrators and CI.
 
+Run the hash-pinned, download-only real-PDF identity regression slice with:
+
+```bash
+python scripts/evaluate_identity.py \
+  --cache-dir .cache/dsvire-eval \
+  --json-out identity-eval.json
+```
+
+See [`evaluation/README.md`](evaluation/README.md) for provenance, split, and
+leakage rules. The seed registry is development evidence, not calibration.
+
 Local unauthenticated development must be explicit and loopback-only:
 
 ```bash
