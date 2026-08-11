@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.dev/schemas/dsvire.visual-review-decision.v1.json",
+  "title": "DS-ViRe visual annotation review decision v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "packet_sha256", "registry_sha256", "reviewer", "reviewed_at", "review_url", "decisions"],
+  "properties": {
+    "schema_version": {"const": "dsvire.visual-review-decision.v1"},
+    "packet_sha256": {"$ref": "#/$defs/sha256"},
+    "registry_sha256": {"$ref": "#/$defs/sha256"},
+    "reviewer": {"type": "string", "pattern": "^github:[A-Za-z0-9][A-Za-z0-9-]{0,38}$"},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "review_url": {
+      "type": "string",
+      "pattern": "^https://github\\.com/TokitoAI/[A-Za-z0-9_.-]+/pull/[1-9][0-9]*#pullrequestreview-[1-9][0-9]*$"
+    },
+    "decisions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/decision"}}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "outcome", "note"],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "outcome": {"enum": ["accepted", "rejected"]},
+        "note": {"type": "string"}
+      }
+    }
+  }
+}

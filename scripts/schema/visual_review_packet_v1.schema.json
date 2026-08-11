@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.dev/schemas/dsvire.visual-review-packet.v1.json",
+  "title": "DS-ViRe visual annotation review packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "registry_sha256", "documents", "packet_sha256"],
+  "properties": {
+    "schema_version": {"const": "dsvire.visual-review-packet.v1"},
+    "registry_sha256": {"$ref": "#/$defs/sha256"},
+    "packet_sha256": {"$ref": "#/$defs/sha256"},
+    "documents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/document"}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bbox": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"type": "number", "minimum": 0, "maximum": 1}
+    },
+    "case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["case_id", "label", "region_type", "page", "bbox_norm", "view", "crop_sha256"],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "label": {"enum": ["positive", "wrong_figure", "wrong_view", "wrong_package", "wrong_variant"]},
+        "region_type": {"enum": ["pinout", "table", "package"]},
+        "page": {"type": "integer", "minimum": 1},
+        "bbox_norm": {"$ref": "#/$defs/bbox"},
+        "view": {"enum": ["top", "bottom", "not_applicable", "unknown"]},
+        "crop_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source_sha256", "annotation_revision", "cases"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "source_sha256": {"$ref": "#/$defs/sha256"},
+        "annotation_revision": {"type": "string", "minLength": 1},
+        "cases": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/case"}}
+      }
+    }
+  }
+}

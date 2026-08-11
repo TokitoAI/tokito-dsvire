@@ -166,6 +166,51 @@ python scripts/render_visual_review.py \
   --out-dir .cache/dsvire-review
 ```
 
+### Independent annotation review
+
+`scripts/review_visual_annotations.py` is the promotion boundary for human
+annotation review. Exporting a packet renders the local contact sheets and
+records the exact registry, source PDF, annotation revision, normalized crop,
+and rendered PNG hashes. Vendor PDF and crop bytes stay local:
+
+```bash
+python scripts/review_visual_annotations.py export \
+  --cache-dir .cache/dsvire-eval \
+  --out-dir .cache/dsvire-review \
+  --packet-out evaluation/reviews/<packet>.packet.json \
+  --document-id <document-id>
+```
+
+Independent review uses two pull requests so provenance is not circular. The
+first PR contains only the source-free packet. The named human independently
+renders and inspects every case, then submits an **Approve** review whose body
+contains `DSVIRE_REVIEW_PACKET_SHA256=<packet_sha256>`. After that PR is merged,
+create the complete decision from the immutable GitHub review metadata:
+
+```bash
+python scripts/review_visual_annotations.py attest \
+  --packet evaluation/reviews/<packet>.packet.json \
+  --reviewer github:<reviewer> \
+  --reviewed-at <GitHub-submitted-at> \
+  --review-url <GitHub-pull-request-review-url> \
+  --out evaluation/reviews/<packet>.decision.json
+
+python scripts/review_visual_annotations.py apply \
+  --packet evaluation/reviews/<packet>.packet.json \
+  --decision evaluation/reviews/<packet>.decision.json \
+  --out evaluation/visual_registry.v1.json
+```
+
+`apply` makes a bounded GitHub API request (optionally authenticated with
+`GITHUB_TOKEN`) and requires the API review to be `APPROVED`, authored by the
+declared reviewer, timestamp-identical, URL-identical, and bound to the packet
+digest in its body. It then requires every case to be accepted and the current
+registry/source/case/annotation revision to match exactly before atomically
+writing a reviewed registry. Missing, duplicate, rejected, tampered, stale, or
+agent-self-asserted decisions fail closed. The packet and decision schemas live
+in `scripts/schema/`; neither tool grants review status merely because an agent
+generated the initial annotations.
+
 The first non-TI tranche has a compact, source-free evidence export at
 [`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).
 On Windows/Python 3.11, text-layout processed the five documents in 0.480 s

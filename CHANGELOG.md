@@ -3,6 +3,17 @@
 All notable changes to DS-ViRe are recorded here. Releases use immutable
 `vMAJOR.MINOR.PATCH` container tags.
 
+## Unreleased
+
+### Evaluation integrity
+
+- Add source-free, content-addressed visual annotation review packets that bind
+  exact registry, PDF, annotation, crop geometry, and rendered PNG hashes.
+- Add strict review-decision schemas and an atomic promotion command that
+  requires complete acceptance, an unchanged registry revision, and a real
+  approved TokitoAI GitHub review whose author, timestamp, URL, and packet hash
+  all match. Locally fabricated or partial review claims fail closed.
+
 ## 0.3.1 - 2026-08-11
 
 ### Security and correctness
