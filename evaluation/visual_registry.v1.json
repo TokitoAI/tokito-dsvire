@@ -211,6 +211,286 @@
           "rationale": "The crop is an orderable-device table, not a pinout. Independent review pending."
         }
       ]
+    },
+    {
+      "id": "atmel-atmega328p-7810d-2015-01",
+      "document_group": "atmel-atmega328p-family",
+      "split": "development",
+      "category": "microcontroller",
+      "source": {
+        "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf",
+        "revision": "7810D-AVR-01/15"
+      },
+      "content_sha256": "fb84858d0b12c695a12b13f0c74b962d81210247d440c7a24c0ed23dfabfdfaf",
+      "redistribution": "download_only",
+      "license_note": "Official Microchip-hosted Atmel datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.04, 0.05, 0.62, 0.46], "view": "top",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
+          "rationale": "Figure 1-1 visibly identifies the ATmega328P TQFP top-view pin configuration. The exact orderable suffix is reconciled by the package crop. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 29,
+          "bbox_norm": [0.08, 0.13, 0.95, 0.73], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
+          "rationale": "The ATmega328P section visibly contains bounded oscillator configuration tables. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 285,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.39], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
+          "rationale": "The ordering table shows ATmega328P-15AZ with package code MA and decodes MA as the 32-lead TQFP. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 285,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.39], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "QFN-32"},
+          "rationale": "The exact -15AZ row maps to MA/TQFP, not the adversarial QFN-32 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 285,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.39], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15MZ", "package": "TQFP-32"},
+          "rationale": "The -15MZ ordering row maps to PN/QFN, so the adversarial -15MZ/TQFP pairing is false. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.04, 0.05, 0.62, 0.46], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
+          "rationale": "The figure explicitly says TQFP top view; bottom view is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 285,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.39], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
+          "rationale": "The crop is ordering/package evidence, not a pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "microchip-mcp3008-ds20001295e-2022-10",
+      "document_group": "microchip-mcp3008-family",
+      "split": "development",
+      "category": "analog_to_digital_converter",
+      "source": {
+        "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/MCP3004-MCP3008-Data-Sheet-DS20001295.pdf",
+        "revision": "DS20001295E, October 2022"
+      },
+      "content_sha256": "26a503d76279cc10e40cfc36e80bb87fd33d0de80093d1bdcc4dc29435b10f72",
+      "redistribution": "download_only",
+      "license_note": "Official Microchip datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "SOIC-16"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1,
+          "bbox_norm": [0.54, 0.60, 0.93, 0.91], "view": "unknown",
+          "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "SOIC-16"},
+          "rationale": "The Package Types panel visibly shows the MCP3008 16-pin SOIC/PDIP pin configuration; the exact orderable suffix is reconciled by page 40. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 15,
+          "bbox_norm": [0.05, 0.07, 0.95, 0.54], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "SOIC-16"},
+          "rationale": "Table 3-1 visibly maps the MCP3008 pin numbers to symbols and descriptions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 40,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.72], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "SOIC-16"},
+          "rationale": "The Product Identification System explicitly lists MCP3008-I/SL as the industrial SOIC package and decodes SL as 16-lead SOIC. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 40,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.72], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "TSSOP-16"},
+          "rationale": "The /SL suffix decodes to SOIC, not the adversarial TSSOP-16 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 40,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.72], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/ST", "package": "SOIC-16"},
+          "rationale": "The /ST suffix decodes to TSSOP, so the adversarial /ST/SOIC pairing is false. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 40,
+          "bbox_norm": [0.05, 0.08, 0.95, 0.72], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "SOIC-16"},
+          "rationale": "The crop is a product-identification table, not a pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "diodes-ap2112-ds39724-rev2-2-2017-06",
+      "document_group": "diodes-ap2112-family",
+      "split": "development",
+      "category": "voltage_regulator",
+      "source": {"url": "https://www.diodes.com/assets/Datasheets/AP2112.pdf", "revision": "DS39724 Rev. 2-2, June 2017"},
+      "content_sha256": "ef8d376f2ec356e29172eb9e053819a0ebdcc576dba7fc9ab0505c568427920f",
+      "redistribution": "download_only",
+      "license_note": "Official Diodes Incorporated datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1,
+          "bbox_norm": [0.54, 0.09, 0.95, 0.75], "view": "top",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
+          "rationale": "The AP2112 Pin Assignments panel explicitly labels the SOT25 top-view pinout; the exact voltage/order code is reconciled by page 12. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 2,
+          "bbox_norm": [0.07, 0.34, 0.95, 0.70], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
+          "rationale": "The AP2112 Pin Descriptions table visibly maps package pin numbers, names, and functions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 12,
+          "bbox_norm": [0.05, 0.05, 0.95, 0.54], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
+          "rationale": "The ordering decoder maps K to SOT25 and the exact 3.3 V row lists AP2112K-3.3TRG1. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 12,
+          "bbox_norm": [0.05, 0.05, 0.95, 0.54], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SO-8"},
+          "rationale": "The K package code maps to SOT25, not the adversarial SO-8 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 12,
+          "bbox_norm": [0.05, 0.05, 0.95, 0.54], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112M-3.3TRG1", "package": "SOT25"},
+          "rationale": "The M package code maps to SO-8, so the adversarial M/SOT25 pairing is false. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1,
+          "bbox_norm": [0.54, 0.09, 0.95, 0.75], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
+          "rationale": "The SOT25 drawing is explicitly top view; bottom is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 12,
+          "bbox_norm": [0.05, 0.05, 0.95, 0.54], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
+          "rationale": "The crop is ordering/package evidence, not a pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "espressif-esp32-series-v5-3-2026-07",
+      "document_group": "espressif-esp32-family",
+      "split": "development",
+      "category": "wireless_microcontroller",
+      "source": {"url": "https://documentation.espressif.com/esp32_datasheet_en.pdf", "revision": "Version 5.3, July 2026"},
+      "content_sha256": "a7917e6b47528c9dcab06837a49d452e582751335797db879f1cf2d17cd29adf",
+      "redistribution": "download_only",
+      "license_note": "Official Espressif Systems datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 13,
+          "bbox_norm": [0.10, 0.07, 0.90, 0.67], "view": "top",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
+          "rationale": "Figure 2-2 explicitly identifies the ESP32 QFN 5*5 top-view pin layout; Table 1-1 reconciles the exact variant. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 14,
+          "bbox_norm": [0.04, 0.07, 0.96, 0.93], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
+          "rationale": "Table 2-1 visibly lists the ESP32 pin overview with number, type, and function. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 11,
+          "bbox_norm": [0.04, 0.34, 0.96, 0.88], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
+          "rationale": "Table 1-1 explicitly maps ESP32-D0WD-V3 to QFN 5*5. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 11,
+          "bbox_norm": [0.04, 0.34, 0.96, 0.88], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 6*6"},
+          "rationale": "The exact ESP32-D0WD-V3 row maps to QFN 5*5, not the adversarial QFN 6*6 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 11,
+          "bbox_norm": [0.04, 0.34, 0.96, 0.88], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WDQ6-V3", "package": "QFN 5*5"},
+          "rationale": "The Q6 variant maps to QFN 6*6, so the adversarial Q6/QFN 5*5 pairing is false. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 13,
+          "bbox_norm": [0.10, 0.07, 0.90, 0.67], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
+          "rationale": "Figure 2-2 is explicitly top view; bottom view is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-package-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 11,
+          "bbox_norm": [0.04, 0.34, 0.96, 0.88], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
+          "rationale": "The crop is a variant-comparison table, not a pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "raspberry-pi-rp2040-2025-02-20",
+      "document_group": "raspberry-pi-rp2040-family",
+      "split": "development",
+      "category": "microcontroller",
+      "source": {"url": "https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf", "revision": "20 February 2025"},
+      "content_sha256": "be56fbb75ba0ae9e26558a73c93ac3e75c2ad4e6878d3b6703de2a76d886ea8c",
+      "redistribution": "download_only",
+      "license_note": "Official Raspberry Pi datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 12,
+          "bbox_norm": [0.08, 0.05, 0.86, 0.59], "view": "top",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
+          "rationale": "Figure 3 explicitly identifies the RP2040 QFN-56 top-view pinout. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 12,
+          "bbox_norm": [0.12, 0.58, 0.92, 0.96], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
+          "rationale": "The pin-description table directly below the RP2040 pinout visibly maps pin groups to functions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 12,
+          "bbox_norm": [0.08, 0.05, 0.86, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
+          "rationale": "The figure caption explicitly binds RP2040 to QFN-56. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 12,
+          "bbox_norm": [0.08, 0.05, 0.86, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-60"},
+          "rationale": "The caption states QFN-56, not the adversarial QFN-60 claim. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 12,
+          "bbox_norm": [0.08, 0.05, 0.86, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2350", "package": "QFN-56"},
+          "rationale": "The caption identifies RP2040, not the adversarial RP2350 variant. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 12,
+          "bbox_norm": [0.08, 0.05, 0.86, 0.59], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
+          "rationale": "The package drawing explicitly says top view; bottom is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-table-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 12,
+          "bbox_norm": [0.12, 0.58, 0.92, 0.96], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
+          "rationale": "The crop is a pin-description table, not a pinout figure. Independent review pending."
+        }
+      ]
     }
   ]
 }

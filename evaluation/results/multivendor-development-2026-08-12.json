@@ -1,0 +1,71 @@
+{
+  "schema_version": "dsvire.visual-benchmark-evidence.v1",
+  "recorded_at": "2026-08-12",
+  "scope": {
+    "registry_sha256": "00f5da5e6ad0cf9cc1cf13f9684217e59423037071e50c1895d2ff8af27659b3",
+    "documents": 5,
+    "cases": 34,
+    "document_ids": [
+      "atmel-atmega328p-7810d-2015-01",
+      "microchip-mcp3008-ds20001295e-2022-10",
+      "diodes-ap2112-ds39724-rev2-2-2017-06",
+      "espressif-esp32-series-v5-3-2026-07",
+      "raspberry-pi-rp2040-2025-02-20"
+    ],
+    "manufacturers": [
+      "Atmel",
+      "Diodes Incorporated",
+      "Espressif Systems",
+      "Microchip Technology",
+      "Raspberry Pi"
+    ],
+    "split": "development",
+    "review_status": "unreviewed",
+    "eligible_for_policy_fitting": false
+  },
+  "environment": {
+    "os": "Windows",
+    "python": "3.11",
+    "cpu_policy": "single-thread comparator inference",
+    "external_cost_usd": 0.0
+  },
+  "comparators": [
+    {
+      "adapter_id": "dsvire.visual-adapter.text-layout@1.0.0",
+      "implementation_sha256": "96382da37542557adc11e5f4c9766225391b663999d2ce04c6e9008b517888d0",
+      "model_sha256": null,
+      "preprocessing_id": "pymupdf-1.28.2-clip-text-normalized-bbox@1",
+      "score_sha256": "982c635030d88ab347a2edecc2d15e223bbc4c877a3c059359c882b44f69e06f",
+      "elapsed_seconds": 0.480054,
+      "documents_per_second": 10.415495,
+      "document_latency_ms": {"mean": 88.114, "p50": 89.162, "p95": 138.972},
+      "peak_rss_bytes": 73097216,
+      "mean_similarity_by_label": {
+        "positive": 0.75733,
+        "wrong_package": 0.7,
+        "wrong_variant": 0.6,
+        "wrong_view": 0.0,
+        "wrong_figure": 0.581
+      }
+    },
+    {
+      "adapter_id": "dsvire.visual-adapter.rapidocr@1.1.0",
+      "implementation_sha256": "44ab352f043fc0bf500ca2d82451f9bd695c12375101c0cecfdb853fe903b85c",
+      "model_sha256": "3358ac6b2a0919cf5c72159265440ba62fb496b504d1fc6fb92a4ffc4fc0edc5",
+      "preprocessing_id": "rapidocr-3.9.2-onnxruntime-1.28.0-pymupdf-1.28.2-rgb-220dpi-onnx-cpu-single-thread-score-5dp@2",
+      "score_sha256": "90af1349ec7493e79c2471949f4e112c035387e4093d55ba5091e13efba9fc6d",
+      "elapsed_seconds": 127.964078,
+      "documents_per_second": 0.039073,
+      "document_latency_ms": {"mean": 25576.053, "p50": 25425.049, "p95": 31580.129},
+      "peak_rss_bytes": 660967424,
+      "mean_similarity_by_label": {
+        "positive": 0.78966,
+        "wrong_package": 0.58723,
+        "wrong_variant": 0.48351,
+        "wrong_view": 0.0,
+        "wrong_figure": 0.56926
+      }
+    }
+  ],
+  "interpretation": "Development evidence only. RapidOCR improves mean separation for package and variant negatives but remains far from a safe standalone identity verifier; no threshold was fitted and no publication policy changed."
+}

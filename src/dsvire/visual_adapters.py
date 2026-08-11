@@ -200,6 +200,7 @@ class RapidOcrAdapter:
                 _contains_phrase,
                 score_candidate,
                 _stable_rapidocr_score,
+                render_registered_crop,
             ),
             _rapidocr_model_digest(),
             (
@@ -212,7 +213,7 @@ class RapidOcrAdapter:
 
     def score(self, document: object, case: VisualCase) -> float:
         try:
-            image = _render_registered_crop(document, case)
+            image = render_registered_crop(document, case)
             result = self._engine(image)
             texts = tuple(getattr(result, "txts", ()) or ())
             confidences = tuple(getattr(result, "scores", ()) or ())
@@ -236,7 +237,8 @@ class RapidOcrAdapter:
         return _stable_rapidocr_score(_semantic_score(text, case) * confidence)
 
 
-def _render_registered_crop(document: object, case: VisualCase) -> bytes:
+def render_registered_crop(document: object, case: VisualCase) -> bytes:
+    """Render one registry-owned normalized crop under the benchmark safety limits."""
     page_count = getattr(document, "page_count", 0)
     if not isinstance(page_count, int) or page_count < 1 or page_count > MAX_PAGES:
         raise AdapterError(f"PDF page count {page_count} outside 1..={MAX_PAGES}")
@@ -356,7 +358,7 @@ class OpenClipAdapter:
                 OpenClipAdapter,
                 _OpenClipBackend,
                 _openclip_prompt,
-                _render_registered_crop,
+                render_registered_crop,
             ),
             OPENCLIP_MODEL_SHA256,
             (
@@ -369,7 +371,7 @@ class OpenClipAdapter:
         )
 
     def score(self, document: object, case: VisualCase) -> float:
-        png = _render_registered_crop(document, case)
+        png = render_registered_crop(document, case)
         similarity = getattr(self._backend, "similarity", None)
         if not callable(similarity):
             raise AdapterError("OpenCLIP backend does not implement similarity")
