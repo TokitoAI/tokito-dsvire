@@ -17,6 +17,7 @@ import os
 import re
 import shutil
 import tempfile
+import unicodedata
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
@@ -30,7 +31,7 @@ MAX_TEXT_CHARS_PER_PAGE = 250_000
 RENDER_DPI = 220
 MAX_RENDER_SIDE_PIXELS = 12_000
 MAX_RENDER_PIXELS = 40_000_000
-INDEX_VERSION = "dsvire-baseline@0.1.0"
+INDEX_VERSION = "dsvire-baseline@0.2.0"
 MODEL_IDS = ["pymupdf-layout-text@1"]
 PACK_LOCK_TIMEOUT_SECONDS = 60
 
@@ -105,6 +106,74 @@ class Candidate:
 
 def _normalise_text(value: str) -> str:
     return " ".join(value.replace("\x00", " ").split())
+
+
+def _normalise_phrase(value: str) -> str:
+    normalised = unicodedata.normalize("NFKC", value).casefold()
+    separated = "".join(character if character.isalnum() else " " for character in normalised)
+    return " ".join(separated.split())
+
+
+def _contains_phrase(text: str, phrase: str) -> bool:
+    haystack = _normalise_phrase(text)
+    needle = _normalise_phrase(phrase)
+    return bool(needle) and f" {needle} " in f" {haystack} "
+
+
+def _contains_ordered_tokens(text: str, phrase: str, *, max_extra_tokens: int = 2) -> bool:
+    haystack = _normalise_phrase(text).split()
+    needle = _normalise_phrase(phrase).split()
+    if not needle:
+        return False
+    for start, token in enumerate(haystack):
+        if token != needle[0]:
+            continue
+        matched = 1
+        end_limit = min(len(haystack), start + len(needle) + max_extra_tokens)
+        for candidate in haystack[start + 1 : end_limit]:
+            if matched < len(needle) and candidate == needle[matched]:
+                matched += 1
+        if matched == len(needle):
+            return True
+    return False
+
+
+def _normalise_mpn(value: str) -> str:
+    normalised = unicodedata.normalize("NFKC", value).upper()
+    for dash in ("\u2010", "\u2011", "\u2012", "\u2013", "\u2014", "\u2212"):
+        normalised = normalised.replace(dash, "-")
+    return normalised.strip()
+
+
+def _contains_exact_mpn(text: str, mpn: str) -> bool:
+    haystack = _normalise_mpn(text)
+    needle = _normalise_mpn(mpn)
+    if not needle:
+        return False
+    start = 0
+    while (index := haystack.find(needle, start)) >= 0:
+        before = haystack[index - 1] if index else ""
+        end = index + len(needle)
+        after = haystack[end] if end < len(haystack) else ""
+        if not before.isalnum() and not after.isalnum():
+            return True
+        start = index + 1
+    return False
+
+
+def _starts_new_part_row(line: str, package: str) -> bool:
+    words = line.strip().split()
+    if not words:
+        return False
+    first = unicodedata.normalize("NFKC", words[0]).strip("()[]{}|,;:")
+    if not (
+        any(character.isalpha() for character in first)
+        and any(character.isdigit() for character in first)
+    ):
+        return False
+    first_norm = _normalise_phrase(first)
+    package_norm = _normalise_phrase(package)
+    return bool(first_norm) and not package_norm.startswith(first_norm)
 
 
 def _term_hits(text: str, terms: Iterable[str]) -> int:
@@ -209,6 +278,79 @@ def _best_candidates(document: Any) -> dict[str, Candidate]:
     return best
 
 
+def _identity_package_candidate(document: Any, identity: DatasheetIdentity) -> Candidate:
+    """Prove the requested identity from PDF text or abstain.
+
+    Manufacturer presence is checked independently across the document. The
+    exact, token-bounded MPN and requested package must occur in one logical
+    orderable-part row. Wrapped continuation lines are allowed until another
+    part-like row begins.
+    """
+    manufacturer_seen = False
+    mpn_seen = False
+    associations: list[Candidate] = []
+
+    for page_index in range(document.page_count):
+        page = document.load_page(page_index)
+        raw_text = str(page.get_text("text", sort=True))
+        if len(raw_text) > MAX_TEXT_CHARS_PER_PAGE:
+            raise RetrievalError("page text exceeds safety limit")
+        manufacturer_seen = manufacturer_seen or _contains_phrase(raw_text, identity.manufacturer)
+        lines = [line.strip() for line in raw_text.splitlines() if line.strip()]
+        for line_index, line in enumerate(lines):
+            if not _contains_exact_mpn(line, identity.mpn):
+                continue
+            mpn_seen = True
+            row_lines = [line]
+            for continuation in lines[line_index + 1 : line_index + 4]:
+                if _starts_new_part_row(continuation, identity.package):
+                    break
+                row_lines.append(continuation)
+            association_text = "\n".join(row_lines)
+            if not _contains_ordered_tokens(association_text, identity.package):
+                continue
+
+            start = max(0, line_index - 1)
+            end = min(len(lines), line_index + len(row_lines) + 1)
+            nearby_lines = lines[start:end]
+            nearby = "\n".join(nearby_lines)
+
+            blocks = _extract_blocks(page)
+            anchor = next(
+                (block for block in blocks if _contains_exact_mpn(block.text, identity.mpn)),
+                None,
+            )
+            page_w = float(page.rect.width)
+            page_h = float(page.rect.height)
+            if anchor is None:
+                top, bottom = 0.0, min(page_h, page_h * 0.22)
+            else:
+                top = max(0.0, anchor.bbox[1] - page_h * 0.035)
+                bottom = min(page_h, max(anchor.bbox[3] + page_h * 0.09, top + page_h * 0.16))
+            associations.append(
+                Candidate(
+                    kind="package",
+                    page_index=page_index,
+                    bbox=(page_w * 0.035, top, page_w * 0.965, bottom),
+                    caption=(
+                        f"Exact identity evidence: {identity.manufacturer.strip()} "
+                        f"{identity.mpn.strip()} {identity.package.strip()}"
+                    ),
+                    text=nearby,
+                    score=1.0,
+                    verified=True,
+                )
+            )
+
+    if not manufacturer_seen:
+        raise RetrievalError("exact manufacturer identity is absent from PDF text")
+    if not mpn_seen:
+        raise RetrievalError("exact token-bounded MPN is absent from PDF text")
+    if not associations:
+        raise RetrievalError("requested package is not associated with the exact MPN in PDF text")
+    return max(associations, key=lambda candidate: candidate.score)
+
+
 def _bbox_norm(candidate: Candidate, page: Any) -> list[float]:
     width = float(page.rect.width)
     height = float(page.rect.height)
@@ -281,9 +423,13 @@ def _load_cached_bundle(
         ):
             return None
         regions = bundle["regions"]
-        if not isinstance(regions, list) or len(regions) != 2:
+        if not isinstance(regions, list) or len(regions) != 3:
             return None
-        expected_regions = {"r_pinout_01": "pinout", "r_pin_table_01": "table"}
+        expected_regions = {
+            "r_pinout_01": "pinout",
+            "r_pin_table_01": "table",
+            "r_package_01": "package",
+        }
         seen: set[str] = set()
         for region in regions:
             if not isinstance(region, dict):
@@ -348,12 +494,17 @@ def retrieve_symbol_evidence(
                     if document.needs_pass:
                         raise RetrievalError("encrypted PDFs are not accepted")
                     candidates = _best_candidates(document)
+                    candidates["package"] = _identity_package_candidate(document, identity)
                     regions = []
-                    for kind in ("pinout", "table"):
+                    for kind in ("pinout", "table", "package"):
                         candidate = candidates[kind]
                         page = document.load_page(candidate.page_index)
                         crop = _render_crop(page, candidate.bbox)
-                        region_id = "r_pinout_01" if kind == "pinout" else "r_pin_table_01"
+                        region_id = {
+                            "pinout": "r_pinout_01",
+                            "table": "r_pin_table_01",
+                            "package": "r_package_01",
+                        }[kind]
                         crop_path = crop_dir / f"{region_id}.webp"
                         crop_path.write_bytes(crop)
                         regions.append(
@@ -385,7 +536,7 @@ def retrieve_symbol_evidence(
                     "retrieval": {
                         "index_version": INDEX_VERSION,
                         "model_ids": MODEL_IDS,
-                        "query_ids": ["q_pinout", "q_pin_table"],
+                        "query_ids": ["q_pinout", "q_pin_table", "q_exact_identity_package"],
                     },
                 }
                 (staging / "evidence.json").write_text(

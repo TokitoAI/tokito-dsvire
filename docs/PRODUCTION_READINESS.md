@@ -12,12 +12,14 @@ the retrieval system, corpus, deployment, or user workflow is production-ready.
 
 | Evidence | Result | Scope / limitation |
 |---|---|---|
-| `python -m pytest -q` on Windows/Python 3.11 | 96 passed, 1 skipped after boundary hardening | Unit/fixture/API tests; not corpus accuracy or load evidence |
+| `python -m pytest -q` on Windows/Python 3.11 | 101 passed, 1 skipped on the exact-identity branch | Unit/fixture/API tests; not corpus accuracy or load evidence |
 | `python scripts/verify.py 83074fc1265c8e5c6639511b --bundle artifacts/83074fc1265c8e5c6639511b/evidence.json --compiled-only --json` | PASS, 18 findings | One checked-in TPS5430 proof only; no publication/live-service evidence |
 | Local Uvicorn smoke, one worker | readiness 200; unauthenticated evidence request 401; authenticated malformed PDF 422; process and scratch cleaned | Windows process boundary; not Linux container/resource-limit evidence |
 | `python -m pip_audit . --strict` | No known vulnerabilities in the resolved declared runtime graph | Range resolution remains non-reproducible until a universal lock lands |
-| Main CI before this audit | Green on Python 3.12, package compile, tests, Docker build, health smoke | The old smoke allowed an empty service token and did not test rejection, overload, or worker failure |
+| v0.1.1 release CI | Green: lint/format, 97 tests, package build/audit, Docker fail-closed + authenticated worker smokes, provenance/SBOM | Boundary and packaging evidence; not corpus accuracy, load, or end-to-end user workflow evidence |
+| Production v0.1.1 rollout | Exact GHCR digest deployed privately; readiness 200, unauthenticated evidence 401, authenticated malformed PDF 422, zero restarts; timestamped config/data backup and v0.1.0 rollback retained | Boundary smoke only; rollback image retained but restore/rollback drill not yet executed |
 | Corpus | One TPS5430DDAR evidence/spec/artifact proof | Not representative; no isolated development/evaluation splits |
+| Exact-identity real-PDF smoke (current branch) | Current official TI TPS5430 Rev. L PDF, SHA-256 `3d75dd36979b1790b65f2c41ce91307ffcf69b8984f369354a09ce8b6af84595`: correct `TPS5430DDAR` / `SO-PowerPAD-8` emitted pinout, table, and package regions; `TPS5430DDARX` and `TSSOP-8` near misses abstained | One mutable-vendor-URL document, executed 2026-08-11; not a held-out corpus or accuracy estimate |
 | Retrieval implementation | PyMuPDF text blocks + deterministic heading/pin-token heuristics | No layout model, visual embedding, reranking, OCR scan path, or benchmark |
 | End-to-end product pieces | Evidence schema, extractor, compiler, ingestion store, MCP generated-symbol reads, Desktop MPN resolve exist across repositories | No authenticated user upload/job orchestration from Tokito Cloud to DS-ViRe and through publication |
 | Container validation on this workstation | Not run: Docker CLI is unavailable | CI container evidence is required before merge |
@@ -36,11 +38,11 @@ mean the broader workstream is complete.
 
 | ID | Severity | Status | Finding | Required evidence to resolve |
 |---|---:|---|---|---|
-| DSV-001 | P0 | In review in branch | Hosted authentication was fail-open when `DSVIRE_SERVICE_TOKEN` was empty. | Startup-failure, unauthorized-request, and container tests with documented explicit local-only override. |
-| DSV-002 | P0 | [#338](https://github.com/TokitoAI/tokito/issues/338) | Exact manufacturer/MPN/package identity is copied from caller input but is not independently verified against retrieved evidence. Multi-device and multi-package datasheets can therefore be mislabeled while regions are emitted as verified. | Representative variant tests, explicit package evidence, identity reconciliation, calibrated abstention, and zero silent wrong-variant publications in the release evaluation set. |
+| DSV-001 | P0 | Resolved in v0.1.1 | Hosted authentication was fail-open when `DSVIRE_SERVICE_TOKEN` was empty. | Startup-failure, unauthorized-request, and container tests with documented explicit local-only override. |
+| DSV-002 | P0 | In progress: [#338](https://github.com/TokitoAI/tokito/issues/338), [#341](https://github.com/TokitoAI/tokito/issues/341) | v0.1.1 copies manufacturer/MPN/package from caller input. The current branch adds fail-closed manufacturer presence, token-bounded exact-MPN matching, logical-row package association, a package crop, and synthetic near-miss tests. It still lacks representative variant evaluation and OCR/visual identity evidence. | Representative variant tests, explicit package evidence, identity reconciliation, calibrated abstention, and zero silent wrong-variant publications in the release evaluation set. |
 | DSV-003 | P0 | [#338](https://github.com/TokitoAI/tokito/issues/338) | The current deterministic heuristic marks structural text matches as `verified=true`; this is not the EGVV visual verification promised by the technical bible. | Versioned verifier policy, calibrated held-out results, adversarial near-miss set, and wrong-figure rate at or below the SLO. |
-| DSV-004 | P1 | In review in branch | Untrusted PDF parsing ran inside the API process with no job admission bound or killable timeout. | Subprocess isolation, kernel limits, hard timeout/cancellation, bounded admission, cleanup, overload and crash tests. |
-| DSV-005 | P1 | In review in branch | Concurrent requests wrote directly into the same pack directory and failures could leave partial artifacts. | Identity/version keyed cache, lock, staging directory, atomic publication, integrity recheck, concurrent regression test. |
+| DSV-004 | P1 | Resolved in v0.1.1 | Untrusted PDF parsing ran inside the API process with no job admission bound or killable timeout. | Subprocess isolation, kernel limits, hard timeout/cancellation, bounded admission, cleanup, overload and crash tests. |
+| DSV-005 | P1 | Resolved in v0.1.1 | Concurrent requests wrote directly into the same pack directory and failures could leave partial artifacts. | Identity/version keyed cache, lock, staging directory, atomic publication, integrity recheck, concurrent regression test. |
 | DSV-006 | P1 | Open | There is no representative corpus or leakage-safe benchmark. The specified 500-document/2,000-query target has no registry, labels, baselines, or release gate. | Reproducible provenance registry; dev/test splits; legal review; baseline runners; published metric artifacts. |
 | DSV-007 | P1 | Open | Scan, rotation, malformed/enormous PDF, duplicate/revision, partial-download, and parser differential paths are not evaluated beyond small synthetic rejection tests. | Versioned robustness corpus plus failure/recovery and fuzz/property evidence. |
 | DSV-008 | P1 | Open | Tokito Cloud has DS-ViRe deployment variables and downstream ingestion routes but no real user upload/job orchestration, durable queue, cancellation, or status API. | Authenticated end-to-end upload-to-Desktop test with restart, retry, idempotency, cancellation, and partial-failure coverage. |
@@ -78,13 +80,18 @@ mean the broader workstream is complete.
    explicit settings and is never valid in production/staging.
 3. **2026-08-11 — do not call the heuristic verifier EGVV.** It is a useful
    deterministic baseline but cannot prove visual or exact-variant correctness.
+4. **2026-08-11 — caller identity is a hypothesis, not evidence.** The hosted
+   baseline must abstain unless bounded PDF text independently contains the
+   manufacturer and associates the exact token-bounded MPN with the requested
+   package in the same logical orderable-part row. This reduces silent near-miss publication;
+   it does not replace OCR,
+   visual verification, or held-out calibration.
 
 ## Next burn-down order
 
-1. Merge and deploy DSV-001/004/005 after Linux container CI and self-review.
-2. Resolve DSV-002/003/013 before allowing automated catalog publication from
+1. Resolve DSV-002/003/013 before allowing automated catalog publication from
    live uploads.
-3. Establish the legal corpus registry, annotation protocol, split policy, and
+2. Establish the legal corpus registry, annotation protocol, split policy, and
    executable baseline benchmark (DSV-006/007).
-4. Build durable Tokito Cloud orchestration and E2E tests (DSV-008/009).
-5. Add observability, load/SLO evidence, dependency locking, and recovery drills.
+3. Build durable Tokito Cloud orchestration and E2E tests (DSV-008/009).
+4. Add observability, load/SLO evidence, dependency locking, and recovery drills.

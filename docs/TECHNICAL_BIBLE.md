@@ -552,11 +552,18 @@ termination on timeout or cancellation. Linux workers additionally receive
 CPU, address-space, output-file, descriptor, and core-dump resource limits.
 Persistent evidence packs use an exact-input/identity/version cache key, keyed
 file locking, integrity checks, staging directories, and atomic publication.
+Before publishing a pack, the deterministic baseline independently requires
+the manufacturer in bounded PDF text and a token-bounded exact MPN in the same
+logical orderable-part row as the requested package. Bounded wrapped row
+continuations are allowed; adjacent part rows are not. That association is
+emitted as its own package crop. Near-miss part numbers and packages mentioned
+elsewhere in a multi-variant datasheet cause abstention.
 
 These controls are a parser containment baseline, not a claim that arbitrary
-PDFs are safe. Production deployment must also enforce container CPU, memory,
-PID, filesystem, and network policy and maintain a parser vulnerability-update
-process. See [`PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md).
+PDFs are safe or that text grounding is calibrated EGVV. Production deployment
+must also enforce container CPU, memory, PID, filesystem, and network policy
+and maintain a parser vulnerability-update process. See
+[`PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md).
 
 ---
 
