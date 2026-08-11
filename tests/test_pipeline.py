@@ -4,18 +4,26 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import jsonschema
 import pytest
 
 from dsvire.pipeline import DatasheetIdentity, RetrievalError, score_candidate
 
 
-def _synthetic_datasheet() -> bytes:
+def _synthetic_datasheet(
+    *,
+    manufacturer: str = "Acme",
+    mpn: str = "A-1",
+    package: str = "SOIC-8",
+    identity_text: str | None = None,
+) -> bytes:
     pymupdf = pytest.importorskip("pymupdf")
     document = pymupdf.open()
     pinout = document.new_page()
     pinout.insert_text(
         (72, 72),
-        "Pin Configuration - top view\nVIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+        f"{identity_text or f'{manufacturer} {mpn} {package}'}\nPin Configuration - top view\n"
+        "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
     )
     table = document.new_page()
     table.insert_text(
@@ -78,7 +86,7 @@ def test_identical_concurrent_requests_publish_one_complete_pack(tmp_path: Path)
     packs = [path for path in tmp_path.iterdir() if path.is_dir() and path.name != ".locks"]
     assert len(packs) == 1
     assert (packs[0] / "evidence.json").is_file()
-    assert len(list((packs[0] / "crops").glob("*.webp"))) == 2
+    assert len(list((packs[0] / "crops").glob("*.webp"))) == 3
 
 
 def test_cache_key_includes_exact_part_identity(tmp_path: Path) -> None:
@@ -86,10 +94,75 @@ def test_cache_key_includes_exact_part_identity(tmp_path: Path) -> None:
 
     pdf = _synthetic_datasheet()
     first = retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "SOIC-8"), tmp_path)
-    second = retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-2", "SOIC-8"), tmp_path)
-    assert first["datasheet"]["id"] == second["datasheet"]["id"]
-    uris = {first["regions"][0]["crop_uri"], second["regions"][0]["crop_uri"]}
-    assert len(uris) == 2
+    with pytest.raises(RetrievalError, match="exact token-bounded MPN"):
+        retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-2", "SOIC-8"), tmp_path)
+    assert len(first["regions"]) == 3
+    package = next(region for region in first["regions"] if region["type"] == "package")
+    assert package["verified"] is True
+    assert package["region_id"] == "r_package_01"
+    schema = json.loads(
+        (Path(__file__).parents[1] / "scripts/schema/symbol_evidence_v1.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    jsonschema.validate(first, schema)
+
+
+def test_identity_rejects_mpn_prefix_near_miss(tmp_path: Path) -> None:
+    from dsvire.pipeline import retrieve_symbol_evidence
+
+    pdf = _synthetic_datasheet(mpn="A-10")
+    with pytest.raises(RetrievalError, match="exact token-bounded MPN"):
+        retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "SOIC-8"), tmp_path)
+
+
+def test_identity_rejects_wrong_manufacturer(tmp_path: Path) -> None:
+    from dsvire.pipeline import retrieve_symbol_evidence
+
+    pdf = _synthetic_datasheet(manufacturer="Other Corp")
+    with pytest.raises(RetrievalError, match="exact manufacturer"):
+        retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "SOIC-8"), tmp_path)
+
+
+def test_identity_rejects_package_not_associated_with_exact_mpn(tmp_path: Path) -> None:
+    from dsvire.pipeline import retrieve_symbol_evidence
+
+    pymupdf = pytest.importorskip("pymupdf")
+    document = pymupdf.open(stream=_synthetic_datasheet(package="TSSOP-8"), filetype="pdf")
+    unrelated = document.new_page()
+    unrelated.insert_text((72, 72), "SOIC-8 package information for another device")
+    pdf = document.tobytes()
+    document.close()
+
+    with pytest.raises(RetrievalError, match="not associated"):
+        retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "SOIC-8"), tmp_path)
+
+
+def test_identity_does_not_borrow_package_from_adjacent_variant_row(tmp_path: Path) -> None:
+    from dsvire.pipeline import retrieve_symbol_evidence
+
+    pymupdf = pytest.importorskip("pymupdf")
+    document = pymupdf.open(stream=_synthetic_datasheet(package="SOIC-8"), filetype="pdf")
+    variant_table = document.new_page()
+    variant_table.insert_text((72, 72), "Acme orderable devices\nA-1 SOIC-8\nA-2 TSSOP-8")
+    pdf = document.tobytes()
+    document.close()
+
+    with pytest.raises(RetrievalError, match="not associated"):
+        retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "TSSOP-8"), tmp_path)
+
+
+def test_identity_accepts_wrapped_package_tokens_within_one_part_row(tmp_path: Path) -> None:
+    from dsvire.pipeline import retrieve_symbol_evidence
+
+    pdf = _synthetic_datasheet(
+        package="SO-PowerPAD-8",
+        identity_text="Acme A-1 Active Production SO PowerPAD\n(DDA) | 8",
+    )
+    bundle = retrieve_symbol_evidence(
+        pdf, DatasheetIdentity("Acme", "A-1", "SO-PowerPAD-8"), tmp_path
+    )
+    assert any(region["type"] == "package" for region in bundle["regions"])
 
 
 def test_invalid_cached_manifest_is_rebuilt_without_following_region_paths(tmp_path: Path) -> None:
@@ -117,7 +190,7 @@ def test_oversized_candidate_crop_fails_before_render_allocation(tmp_path: Path)
     page = document.new_page(width=20_000, height=20_000)
     page.insert_text(
         (72, 72),
-        "Pin Configuration top view VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7",
+        "Acme A-1 Huge Pin Configuration top view VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7",
     )
     page.insert_text(
         (72, 10_000),

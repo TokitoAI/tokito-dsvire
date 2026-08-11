@@ -57,11 +57,22 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
 
 **Rules**
 
-- At least one `pinout` region and one `table` region marked `verified: true` are required.
+- At least one `pinout`, one `table`, and one `package` region marked
+  `verified: true` are required for symbol evidence produced by the hosted
+  baseline.
+- `datasheet.manufacturer` must occur in bounded PDF text. The exact requested
+  MPN must match with alphanumeric token boundaries and must occur in the same
+  logical orderable-part row as the requested package. Bounded wrapped
+  continuation lines are allowed, but adjacent part rows must never be combined. The
+  `package` region is the crop containing that association; callers do not
+  become evidence merely by supplying the identity fields.
 - `regions[*].type` ∈ `{pinout, package, timing, curve, block, app_circuit, table, other}`.
 - `bbox_norm` is `[x0, y0, x1, y1]` in `[0,1]`, each strictly `x0 < x1`, `y0 < y1`.
 - `crop_uri` is opaque to the extractor; it is passed through to provenance.
 - `content_hash` is `sha256:<hex>`; used as region provenance.
+- Baseline `verify_confidence` values are versioned deterministic evidence
+  strengths, not calibrated probabilities. Only held-out EGVV evaluation may
+  describe a score as calibrated.
 - `retrieval.model_ids` is required for reproducibility; extractor persists it into the SymbolSpec's provenance block.
 
 **Rust surface** (`tokito_catalog::pipeline::evidence`)

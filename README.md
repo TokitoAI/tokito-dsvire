@@ -18,7 +18,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 |---|---|
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
 | Benchmark design | Specced; corpus and labels not released yet |
-| Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, figure/table scoring, verified crops, and frozen evidence output |
+| Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Native symbol proof | Real TPS5430 crops compiled to a validated `.tokito_sym`; see the evidence, render, and reproducible checks in the example |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
 | Vision-model reranker / benchmark corpus | Not yet implemented; the baseline abstains when structural evidence is insufficient |
@@ -26,8 +26,10 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
 DS-ViRe runs behind it on the private service network. The baseline never
-guesses manufacturer, MPN, or package and will fail closed when it cannot
-verify both a pinout and a pin-function table.
+guesses manufacturer, MPN, or package and will fail closed unless the PDF text
+contains the manufacturer plus a token-bounded exact MPN associated with the
+requested package. It also requires a pinout and pin-function table. This is a
+deterministic safety gate, not calibrated visual verification.
 
 ## Run and verify
 
