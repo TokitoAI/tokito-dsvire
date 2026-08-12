@@ -228,6 +228,12 @@ def test_published_fourteen_family_review_packet_is_valid_but_stale_after_correc
             5,
             35,
         ),
+        (
+            "visual-registry-calibration-1-5-agent-2026-08-12",
+            "b1cf26e7df324b5b635596ac38f16a2ac0bc9289d35b907b72c9b281bae1335f",
+            5,
+            35,
+        ),
     ],
 )
 def test_committed_agent_audit_is_packet_bound_and_explicit(

@@ -1,0 +1,194 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification and merge in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-figure-timing-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ina219-rev-g/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp7940n-ds20005010j/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tmp117-rev-d/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-usb2514b-ds00001692c/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    }
+  ],
+  "packet_sha256": "b1cf26e7df324b5b635596ac38f16a2ac0bc9289d35b907b72c9b281bae1335f",
+  "registry_sha256": "383c35cff9c1337c3b41759bacf24819de080c5e8deb951fa472fd734306efec",
+  "reviewed_at": "2026-08-12T16:40:00Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {
+    "cases": 35,
+    "documents": 5,
+    "exact_source_hashes": 5,
+    "excluded_findings": [
+      "Rejected packet b884453acc630a49e15738590481d46a947e31f9c4f9508d0758a1110f74fb48: wrong or incomplete 74HC165 timing, INA219 package, MCP7940N pinout, TMP117 table, and USB2514B pinout crops.",
+      "Rejected packet 26af4c3d6d15b58c9639d760c1dca69aa44255f6845ec4ef15d1f65715957dfc: TMP117 pinout was not isolated and INA219 packaging-material evidence was weaker than its exact orderable-part/package mapping."
+    ]
+  }
+}

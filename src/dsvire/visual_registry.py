@@ -249,7 +249,9 @@ def _validate_identity_relationship(case: VisualCase, identity: Identity, contex
         raise VisualRegistryError(f"{context} identity negative must use a package region")
 
 
-def load_visual_registry_data(value: Any) -> VisualRegistry:
+def load_visual_registry_data(
+    value: Any, *, allow_unreviewed_heldout_draft: bool = False
+) -> VisualRegistry:
     if not isinstance(value, Mapping):
         raise VisualRegistryError("registry must be an object")
     _strict(value, {"schema_version", "documents"}, "registry")
@@ -308,7 +310,11 @@ def load_visual_registry_data(value: Any) -> VisualRegistry:
             )
         identity = Identity.parse(raw["identity"], f"{context}.identity")
         review = Review.parse(raw["review"], f"{context}.review")
-        if split in {"calibration", "evaluation"} and review.status != "reviewed":
+        if (
+            split in {"calibration", "evaluation"}
+            and review.status != "reviewed"
+            and not allow_unreviewed_heldout_draft
+        ):
             raise VisualRegistryError(f"{context} {split} annotations must be reviewed")
         cases_raw = raw["cases"]
         if not isinstance(cases_raw, list) or not cases_raw:

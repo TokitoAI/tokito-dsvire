@@ -4810,6 +4810,811 @@
         "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/mXT336T_3v1_Datasheet_BX.pdf"
       },
       "split": "development"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.58
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC165D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "The D-package panel explicitly presents the 74HC165D SOT109-1 SO16 top-view pinning.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.48
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC165D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 4,
+          "rationale": "Table 2 maps the parallel inputs, serial input/output, clocks, load, and supply signals to package pins.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC165D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 14,
+          "rationale": "Figure 11 is the dimensioned SOT109-1 SO16 package outline selected by the 74HC165D ordering row.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC165D",
+            "package": "TSSOP16 SOT403-1"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 14,
+          "rationale": "The crop is SOT109-1 SO16, not the narrower SOT403-1 TSSOP16 option.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HCT165D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 14,
+          "rationale": "74HCT165D is the TTL-threshold family variant; the exact selected identity is 74HC165D.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.58
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC165D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 3,
+          "rationale": "The package pinning is a top view, so a bottom-view claim mirrors lead ordering.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.49
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC165D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-figure-timing-as-pinout",
+          "label": "wrong_figure",
+          "page": 5,
+          "rationale": "The crop is Figure 4's timing diagram, not a physical package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "parallel_in_shift_register",
+      "content_sha256": "a0b5afb4abde43bfdc07cb906426fa4ef63aa3d5eb65ed362424026e88dd101b",
+      "document_group": "nexperia-74hc-hct165-family",
+      "id": "nexperia-74hc165-rev-8-2025-05",
+      "identity": {
+        "manufacturer": "Nexperia",
+        "mpn": "74HC165D",
+        "package": "SO16 SOT109-1"
+      },
+      "license_note": "Official Nexperia product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-calibration-1@2026-08-12",
+        "reviewed_at": "2026-08-12T16:40:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Rev. 8, 9 May 2025",
+        "url": "https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf"
+      },
+      "split": "calibration"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.47
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA219AIDCNR",
+            "package": "SOT-23-8 DCN"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "Figure 1 presents the INA219 eight-pin DCN package top view alongside the SOIC option.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.43,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA219AIDCNR",
+            "package": "SOT-23-8 DCN"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "The pin-functions table maps both packages' pins to A0/A1, bus/shunt inputs, supply, and ground.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.03,
+            0.12,
+            0.97,
+            0.67
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA219AIDCNR",
+            "package": "SOT-23-8 DCN"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 29,
+          "rationale": "The package-option addendum maps the exact INA219AIDCNR orderable part to SOT-23 drawing DCN with eight pins.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.03,
+            0.12,
+            0.97,
+            0.67
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA219AIDCNR",
+            "package": "SOIC-8 D"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 29,
+          "rationale": "The exact orderable row identifies SOT-23 DCN, not the wider D-package SOIC-8.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.03,
+            0.12,
+            0.97,
+            0.67
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA220AIDCNR",
+            "package": "SOT-23-8 DCN"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 29,
+          "rationale": "The orderable row identifies INA219AIDCNR; INA220 is a neighboring monitor identity.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.47
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA219AIDCNR",
+            "package": "SOT-23-8 DCN"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 3,
+          "rationale": "The DCN pin configuration is explicitly top view, not bottom view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "INA219AIDCNR",
+            "package": "SOT-23-8 DCN"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 9,
+          "rationale": "The crop is the INA219 functional block diagram, not package pin placement.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "current_power_monitor",
+      "content_sha256": "58004eda854d07478e6fc6f4398c114f60a3bcf18d4877471c7c1a306d1fa1cb",
+      "document_group": "ti-ina219-family",
+      "id": "ti-ina219-rev-g",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "INA219AIDCNR",
+        "package": "SOT-23-8 DCN"
+      },
+      "license_note": "Official Texas Instruments data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-calibration-2@2026-08-12",
+        "reviewed_at": "2026-08-12T16:40:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision G, December 2015",
+        "url": "https://www.ti.com/lit/ds/symlink/ina219.pdf"
+      },
+      "split": "calibration"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.54,
+            0.54,
+            0.96,
+            0.79
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940N-I/SN",
+            "package": "SOIC-8 3.90 mm SN"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 1,
+          "rationale": "The cover's Package Types panel presents the MCP7940N SOIC eight-lead top-view assignment.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.7
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940N-I/SN",
+            "package": "SOIC-8 3.90 mm SN"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 8,
+          "rationale": "The pin-description table maps the SOIC column to oscillator, battery, I2C, multifunction, and supply pins.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940N-I/SN",
+            "package": "SOIC-8 3.90 mm SN"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 44,
+          "rationale": "The SN mechanical sheet is the dimensioned eight-lead 3.90 mm narrow SOIC drawing.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940N-I/SN",
+            "package": "MSOP-8 MS"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 44,
+          "rationale": "The /SN suffix and crop denote SOIC-8, not the smaller /MS MSOP-8 option.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940NT-I/SN",
+            "package": "SOIC-8 3.90 mm SN"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 44,
+          "rationale": "The T form is the tape-and-reel ordering variant; the selected identity is the tube-packed MCP7940N-I/SN.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.54,
+            0.54,
+            0.96,
+            0.79
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940N-I/SN",
+            "package": "SOIC-8 3.90 mm SN"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 1,
+          "rationale": "The cover's package assignment is top view; a bottom-view claim reverses the pin sequence.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP7940N-I/SN",
+            "package": "SOIC-8 3.90 mm SN"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 20,
+          "rationale": "The crop is an alarm functional block diagram, not a package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "real_time_clock",
+      "content_sha256": "92385d740e31ab2b291be5d2c6a8781674c4ab10ca91b4f83268f85041eada05",
+      "document_group": "microchip-mcp7940n-family",
+      "id": "microchip-mcp7940n-ds20005010j",
+      "identity": {
+        "manufacturer": "Microchip Technology",
+        "mpn": "MCP7940N-I/SN",
+        "package": "SOIC-8 3.90 mm SN"
+      },
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-calibration-3@2026-08-12",
+        "reviewed_at": "2026-08-12T16:40:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "DS20005010J, April 2022",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP7940N-Battery-Backed-I2C-RTCC-with-SRAM-20005010J.pdf"
+      },
+      "split": "calibration"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.49,
+            0.31
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117AIDRVR",
+            "package": "WSON-6 DRV"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 4,
+          "rationale": "Figure 5-1 explicitly presents the six-pin DRV WSON top-view assignment.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.34,
+            0.96,
+            0.57
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117AIDRVR",
+            "package": "WSON-6 DRV"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 4,
+          "rationale": "Table 5-1 maps the DRV pins to ALERT, SDA, SCL, supply, ground, and thermal-pad behavior.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117AIDRVR",
+            "package": "WSON-6 DRV"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 40,
+          "rationale": "The DRV0006A sheet provides the dimensioned 2x2 mm six-pin WSON outline.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117AIDRVR",
+            "package": "DSBGA-6 YBG"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 40,
+          "rationale": "The DRV suffix selects WSON-6, not the YBG DSBGA-6 package.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117MAIDRVR",
+            "package": "WSON-6 DRV"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 40,
+          "rationale": "TMP117M is a different accuracy/temperature-range variant; the exact identity is TMP117AIDRVR.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.49,
+            0.31
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117AIDRVR",
+            "package": "WSON-6 DRV"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 4,
+          "rationale": "Figure 5-1 is explicitly top view; a bottom-view claim mirrors the pads.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.7
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "TMP117AIDRVR",
+            "package": "WSON-6 DRV"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 11,
+          "rationale": "The crop is the TMP117 internal functional block diagram, not a package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "temperature_sensor",
+      "content_sha256": "8b58dbdb5ea4618aa7e620f0bce4480cffa60da77943037515f40bf5c54bee37",
+      "document_group": "ti-tmp117-family",
+      "id": "ti-tmp117-rev-d",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "TMP117AIDRVR",
+        "package": "WSON-6 DRV"
+      },
+      "license_note": "Official Texas Instruments data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-calibration-4@2026-08-12",
+        "reviewed_at": "2026-08-12T16:40:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision D, September 2022",
+        "url": "https://www.ti.com/lit/ds/symlink/tmp117.pdf"
+      },
+      "split": "calibration"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.76
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2514BT-I/M2",
+            "package": "SQFN-36 6x6 mm M2"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 9,
+          "rationale": "Figure 3-3 presents the USB2514B/14Bi 36-pin package top-view signal assignment.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2514BT-I/M2",
+            "package": "SQFN-36 6x6 mm M2"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 12,
+          "rationale": "Table 3-2 maps USB251xB/xBi symbols to pin numbers, buffer types, and detailed functions.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2514BT-I/M2",
+            "package": "SQFN-36 6x6 mm M2"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 48,
+          "rationale": "Section 9.1 supplies the dimensioned preferred 36-pin SQFN package drawing.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2514BT-I/M2",
+            "package": "QFN-36 6x6 mm legacy"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 48,
+          "rationale": "The /M2 suffix selects the preferred SQFN, not the legacy QFN order-code family.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2513BT-I/M2",
+            "package": "SQFN-36 6x6 mm M2"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 48,
+          "rationale": "USB2513B is the three-port hub variant; USB2514B is the selected four-port identity.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.76
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2514BT-I/M2",
+            "package": "SQFN-36 6x6 mm M2"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 9,
+          "rationale": "The pin diagram is explicitly top view; bottom view reverses perimeter numbering.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "USB2514BT-I/M2",
+            "package": "SQFN-36 6x6 mm M2"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 6,
+          "rationale": "The crop is the USB hub-family functional block diagram, not a physical pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "usb_hub_controller",
+      "content_sha256": "3fca1a17701a3fd513c867f4deab71887b317302ff7cbbc22310c1ddaa6bdaa9",
+      "document_group": "microchip-usb2514b-family",
+      "id": "microchip-usb2514b-ds00001692c",
+      "identity": {
+        "manufacturer": "Microchip Technology",
+        "mpn": "USB2514BT-I/M2",
+        "package": "SQFN-36 6x6 mm M2"
+      },
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-calibration-5@2026-08-12",
+        "reviewed_at": "2026-08-12T16:40:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "DS00001692C, 2015",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/00001692C.pdf"
+      },
+      "split": "calibration"
     }
   ],
   "schema_version": "dsvire.visual-eval-registry.v1"
