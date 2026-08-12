@@ -1,0 +1,33 @@
+{
+  "evaluation_score_sha256": "083395b35c426203a713f665f4d6a59989cfaedbdc7d07f17349918bafba9c22",
+  "gate_passed": false,
+  "metric_version": "dsvire.selective-metrics@1.0.0",
+  "metrics": {
+    "accepted": 7,
+    "accepted_positives": 7,
+    "aurc": 0.359242646613183,
+    "cases": 35,
+    "positive_coverage": 0.4666666666666667,
+    "positives": 15,
+    "wrong_identity_accepted": 0,
+    "wrong_visual_accepted": 0,
+    "wrong_visual_rate": 0.0
+  },
+  "policy": {
+    "accept_when": "score_gt_threshold",
+    "calibration_id": null,
+    "dataset_sha256": "2126649ef51d24c5595dc027e929400014646cf7ef225f55d86804a2e4fd9efb",
+    "maximum_wrong_visual_rate": 0.02,
+    "metric_version": "dsvire.selective-metrics@1.0.0",
+    "minimum_positive_coverage": 0.5,
+    "model_id": "dsvire.visual-adapter.text-layout@1.0.0",
+    "model_sha256": "8887ebceb92cd80d6435e5dde76fabb51f3064178f66290bec0abfa07ea65a7e",
+    "preprocessing_id": "pymupdf-1.28.2-clip-text-normalized-bbox@1",
+    "require_zero_wrong_identity": true,
+    "schema_version": "dsvire.egvv-policy.v1",
+    "score_semantics": "similarity",
+    "threshold": 0.54
+  },
+  "policy_sha256": "070ec025301b6976cca1ef4ec20ee311c9839d7b709df53af2d50f4068f95182",
+  "schema_version": "dsvire.visual-verifier-eval.v1"
+}
