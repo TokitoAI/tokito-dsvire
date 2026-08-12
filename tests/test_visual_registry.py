@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 8
+    assert len(registry.documents) == 10
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
@@ -241,11 +241,41 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "operational_amplifier",
         "timer",
         "wireless_microcontroller",
+        "led_driver",
+        "environmental_sensor",
     }
-    assert len({document.identity.manufacturer for document in registry.documents}) >= 6
+    assert len({document.identity.manufacturer for document in registry.documents}) >= 8
     assert all(document.redistribution == "download_only" for document in registry.documents)
     assert all(len(document.cases) >= 6 for document in registry.documents)
     assert not list((root / "evaluation").glob("*.pdf"))
+
+    documents = {document.document_id: document for document in registry.documents}
+    expected_expansion = {
+        "nxp-pca9685-rev-4-2015-04": (
+            "237d47f339cac4c3a0d56a5f0b4d3c93df71e3eb43f36ac57ea4ff38e6b2e585",
+            "PCA9685PW",
+        ),
+        "bosch-bme280-rev-1-23-2022-01": (
+            "a2ccdb449fec94380742fe8eec851a11d9bd4142252d332b34682b4deecd7d89",
+            "BME280",
+        ),
+    }
+    for document_id, (content_sha256, mpn) in expected_expansion.items():
+        document = documents[document_id]
+        assert document.content_sha256 == content_sha256
+        assert document.identity.mpn == mpn
+        assert {case.label for case in document.cases} == {
+            "positive",
+            "wrong_package",
+            "wrong_variant",
+            "wrong_view",
+            "wrong_figure",
+        }
+        assert {case.region_type for case in document.cases if case.label == "positive"} == {
+            "pinout",
+            "table",
+            "package",
+        }
 
 
 def test_multivendor_evidence_export_is_bound_to_exact_registry_subset() -> None:
