@@ -127,12 +127,12 @@ reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
 PDF hash from the TI CDN on all three bounded attempts and correctly produced
 no benchmark artifact; the registered source hash was not relaxed.
 
-`visual_registry.v1.json` now contains thirteen hash-pinned official development
+`visual_registry.v1.json` now contains fourteen hash-pinned official development
 documents across ten manufacturer labels: the original three TI families plus
 ATmega328P, MCP3008, AP2112, ESP32, RP2040, PCA9685, BME280, NCP1117, and
-PCF8574 and ISL1208. Its 90 cases include positive
+PCF8574, ISL1208, and CAT24C32. Its 97 cases include positive
 pinout/table/package evidence and explicit package, variant, view, and figure
-adversaries. The ten non-TI families were rendered into local contact sheets and
+adversaries. The eleven non-TI families were rendered into local contact sheets and
 each crop was visually inspected; that agent QA is not independent annotation
 review. Every entry therefore remains deliberately `unreviewed`, cannot enter
 calibration/evaluation, and is not accuracy evidence. PDF and contact-sheet
