@@ -13,6 +13,9 @@ RUN python -m pip install --no-cache-dir --require-hashes -r requirements/runtim
 COPY src ./src
 COPY fixtures/robustness ./fixtures/robustness
 COPY scripts/evaluate_robustness.py ./scripts/evaluate_robustness.py
+COPY policy ./policy
+COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md
+COPY scripts/audit_runtime_licenses.py ./scripts/audit_runtime_licenses.py
 
 RUN mkdir -p /data/dsvire && chown -R dsvire:dsvire /data/dsvire
 USER dsvire

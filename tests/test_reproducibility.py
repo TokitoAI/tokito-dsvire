@@ -49,6 +49,8 @@ def test_container_never_resolves_dependencies_or_build_requirements() -> None:
     assert "PYTHONPATH=/app/src" in dockerfile
     assert "COPY fixtures/robustness ./fixtures/robustness" in dockerfile
     assert "COPY scripts/evaluate_robustness.py ./scripts/evaluate_robustness.py" in dockerfile
+    assert "COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md" in dockerfile
+    assert "COPY policy ./policy" in dockerfile
     assert "pip install --no-cache-dir ." not in dockerfile
     assert "pip install --no-cache-dir --upgrade" not in dockerfile
 
@@ -67,3 +69,7 @@ def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
             assert "python scripts/verify_release.py" in workflow
             assert "Container robustness corpus" in workflow
             assert "scripts/evaluate_robustness.py" in workflow
+            assert "Container runtime license audit" in workflow
+            assert "scripts/audit_runtime_licenses.py" in workflow
+    release = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
+    assert release.count("--require-release-ready") == 2

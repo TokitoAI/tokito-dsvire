@@ -35,6 +35,20 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
                 ),
                 encoding="utf-8",
             )
+        if "scripts/audit_runtime_licenses.py" in command:
+            output = Path(command[command.index("--json-out") + 1])
+            output.write_text(
+                json.dumps(
+                    {
+                        "schema_version": "dsvire.runtime-license-audit.v1",
+                        "ok": True,
+                        "release_ready": False,
+                        "runtime_package_count": 24,
+                        "legal_decisions": [{"name": "pymupdf", "version": "1.28.2"}],
+                    }
+                ),
+                encoding="utf-8",
+            )
         return _completed(command)
 
     report = verify_release(runner=runner)
@@ -48,13 +62,21 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
         "compile",
         "tests-and-artifacts",
         "generated-robustness-corpus",
+        "runtime-license-policy",
         "package-build",
         "runtime-vulnerability-audit",
     ]
     assert any(command[:2] == ("pytest", "-q") for command in commands)
     assert any("scripts/evaluate_robustness.py" in command for command in commands)
+    assert any("scripts/audit_runtime_licenses.py" in command for command in commands)
     assert any("--require-hashes" in command for command in commands)
     assert report["artifacts"]["robustness"]["case_count"] == 11
+    assert report["artifacts"]["runtime_licenses"] == {
+        "schema_version": "dsvire.runtime-license-audit.v1",
+        "release_ready": False,
+        "runtime_package_count": 24,
+        "legal_decisions": [{"name": "pymupdf", "version": "1.28.2"}],
+    }
 
 
 def test_release_verifier_propagates_the_first_failure() -> None:
