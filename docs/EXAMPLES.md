@@ -15,6 +15,35 @@ git diff --exit-code -- examples docs/assets
 CI performs the same byte comparison in a temporary directory. Do not edit the
 generated JSON or SVG files by hand.
 
+## Tokito Wave D product acceptance
+
+The checked [Wave D acceptance report](../examples/wave-d-acceptance.json) is
+the output of a single local run across five sibling repositories. It passes
+the frozen eight-pin TPS5430DDAR spec through:
+
+1. the real deterministic catalog compiler;
+2. authenticated `POST /v1/generated/ingest` on a local Tokito Cloud process;
+3. the immutable `generated.sqlite` publication store;
+4. `tokito-mcp-pack generated` and a real MCP streamable-HTTP server;
+5. `resolve_by_mpn` and `get_symbol_provenance`; and
+6. Desktop import, placement, canonical-core commit, save/reopen, hydration,
+   and byte-identical embedded `.tokito_sym` verification.
+
+```bash
+python scripts/wave_d_acceptance.py
+```
+
+The report records exact repository commits, stage timings, artifact SHA-256
+digests, and all 29 contract findings. The recorded Windows run completed in
+13.2 seconds with every finding passing. MCP returned all eight pins, the
+generated namespace, the TI datasheet URL, package and MPN metadata, plus the
+two cited evidence region IDs.
+
+This is a seeded integration acceptance, not a live extraction score. The
+checked `fixtures/acceptance` pair is explicitly marked as frozen EGVV input;
+it does not replace held-out calibration, the live visual extractor, or the
+separate credential/deployment gate in the production-readiness ledger.
+
 ## Evidence bundle walkthrough
 
 ![Source-free DS-ViRe evidence bundle](assets/evidence-bundle-example.svg)

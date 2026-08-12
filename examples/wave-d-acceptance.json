@@ -1,0 +1,209 @@
+{
+  "schema_version": "tokito.wave-d-acceptance.v1",
+  "ok": true,
+  "generated_at": "2026-08-12T21:48:32+00:00",
+  "seeded_boundary": "checked EGVV evidence and SymbolSpec; no live model call",
+  "repositories": {
+    "dsvire": "f8b49cc04fd70abad473f447a73578923d650ac8",
+    "tokito": "90a4c017f9b883c463e96ac8ce07bba06974f451",
+    "ai": "98c11ec3249c289683d6c17b1b752f0a403957db",
+    "catalog": "40a41a5d4022c54b6f6ecdf5c1246b25dd50d70c",
+    "mcp": "c90753391cdc7528713f9a890e97ade7a9051b77"
+  },
+  "timings_seconds": {
+    "build catalog compiler": 0.235,
+    "build Cloud API": 0.359,
+    "build MCP packer/server": 0.297,
+    "compile": 0.0,
+    "build official catalog": 1.125,
+    "Cloud readiness": 2.265,
+    "authenticated ingest": 0.094,
+    "generated catalog sync": 0.078,
+    "MCP readiness": 0.5,
+    "MCP resolve_by_mpn": 0.0,
+    "MCP get_symbol_provenance": 0.046,
+    "artifact verification": 0.047,
+    "Desktop place/save/reopen": 8.547
+  },
+  "total_seconds": 13.828,
+  "artifacts": {
+    "tps5430ddar.egvv.json": {
+      "bytes": 2565,
+      "sha256": "570db24ec6edf891f400ad2a761fad9b27d670c299beccfbeda77f9dc2e46891"
+    },
+    "spec.json": {
+      "bytes": 2095,
+      "sha256": "14c2e4ee7978cd1a4255e0ebe8f1c08189ca1b9dffab80414c057923d31bd1cf"
+    },
+    "symbol.tokito_sym": {
+      "bytes": 3560,
+      "sha256": "ee5a2bc8891a255d318492fbb67a0c3bda75bca613bb01d8096e7b6138efc222"
+    },
+    "ingest_response.json": {
+      "bytes": 1471,
+      "sha256": "3949066ff6a5383e2fca250598c0dd49d4459c6edfcec0b02f94264c2c397b92"
+    },
+    "resolved.json": {
+      "bytes": 9363,
+      "sha256": "5a0bb94c67cb91636e55739bb2da129d8f21cdff9050ee87ff0c2c037dc8a276"
+    },
+    "provenance.json": {
+      "bytes": 1062,
+      "sha256": "aecffef67ccd3dfac6ff6c132f43f2afdc6257f48fa019139e7ce6d72a7e315a"
+    },
+    "symbols.sqlite": {
+      "bytes": 212992,
+      "sha256": "8bd501420b1d54c957822d0addee4dfe848d91e9d259282a3a19d8773816cacc"
+    }
+  },
+  "verification": {
+    "ok": true,
+    "findings": [
+      {
+        "check_id": "evidence.schema",
+        "outcome": "PASS",
+        "detail": "matches dsvire.symbol-evidence.v2"
+      },
+      {
+        "check_id": "evidence.has_accepted_pinout",
+        "outcome": "PASS",
+        "detail": "1 accepted pinout region(s)"
+      },
+      {
+        "check_id": "evidence.has_accepted_table",
+        "outcome": "PASS",
+        "detail": "1 accepted table region(s)"
+      },
+      {
+        "check_id": "evidence.has_accepted_package",
+        "outcome": "PASS",
+        "detail": "1 accepted package region(s)"
+      },
+      {
+        "check_id": "evidence.identity_grounded",
+        "outcome": "PASS",
+        "detail": "exact identity accepted with region provenance"
+      },
+      {
+        "check_id": "evidence.bbox_ordered",
+        "outcome": "PASS",
+        "detail": "all bbox_norm entries strictly x0<x1, y0<y1"
+      },
+      {
+        "check_id": "spec.schema",
+        "outcome": "PASS",
+        "detail": "matches tokito.symbol-spec.v1"
+      },
+      {
+        "check_id": "spec.manufacturer_matches_bundle",
+        "outcome": "PASS",
+        "detail": "Texas Instruments"
+      },
+      {
+        "check_id": "spec.mpn_matches_bundle",
+        "outcome": "PASS",
+        "detail": "TPS5430DDAR"
+      },
+      {
+        "check_id": "spec.package_matches_bundle",
+        "outcome": "PASS",
+        "detail": "SO-PowerPAD-8"
+      },
+      {
+        "check_id": "spec.evidence_regions_present",
+        "outcome": "PASS",
+        "detail": "all 16 references resolved"
+      },
+      {
+        "check_id": "spec.provenance_datasheet_matches",
+        "outcome": "PASS",
+        "detail": "ti-slvs632l"
+      },
+      {
+        "check_id": "spec.provenance_content_hash_matches",
+        "outcome": "PASS",
+        "detail": "extractor recorded exact bundle sha256"
+      },
+      {
+        "check_id": "spec.pin_numbers_unique",
+        "outcome": "PASS",
+        "detail": "8 unique pin number(s)"
+      },
+      {
+        "check_id": "spec.pin_confidence_floor",
+        "outcome": "PASS",
+        "detail": "all pins \u2265 0.6 confidence"
+      },
+      {
+        "check_id": "symbol.file_exists",
+        "outcome": "PASS",
+        "detail": "symbol.tokito_sym present"
+      },
+      {
+        "check_id": "symbol.canonical_properties",
+        "outcome": "PASS",
+        "detail": "all 8 canonical property keys present"
+      },
+      {
+        "check_id": "symbol.mpn_literal",
+        "outcome": "PASS",
+        "detail": "MPN='TPS5430DDAR' expected='TPS5430DDAR'"
+      },
+      {
+        "check_id": "symbol.manufacturer_literal",
+        "outcome": "PASS",
+        "detail": "Manufacturer='Texas Instruments' expected='Texas Instruments'"
+      },
+      {
+        "check_id": "symbol.package_literal",
+        "outcome": "PASS",
+        "detail": "SO-PowerPAD-8"
+      },
+      {
+        "check_id": "provenance.schema",
+        "outcome": "PASS",
+        "detail": "matches tokito.provenance-record.v1"
+      },
+      {
+        "check_id": "provenance.mpn_matches_spec",
+        "outcome": "PASS",
+        "detail": "TPS5430DDAR"
+      },
+      {
+        "check_id": "provenance.package_matches_spec",
+        "outcome": "PASS",
+        "detail": "SO-PowerPAD-8"
+      },
+      {
+        "check_id": "provenance.regions_present_in_bundle",
+        "outcome": "PASS",
+        "detail": "all 2 region ids in bundle"
+      },
+      {
+        "check_id": "provenance.content_hash_matches_bundle",
+        "outcome": "PASS",
+        "detail": "provenance recorded exact bundle sha256"
+      },
+      {
+        "check_id": "provenance.status_published",
+        "outcome": "PASS",
+        "detail": "published"
+      },
+      {
+        "check_id": "resolved.shape",
+        "outcome": "PASS",
+        "detail": "top-level keys present"
+      },
+      {
+        "check_id": "resolved.lib_generated_namespace",
+        "outcome": "PASS",
+        "detail": "generated:texas-instruments"
+      },
+      {
+        "check_id": "resolved.pins_superset_of_spec",
+        "outcome": "PASS",
+        "detail": "8 spec pins all present in resolved symbol (8 total)"
+      }
+    ]
+  }
+}
