@@ -39,9 +39,7 @@ def test_seeded_fixture_is_explicit_egvv_and_eight_pin() -> None:
     evidence = json.loads(
         (REPO_ROOT / "fixtures" / "acceptance" / "tps5430ddar.egvv.json").read_text()
     )
-    spec = json.loads(
-        (REPO_ROOT / "fixtures" / "acceptance" / "tps5430ddar.spec.json").read_text()
-    )
+    spec = json.loads((REPO_ROOT / "fixtures" / "acceptance" / "tps5430ddar.spec.json").read_text())
     assert len(spec["pins"]) == 8
     assert {region["verification"]["method"] for region in evidence["regions"]} == {
         "evidence_gated_visual"

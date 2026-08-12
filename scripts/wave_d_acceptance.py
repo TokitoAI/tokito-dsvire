@@ -53,7 +53,9 @@ class Repositories:
         )
         missing = [str(path) for path in dataclasses.astuple(repos) if not Path(path).is_dir()]
         if missing:
-            raise demo_run.StageError("missing sibling repository checkout(s): " + ", ".join(missing))
+            raise demo_run.StageError(
+                "missing sibling repository checkout(s): " + ", ".join(missing)
+            )
         return repos
 
 
@@ -147,9 +149,7 @@ def _commit(repo: Path) -> str:
     return _run(["git", "rev-parse", "HEAD"], repo).strip()
 
 
-def run(
-    repos: Repositories, output: Path, report_path: Path | None = None
-) -> dict[str, Any]:
+def run(repos: Repositories, output: Path, report_path: Path | None = None) -> dict[str, Any]:
     started = time.monotonic()
     if output.exists():
         shutil.rmtree(output)
@@ -168,24 +168,77 @@ def run(
     spec = output / "spec.json"
     shutil.copyfile(seed_spec, spec)
 
-    stage("build catalog compiler", lambda: _run(["cargo", "build", "--locked", "--bin", "tokito-symbol-compile"], repos.catalog))
-    stage("build Cloud API", lambda: _run(["cargo", "build", "--locked", "--bin", "tokito-ai-api"], repos.ai))
-    stage("build MCP packer/server", lambda: _run(["cargo", "build", "--locked", "--bin", "tokito-mcp-pack", "--bin", "tokito-mcp-server"], repos.mcp))
+    stage(
+        "build catalog compiler",
+        lambda: _run(
+            ["cargo", "build", "--locked", "--bin", "tokito-symbol-compile"], repos.catalog
+        ),
+    )
+    stage(
+        "build Cloud API",
+        lambda: _run(["cargo", "build", "--locked", "--bin", "tokito-ai-api"], repos.ai),
+    )
+    stage(
+        "build MCP packer/server",
+        lambda: _run(
+            [
+                "cargo",
+                "build",
+                "--locked",
+                "--bin",
+                "tokito-mcp-pack",
+                "--bin",
+                "tokito-mcp-server",
+            ],
+            repos.mcp,
+        ),
+    )
 
-    compiler = repos.catalog / "target" / "debug" / ("tokito-symbol-compile.exe" if os.name == "nt" else "tokito-symbol-compile")
-    api = repos.ai / "target" / "debug" / ("tokito-ai-api.exe" if os.name == "nt" else "tokito-ai-api")
-    packer = repos.mcp / "target" / "debug" / ("tokito-mcp-pack.exe" if os.name == "nt" else "tokito-mcp-pack")
-    mcp_server = repos.mcp / "target" / "debug" / ("tokito-mcp-server.exe" if os.name == "nt" else "tokito-mcp-server")
+    compiler = (
+        repos.catalog
+        / "target"
+        / "debug"
+        / ("tokito-symbol-compile.exe" if os.name == "nt" else "tokito-symbol-compile")
+    )
+    api = (
+        repos.ai
+        / "target"
+        / "debug"
+        / ("tokito-ai-api.exe" if os.name == "nt" else "tokito-ai-api")
+    )
+    packer = (
+        repos.mcp
+        / "target"
+        / "debug"
+        / ("tokito-mcp-pack.exe" if os.name == "nt" else "tokito-mcp-pack")
+    )
+    mcp_server = (
+        repos.mcp
+        / "target"
+        / "debug"
+        / ("tokito-mcp-server.exe" if os.name == "nt" else "tokito-mcp-server")
+    )
 
     symbol = output / "symbol.tokito_sym"
-    stage("compile", lambda: _run([str(compiler), "--spec", str(spec), "--out", str(symbol)], repos.catalog))
+    stage(
+        "compile",
+        lambda: _run([str(compiler), "--spec", str(spec), "--out", str(symbol)], repos.catalog),
+    )
 
     official_db = output / "symbols.sqlite"
     catalog_fixture = repos.dsvire / "fixtures" / "acceptance" / "catalog"
     stage(
         "build official catalog",
         lambda: _run(
-            [str(packer), "--src", str(catalog_fixture), "--out", str(official_db), "--source-commit", "wave-d-acceptance"],
+            [
+                str(packer),
+                "--src",
+                str(catalog_fixture),
+                "--out",
+                str(official_db),
+                "--source-commit",
+                "wave-d-acceptance",
+            ],
             repos.mcp,
         ),
     )
@@ -206,9 +259,17 @@ def run(
     mcp_process: subprocess.Popen[str] | None = None
     try:
         api_process = subprocess.Popen(
-            [str(api)], cwd=repos.ai, env=ai_env, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            [str(api)],
+            cwd=repos.ai,
+            env=ai_env,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
         )
-        stage("Cloud readiness", lambda: _wait_http(f"http://127.0.0.1:{ai_port}/v1/health", api_process))
+        stage(
+            "Cloud readiness",
+            lambda: _wait_http(f"http://127.0.0.1:{ai_port}/v1/health", api_process),
+        )
         token = issue_acceptance_jwt(jwt_secret, int(time.time()))
         cfg = demo_run.Config(
             extract_cmd="unused-seeded-fixture",
@@ -220,7 +281,9 @@ def run(
             mcp_db=str(official_db),
             generated_db=str(output / "ai-data" / "generated.sqlite"),
         )
-        ingest_path = stage("authenticated ingest", lambda: demo_run.stage_ingest(cfg, spec, fixture, output))
+        ingest_path = stage(
+            "authenticated ingest", lambda: demo_run.stage_ingest(cfg, spec, fixture, output)
+        )
         ingest = json.loads(ingest_path.read_text(encoding="utf-8"))
         if ingest.get("pin_count") != 8 or ingest.get("status") != "published":
             raise demo_run.StageError(f"unexpected ingest response: {ingest}")
@@ -247,10 +310,15 @@ def run(
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        stage("MCP readiness", lambda: _wait_http(f"http://127.0.0.1:{mcp_port}/v1/health", mcp_process))
+        stage(
+            "MCP readiness",
+            lambda: _wait_http(f"http://127.0.0.1:{mcp_port}/v1/health", mcp_process),
+        )
         cfg = dataclasses.replace(cfg, mcp_url=f"http://127.0.0.1:{mcp_port}/mcp")
         spec_document = json.loads(spec.read_text(encoding="utf-8"))
-        resolved = stage("MCP resolve_by_mpn", lambda: demo_run.stage_resolve(cfg, spec_document, output))
+        resolved = stage(
+            "MCP resolve_by_mpn", lambda: demo_run.stage_resolve(cfg, spec_document, output)
+        )
         provenance = stage(
             "MCP get_symbol_provenance",
             lambda: demo_run.stage_provenance(cfg, str(ingest["revision_id"]), output),
@@ -269,7 +337,11 @@ def run(
             ),
         )
         if not report.ok:
-            failed = [f"{finding.check_id}: {finding.detail}" for finding in report.findings if not finding.ok]
+            failed = [
+                f"{finding.check_id}: {finding.detail}"
+                for finding in report.findings
+                if not finding.ok
+            ]
             raise demo_run.StageError("artifact verifier failed: " + "; ".join(failed))
 
         desktop_env = os.environ.copy()
@@ -297,14 +369,24 @@ def run(
 
     artifacts = {
         path.name: {"bytes": path.stat().st_size, "sha256": _sha256(path)}
-        for path in [fixture, spec, symbol, output / "ingest_response.json", output / "resolved.json", output / "provenance.json", official_db]
+        for path in [
+            fixture,
+            spec,
+            symbol,
+            output / "ingest_response.json",
+            output / "resolved.json",
+            output / "provenance.json",
+            official_db,
+        ]
     }
     result = {
         "schema_version": "tokito.wave-d-acceptance.v1",
         "ok": True,
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "seeded_boundary": "checked EGVV evidence and SymbolSpec; no live model call",
-        "repositories": {field.name: _commit(getattr(repos, field.name)) for field in dataclasses.fields(repos)},
+        "repositories": {
+            field.name: _commit(getattr(repos, field.name)) for field in dataclasses.fields(repos)
+        },
         "timings_seconds": timings,
         "total_seconds": round(time.monotonic() - started, 3),
         "artifacts": artifacts,
