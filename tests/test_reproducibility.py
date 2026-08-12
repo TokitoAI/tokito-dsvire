@@ -51,6 +51,7 @@ def test_container_never_resolves_dependencies_or_build_requirements() -> None:
     assert "COPY scripts/evaluate_robustness.py ./scripts/evaluate_robustness.py" in dockerfile
     assert "COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md" in dockerfile
     assert "COPY policy ./policy" in dockerfile
+    assert "pip install --no-cache-dir --no-compile --require-hashes" in dockerfile
     assert "pip install --no-cache-dir ." not in dockerfile
     assert "pip install --no-cache-dir --upgrade" not in dockerfile
 
@@ -73,3 +74,11 @@ def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
             assert "scripts/audit_runtime_licenses.py" in workflow
     release = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
     assert release.count("--require-release-ready") == 2
+
+
+def test_ci_proves_image_rootfs_reproducibility_and_publishes_evidence() -> None:
+    workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    assert workflow.count("docker build --pull --no-cache") == 2
+    assert workflow.count("docker export --output") == 2
+    assert "scripts/compare_image_rootfs.py" in workflow
+    assert "image-reproducibility-${{ github.sha }}" in workflow

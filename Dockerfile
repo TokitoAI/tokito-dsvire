@@ -8,7 +8,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 RUN useradd --create-home --uid 10001 dsvire
 WORKDIR /app
 COPY requirements/runtime.lock ./requirements/runtime.lock
-RUN python -m pip install --no-cache-dir --require-hashes -r requirements/runtime.lock \
+RUN python -m pip install --no-cache-dir --no-compile --require-hashes -r requirements/runtime.lock \
     && python -m pip check
 COPY src ./src
 COPY fixtures/robustness ./fixtures/robustness
