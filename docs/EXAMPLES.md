@@ -54,10 +54,10 @@ comparison while the registry grows.
 
 | Measurement | Text layout | RapidOCR |
 |---|---:|---:|
-| Elapsed time | 0.474 s | 115.66 s |
-| Throughput | 10.55 docs/s | 0.043 docs/s |
-| Peak RSS | 69.7 MiB | 631.3 MiB |
-| Positive mean similarity | 0.757 | 0.790 |
+| Elapsed time | 0.527 s | 116.12 s |
+| Throughput | 9.49 docs/s | 0.043 docs/s |
+| Peak RSS | 69.4 MiB | 632.8 MiB |
+| Positive mean similarity | 0.763 | 0.796 |
 | Wrong-package mean similarity | 0.700 | 0.587 |
 | Wrong-variant mean similarity | 0.600 | 0.484 |
 | Wrong-figure mean similarity | 0.581 | 0.569 |
@@ -65,7 +65,7 @@ comparison while the registry grows.
 RapidOCR improved package and variant separation in this slice, but the
 wrong-package and wrong-figure scores remain too close to positives for a safe
 standalone verifier. No threshold was fitted. Both adapters report similarity,
-not calibrated probability, and this unreviewed development result is
+not calibrated probability, and this owner-authorized agent-audited development result is
 ineligible for calibration or publication policy.
 
 To produce a fresh local comparator result from official, hash-pinned sources:

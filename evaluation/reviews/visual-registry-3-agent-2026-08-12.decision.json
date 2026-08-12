@@ -1,0 +1,39 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {"case_id": "atmel-atmega328p-7810d-2015-01/pinout-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "atmel-atmega328p-7810d-2015-01/table-positive", "note": "Corrected Port B alternate-function table inspected after rejecting the prior oscillator-table crop.", "outcome": "accepted"},
+    {"case_id": "atmel-atmega328p-7810d-2015-01/package-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "atmel-atmega328p-7810d-2015-01/wrong-package", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "atmel-atmega328p-7810d-2015-01/wrong-variant", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "atmel-atmega328p-7810d-2015-01/wrong-view", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "atmel-atmega328p-7810d-2015-01/wrong-figure-package-as-pinout", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/pinout-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/table-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/package-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-package", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-variant", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-view", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-figure-block-as-pinout", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/pinout-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/table-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/package-positive", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-package", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-variant", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-view", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-figure-reset-timing-as-pinout", "note": "Exact source hash and rendered crop inspected.", "outcome": "accepted"}
+  ],
+  "packet_sha256": "4b9bac85fb53e0bedb81c2bdf0268c22e320adf570f8e7ec2406efe21331832a",
+  "registry_sha256": "c6925acd498a0ba58e5dc254c47daeeae25741eda3fda3815a6856c9be4d250e",
+  "reviewed_at": "2026-08-12T11:13:28Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {
+    "cases": 21,
+    "documents": 3,
+    "exact_source_hashes": 3,
+    "excluded_findings": [
+      "The prior ATmega328P table-positive oscillator-settings crop was rejected and replaced with Table 13-3, Port B Pins Alternate Functions, before this review."
+    ]
+  }
+}
