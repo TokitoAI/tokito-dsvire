@@ -36,7 +36,9 @@ class StageResult:
 Runner = Callable[..., subprocess.CompletedProcess[str]]
 
 
-def _stages(build_out: Path, robustness_out: Path, license_out: Path) -> tuple[Stage, ...]:
+def _stages(
+    build_out: Path, robustness_out: Path, hostile_out: Path, license_out: Path
+) -> tuple[Stage, ...]:
     python = sys.executable
     return (
         Stage("dependency-lock", (python, "scripts/check_dependency_lock.py")),
@@ -61,6 +63,15 @@ def _stages(build_out: Path, robustness_out: Path, license_out: Path) -> tuple[S
                 "scripts/audit_runtime_licenses.py",
                 "--json-out",
                 str(license_out),
+            ),
+        ),
+        Stage(
+            "hostile-pdf-resource-gate",
+            (
+                python,
+                "scripts/evaluate_hostile_pdfs.py",
+                "--json-out",
+                str(hostile_out),
             ),
         ),
         Stage(
@@ -103,8 +114,9 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="dsvire-release-") as directory:
         build_out = Path(directory) / "dist"
         robustness_out = Path(directory) / "robustness.json"
+        hostile_out = Path(directory) / "hostile-pdf.json"
         license_out = Path(directory) / "runtime-licenses.json"
-        for stage in _stages(build_out, robustness_out, license_out):
+        for stage in _stages(build_out, robustness_out, hostile_out, license_out):
             started = time.perf_counter()
             completed = runner(
                 stage.command,
@@ -132,6 +144,18 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
             or not re.fullmatch(r"[0-9a-f]{64}", str(robustness.get("manifest_sha256", "")))
         ):
             raise ReleaseVerificationError("generated robustness evidence failed validation")
+        try:
+            hostile = json.loads(hostile_out.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ReleaseVerificationError("hostile PDF gate did not emit valid evidence") from exc
+        if (
+            hostile.get("schema_version") != "dsvire.hostile-pdf-evidence.v1"
+            or hostile.get("ok") is not True
+            or hostile.get("case_count") != 48
+            or not re.fullmatch(r"[0-9a-f]{64}", str(hostile.get("campaign_sha256", "")))
+            or not isinstance(hostile.get("peak_rss_bytes"), int)
+        ):
+            raise ReleaseVerificationError("hostile PDF evidence failed validation")
         try:
             license_audit = json.loads(license_out.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
@@ -164,6 +188,14 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
                 "schema_version": robustness["schema_version"],
                 "manifest_sha256": robustness["manifest_sha256"],
                 "case_count": robustness["case_count"],
+            },
+            "hostile_pdf": {
+                "schema_version": hostile["schema_version"],
+                "campaign_sha256": hostile["campaign_sha256"],
+                "case_count": hostile["case_count"],
+                "outcomes": hostile["outcomes"],
+                "elapsed_ms": hostile["elapsed_ms"],
+                "peak_rss_bytes": hostile["peak_rss_bytes"],
             },
             "runtime_licenses": {
                 "schema_version": license_audit["schema_version"],
