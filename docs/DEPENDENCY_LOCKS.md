@@ -77,3 +77,10 @@ source mtimes and caused 608 byte-level differences in the first cold-build
 drill. This removes nondeterminism at its source rather than exempting bytecode
 from comparison; Python may create runtime caches only where the non-root
 process has a writable filesystem.
+
+The final image layer also removes any nested app `__pycache__` directories and
+normalizes `/app` directories to `0755` and files to `0644`. This is necessary
+because source-checkout umasks differ across builders and CI may run Python
+before building the image. The normalization applies to the copied read-only app
+payload only; `/data/dsvire` is created and owned separately by the non-root
+runtime user.
