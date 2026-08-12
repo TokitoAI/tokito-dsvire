@@ -1,0 +1,257 @@
+{
+  "adapter": {
+    "adapter_id": "dsvire.visual-adapter.text-layout@1.0.0",
+    "implementation_sha256": "8887ebceb92cd80d6435e5dde76fabb51f3064178f66290bec0abfa07ea65a7e",
+    "model_sha256": null,
+    "preprocessing_id": "pymupdf-1.28.2-clip-text-normalized-bbox@1",
+    "score_semantics": "similarity"
+  },
+  "dataset_sha256": "2126649ef51d24c5595dc027e929400014646cf7ef225f55d86804a2e4fd9efb",
+  "documents": [
+    {
+      "document_group": "ti-ads1115-family",
+      "elapsed_ms": 212.569,
+      "id": "ti-ads1115-rev-d",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "ti-ads1115-rev-d/pinout-positive",
+          "label": "positive",
+          "score": 0.88
+        },
+        {
+          "case_id": "ti-ads1115-rev-d/table-positive",
+          "label": "positive",
+          "score": 1.0
+        },
+        {
+          "case_id": "ti-ads1115-rev-d/package-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-ads1115-rev-d/wrong-package",
+          "label": "wrong_package",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-ads1115-rev-d/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-ads1115-rev-d/wrong-view",
+          "label": "wrong_view",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-ads1115-rev-d/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.54
+        }
+      ],
+      "split": "evaluation"
+    },
+    {
+      "document_group": "ti-bq24074-family",
+      "elapsed_ms": 71.231,
+      "id": "ti-bq24074-rev-k",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "ti-bq24074-rev-k/pinout-positive",
+          "label": "positive",
+          "score": 0.88
+        },
+        {
+          "case_id": "ti-bq24074-rev-k/table-positive",
+          "label": "positive",
+          "score": 1.0
+        },
+        {
+          "case_id": "ti-bq24074-rev-k/package-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-bq24074-rev-k/wrong-package",
+          "label": "wrong_package",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-bq24074-rev-k/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-bq24074-rev-k/wrong-view",
+          "label": "wrong_view",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-bq24074-rev-k/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.54
+        }
+      ],
+      "split": "evaluation"
+    },
+    {
+      "document_group": "ti-drv8825-family",
+      "elapsed_ms": 54.182,
+      "id": "ti-drv8825-rev-f",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "ti-drv8825-rev-f/pinout-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-drv8825-rev-f/table-positive",
+          "label": "positive",
+          "score": 0.75
+        },
+        {
+          "case_id": "ti-drv8825-rev-f/package-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-drv8825-rev-f/wrong-package",
+          "label": "wrong_package",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-drv8825-rev-f/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-drv8825-rev-f/wrong-view",
+          "label": "wrong_view",
+          "score": 0.0
+        },
+        {
+          "case_id": "ti-drv8825-rev-f/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.54
+        }
+      ],
+      "split": "evaluation"
+    },
+    {
+      "document_group": "nexperia-hef4051b-family",
+      "elapsed_ms": 40.228,
+      "id": "nexperia-hef4051b-rev-11-2024",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/pinout-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/table-positive",
+          "label": "positive",
+          "score": 1.0
+        },
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/package-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-package",
+          "label": "wrong_package",
+          "score": 0.0
+        },
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.0
+        },
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-view",
+          "label": "wrong_view",
+          "score": 0.0
+        },
+        {
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-figure-functional-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.54
+        }
+      ],
+      "split": "evaluation"
+    },
+    {
+      "document_group": "microchip-mcp2221a-family",
+      "elapsed_ms": 75.22,
+      "id": "microchip-mcp2221a-ds20005565b",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/pinout-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/table-positive",
+          "label": "positive",
+          "score": 0.75
+        },
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/package-positive",
+          "label": "positive",
+          "score": 0.0
+        },
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-package",
+          "label": "wrong_package",
+          "score": 0.0
+        },
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.0
+        },
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-view",
+          "label": "wrong_view",
+          "score": 0.0
+        },
+        {
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.0
+        }
+      ],
+      "split": "evaluation"
+    }
+  ],
+  "eligible_for_policy_fitting": false,
+  "registry_sha256": "96180c9d44d4729cf66fa4f1800fb5aaf26163a864604fb7b61fc9402486c506",
+  "schema_version": "dsvire.visual-adapter-benchmark.v1",
+  "score_sha256": "083395b35c426203a713f665f4d6a59989cfaedbdc7d07f17349918bafba9c22",
+  "selected_split": "evaluation",
+  "summary": {
+    "cases": 35,
+    "document_latency_mean_ms": 90.686,
+    "document_latency_p50_ms": 71.231,
+    "document_latency_p95_ms": 212.569,
+    "documents": 5,
+    "documents_per_second": 9.296846,
+    "elapsed_seconds": 0.537817,
+    "external_cost_usd": 0.0,
+    "labels": {
+      "positive": 15,
+      "wrong_figure": 5,
+      "wrong_package": 5,
+      "wrong_variant": 5,
+      "wrong_view": 5
+    },
+    "peak_rss_bytes": 67555328,
+    "reviewed_calibration_documents": 0,
+    "reviewed_evaluation_documents": 5
+  }
+}

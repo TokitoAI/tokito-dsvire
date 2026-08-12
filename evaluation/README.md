@@ -143,8 +143,11 @@ reviewer as `agent:codex-gpt5`; this is not independent human annotation. Every
 first 30 families remain development-only; the five calibration families are
 isolated from evaluation and may only fit/freeze policy through the two-stage
 workflow. The five evaluation families are audited and bound to the frozen
-split plan, but no evaluation score has been generated. PDF and contact-sheet
-bytes remain excluded from Git.
+split plan. The frozen text-layout policy was then evaluated once: it accepted
+7/15 positives (46.7% coverage), zero wrong figures, and zero wrong identities.
+That misses the frozen 50% minimum, so `gate_passed` is false and automated
+publication remains disabled. The threshold was not retuned after evaluation.
+PDF and contact-sheet bytes remain excluded from Git.
 
 Run a frozen comparator against the registry:
 
