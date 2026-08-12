@@ -609,6 +609,124 @@
           "rationale": "Figure 2 is the sensor functional block diagram, not a pinout. Independent review pending."
         }
       ]
+    },
+    {
+      "id": "onsemi-ncp1117-rev-31-2021-08",
+      "document_group": "onsemi-ncp1117-family",
+      "split": "development",
+      "category": "voltage_regulator",
+      "source": {
+        "url": "https://www.onsemi.com/download/data-sheet/pdf/ncp1117-d.pdf",
+        "revision": "NCP1117/D, Revision 31, August 2021"
+      },
+      "content_sha256": "72a1aeb60abf0acae2f5c9cfecd9a9ff34fd1bbb903624625666609fde20526c",
+      "redistribution": "download_only",
+      "license_note": "Official onsemi data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1,
+          "bbox_norm": [0.62, 0.20, 0.84, 0.32], "view": "top",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
+          "rationale": "The SOT-223 top-view pin configuration maps Adjust/Ground, Output, and Input and identifies the tab connection. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 12,
+          "bbox_norm": [0.09, 0.06, 0.91, 0.45], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
+          "rationale": "The NCP1117 ordering table explicitly maps NCP1117ST33T3G to the 3.3 V SOT-223 option. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 17,
+          "bbox_norm": [0.08, 0.07, 0.92, 0.91], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
+          "rationale": "The mechanical case outline is explicitly SOT-223 case 318H and includes top, side, and end views. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 17,
+          "bbox_norm": [0.08, 0.07, 0.92, 0.91], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "DPAK"},
+          "rationale": "The selected outline is SOT-223 case 318H, not the DPAK case 369C also offered in this family. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 17,
+          "bbox_norm": [0.08, 0.07, 0.92, 0.91], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST50T3G", "package": "SOT-223"},
+          "rationale": "The claimed orderable part is the closely related 5.0 V option, not the registered 3.3 V NCP1117ST33T3G. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1,
+          "bbox_norm": [0.62, 0.20, 0.84, 0.32], "view": "bottom",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
+          "rationale": "The pin configuration is explicitly labelled Top View; a bottom-view interpretation reverses the lead order. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-thermal-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 8,
+          "bbox_norm": [0.26, 0.06, 0.75, 0.64], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
+          "rationale": "Figures 21 and 22 are thermal-resistance and power-dissipation plots, not a package pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "nxp-pcf8574-rev-5-2013-05",
+      "document_group": "nxp-pcf8574-family",
+      "split": "development",
+      "category": "gpio_expander",
+      "source": {
+        "url": "https://www.nxp.com/docs/en/data-sheet/PCF8574_PCF8574A.pdf",
+        "revision": "PCF8574_PCF8574A, Revision 5, 27 May 2013"
+      },
+      "content_sha256": "15873fa13e8b9e3baeb924cc5ce845eabf0e1d2671a441feaaa3c4bb56e77013",
+      "redistribution": "download_only",
+      "license_note": "Official NXP product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 4,
+          "bbox_norm": [0.35, 0.21, 0.63, 0.47], "view": "top",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
+          "rationale": "Figure 4 is the isolated SO16 pin configuration for PCF8574T/3 and PCF8574AT/3. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 4,
+          "bbox_norm": [0.23, 0.50, 0.90, 0.87], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
+          "rationale": "Table 3 maps every SO16 pin number to the PCF8574 signal and description. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 20,
+          "bbox_norm": [0.08, 0.16, 0.91, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
+          "rationale": "Figure 19 is the SOT162-1 SO16 mechanical outline used by PCF8574T/3. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 20,
+          "bbox_norm": [0.08, 0.16, 0.91, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SSOP20"},
+          "rationale": "The drawing is SOT162-1 SO16, not the separate SOT266-1 SSOP20 package on page 21. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 20,
+          "bbox_norm": [0.08, 0.16, 0.91, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8575T/3", "package": "SO16"},
+          "rationale": "PCF8575T/3 is a neighboring 16-bit expander identity absent from this PCF8574/PCF8574A datasheet. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 4,
+          "bbox_norm": [0.35, 0.21, 0.63, 0.47], "view": "bottom",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
+          "rationale": "Figure 4 uses the standard package top-view numbering; a bottom-view claim reverses the lead order. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-timing-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 8,
+          "bbox_norm": [0.08, 0.34, 0.91, 0.68], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
+          "rationale": "Figure 8 is an I2C write-mode timing diagram, not a package pinout. Independent review pending."
+        }
+      ]
     }
   ]
 }
