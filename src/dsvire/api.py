@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import hmac
+import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -13,9 +14,11 @@ from fastapi.responses import JSONResponse
 from . import __version__
 from .config import ServiceConfig
 from .pipeline import DatasheetIdentity, RetrievalError
+from .trace import TraceContext
 from .worker import WorkerError, WorkerLimits, WorkerTimeout, run_pdf_job
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 def _authorize(authorization: str | None, config: ServiceConfig) -> None:
@@ -72,9 +75,12 @@ async def symbol_evidence(
     package: str = Query(min_length=1, max_length=120),
     source_url: str | None = Query(default=None, max_length=2_048),
     authorization: str | None = Header(default=None),
+    traceparent: str | None = Header(default=None),
 ) -> JSONResponse:
     config: ServiceConfig = request.app.state.config
     _authorize(authorization, config)
+    trace = TraceContext.parse(traceparent) or TraceContext.generate()
+    logger.info("DS-ViRe retrieval admitted", extra={"trace_id": trace.trace_id})
     content_type = request.headers.get("content-type", "").split(";", 1)[0].strip().lower()
     if content_type != "application/pdf":
         raise HTTPException(status_code=415, detail="content-type must be application/pdf")
@@ -109,7 +115,7 @@ async def symbol_evidence(
             raise HTTPException(status_code=504, detail="PDF processing timed out") from exc
         except WorkerError as exc:
             raise HTTPException(status_code=502, detail="PDF processing worker failed") from exc
-        return JSONResponse(bundle)
+        return JSONResponse(bundle, headers={"traceparent": trace.child().header()})
     finally:
         admission.release()
 
