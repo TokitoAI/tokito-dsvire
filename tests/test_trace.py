@@ -2,9 +2,7 @@ from dsvire.trace import TraceContext
 
 
 def test_trace_context_is_strict_and_children_preserve_trace() -> None:
-    root = TraceContext.parse(
-        "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
-    )
+    root = TraceContext.parse("00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01")
     assert root is not None
     child = root.child()
     assert child.trace_id == root.trace_id
