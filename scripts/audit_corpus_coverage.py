@@ -24,7 +24,7 @@ def main() -> int:
     parser.add_argument(
         "--policy", type=Path, default=ROOT / "evaluation/corpus_coverage_policy.v1.json"
     )
-    parser.add_argument("--queries", type=Path, default=ROOT / "evaluation/query_registry.v1.json")
+    parser.add_argument("--queries", type=Path, default=ROOT / "evaluation/query_registry.v2.json")
     parser.add_argument("--json-out", type=Path)
     args = parser.parse_args()
     registry = load_visual_registry_data(json.loads(args.registry.read_text(encoding="utf-8")))

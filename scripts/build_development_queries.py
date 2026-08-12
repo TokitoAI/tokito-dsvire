@@ -10,7 +10,7 @@ from dsvire.corpus_coverage import load_query_registry
 from dsvire.visual_registry import VisualCase, VisualDocument, load_visual_registry_data
 
 ROOT = Path(__file__).resolve().parents[1]
-GENERATOR = "scripts/build_development_queries.py@1"
+GENERATOR = "scripts/build_development_queries.py@2"
 INTENTS = ("pinout", "table", "package")
 
 
@@ -52,7 +52,14 @@ def build(registry_data: dict[str, object]) -> dict[str, object]:
                     "split": "development",
                     "query_text": _query_text(document, intent),
                     "query_type": intent,
-                    "relevant_case_ids": [f"{document.document_id}/{case.case_id}"],
+                    "relevance_judgments": [
+                        {"case_id": f"{document.document_id}/{case.case_id}", "grade": 2}
+                    ],
+                    "hard_negative_case_ids": [
+                        f"{document.document_id}/{candidate.case_id}"
+                        for candidate in sorted(document.cases, key=lambda item: item.case_id)
+                        if candidate.case_id != case.case_id
+                    ],
                     "provenance": {
                         "method": "deterministic_template",
                         "generator": GENERATOR,
@@ -61,7 +68,7 @@ def build(registry_data: dict[str, object]) -> dict[str, object]:
                 }
             )
     result: dict[str, object] = {
-        "schema_version": "dsvire.query-registry.v1",
+        "schema_version": "dsvire.query-registry.v2",
         "queries": queries,
     }
     validated = load_query_registry(result, registry)
@@ -76,7 +83,7 @@ def main() -> int:
     parser.add_argument(
         "--registry", type=Path, default=ROOT / "evaluation/visual_registry.v1.json"
     )
-    parser.add_argument("--out", type=Path, default=ROOT / "evaluation/query_registry.v1.json")
+    parser.add_argument("--out", type=Path, default=ROOT / "evaluation/query_registry.v2.json")
     args = parser.parse_args()
     registry_data = json.loads(args.registry.read_text(encoding="utf-8"))
     result = build(registry_data)

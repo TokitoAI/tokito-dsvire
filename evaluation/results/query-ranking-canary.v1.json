@@ -1,0 +1,2969 @@
+{
+  "query_registry_sha256": "8a53a2f506218f72abeb961fa4692a8bd250cac92087a44e0b3ab1b6c620fa1c",
+  "rankings": [
+    {
+      "candidates": [
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "atmel-atmega328p-7810d-2015-01/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "atmel-atmega328p-7810d-2015-01/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "atmel-atmega328p-7810d-2015-01/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-figure-schematic-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "atmel-mxt336t-rev-3-1-bx-2016-10/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-figure-schematic-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "atmel-mxt336t-rev-3-1-bx-2016-10/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-figure-schematic-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "atmel-mxt336t-rev-3-1-bx-2016-10/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "bosch-bme280-rev-1-23-2022-01/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "bosch-bme280-rev-1-23-2022-01/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "bosch-bme280-rev-1-23-2022-01/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "bosch-bmi160-rev-1-0-2020-11/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "bosch-bmi160-rev-1-0-2020-11/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "bosch-bmi160-rev-1-0-2020-11/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "diodes-ap2112-ds39724-rev2-2-2017-06/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "diodes-ap2112-ds39724-rev2-2-2017-06/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "diodes-ap2112-ds39724-rev2-2-2017-06/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "espressif-esp32-series-v5-3-2026-07/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "espressif-esp32-series-v5-3-2026-07/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "espressif-esp32-series-v5-3-2026-07/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-lan8720a-ds00002165b-2016/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-lan8720a-ds00002165b-2016/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-lan8720a-ds00002165b-2016/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-figure-reset-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-figure-reset-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-figure-reset-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp23017-23s17-ds20001952d-2022-06/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp2515-ds20001801k-2021/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp2515-ds20001801k-2021/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp2515-ds20001801k-2021/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp2561-2-ds20005167c-2014-07/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp2561-2-ds20005167c-2014-07/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp2561-2-ds20005167c-2014-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp2561-2-ds20005167c-2014-07/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/package-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/table-positive",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-figure-package-as-pinout",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-package",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-variant",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp3008-ds20001295e-2022-10/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/table-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/package-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/pinout-positive",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-figure-package-as-pinout",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-package",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-variant",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp3008-ds20001295e-2022-10/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/table-positive",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-figure-package-as-pinout",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-package",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-variant",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp3008-ds20001295e-2022-10/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp4725-ds20002039f-2023-08/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp4725-ds20002039f-2023-08/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp4725-ds20002039f-2023-08/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp73831-ds20001984h-2020/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp73831-ds20001984h-2020/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp73831-ds20001984h-2020/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp73831-ds20001984h-2020/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp8024-ds20005228a-2013/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp8024-ds20005228a-2013/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp8024-ds20005228a-2013/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp9600-ds20005426j-2025/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp9600-ds20005426j-2025/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp9600-ds20005426j-2025/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp9808-ds20005095b-2018/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp9808-ds20005095b-2018/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-mcp9808-ds20005095b-2018/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-pac1934-ds20005850e-2019/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-pac1934-ds20005850e-2019/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "microchip-pac1934-ds20005850e-2019/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-figure-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nexperia-74hc595-rev-12-2024-03/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-figure-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nexperia-74hc595-rev-12-2024-03/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-figure-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nexperia-74hc595-rev-12-2024-03/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-figure-application-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nxp-pca9685-rev-4-2015-04/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-figure-application-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nxp-pca9685-rev-4-2015-04/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-figure-application-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nxp-pca9685-rev-4-2015-04/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-figure-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nxp-pcf8574-rev-5-2013-05/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-figure-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nxp-pcf8574-rev-5-2013-05/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-figure-timing-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "nxp-pcf8574-rev-5-2013-05/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-figure-read-sequence-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "onsemi-cat24c32-rev-28-2025-07/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-figure-read-sequence-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "onsemi-cat24c32-rev-28-2025-07/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-figure-read-sequence-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "onsemi-cat24c32-rev-28-2025-07/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-figure-thermal-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "onsemi-ncp1117-rev-31-2021-08/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-figure-thermal-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "onsemi-ncp1117-rev-31-2021-08/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-figure-thermal-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "onsemi-ncp1117-rev-31-2021-08/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-figure-table-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "raspberry-pi-rp2040-2025-02-20/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-figure-table-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "raspberry-pi-rp2040-2025-02-20/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-figure-table-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "raspberry-pi-rp2040-2025-02-20/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "renesas-isl1208-rev-9-01-2022-07/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "renesas-isl1208-rev-9-01-2022-07/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "renesas-isl1208-rev-9-01-2022-07/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-figure-connection-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "silicon-labs-cp2102n-rev-1-5/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-figure-connection-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "silicon-labs-cp2102n-rev-1-5/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-figure-connection-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "silicon-labs-cp2102n-rev-1-5/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-lm358-rev-ab-2024-10/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-lm358-rev-ab-2024-10/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-lm358-rev-ab-2024-10/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-ne555-rev-k/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-ne555-rev-k/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-ne555-rev-k/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-ne555-rev-k/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-ne555-rev-k/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-ne555-rev-k/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-ne555-rev-k/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-tps5430-rev-l-2026-04/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-tps5430-rev-l-2026-04/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-figure-package-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "ti-tps5430-rev-l-2026-04/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-figure-graph-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "vishay-vo617a-rev-2-8-2025-01/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-figure-graph-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "vishay-vo617a-rev-2-8-2025-01/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-figure-graph-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "vishay-vo617a-rev-2-8-2025-01/package-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/pinout-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "wiznet-w5500-v1-1-0-2022-12/pinout-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/table-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/package-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/pinout-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "wiznet-w5500-v1-1-0-2022-12/table-query-1"
+    },
+    {
+      "candidates": [
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/package-positive",
+          "score": 7.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/pinout-positive",
+          "score": 6.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/table-positive",
+          "score": 5.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-figure-block-as-pinout",
+          "score": 4.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-package",
+          "score": 3.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-variant",
+          "score": 2.0
+        },
+        {
+          "case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-view",
+          "score": 1.0
+        }
+      ],
+      "query_id": "wiznet-w5500-v1-1-0-2022-12/package-query-1"
+    }
+  ],
+  "schema_version": "dsvire.query-ranking.v1",
+  "system": {
+    "id": "dsvire-judgment-order-canary@1",
+    "sha256": "29c3991965824b015ccf95f3d1d348d8d92537eb14eac759b85835f1574db176"
+  },
+  "visual_registry_sha256": "f0b249b3cf208149da4bdbbc31cc730c9434ec5d5cc4d81f38fc16dec77c64fd"
+}

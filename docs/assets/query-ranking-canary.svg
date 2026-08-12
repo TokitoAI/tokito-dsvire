@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe query-ranking contract canary</title>
+  <desc id="desc">Closed judged-pool metric canary generated from 90 deterministic development queries.</desc>
+  <rect width="1200" height="700" rx="28" fill="#090b10"/>
+  <style>.title{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.sub{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}.row{font:700 18px Inter,Segoe UI,sans-serif;fill:#c8d0dc}.mono{font:17px ui-monospace,Consolas,monospace;fill:#f4f7fb}.foot{font:14px Inter,Segoe UI,sans-serif;fill:#697386}</style>
+  <text x="64" y="70" class="title">Query-ranking contract canary</text>
+  <text x="64" y="108" class="sub">90 deterministic development queries - closed judged pool - byte-stable evaluator</text>
+  <rect x="64" y="138" width="1072" height="48" rx="12" fill="#2a1c13" stroke="#7c4a22"/>
+  <text x="86" y="169" class="row">NOT retrieval accuracy: relevance-first ordering deliberately exercises metric plumbing.</text>
+  <text x="72" y="244" class="row">nDCG@5</text><rect x="220" y="220" width="760" height="28" rx="14" fill="#202631"/><rect x="220" y="220" width="760" height="28" rx="14" fill="#16d6b3"/><text x="1010" y="243" class="mono">1.000</text><text x="72" y="322" class="row">R@5</text><rect x="220" y="298" width="760" height="28" rx="14" fill="#202631"/><rect x="220" y="298" width="760" height="28" rx="14" fill="#62a6ff"/><text x="1010" y="321" class="mono">1.000</text><text x="72" y="400" class="row">mAP</text><rect x="220" y="376" width="760" height="28" rx="14" fill="#202631"/><rect x="220" y="376" width="760" height="28" rx="14" fill="#a78bfa"/><text x="1010" y="399" class="mono">1.000</text><text x="72" y="478" class="row">MRR</text><rect x="220" y="454" width="760" height="28" rx="14" fill="#202631"/><rect x="220" y="454" width="760" height="28" rx="14" fill="#f2b84b"/><text x="1010" y="477" class="mono">1.000</text>
+  <text x="64" y="585" class="row">90 / 90 queries expose judged hard negatives in top 5</text>
+  <text x="64" y="650" class="foot">No vendor bytes - no full-corpus retrieval - no held-out queries - cannot authorize publication</text>
+</svg>

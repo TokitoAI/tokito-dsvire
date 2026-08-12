@@ -47,12 +47,24 @@ a new result schema version.
 to derive document/family/manufacturer/category/split/case/review counts from
 the canonical visual registry. The policy assigns every current component
 category to one Technical Bible stratum and fails on unassigned or overlapping
-categories. It counts strict `query_registry.v1.json` records separately from
+categories. It counts strict `query_registry.v2.json` records separately from
 visual cases. The first tranche contains 90 deterministic-template development
 queries—pinout, pin-function table, and package drawing for each of 30
 development families. Each query binds to a positive case in the same family,
 split, and intent. They are not manual, independently reviewed, calibration, or
 held-out evidence.
+
+Query registry v2 adds graded `relevance_judgments` and explicit
+`hard_negative_case_ids`. The loader binds both sets to the same visual-registry
+family and split, rejects overlap and unknown cases, requires positive relevant
+regions, and requires query-specific non-relevant hard negatives. A positive
+region for a different intent is correctly a hard negative for this query.
+Ranking artifacts must cover
+the selected registry and may return only that query's judged pool; missing
+queries, duplicates, injected candidates, digest drift, and unsorted scores fail
+closed. `scripts/evaluate_query_rankings.py` reports nDCG@5, R@5, mAP, MRR,
+abstention/coverage, and hard-negative exposure. Closed judged-pool canaries are
+contract tests, not full-corpus retrieval accuracy.
 
 ## Visual-verifier calibration contract
 

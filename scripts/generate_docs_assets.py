@@ -18,7 +18,8 @@ BENCHMARK = ROOT / "evaluation/results/multivendor-development-2026-08-12.json"
 SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
 VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
-QUERY_REGISTRY = ROOT / "evaluation/query_registry.v1.json"
+QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
+QUERY_RANKING = ROOT / "examples/query-ranking-canary.json"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -237,10 +238,44 @@ def _coverage_svg(result: dict[str, Any]) -> str:
 '''
 
 
+def _query_ranking_svg(result: dict[str, Any]) -> str:
+    metrics = result["metrics"]
+    rows = (
+        ("nDCG@5", metrics["ndcg_at_5"], "#16d6b3"),
+        ("R@5", metrics["recall_at_5"], "#62a6ff"),
+        ("mAP", metrics["map"], "#a78bfa"),
+        ("MRR", metrics["mrr"], "#f2b84b"),
+    )
+    bars = []
+    for index, (label, value, color) in enumerate(rows):
+        y = 220 + index * 78
+        bars.append(f'<text x="72" y="{y + 24}" class="row">{label}</text>')
+        bars.append(f'<rect x="220" y="{y}" width="760" height="28" rx="14" fill="#202631"/>')
+        bars.append(
+            f'<rect x="220" y="{y}" width="{round(760 * value)}" height="28" rx="14" fill="{color}"/>'
+        )
+        bars.append(f'<text x="1010" y="{y + 23}" class="mono">{value:.3f}</text>')
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe query-ranking contract canary</title>
+  <desc id="desc">Closed judged-pool metric canary generated from 90 deterministic development queries.</desc>
+  <rect width="1200" height="700" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 18px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:17px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="70" class="title">Query-ranking contract canary</text>
+  <text x="64" y="108" class="sub">{metrics["queries"]} deterministic development queries - closed judged pool - byte-stable evaluator</text>
+  <rect x="64" y="138" width="1072" height="48" rx="12" fill="#2a1c13" stroke="#7c4a22"/>
+  <text x="86" y="169" class="row">NOT retrieval accuracy: relevance-first ordering deliberately exercises metric plumbing.</text>
+  {"".join(bars)}
+  <text x="64" y="585" class="row">{metrics["queries_with_hard_negative_at_5"]} / {metrics["queries"]} queries expose judged hard negatives in top 5</text>
+  <text x="64" y="650" class="foot">No vendor bytes - no full-corpus retrieval - no held-out queries - cannot authorize publication</text>
+</svg>
+"""
+
+
 def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
     service_load = _read(SERVICE_LOAD)
+    query_ranking = _read(QUERY_RANKING)
     visual_registry = load_visual_registry_data(_read(VISUAL_REGISTRY))
     coverage = audit_corpus_coverage(
         visual_registry,
@@ -263,6 +298,10 @@ def generate(output_root: Path) -> None:
         json.dumps(coverage, indent=2, ensure_ascii=False) + "\n",
     )
     _write(output_root / "docs/assets/corpus-coverage.svg", _coverage_svg(coverage))
+    _write(
+        output_root / "docs/assets/query-ranking-canary.svg",
+        _query_ranking_svg(query_ranking),
+    )
 
 
 def main() -> int:

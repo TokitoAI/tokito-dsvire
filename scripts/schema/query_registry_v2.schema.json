@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.dev/schemas/dsvire.query-registry.v2.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "queries"],
+  "properties": {
+    "schema_version": { "const": "dsvire.query-registry.v2" },
+    "queries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/query" }
+    }
+  },
+  "$defs": {
+    "nonempty": { "type": "string", "minLength": 1 },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "document_group", "split", "query_text", "query_type", "relevance_judgments", "hard_negative_case_ids", "provenance"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonempty" },
+        "document_group": { "$ref": "#/$defs/nonempty" },
+        "split": { "enum": ["development", "calibration", "evaluation"] },
+        "query_text": { "$ref": "#/$defs/nonempty" },
+        "query_type": { "enum": ["pinout", "table", "package"] },
+        "relevance_judgments": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["case_id", "grade"],
+            "properties": {
+              "case_id": { "$ref": "#/$defs/nonempty" },
+              "grade": { "enum": [1, 2] }
+            }
+          }
+        },
+        "hard_negative_case_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonempty" }
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "generator", "independently_reviewed"],
+          "properties": {
+            "method": { "enum": ["deterministic_template", "manual"] },
+            "generator": { "$ref": "#/$defs/nonempty" },
+            "independently_reviewed": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}
