@@ -117,6 +117,7 @@ def main() -> int:
     parser.add_argument("--first-image-id", required=True)
     parser.add_argument("--second-image-id", required=True)
     parser.add_argument("--json-out", required=True, type=Path)
+    parser.add_argument("--inventory-out", type=Path)
     args = parser.parse_args()
     try:
         report = compare(
@@ -130,6 +131,10 @@ def main() -> int:
     except (OSError, tarfile.TarError, ValueError) as exc:
         parser.error(str(exc))
     args.json_out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    if args.inventory_out is not None:
+        args.inventory_out.write_text(
+            json.dumps(inventory(args.first), sort_keys=True) + "\n", encoding="utf-8"
+        )
     if not report["ok"]:
         parser.error(
             f"root filesystems differ at {report['differing_path_count']} paths; "

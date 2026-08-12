@@ -56,13 +56,16 @@ jobs:
             dsvire-rootfs-a.tar dsvire-rootfs-b.tar \
             --source-commit "$GITHUB_SHA" --base-image "$base_image" \
             --first-image-id "$first_id" --second-image-id "$second_id" \
-            --json-out image-reproducibility.json
+            --json-out image-reproducibility.json \
+            --inventory-out image-rootfs-inventory.json
       - name: Publish image reproducibility evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: image-reproducibility-${{ github.sha }}
-          path: image-reproducibility.json
+          path: |
+            image-reproducibility.json
+            image-rootfs-inventory.json
           if-no-files-found: warn
           retention-days: 30
       - name: Container robustness corpus
