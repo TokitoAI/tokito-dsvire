@@ -17,6 +17,12 @@ COPY policy ./policy
 COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md
 COPY scripts/audit_runtime_licenses.py ./scripts/audit_runtime_licenses.py
 
+# Source checkout umasks differ across builders, and earlier host-side checks
+# may have created bytecode. Neither is part of the production payload contract.
+RUN find /app -type d -name __pycache__ -prune -exec rm -rf '{}' + \
+    && find /app -type d -exec chmod 0755 '{}' + \
+    && find /app -type f -exec chmod 0644 '{}' +
+
 RUN mkdir -p /data/dsvire && chown -R dsvire:dsvire /data/dsvire
 USER dsvire
 EXPOSE 8081

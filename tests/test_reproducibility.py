@@ -52,6 +52,9 @@ def test_container_never_resolves_dependencies_or_build_requirements() -> None:
     assert "COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md" in dockerfile
     assert "COPY policy ./policy" in dockerfile
     assert "pip install --no-cache-dir --no-compile --require-hashes" in dockerfile
+    assert "find /app -type d -name __pycache__" in dockerfile
+    assert "find /app -type d -exec chmod 0755" in dockerfile
+    assert "find /app -type f -exec chmod 0644" in dockerfile
     assert "pip install --no-cache-dir ." not in dockerfile
     assert "pip install --no-cache-dir --upgrade" not in dockerfile
 
@@ -83,6 +86,12 @@ def test_ci_proves_image_rootfs_reproducibility_and_publishes_evidence() -> None
     assert "scripts/compare_image_rootfs.py" in workflow
     assert "--inventory-out image-rootfs-inventory.json" in workflow
     assert "image-reproducibility-${{ github.sha }}" in workflow
+
+
+def test_docker_context_excludes_nested_bytecode() -> None:
+    ignored = (ROOT / ".dockerignore").read_text(encoding="utf-8").splitlines()
+    assert "**/__pycache__" in ignored
+    assert "**/*.pyc" in ignored
 
 
 def test_independent_builder_workflow_is_manual_bounded_and_cleans_resources() -> None:
