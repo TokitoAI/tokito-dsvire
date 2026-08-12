@@ -4005,6 +4005,811 @@
         "url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi160-ds000.pdf"
       },
       "split": "development"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.57
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC595D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 4,
+          "rationale": "Figure 5 explicitly identifies the 74HC595D SO16 SOT109-1 package pinning in top view.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.95,
+            0.5
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC595D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 5,
+          "rationale": "Table 2 maps every 74HC595 signal to the applicable package pin numbers and function.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC595D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 15,
+          "rationale": "Figure 12 is the dimensioned SOT109-1 SO16 package outline named by the 74HC595D ordering row.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC595D",
+            "package": "TSSOP16 SOT403-1"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 15,
+          "rationale": "The crop is explicitly SOT109-1 SO16, not the narrower SOT403-1 TSSOP16 package.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HCT595D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 15,
+          "rationale": "74HCT595D is the TTL-threshold family variant; the claimed exact identity for this case is 74HC595D.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.57
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC595D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 4,
+          "rationale": "Figure 5 presents top-view package pinning, so interpreting the same crop as bottom view reverses lead ordering.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.62
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "74HC595D",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-figure-timing-as-pinout",
+          "label": "wrong_figure",
+          "page": 6,
+          "rationale": "Figure 8 is a functional timing diagram, not a physical package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "shift_register",
+      "content_sha256": "fa24207e780cd8c4cdb9018d67eb83e53ee75578fc126bda6f59f0d84ceb211a",
+      "document_group": "nexperia-74hc-hct595-family",
+      "id": "nexperia-74hc595-rev-12-2024-03",
+      "identity": {
+        "manufacturer": "Nexperia",
+        "mpn": "74HC595D",
+        "package": "SO16 SOT109-1"
+      },
+      "license_note": "Official Nexperia product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-seed-corpus-expansion-16@2026-08-12",
+        "reviewed_at": "2026-08-12T14:20:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Rev. 12, 20 March 2024",
+        "url": "https://assets.nexperia.com/documents/data-sheet/74HC_HCT595.pdf"
+      },
+      "split": "development"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.16,
+            0.52,
+            0.39,
+            0.68
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-3X007T",
+            "package": "SMD-4 option 7"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 1,
+          "rationale": "The package schematic assigns pins 1 through 4 to anode, cathode, emitter, and collector for the VO617A family.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.43
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-3X007T",
+            "package": "SMD-4 option 7"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 2,
+          "rationale": "The ordering table decodes CTR bin 3, option 7 surface mounting, and tape-and-reel suffix T for this exact orderable identity.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.82
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-3X007T",
+            "package": "SMD-4 option 7"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 8,
+          "rationale": "Figure 14 includes the dimensioned option 7 SMD package geometry and package marking used by X007T parts.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.82
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-3X007T",
+            "package": "DIP-4 through-hole"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 8,
+          "rationale": "The X007 ordering suffix selects option 7 SMD lead forming, not the unsuffixed DIP-4 through-hole package.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.82
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-2X007T",
+            "package": "SMD-4 option 7"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 8,
+          "rationale": "VO617A-2 is a different current-transfer-ratio bin; the exact claimed part is the -3 bin.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.52,
+            0.39,
+            0.68
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-3X007T",
+            "package": "SMD-4 option 7"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 1,
+          "rationale": "The package pin assignment is presented in top-side order, not as a mirrored bottom view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.45,
+            0.08,
+            0.96,
+            0.48
+          ],
+          "claimed_identity": {
+            "manufacturer": "Vishay Semiconductors",
+            "mpn": "VO617A-3X007T",
+            "package": "SMD-4 option 7"
+          },
+          "id": "wrong-figure-graph-as-pinout",
+          "label": "wrong_figure",
+          "page": 3,
+          "rationale": "The crop is a current-transfer-ratio performance graph, not a package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "optocoupler",
+      "content_sha256": "145893b5422f68cc3f2016e2dddfc33f6ee26f0d2444fe8889d0dc0388f805a1",
+      "document_group": "vishay-vo617a-family",
+      "id": "vishay-vo617a-rev-2-8-2025-01",
+      "identity": {
+        "manufacturer": "Vishay Semiconductors",
+        "mpn": "VO617A-3X007T",
+        "package": "SMD-4 option 7"
+      },
+      "license_note": "Official Vishay Semiconductors data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-seed-corpus-expansion-17@2026-08-12",
+        "reviewed_at": "2026-08-12T14:20:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Rev. 2.8, 22 January 2025; document 83430",
+        "url": "https://www.vishay.com/docs/83430/vo617a.pdf"
+      },
+      "split": "development"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.88,
+            0.76
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A02-GQFN28",
+            "package": "QFN28 5x5 mm"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 27,
+          "rationale": "Figure 9.1 explicitly presents the 28-pin QFN top-view pinout with pin-one marker.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A02-GQFN28",
+            "package": "QFN28 5x5 mm"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 28,
+          "rationale": "Table 9.1 maps the CP2102N QFN28 pin numbers to signal names and electrical functions.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.95,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A02-GQFN28",
+            "package": "QFN28 5x5 mm"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 33,
+          "rationale": "Section 9.6 provides the dimensioned QFN28 5x5 mm package drawing and land pattern.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.95,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A02-GQFN28",
+            "package": "QFN24 4x4 mm"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 33,
+          "rationale": "The -GQFN28 identity and drawing require the 28-pin 5x5 mm QFN, not a 24-pin 4x4 mm QFN.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.95,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A01-GQFN28",
+            "package": "QFN28 5x5 mm"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 33,
+          "rationale": "A01 names a different hardware revision; the exact orderable identity selected from the product table is A02.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.88,
+            0.76
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A02-GQFN28",
+            "package": "QFN28 5x5 mm"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 27,
+          "rationale": "Figure 9.1 is explicitly top view; a bottom-view interpretation mirrors all edge positions.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.48,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Silicon Labs",
+            "mpn": "CP2102N-A02-GQFN28",
+            "package": "QFN28 5x5 mm"
+          },
+          "id": "wrong-figure-connection-as-pinout",
+          "label": "wrong_figure",
+          "page": 5,
+          "rationale": "The crop contains typical voltage-regulator connection diagrams, not package pin placement.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "usb_uart_bridge",
+      "content_sha256": "32fbab0ba17f394ab76fbbd8129bddad228c1c486a1693d96ea5905936e437fe",
+      "document_group": "silicon-labs-cp2102n-family",
+      "id": "silicon-labs-cp2102n-rev-1-5",
+      "identity": {
+        "manufacturer": "Silicon Labs",
+        "mpn": "CP2102N-A02-GQFN28",
+        "package": "QFN28 5x5 mm"
+      },
+      "license_note": "Official Silicon Labs data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-seed-corpus-expansion-18@2026-08-12",
+        "reviewed_at": "2026-08-12T14:20:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision 1.5",
+        "url": "https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf"
+      },
+      "split": "development"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.17,
+            0.15,
+            0.84,
+            0.82
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8720Ai-CP-TR",
+            "package": "QFN-24 4x4 mm punch"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 6,
+          "rationale": "Figure 2-1 explicitly identifies the 24-QFN/SQFN top-view assignment and all numbered PHY signals.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.53
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8720Ai-CP-TR",
+            "package": "QFN-24 4x4 mm punch"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 12,
+          "rationale": "Table 2-4 gives the complete LAN8720A QFN/SQFN pin-assignment mapping.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8720Ai-CP-TR",
+            "package": "QFN-24 4x4 mm punch"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 66,
+          "rationale": "Section 6.1 is the dimensioned 24-pin 4x4 mm QFN punch package outline selected by suffix CP.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8720Ai-CP-TR",
+            "package": "SQFN-24 4x4 mm saw"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 66,
+          "rationale": "The CP suffix selects the punch QFN; the saw singulated SQFN is the CZ package option.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8710Ai-CP-TR",
+            "package": "QFN-24 4x4 mm punch"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 66,
+          "rationale": "LAN8710A is a neighboring PHY identity; the source and product-identification example name LAN8720Ai-CP-TR.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.17,
+            0.15,
+            0.84,
+            0.82
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8720Ai-CP-TR",
+            "package": "QFN-24 4x4 mm punch"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 6,
+          "rationale": "Figure 2-1 is explicitly top view, so a bottom-view claim mirrors the perimeter numbering.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "LAN8720Ai-CP-TR",
+            "package": "QFN-24 4x4 mm punch"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 5,
+          "rationale": "The crop contains system and architectural block diagrams, not a physical pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "ethernet_phy",
+      "content_sha256": "a7c18ff064f5e520724d9525a14623af403a2bce203a91026bca82a6b1d38439",
+      "document_group": "microchip-lan8720a-family",
+      "id": "microchip-lan8720a-ds00002165b-2016",
+      "identity": {
+        "manufacturer": "Microchip Technology",
+        "mpn": "LAN8720Ai-CP-TR",
+        "package": "QFN-24 4x4 mm punch"
+      },
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-seed-corpus-expansion-19@2026-08-12",
+        "reviewed_at": "2026-08-12T14:20:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "DS00002165B, 2016",
+        "url": "https://ww1.microchip.com/downloads/en/devicedoc/00002165b.pdf"
+      },
+      "split": "development"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.17,
+            0.1,
+            0.85,
+            0.84
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAUR",
+            "package": "UQFN-56 6x6 mm"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 7,
+          "rationale": "Figure 2-1 explicitly presents the 56-pin UQFN top-view configuration with pin-one marker.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAUR",
+            "package": "UQFN-56 6x6 mm"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 8,
+          "rationale": "Table 2-1 maps numbered UQFN pins to mXT336T signals, types, and unused-pin behavior.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAUR",
+            "package": "UQFN-56 6x6 mm"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 63,
+          "rationale": "Section 14.3.1 provides the dimensioned 56-pin 6x6 mm UQFN mechanical drawing.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAUR",
+            "package": "TQFP-56 10x10 mm"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 63,
+          "rationale": "The MAUR orderable part is a 56-pin 6x6 mm UQFN, not a leaded 10x10 mm TQFP.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAU",
+            "package": "UQFN-56 6x6 mm"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 63,
+          "rationale": "MAU names a tray-packed orderable variant; MAUR is the tape-and-reel identity selected here.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.17,
+            0.1,
+            0.85,
+            0.84
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAUR",
+            "package": "UQFN-56 6x6 mm"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 7,
+          "rationale": "Figure 2-1 is explicitly top view, so interpreting it as bottom view reverses the pin sequence.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Atmel",
+            "mpn": "ATMXT336T-MAUR",
+            "package": "UQFN-56 6x6 mm"
+          },
+          "id": "wrong-figure-schematic-as-pinout",
+          "label": "wrong_figure",
+          "page": 20,
+          "rationale": "The crop is the 64-ball UFBGA reference schematic, not the selected UQFN-56 package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "touchscreen_controller",
+      "content_sha256": "0894eb9f67c052cd60593f1e57428fc91e39a11e0b9fb6288098c948022910b5",
+      "document_group": "atmel-mxt336t-family",
+      "id": "atmel-mxt336t-rev-3-1-bx-2016-10",
+      "identity": {
+        "manufacturer": "Atmel",
+        "mpn": "ATMXT336T-MAUR",
+        "package": "UQFN-56 6x6 mm"
+      },
+      "license_note": "Official Atmel/Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-seed-corpus-expansion-20@2026-08-12",
+        "reviewed_at": "2026-08-12T14:20:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision 3.1 BX, October 2016; document 10148BX",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/mXT336T_3v1_Datasheet_BX.pdf"
+      },
+      "split": "development"
     }
   ],
   "schema_version": "dsvire.visual-eval-registry.v1"
