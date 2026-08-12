@@ -8,11 +8,17 @@ import json
 from pathlib import Path
 from typing import Any
 
+from dsvire.corpus_coverage import audit_corpus_coverage, load_coverage_policy, load_query_registry
+from dsvire.visual_registry import load_visual_registry_data
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT
 EVIDENCE = ROOT / "fixtures/evidence/tps5430ddar.json"
 BENCHMARK = ROOT / "evaluation/results/multivendor-development-2026-08-12.json"
 SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
+VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
+COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
+QUERY_REGISTRY = ROOT / "evaluation/query_registry.v1.json"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -191,10 +197,56 @@ def _service_load_svg(result: dict[str, Any]) -> str:
 """
 
 
+def _coverage_svg(result: dict[str, Any]) -> str:
+    achieved = result["achieved"]
+    targets = result["targets"]
+    reviews = result["review"]
+    strata = result["category_strata_documents"]
+    max_stratum = max(strata.values())
+    rows = []
+    for index, (name, count) in enumerate(strata.items()):
+        y = 337 + index * 43
+        width = round(400 * count / max_stratum)
+        rows.append(f'<text x="68" y="{y + 18}" class="row">{html.escape(name.upper())}</text>')
+        rows.append(f'<rect x="196" y="{y}" width="400" height="22" rx="11" fill="#202631"/>')
+        rows.append(f'<rect x="196" y="{y}" width="{width}" height="22" rx="11" fill="#62a6ff"/>')
+        rows.append(f'<text x="612" y="{y + 18}" class="mono">{count}</text>')
+    document_width = round(1000 * achieved["documents"] / targets["documents"])
+    query_width = round(1000 * achieved["explicit_queries"] / targets["queries"])
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe corpus coverage against Technical Bible targets</title>
+  <desc id="desc">Source-free coverage ledger showing documents, explicit queries, categories, manufacturers, category strata, and review provenance.</desc>
+  <rect width="1200" height="760" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 28px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.row{{font:600 14px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:15px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Corpus coverage · measured, not implied</text>
+  <text x="64" y="105" class="sub">Technical Bible target: 500 documents · 2,000 explicit benchmark queries</text>
+  <text x="64" y="151" class="label">DOCUMENTS</text><text x="64" y="187" class="metric">{achieved["documents"]} / {targets["documents"]}</text>
+  <rect x="64" y="207" width="1000" height="22" rx="11" fill="#202631"/><rect x="64" y="207" width="{document_width}" height="22" rx="11" fill="#16d6b3"/>
+  <text x="64" y="261" class="label">EXPLICIT NATURAL-LANGUAGE QUERIES</text><text x="64" y="297" class="metric">{achieved["explicit_queries"]} / {targets["queries"]}</text>
+  <rect x="64" y="309" width="1000" height="12" rx="6" fill="#202631"/><rect x="64" y="309" width="{query_width}" height="12" rx="6" fill="#f2b84b"/>
+  {"".join(rows)}
+  <rect x="706" y="349" width="430" height="230" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="736" y="385" class="label">SOURCE-FREE REGISTRY</text><text x="736" y="427" class="metric">{achieved["annotated_cases"]} cases</text>
+  <text x="736" y="469" class="row">{achieved["manufacturers"]} manufacturers · {achieved["categories"]} categories</text>
+  <text x="736" y="510" class="row">{reviews["owner_authorized_agent_documents"]} agent-reviewed documents</text>
+  <text x="736" y="546" class="row">{reviews["independent_human_documents"]} independent-human-reviewed documents</text>
+  <rect x="48" y="650" width="1104" height="58" rx="14" fill="#2a1c13" stroke="#7c4a22"/>
+  <text x="72" y="685" class="row">Annotation cases are not queries. Coverage is not accuracy, representativeness, independent review, or legal approval.</text>
+  <text x="64" y="740" class="foot">Generated from evaluation/visual_registry.v1.json + corpus_coverage_policy.v1.json · no vendor PDF bytes</text>
+</svg>
+'''
+
+
 def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
     service_load = _read(SERVICE_LOAD)
+    visual_registry = load_visual_registry_data(_read(VISUAL_REGISTRY))
+    coverage = audit_corpus_coverage(
+        visual_registry,
+        load_coverage_policy(_read(COVERAGE_POLICY)),
+        load_query_registry(_read(QUERY_REGISTRY), visual_registry),
+    )
     example = _example(evidence)
     _write(
         output_root / "examples/tps5430ddar-evidence-summary.json",
@@ -206,6 +258,11 @@ def generate(output_root: Path) -> None:
         _benchmark_svg(benchmark),
     )
     _write(output_root / "docs/assets/service-load-evidence.svg", _service_load_svg(service_load))
+    _write(
+        output_root / "examples/corpus-coverage.json",
+        json.dumps(coverage, indent=2, ensure_ascii=False) + "\n",
+    )
+    _write(output_root / "docs/assets/corpus-coverage.svg", _coverage_svg(coverage))
 
 
 def main() -> int:

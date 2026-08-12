@@ -15,6 +15,35 @@ git diff --exit-code -- examples docs/assets
 CI performs the same byte comparison in a temporary directory. Do not edit the
 generated JSON or SVG files by hand.
 
+## Corpus coverage ledger
+
+![Corpus coverage against Technical Bible targets](assets/corpus-coverage.svg)
+
+The generated [coverage report](../examples/corpus-coverage.json) evaluates the
+canonical visual and explicit-query registries against the versioned
+[`corpus_coverage_policy.v1.json`](../evaluation/corpus_coverage_policy.v1.json).
+It currently records 40 of 500 target documents, 0 of 2,000 explicit
+natural-language benchmark queries, 279 visual annotation cases, 14
+manufacturers, and 32 component categories. Development, calibration, and
+evaluation counts remain separate, and the policy rejects category strata it
+cannot account for.
+
+The zero query count is intentional: the strict
+[`query_registry.v1.json`](../evaluation/query_registry.v1.json) is currently
+empty, and crop annotations are not silently promoted into natural-language
+retrieval queries. Future query records must bind to positive cases in the same
+document family, split, and intent. The
+report also records zero independent-human-reviewed documents because the 40
+current records were owner-authorized agent audits. Coverage does not establish
+accuracy, representative sampling, legal approval, or publication readiness.
+
+Regenerate the ledger directly with:
+
+```bash
+python scripts/audit_corpus_coverage.py \
+  --json-out examples/corpus-coverage.json
+```
+
 ## Tokito Wave D product acceptance
 
 The checked [Wave D acceptance report](../examples/wave-d-acceptance.json) is

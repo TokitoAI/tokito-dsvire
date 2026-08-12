@@ -1,0 +1,76 @@
+{
+  "schema_version": "dsvire.corpus-coverage.v1",
+  "registry_sha256": "f0b249b3cf208149da4bdbbc31cc730c9434ec5d5cc4d81f38fc16dec77c64fd",
+  "query_registry_sha256": "9c6befd48b6369258ea141bffd22593c1102910c54114456c4e23a6a0796a5fd",
+  "policy_sha256": "6c17ca8c4ca40fb5ce14e1dd5c6c64159fd4337e785ba27575f32a05321f3f07",
+  "targets": {
+    "documents": 500,
+    "queries": 2000
+  },
+  "achieved": {
+    "documents": 40,
+    "document_families": 40,
+    "explicit_queries": 0,
+    "annotated_cases": 279,
+    "manufacturers": 14,
+    "categories": 32
+  },
+  "remaining": {
+    "documents": 460,
+    "queries": 2000
+  },
+  "target_met": false,
+  "splits": {
+    "development": {
+      "documents": 30,
+      "families": 30,
+      "annotated_cases": 209
+    },
+    "calibration": {
+      "documents": 5,
+      "families": 5,
+      "annotated_cases": 35
+    },
+    "evaluation": {
+      "documents": 5,
+      "families": 5,
+      "annotated_cases": 35
+    }
+  },
+  "case_labels": {
+    "positive": 120,
+    "wrong_package": 40,
+    "wrong_variant": 40,
+    "wrong_view": 39,
+    "wrong_figure": 40
+  },
+  "case_intents": {
+    "pinout": 119,
+    "table": 40,
+    "package": 120
+  },
+  "query_intents": {
+    "pinout": 0,
+    "table": 0,
+    "package": 0
+  },
+  "category_strata_documents": {
+    "mcu": 2,
+    "pmic": 10,
+    "rf": 1,
+    "sensor": 10,
+    "connector": 9,
+    "discrete": 8
+  },
+  "review": {
+    "independent_human_documents": 0,
+    "owner_authorized_agent_documents": 40,
+    "unreviewed_documents": 0
+  },
+  "limitations": [
+    "annotated visual cases are not natural-language benchmark queries",
+    "owner-authorized agent review is not independent human annotation",
+    "download-only source records do not establish legal approval",
+    "coverage counts do not establish retrieval accuracy or representativeness"
+  ]
+}
