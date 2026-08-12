@@ -1,7 +1,7 @@
 # DS-ViRe technical bible
 
-**Status:** architecture specification (implementation not started)  
-**Updated:** 2026-08-08  
+**Status:** canonical architecture plus implemented deterministic baseline; calibrated EGVV and the full benchmark remain in progress
+**Updated:** 2026-08-12
 **DS-ViRe:** Datasheet Visual Retrieval
 
 Canonical public specification for figure-level, vision-first retrieval over semiconductor datasheets.
@@ -109,6 +109,10 @@ Success means top-k contains the region a competent EE would use, scored at page
 | OmniSch / SINA | [2604.00270](https://arxiv.org/abs/2604.00270), [2601.22114](https://arxiv.org/abs/2601.22114) | Schematic understanding, not datasheet figure IR |
 
 Industry text extractors and CAD libraries get you to a PDF or a symbol file. They do not publish an open figure-grounded datasheet retrieval benchmark.
+
+Runnable, source-free examples of the implemented evidence contract and current
+development comparators live in [`EXAMPLES.md`](EXAMPLES.md). Generated visuals
+derive from committed JSON and must not be treated as held-out accuracy proof.
 
 ---
 
@@ -660,5 +664,6 @@ and maintain a parser vulnerability-update process. See
 | 0.2 | 2026-08-03 | Public cleanup; Mermaid node ID fixes; internal product plans removed |
 | 0.3 | 2026-08-08 | Tokito symbol product integration (§4.6); provenance/publication rules (§13.9–10); roadmap items for evidence-bundle contract and end-to-end generated-symbol slice; sample JSON `bbox_norm` naming |
 | 0.4 | 2026-08-11 | Fail-closed hosted authentication, bounded admission, isolated PDF workers, resource limits, and atomic evidence-pack publication (§11.1) |
+| 0.5 | 2026-08-12 | Corrected implementation status and linked deterministic public evidence/benchmark examples; no architecture or SLO change |
 
 Update this file in the same PR as architecture or SLO changes.
