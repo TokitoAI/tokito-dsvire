@@ -491,6 +491,124 @@
           "rationale": "The crop is a pin-description table, not a pinout figure. Independent review pending."
         }
       ]
+    },
+    {
+      "id": "nxp-pca9685-rev-4-2015-04",
+      "document_group": "nxp-pca9685-family",
+      "split": "development",
+      "category": "led_driver",
+      "source": {
+        "url": "https://www.nxp.com/docs/en/data-sheet/PCA9685.pdf",
+        "revision": "Rev. 4, 16 April 2015"
+      },
+      "content_sha256": "237d47f339cac4c3a0d56a5f0b4d3c93df71e3eb43f36ac57ea4ff38e6b2e585",
+      "redistribution": "download_only",
+      "license_note": "Official NXP product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion@2026-08-12"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 6,
+          "bbox_norm": [0.24, 0.19, 0.56, 0.46], "view": "top",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
+          "rationale": "Figure 2 explicitly identifies the PCA9685PW/PW-Q900 TSSOP28 pin configuration. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 6,
+          "bbox_norm": [0.24, 0.50, 0.82, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
+          "rationale": "Table 3 maps PCA9685 TSSOP28 pins to symbols, types, and functions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 44,
+          "bbox_norm": [0.08, 0.14, 0.92, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
+          "rationale": "Figure 36 is the SOT361-1 TSSOP28 package outline used by PCA9685PW. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 44,
+          "bbox_norm": [0.08, 0.14, 0.92, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "HVQFN28"},
+          "rationale": "The crop is SOT361-1 TSSOP28; HVQFN28 is the separate BS package shown on page 45. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 44,
+          "bbox_norm": [0.08, 0.14, 0.92, 0.90], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9635PW", "package": "TSSOP28"},
+          "rationale": "The datasheet and package claim PCA9685PW, not the closely named PCA9635PW controller. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 6,
+          "bbox_norm": [0.24, 0.19, 0.56, 0.46], "view": "bottom",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
+          "rationale": "Figure 2 uses the conventional top-view lead numbering; bottom view is adversarial. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-application-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 35,
+          "bbox_norm": [0.08, 0.17, 0.92, 0.76], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
+          "rationale": "Figure 26 is a typical application circuit, not a package pinout. Independent review pending."
+        }
+      ]
+    },
+    {
+      "id": "bosch-bme280-rev-1-23-2022-01",
+      "document_group": "bosch-bme280-family",
+      "split": "development",
+      "category": "environmental_sensor",
+      "source": {
+        "url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf",
+        "revision": "Document BST-BME280-DS001-23, Revision 1.23, January 2022"
+      },
+      "content_sha256": "a2ccdb449fec94380742fe8eec851a11d9bd4142252d332b34682b4deecd7d89",
+      "redistribution": "download_only",
+      "license_note": "Official Bosch Sensortec data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion@2026-08-12"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 38,
+          "bbox_norm": [0.12, 0.12, 0.47, 0.45], "view": "top",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
+          "rationale": "The selected half of Figure 16 is explicitly labelled TOP VIEW for the BME280. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 38,
+          "bbox_norm": [0.12, 0.50, 0.90, 0.80], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
+          "rationale": "Table 35 maps all eight BME280 pins across SPI and I2C connections. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 42,
+          "bbox_norm": [0.12, 0.10, 0.90, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
+          "rationale": "Figure 20 gives BME280 package dimensions in top, bottom, and side views. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 42,
+          "bbox_norm": [0.12, 0.10, 0.90, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-10 3x3"},
+          "rationale": "The drawing is the 8-pad 2.5 mm square BME280 package, not an adversarial 10-pad 3 mm package. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 42,
+          "bbox_norm": [0.12, 0.10, 0.90, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BMP280", "package": "LGA-8 2.5x2.5"},
+          "rationale": "The document identifies BME280; BMP280 is a closely related pressure-only variant. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 38,
+          "bbox_norm": [0.12, 0.12, 0.47, 0.45], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
+          "rationale": "The selected half of Figure 16 is labelled TOP VIEW; bottom view reverses the unusual numbering direction. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 14,
+          "bbox_norm": [0.12, 0.13, 0.88, 0.45], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
+          "rationale": "Figure 2 is the sensor functional block diagram, not a pinout. Independent review pending."
+        }
+      ]
     }
   ]
 }
