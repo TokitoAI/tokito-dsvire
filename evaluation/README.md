@@ -127,14 +127,15 @@ reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
 PDF hash from the TI CDN on all three bounded attempts and correctly produced
 no benchmark artifact; the registered source hash was not relaxed.
 
-`visual_registry.v1.json` now contains eighteen hash-pinned official development
+`visual_registry.v1.json` now contains twenty hash-pinned official development
 documents across ten manufacturer labels: the original three TI families plus
 ATmega328P, MCP3008, AP2112, ESP32, RP2040, PCA9685, BME280, NCP1117, and
-PCF8574, ISL1208, CAT24C32, MCP2561/2, MCP23017/23S17, MCP2515, and MCP4725. Its 125 cases include positive
+PCF8574, ISL1208, CAT24C32, MCP2561/2, MCP23017/23S17, MCP2515, MCP4725,
+MCP73831, and W5500. Its 139 cases include positive
 pinout/table/package evidence and explicit package, variant, view, and figure
-adversaries. All eighteen exact-hash families were rendered into local contact
+adversaries. All twenty exact-hash families were rendered into local contact
 sheets and inspected under the repository owner's explicit authorization. The
-source-free agent decision packets accept all 125 cases and identify the
+source-free agent decision packets accept all 139 cases and identify the
 reviewer as `agent:codex-gpt5`; this is not independent human annotation. Every
 family remains development-only, cannot enter calibration/evaluation, and is
 not held-out accuracy evidence. PDF and contact-sheet bytes remain excluded

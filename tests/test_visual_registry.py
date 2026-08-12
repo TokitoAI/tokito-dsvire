@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 18
+    assert len(registry.documents) == 20
     assert {document.split for document in registry.documents} == {"development"}
     reviews = {document.document_id: document.review.status for document in registry.documents}
     assert set(reviews.values()) == {"reviewed"}
@@ -255,8 +255,10 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
         "can_transceiver",
         "can_controller",
         "digital_to_analog_converter",
+        "battery_charger",
+        "ethernet_controller",
     }
-    assert len({document.identity.manufacturer for document in registry.documents}) >= 10
+    assert len({document.identity.manufacturer for document in registry.documents}) >= 11
     assert all(document.redistribution == "download_only" for document in registry.documents)
     assert all(len(document.cases) >= 6 for document in registry.documents)
     assert not list((root / "evaluation").glob("*.pdf"))
