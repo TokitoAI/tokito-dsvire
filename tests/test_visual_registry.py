@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 15
+    assert len(registry.documents) == 16
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
@@ -282,6 +282,10 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "microchip-mcp2561-2-ds20005167c-2014-07": (
             "c36b24e45446d8a1b7d90c0618a924cac0f117994390e60169287e6ba488c53e",
             "MCP2562-E/SN",
+        ),
+        "microchip-mcp23017-23s17-ds20001952d-2022-06": (
+            "63cb5f2bec44434cdeeada1790d0316c9dc06b33febb489ad87bb0e2d540496a",
+            "MCP23017-E/SO",
         ),
     }
     for document_id, (content_sha256, mpn) in expected_expansion.items():

@@ -828,6 +828,27 @@
         {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1, "bbox_norm": [0.70, 0.35, 0.91, 0.52], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The conventional package diagram is a top view; a bottom-view claim reverses the SOIC lead order. Independent review pending."},
         {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 2, "bbox_norm": [0.12, 0.18, 0.87, 0.79], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The crop is the CAN transceiver functional block diagram, not a package pinout. Independent review pending."}
       ]
+    },
+    {
+      "id": "microchip-mcp23017-23s17-ds20001952d-2022-06",
+      "document_group": "microchip-mcp23017-23s17-family",
+      "split": "development",
+      "category": "gpio_expander",
+      "source": {"url": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP23017-Data-Sheet-DS20001952.pdf", "revision": "DS20001952D, June 2022"},
+      "content_sha256": "63cb5f2bec44434cdeeada1790d0316c9dc06b33febb489ad87bb0e2d540496a",
+      "redistribution": "download_only",
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-6@2026-08-12"},
+      "cases": [
+        {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1, "bbox_norm": [0.13, 0.50, 0.47, 0.72], "view": "top", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "The upper-left MCP23017 SOIC/SPDIP/SSOP top-view diagram identifies SDA and SCL on pins 13 and 12, distinguishing the I2C part from MCP23S17. Independent review pending."},
+        {"id": "table-positive", "label": "positive", "region_type": "table", "page": 11, "bbox_norm": [0.13, 0.14, 0.90, 0.75], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "Table 2-1 maps all 28 SOIC pins and explicitly distinguishes MCP23017 NC/SDA functions from MCP23S17 CS/SI/SO. Independent review pending."},
+        {"id": "package-positive", "label": "positive", "region_type": "package", "page": 38, "bbox_norm": [0.10, 0.12, 0.57, 0.51], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "The product-identification system defines SO as the 28-lead 7.50 mm wide SOIC suffix used by MCP23017-E/SO. Independent review pending."},
+        {"id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 38, "bbox_norm": [0.10, 0.12, 0.57, 0.51], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "QFN-28 6x6"}, "rationale": "The SO suffix denotes the wide SOIC-28 package, not the ML suffix for the 6x6 QFN-28 package. Independent review pending."},
+        {"id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 38, "bbox_norm": [0.10, 0.12, 0.57, 0.51], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23S17-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "MCP23S17-E/SO shares the package but is the SPI-interface variant; MCP23017-E/SO is the I2C-interface identity. Independent review pending."},
+        {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1, "bbox_norm": [0.13, 0.50, 0.47, 0.72], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "The package diagram is a conventional top view; a bottom-view claim reverses the SOIC lead order. Independent review pending."},
+        {"id": "wrong-figure-reset-timing-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 5, "bbox_norm": [0.13, 0.33, 0.89, 0.62], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "Figure 1-2 is a RESET and device-reset timing waveform, not a package pinout. Independent review pending."}
+      ]
     }
   ]
 }
