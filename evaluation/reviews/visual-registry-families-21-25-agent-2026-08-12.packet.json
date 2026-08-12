@@ -1,0 +1,537 @@
+{
+  "documents": [
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-11@2026-08-12",
+      "annotation_sha256": "3fb8e47d22ae6072acff3bfaabf337fd8a7487c07127294a70bad42781b9f537",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.48,
+            0.39,
+            0.94,
+            0.75
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/pinout-positive",
+          "crop_sha256": "cf447206446e306d2814e19c43e2e124bd97361295c511432946bc6499104817",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.35
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/table-positive",
+          "crop_sha256": "708e10cbe3ab8e476a9f7218ec43c3cc016416e59405978cfb31115fc0f95ce9",
+          "label": "positive",
+          "page": 11,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.55
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/package-positive",
+          "crop_sha256": "068dcc2e039974119130c4f6390af581b9ed45742dbb22cbadab544a701667b2",
+          "label": "positive",
+          "page": 49,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.55
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-package",
+          "crop_sha256": "068dcc2e039974119130c4f6390af581b9ed45742dbb22cbadab544a701667b2",
+          "label": "wrong_package",
+          "page": 49,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.55
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-variant",
+          "crop_sha256": "068dcc2e039974119130c4f6390af581b9ed45742dbb22cbadab544a701667b2",
+          "label": "wrong_variant",
+          "page": 49,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.48,
+            0.39,
+            0.94,
+            0.75
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-view",
+          "crop_sha256": "cf447206446e306d2814e19c43e2e124bd97361295c511432946bc6499104817",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp9808-ds20005095b-2018/wrong-figure-block-as-pinout",
+          "crop_sha256": "a4de1774293898c0234694b8c107b99cd56bb563397755ee177d703bb3d924b3",
+          "label": "wrong_figure",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp9808-ds20005095b-2018",
+      "source_sha256": "e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-12@2026-08-12",
+      "annotation_sha256": "0bcd1654b76e4d4e573d488fb5a57fc4a74fd08d7847bf25e9830965a3595086",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.43,
+            0.39
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/pinout-positive",
+          "crop_sha256": "5cdc8ea3f3c3da5dad716eb488b719b2dc884a93f2859ae522d317c09871e19c",
+          "label": "positive",
+          "page": 17,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.36,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/table-positive",
+          "crop_sha256": "7a379de294ed70f1231b15df940122cbbd9def285b4be8abf3b7aed4bf13a54b",
+          "label": "positive",
+          "page": 17,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.82
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/package-positive",
+          "crop_sha256": "4736fea831eb3d91aa747d26a43b09bd2c054f252c1185b97193936238fc7648",
+          "label": "positive",
+          "page": 58,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.82
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-package",
+          "crop_sha256": "4736fea831eb3d91aa747d26a43b09bd2c054f252c1185b97193936238fc7648",
+          "label": "wrong_package",
+          "page": 58,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.82
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-variant",
+          "crop_sha256": "4736fea831eb3d91aa747d26a43b09bd2c054f252c1185b97193936238fc7648",
+          "label": "wrong_variant",
+          "page": 58,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.43,
+            0.39
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-view",
+          "crop_sha256": "5cdc8ea3f3c3da5dad716eb488b719b2dc884a93f2859ae522d317c09871e19c",
+          "label": "wrong_view",
+          "page": 17,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.4,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp9600-ds20005426j-2025/wrong-figure-block-as-pinout",
+          "crop_sha256": "4e9f92ca572f86218e1a718ca866a1cf2f3f921f5f160dae6dca7a4875ecfcd3",
+          "label": "wrong_figure",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp9600-ds20005426j-2025",
+      "source_sha256": "fcb9c5c0773a2ec04e73c3f1e5248c3629d8b2b0fcecd9b38076296e1f6a58ff"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-13@2026-08-12",
+      "annotation_sha256": "35e57d3e5efb6bd1c5f4137f9de77c6c7ec467d1a495c50de7d8873722807970",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.48,
+            0.47
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/pinout-positive",
+          "crop_sha256": "5581d35c5808cd4fa3db1f332a3ab02758b210ced913df12eface44beab26aa1",
+          "label": "positive",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.72
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/table-positive",
+          "crop_sha256": "9c39d5b9fe274183656b05d6b41b3b61bc35b580758180a79417b9340c5468b2",
+          "label": "positive",
+          "page": 14,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.78
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/package-positive",
+          "crop_sha256": "7ac785d893ff802ece56243d43e804de61c7fae0470478016f8973a40ab2375f",
+          "label": "positive",
+          "page": 61,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.78
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-package",
+          "crop_sha256": "7ac785d893ff802ece56243d43e804de61c7fae0470478016f8973a40ab2375f",
+          "label": "wrong_package",
+          "page": 61,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.78
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-variant",
+          "crop_sha256": "7ac785d893ff802ece56243d43e804de61c7fae0470478016f8973a40ab2375f",
+          "label": "wrong_variant",
+          "page": 61,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.48,
+            0.47
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-view",
+          "crop_sha256": "5581d35c5808cd4fa3db1f332a3ab02758b210ced913df12eface44beab26aa1",
+          "label": "wrong_view",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.48,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-pac1934-ds20005850e-2019/wrong-figure-block-as-pinout",
+          "crop_sha256": "49e28a8518382dc84e618379c3adba44a606d68f2daadef4af2e22dfe4e251ac",
+          "label": "wrong_figure",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-pac1934-ds20005850e-2019",
+      "source_sha256": "7a4bb54c2f04b178fc42d2499f75314196eb377a3dcd6de335389bd77e20a3da"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-14@2026-08-12",
+      "annotation_sha256": "7d07302cb4ce9b9aadcef7aaa20bcced5d9c0a3e2a2a42cf9d90ded70cd869e5",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.49,
+            0.86
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/pinout-positive",
+          "crop_sha256": "143684c4ef23bf2a19a86e444ad218ba332ccf09358c9950d0465162e1446e14",
+          "label": "positive",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/table-positive",
+          "crop_sha256": "1ce710c483de1f0b89273cd41b5aee76c4ddf155b882b59ebe6db50ff3214973",
+          "label": "positive",
+          "page": 15,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.72
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/package-positive",
+          "crop_sha256": "ec48ddde14c4196fa609af48228d9bfeebcbfbeebc219bd51ac72327633243df",
+          "label": "positive",
+          "page": 43,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.72
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-package",
+          "crop_sha256": "ec48ddde14c4196fa609af48228d9bfeebcbfbeebc219bd51ac72327633243df",
+          "label": "wrong_package",
+          "page": 43,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.72
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-variant",
+          "crop_sha256": "ec48ddde14c4196fa609af48228d9bfeebcbfbeebc219bd51ac72327633243df",
+          "label": "wrong_variant",
+          "page": 43,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.49,
+            0.86
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-view",
+          "crop_sha256": "143684c4ef23bf2a19a86e444ad218ba332ccf09358c9950d0465162e1446e14",
+          "label": "wrong_view",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp8024-ds20005228a-2013/wrong-figure-block-as-pinout",
+          "crop_sha256": "4b872207e321126d5ba9d523b991d54051a6453a7b513d358406dca063f18aab",
+          "label": "wrong_figure",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp8024-ds20005228a-2013",
+      "source_sha256": "f6d86cb064c95c47928a36f835e9377c54f3118db59edd0d80daa1df0d9d0f79"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-15@2026-08-12",
+      "annotation_sha256": "2e4d77847a7ff3ee47b2b327e9c0e403e5904443fb4594fe69d7204163c075ee",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.49,
+            0.53
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/pinout-positive",
+          "crop_sha256": "d13f304566c56b176725c4e2a9580e0a3c730f721768ea2d7b90158c51348de9",
+          "label": "positive",
+          "page": 101,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.46,
+            0.94,
+            0.91
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/table-positive",
+          "crop_sha256": "f747376fcbd81468602b78d113a6bbbd36b754c84605ebca9e5a350095bbaaf8",
+          "label": "positive",
+          "page": 101,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.82
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/package-positive",
+          "crop_sha256": "8c04679eec2efecf70c384ec4128b5142b946c244f3c5720183a2570ab7ddeac",
+          "label": "positive",
+          "page": 106,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.82
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-package",
+          "crop_sha256": "8c04679eec2efecf70c384ec4128b5142b946c244f3c5720183a2570ab7ddeac",
+          "label": "wrong_package",
+          "page": 106,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.82
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-variant",
+          "crop_sha256": "8c04679eec2efecf70c384ec4128b5142b946c244f3c5720183a2570ab7ddeac",
+          "label": "wrong_variant",
+          "page": 106,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.47,
+            0.53
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-view",
+          "crop_sha256": "af6d09b71fdc73ecef4496f4394b5288ab4f1d011639c0e5b18f8dad8577e636",
+          "label": "wrong_view",
+          "page": 101,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.06,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "bosch-bmi160-rev-1-0-2020-11/wrong-figure-block-as-pinout",
+          "crop_sha256": "75654036542c0356bd813c2bc0ebdfcaa902df26227fb644852c2fadf1209d50",
+          "label": "wrong_figure",
+          "page": 12,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "bosch-bmi160-rev-1-0-2020-11",
+      "source_sha256": "0c3dca28517322bdcfcef9be8b1dd2b872ff9df9464d0088c17ccc4a67472f3b"
+    }
+  ],
+  "packet_sha256": "477d8d601a26533cbc181022c197e462120ee81b31a97253beadce850a113fcd",
+  "registry_sha256": "c66991f41d55b2e5cfa41990a66e49133a7fe81b1ff7d622a3565e789ccc0206",
+  "schema_version": "dsvire.visual-review-packet.v2"
+}

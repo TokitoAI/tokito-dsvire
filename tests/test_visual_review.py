@@ -216,6 +216,12 @@ def test_published_fourteen_family_review_packet_is_valid_but_stale_after_correc
             2,
             14,
         ),
+        (
+            "visual-registry-families-21-25-agent-2026-08-12",
+            "477d8d601a26533cbc181022c197e462120ee81b31a97253beadce850a113fcd",
+            5,
+            35,
+        ),
     ],
 )
 def test_committed_agent_audit_is_packet_bound_and_explicit(
