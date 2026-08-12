@@ -1,0 +1,17 @@
+{
+  "schema_version": "dsvire.visual-split-plan.v1",
+  "created_at": "2026-08-12T15:30:00Z",
+  "assignment_method": "Preassigned before any adapter scoring; balanced five-family calibration and evaluation tranches across vendors and component categories.",
+  "families": [
+    {"id":"nexperia-74hc165-rev-11-2024","split":"calibration","category":"parallel_in_shift_register","source_url":"https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf","content_sha256":"a0b5afb4abde43bfdc07cb906426fa4ef63aa3d5eb65ed362424026e88dd101b"},
+    {"id":"ti-ina219-rev-g","split":"calibration","category":"current_power_monitor","source_url":"https://www.ti.com/lit/ds/symlink/ina219.pdf","content_sha256":"58004eda854d07478e6fc6f4398c114f60a3bcf18d4877471c7c1a306d1fa1cb"},
+    {"id":"microchip-mcp7940n-ds20005010j","split":"calibration","category":"real_time_clock","source_url":"https://ww1.microchip.com/downloads/en/DeviceDoc/MCP7940N-Battery-Backed-I2C-RTCC-with-SRAM-20005010J.pdf","content_sha256":"92385d740e31ab2b291be5d2c6a8781674c4ab10ca91b4f83268f85041eada05"},
+    {"id":"ti-tmp117-rev-c","split":"calibration","category":"temperature_sensor","source_url":"https://www.ti.com/lit/ds/symlink/tmp117.pdf","content_sha256":"8b58dbdb5ea4618aa7e620f0bce4480cffa60da77943037515f40bf5c54bee37"},
+    {"id":"microchip-usb2514b-ds00001692c","split":"calibration","category":"usb_hub_controller","source_url":"https://ww1.microchip.com/downloads/en/DeviceDoc/00001692C.pdf","content_sha256":"3fca1a17701a3fd513c867f4deab71887b317302ff7cbbc22310c1ddaa6bdaa9"},
+    {"id":"ti-ads1115-rev-d","split":"evaluation","category":"analog_to_digital_converter","source_url":"https://www.ti.com/lit/ds/symlink/ads1115.pdf","content_sha256":"5fe00cf9509daba7ca311cd0a461debc563dd57598c5de3bf9c31903dc2238da"},
+    {"id":"ti-bq24074-rev-k","split":"evaluation","category":"battery_charger","source_url":"https://www.ti.com/lit/ds/symlink/bq24074.pdf","content_sha256":"05585ca0112a74b0ad1ef22f3cc30e92c1cdce50430d32605a00f4c3b57b7435"},
+    {"id":"ti-drv8825-rev-f","split":"evaluation","category":"stepper_motor_driver","source_url":"https://www.ti.com/lit/ds/symlink/drv8825.pdf","content_sha256":"5b4dccc2497334e10574ffa5a55518c8d59b0ed35758f5e8f099b84bbfbb407b"},
+    {"id":"nexperia-hef4051b-rev-11-2024","split":"evaluation","category":"analog_multiplexer","source_url":"https://assets.nexperia.com/documents/data-sheet/HEF4051B.pdf","content_sha256":"7bef8ec5fb05c9fea387e5c8453f41cd78b0242b84725bd394d4a141b3055887"},
+    {"id":"microchip-mcp2221a-ds20005565b","split":"evaluation","category":"usb_i2c_uart_bridge","source_url":"https://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf","content_sha256":"7760f2692b2469e1b0290244de95d73e75adfc27229182406be012e4cd688fcb"}
+  ]
+}
