@@ -132,11 +132,13 @@ documents across ten manufacturer labels: the original three TI families plus
 ATmega328P, MCP3008, AP2112, ESP32, RP2040, PCA9685, BME280, NCP1117, and
 PCF8574, ISL1208, CAT24C32, MCP2561/2, and MCP23017/23S17. Its 111 cases include positive
 pinout/table/package evidence and explicit package, variant, view, and figure
-adversaries. The twelve non-TI families were rendered into local contact sheets and
-each crop was visually inspected; that agent QA is not independent annotation
-review. Every entry therefore remains deliberately `unreviewed`, cannot enter
-calibration/evaluation, and is not accuracy evidence. PDF and contact-sheet
-bytes remain excluded from Git.
+adversaries. All sixteen exact-hash families were rendered into local contact
+sheets and inspected under the repository owner's explicit authorization. The
+two source-free agent decision packets accept all 111 cases and identify the
+reviewer as `agent:codex-gpt5`; this is not independent human annotation. Every
+family remains development-only, cannot enter calibration/evaluation, and is
+not held-out accuracy evidence. PDF and contact-sheet bytes remain excluded
+from Git.
 
 Run a frozen comparator against the registry:
 
@@ -218,17 +220,20 @@ It records an `agent:<id>` reviewer, the authorization note, exact source/case
 counts, excluded findings, and one decision per packet-bound crop. This path
 does not claim human or independent review. On 2026-08-12, the owner authorized
 that audit for packet `27ed6141...25bf`: 13 exact-hash documents and 90 crops
-were accepted after visual inspection. ATmega328P was excluded because review
-found its proposed table crop showed oscillator settings rather than pin
-evidence; it remains unreviewed and the frozen five-document comparator result
-was not silently rewritten.
+were accepted after visual inspection. ATmega328P was initially excluded because
+its proposed table crop showed oscillator settings rather than pin evidence.
+The crop was corrected to Table 13-3 (Port B alternate functions), then packet
+`4b9bac85...832a` accepted ATmega328P, MCP2561/2, and MCP23017/23S17: three
+exact-hash documents and 21 crops. The registry now has agent-attributed review
+for all sixteen families without claiming independent human review.
 
 The first non-TI tranche has a compact, source-free evidence export at
 [`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).
-On Windows/Python 3.11, text-layout processed the five documents in 0.480 s
-(10.55 documents/s, 69.7 MiB peak RSS); single-threaded RapidOCR took 115.66 s
-(0.043 documents/s, 631.3 MiB peak RSS). RapidOCR raised positive mean
-similarity from 0.757 to 0.790 and reduced wrong-variant mean similarity from
+On Windows/Python 3.11, the post-correction refresh processed the five documents
+with text-layout in 0.527 s (9.49 documents/s, 69.4 MiB peak RSS);
+single-threaded RapidOCR took 116.12 s (0.043 documents/s, 632.8 MiB peak RSS).
+RapidOCR raised positive mean similarity from 0.763 to 0.796 and reduced
+wrong-variant mean similarity from
 0.600 to 0.484, but wrong-package and wrong-figure separation remains unsafe.
 These are comparator measurements, not accuracy or calibration claims.
 
@@ -243,9 +248,11 @@ Fresh downloads retry a hash mismatch at most three times to tolerate an
 inconsistent vendor CDN edge, but accept only the registered digest. Cached
 corruption and every other source-contract violation still fail immediately.
 
-The committed seed is unreviewed development data. These outputs are comparator
-and operations evidence only: `eligible_for_policy_fitting` remains false, no
-threshold may be calibrated from them, and they cannot authorize publication.
+The committed seed is owner-authorized agent-audited development data, not
+independent human annotation or held-out evaluation. These outputs are
+comparator and operations evidence only: `eligible_for_policy_fitting` remains
+false, no threshold may be calibrated from them, and they cannot authorize
+publication.
 
 Repository operators can run the same network/model benchmark from GitHub's
 **visual benchmark** workflow by selecting a frozen adapter. The workflow is

@@ -2,7 +2,7 @@
   "schema_version": "dsvire.visual-benchmark-evidence.v1",
   "recorded_at": "2026-08-12",
   "scope": {
-    "registry_sha256": "00f5da5e6ad0cf9cc1cf13f9684217e59423037071e50c1895d2ff8af27659b3",
+    "registry_sha256": "7e6b622bfbb9964f155fa4e614d4e43d1694ae0528343ae693339155a51f5390",
     "documents": 5,
     "cases": 34,
     "document_ids": [
@@ -20,7 +20,7 @@
       "Raspberry Pi"
     ],
     "split": "development",
-    "review_status": "unreviewed",
+    "review_status": "owner-authorized-agent-audited",
     "eligible_for_policy_fitting": false
   },
   "environment": {
@@ -34,14 +34,14 @@
       "adapter_id": "dsvire.visual-adapter.text-layout@1.0.0",
       "implementation_sha256": "8887ebceb92cd80d6435e5dde76fabb51f3064178f66290bec0abfa07ea65a7e",
       "model_sha256": null,
-      "preprocessing_id": "pymupdf-1.28.2-clip-text-normalized-bbox@1",
-      "score_sha256": "e2db1e01184beaf9c955896514d19503120425b2b1ef077d7e273862128be904",
-      "elapsed_seconds": 0.473726,
-      "documents_per_second": 10.554622,
-      "document_latency_ms": {"mean": 86.802, "p50": 92.247, "p95": 132.894},
-      "peak_rss_bytes": 73060352,
+      "preprocessing_id": "pymupdf-1.27.2.3-clip-text-normalized-bbox@1",
+      "score_sha256": "32bf8306c7c91a2fca9aa0d68e33b1fbe7ca9b25cdb3a6462a5eb3f6530183bc",
+      "elapsed_seconds": 0.527067,
+      "documents_per_second": 9.48646,
+      "document_latency_ms": { "mean": 84.137, "p50": 89.468, "p95": 117.02 },
+      "peak_rss_bytes": 72765440,
       "mean_similarity_by_label": {
-        "positive": 0.75733,
+        "positive": 0.76333,
         "wrong_package": 0.7,
         "wrong_variant": 0.6,
         "wrong_view": 0.0,
@@ -52,14 +52,18 @@
       "adapter_id": "dsvire.visual-adapter.rapidocr@1.1.0",
       "implementation_sha256": "e6e76e7d36fec4cb17f4f96aadec337fee9adc92a121cd8c0c27dab24fe50bd4",
       "model_sha256": "3358ac6b2a0919cf5c72159265440ba62fb496b504d1fc6fb92a4ffc4fc0edc5",
-      "preprocessing_id": "rapidocr-3.9.2-onnxruntime-1.28.0-pymupdf-1.28.2-rgb-220dpi-onnx-cpu-single-thread-score-5dp@2",
-      "score_sha256": "40ebc67d6482b19eeb6c3a5d71421bd46c1a697e40870d219bf3b380fe6bc63a",
-      "elapsed_seconds": 115.656295,
-      "documents_per_second": 0.043232,
-      "document_latency_ms": {"mean": 23118.367, "p50": 23275.579, "p95": 28400.761},
-      "peak_rss_bytes": 661929984,
+      "preprocessing_id": "rapidocr-3.9.2-onnxruntime-1.27.0-pymupdf-1.27.2.3-rgb-220dpi-onnx-cpu-single-thread-score-5dp@2",
+      "score_sha256": "d3938fad7505615489741939b479466b4483dfb4058d19756eef28c97390695f",
+      "elapsed_seconds": 116.122027,
+      "documents_per_second": 0.043058,
+      "document_latency_ms": {
+        "mean": 23210.757,
+        "p50": 23535.626,
+        "p95": 29324.132
+      },
+      "peak_rss_bytes": 663564288,
       "mean_similarity_by_label": {
-        "positive": 0.78966,
+        "positive": 0.79607,
         "wrong_package": 0.58723,
         "wrong_variant": 0.48351,
         "wrong_view": 0.0,
@@ -67,5 +71,5 @@
       }
     }
   ],
-  "interpretation": "Development evidence only. RapidOCR improves mean separation for package and variant negatives but remains far from a safe standalone identity verifier; no threshold was fitted and no publication policy changed."
+  "interpretation": "Owner-authorized agent-audited development evidence only. RapidOCR improves mean separation for package and variant negatives but remains far from a safe standalone identity verifier; no threshold was fitted and no publication policy changed."
 }

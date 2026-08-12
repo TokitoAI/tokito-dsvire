@@ -152,7 +152,7 @@ def test_review_packet_is_deterministic_and_binds_rendered_crop_bytes() -> None:
     Draft202012Validator(schema).validate(first)
 
 
-def test_published_fourteen_family_review_packet_binds_current_registry() -> None:
+def test_published_fourteen_family_review_packet_is_valid_but_stale_after_correction() -> None:
     root = Path(__file__).parents[1]
     registry_data = json.loads((root / "evaluation/visual_registry.v1.json").read_text())
     packet = load_review_packet_data(
@@ -175,7 +175,7 @@ def test_published_fourteen_family_review_packet_binds_current_registry() -> Non
             "reviewed_at": None,
             "annotation_revision": document["review"]["annotation_revision"],
         }
-    assert packet["registry_sha256"] == load_visual_registry_data(subset_data).content_sha256
+    assert packet["registry_sha256"] != load_visual_registry_data(subset_data).content_sha256
     assert len(packet["documents"]) == 14
     assert sum(len(document["cases"]) for document in packet["documents"]) == 97
     assert packet["packet_sha256"] == (
@@ -183,25 +183,35 @@ def test_published_fourteen_family_review_packet_binds_current_registry() -> Non
     )
 
 
-def test_committed_agent_audit_is_packet_bound_and_explicit() -> None:
+@pytest.mark.parametrize(
+    ("stem", "packet_sha256", "documents", "cases"),
+    [
+        (
+            "visual-registry-13-agent-2026-08-12",
+            "27ed6141f035afbf9bcf72af591360e57ec7a15ba6f53e6fb43ba3800cd925bf",
+            13,
+            90,
+        ),
+        (
+            "visual-registry-3-agent-2026-08-12",
+            "4b9bac85fb53e0bedb81c2bdf0268c22e320adf570f8e7ec2406efe21331832a",
+            3,
+            21,
+        ),
+    ],
+)
+def test_committed_agent_audit_is_packet_bound_and_explicit(
+    stem: str, packet_sha256: str, documents: int, cases: int
+) -> None:
     root = Path(__file__).parents[1]
     packet = load_review_packet_data(
-        json.loads(
-            (
-                root / "evaluation/reviews/visual-registry-13-agent-2026-08-12.packet.json"
-            ).read_text()
-        )
+        json.loads((root / f"evaluation/reviews/{stem}.packet.json").read_text())
     )
-    decision = json.loads(
-        (root / "evaluation/reviews/visual-registry-13-agent-2026-08-12.decision.json").read_text()
-    )
+    decision = json.loads((root / f"evaluation/reviews/{stem}.decision.json").read_text())
     assert load_agent_review_decision_data(decision, packet) == decision
-    assert (
-        packet["packet_sha256"]
-        == "27ed6141f035afbf9bcf72af591360e57ec7a15ba6f53e6fb43ba3800cd925bf"
-    )
-    assert len(packet["documents"]) == 13
-    assert sum(len(document["cases"]) for document in packet["documents"]) == 90
+    assert packet["packet_sha256"] == packet_sha256
+    assert len(packet["documents"]) == documents
+    assert sum(len(document["cases"]) for document in packet["documents"]) == cases
     schema = json.loads(
         (root / "scripts/schema/visual_agent_review_decision_v1.schema.json").read_text()
     )

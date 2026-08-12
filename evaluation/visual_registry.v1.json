@@ -220,7 +220,7 @@
       "redistribution": "download_only",
       "license_note": "Official Microchip-hosted Atmel datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "review": {"status": "reviewed", "reviewers": ["agent:codex-gpt5"], "reviewed_at": "2026-08-12T11:13:28Z", "annotation_revision": "agent-seed-dsvire@0.3.1"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
@@ -229,10 +229,10 @@
           "rationale": "Figure 1-1 visibly identifies the ATmega328P TQFP top-view pin configuration. The exact orderable suffix is reconciled by the package crop. Independent review pending."
         },
         {
-          "id": "table-positive", "label": "positive", "region_type": "table", "page": 29,
-          "bbox_norm": [0.08, 0.13, 0.95, 0.73], "view": "not_applicable",
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 65,
+          "bbox_norm": [0.11, 0.12, 0.94, 0.51], "view": "not_applicable",
           "claimed_identity": {"manufacturer": "Atmel", "mpn": "ATmega328P-15AZ", "package": "TQFP-32"},
-          "rationale": "The ATmega328P section visibly contains bounded oscillator configuration tables. Independent review pending."
+          "rationale": "Table 13-3 maps Port B pins PB0-PB7 to their alternate functions, including SPI and pin-change interrupt roles. Agent visual review completed against exact source bytes."
         },
         {
           "id": "package-positive", "label": "positive", "region_type": "package", "page": 285,
@@ -813,7 +813,7 @@
       "redistribution": "download_only",
       "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-5@2026-08-12"},
+      "review": {"status": "reviewed", "reviewers": ["agent:codex-gpt5"], "reviewed_at": "2026-08-12T11:13:28Z", "annotation_revision": "auto-seed-corpus-expansion-5@2026-08-12"},
       "cases": [
         {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1, "bbox_norm": [0.70, 0.35, 0.91, 0.52], "view": "top", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The upper-right MCP2562 PDIP/SOIC top-view diagram identifies VIO on pin 5 and the eight SOIC leads. Independent review pending."},
         {"id": "table-positive", "label": "positive", "region_type": "table", "page": 4, "bbox_norm": [0.10, 0.48, 0.90, 0.73], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "Table 1-2 maps the MCP2562 PDIP/SOIC column to all eight signals and distinguishes VIO from the MCP2561 SPLIT pin. Independent review pending."},
@@ -834,7 +834,7 @@
       "redistribution": "download_only",
       "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-6@2026-08-12"},
+      "review": {"status": "reviewed", "reviewers": ["agent:codex-gpt5"], "reviewed_at": "2026-08-12T11:13:28Z", "annotation_revision": "auto-seed-corpus-expansion-6@2026-08-12"},
       "cases": [
         {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1, "bbox_norm": [0.13, 0.50, 0.47, 0.72], "view": "top", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "The upper-left MCP23017 SOIC/SPDIP/SSOP top-view diagram identifies SDA and SCL on pins 13 and 12, distinguishing the I2C part from MCP23S17. Independent review pending."},
         {"id": "table-positive", "label": "positive", "region_type": "table", "page": 11, "bbox_norm": [0.13, 0.14, 0.90, 0.75], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP23017-E/SO", "package": "SOIC-28 Wide 7.50 mm"}, "rationale": "Table 2-1 maps all 28 SOIC pins and explicitly distinguishes MCP23017 NC/SDA functions from MCP23S17 CS/SI/SO. Independent review pending."},

@@ -226,7 +226,7 @@ def test_adapter_score_set_must_match_registry_exactly() -> None:
         bind_prediction_scores(registry, invalid)
 
 
-def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> None:
+def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
     root = Path(__file__).parents[1]
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
@@ -234,9 +234,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     assert len(registry.documents) == 16
     assert {document.split for document in registry.documents} == {"development"}
     reviews = {document.document_id: document.review.status for document in registry.documents}
-    assert sum(status == "reviewed" for status in reviews.values()) == 13
-    assert sum(status == "unreviewed" for status in reviews.values()) == 3
-    assert reviews["atmel-atmega328p-7810d-2015-01"] == "unreviewed"
+    assert set(reviews.values()) == {"reviewed"}
     assert all(
         document.review.reviewers == ("agent:codex-gpt5",)
         for document in registry.documents
@@ -332,14 +330,6 @@ def test_multivendor_evidence_export_is_bound_to_exact_registry_subset() -> None
             document for document in registry_data["documents"] if document["id"] in selected
         ],
     }
-    for document in subset_data["documents"]:
-        if document["review"]["status"] == "reviewed":
-            document["review"] = {
-                "status": "unreviewed",
-                "reviewers": [],
-                "reviewed_at": None,
-                "annotation_revision": document["review"]["annotation_revision"],
-            }
     subset = load_visual_registry_data(subset_data)
 
     assert {document.document_id for document in subset.documents} == selected
