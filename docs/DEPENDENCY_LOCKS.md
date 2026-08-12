@@ -70,3 +70,10 @@ the source commit, pinned base reference, both image IDs, entry counts, and both
 normalized rootfs digests. This proves runtime-filesystem reproducibility on one
 clean CI runner; it does not claim that provenance-bearing registry manifests or
 Docker configuration timestamps are byte-identical.
+
+The image installs Python packages with pip `--no-compile`. Prebuilt `.pyc`
+files are deliberately absent because their headers incorporate install-time
+source mtimes and caused 608 byte-level differences in the first cold-build
+drill. This removes nondeterminism at its source rather than exempting bytecode
+from comparison; Python may create runtime caches only where the non-root
+process has a writable filesystem.

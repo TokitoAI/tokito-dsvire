@@ -51,6 +51,7 @@ def test_container_never_resolves_dependencies_or_build_requirements() -> None:
     assert "COPY scripts/evaluate_robustness.py ./scripts/evaluate_robustness.py" in dockerfile
     assert "COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md" in dockerfile
     assert "COPY policy ./policy" in dockerfile
+    assert "pip install --no-cache-dir --no-compile --require-hashes" in dockerfile
     assert "pip install --no-cache-dir ." not in dockerfile
     assert "pip install --no-cache-dir --upgrade" not in dockerfile
 
