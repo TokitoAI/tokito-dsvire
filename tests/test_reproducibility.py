@@ -85,9 +85,7 @@ def test_ci_proves_image_rootfs_reproducibility_and_publishes_evidence() -> None
 
 
 def test_independent_builder_workflow_is_manual_bounded_and_cleans_resources() -> None:
-    workflow = (ROOT / ".github/workflows/image-reproducibility.yml").read_text(
-        encoding="utf-8"
-    )
+    workflow = (ROOT / ".github/workflows/image-reproducibility.yml").read_text(encoding="utf-8")
     assert "workflow_dispatch:" in workflow
     assert "contents: read" in workflow
     assert "tokito-vps" in workflow and "private-build" in workflow
