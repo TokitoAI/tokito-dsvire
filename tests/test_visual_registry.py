@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 16
+    assert len(registry.documents) == 17
     assert {document.split for document in registry.documents} == {"development"}
     reviews = {document.document_id: document.review.status for document in registry.documents}
     assert set(reviews.values()) == {"reviewed"}
@@ -253,6 +253,7 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
         "real_time_clock",
         "serial_eeprom",
         "can_transceiver",
+        "can_controller",
     }
     assert len({document.identity.manufacturer for document in registry.documents}) >= 10
     assert all(document.redistribution == "download_only" for document in registry.documents)

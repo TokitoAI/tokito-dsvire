@@ -127,14 +127,14 @@ reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
 PDF hash from the TI CDN on all three bounded attempts and correctly produced
 no benchmark artifact; the registered source hash was not relaxed.
 
-`visual_registry.v1.json` now contains sixteen hash-pinned official development
+`visual_registry.v1.json` now contains seventeen hash-pinned official development
 documents across ten manufacturer labels: the original three TI families plus
 ATmega328P, MCP3008, AP2112, ESP32, RP2040, PCA9685, BME280, NCP1117, and
-PCF8574, ISL1208, CAT24C32, MCP2561/2, and MCP23017/23S17. Its 111 cases include positive
+PCF8574, ISL1208, CAT24C32, MCP2561/2, MCP23017/23S17, and MCP2515. Its 118 cases include positive
 pinout/table/package evidence and explicit package, variant, view, and figure
-adversaries. All sixteen exact-hash families were rendered into local contact
+adversaries. All seventeen exact-hash families were rendered into local contact
 sheets and inspected under the repository owner's explicit authorization. The
-two source-free agent decision packets accept all 111 cases and identify the
+source-free agent decision packets accept all 118 cases and identify the
 reviewer as `agent:codex-gpt5`; this is not independent human annotation. Every
 family remains development-only, cannot enter calibration/evaluation, and is
 not held-out accuracy evidence. PDF and contact-sheet bytes remain excluded
@@ -225,7 +225,9 @@ its proposed table crop showed oscillator settings rather than pin evidence.
 The crop was corrected to Table 13-3 (Port B alternate functions), then packet
 `4b9bac85...832a` accepted ATmega328P, MCP2561/2, and MCP23017/23S17: three
 exact-hash documents and 21 crops. The registry now has agent-attributed review
-for all sixteen families without claiming independent human review.
+for the first sixteen families without claiming independent human review. A
+third packet, `61543b7a...c96a`, accepts the seven MCP2515 cases after its first
+pinout crop was rejected for clipping two leads and regenerated.
 
 The first non-TI tranche has a compact, source-free evidence export at
 [`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).

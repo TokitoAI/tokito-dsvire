@@ -1,0 +1,113 @@
+{
+  "documents": [
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-7@2026-08-12",
+      "annotation_sha256": "1955d4459648f6f373c5ebdac5d862457f9a11b42fd34c21165ec285f4abfa0a",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.49,
+            0.25,
+            0.94,
+            0.65
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/pinout-positive",
+          "crop_sha256": "fa5d668ffc0e00ad95ce7dd9b5d4738851cf8e64987a01fbcb2789c0b213474a",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.23,
+            0.94,
+            0.88
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/table-positive",
+          "crop_sha256": "5a25b92cfae16bc4debd514c18d42fc2ea64668a4752532018e5346f3132d891",
+          "label": "positive",
+          "page": 4,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/package-positive",
+          "crop_sha256": "049a8c273cd874e0bf1d3e87efc6f2d3687c9de3c6b73c47b05a05fb40ff8fc3",
+          "label": "positive",
+          "page": 81,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-package",
+          "crop_sha256": "049a8c273cd874e0bf1d3e87efc6f2d3687c9de3c6b73c47b05a05fb40ff8fc3",
+          "label": "wrong_package",
+          "page": 81,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.08,
+            0.94,
+            0.91
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-variant",
+          "crop_sha256": "76628a23061004a7ea54dfa53dde2b6193cb1fdebdd7ad6ad143ccebaedbc713",
+          "label": "wrong_variant",
+          "page": 93,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.49,
+            0.25,
+            0.94,
+            0.65
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-view",
+          "crop_sha256": "fa5d668ffc0e00ad95ce7dd9b5d4738851cf8e64987a01fbcb2789c0b213474a",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.35,
+            0.94,
+            0.89
+          ],
+          "case_id": "microchip-mcp2515-ds20001801k-2021/wrong-figure-block-as-pinout",
+          "crop_sha256": "2a4615cdf270f5c4cc670d6a5ddd87fb0ff780fb869ba776294008a783981b54",
+          "label": "wrong_figure",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp2515-ds20001801k-2021",
+      "source_sha256": "3c6c943bc258556f964addae9210c100b8398e5a77cc9070677c1042f05d1527"
+    }
+  ],
+  "packet_sha256": "61543b7a59f84eca5f9f11589682da0cca2835d090d6f96d3282da9838dec96a",
+  "registry_sha256": "154cfec8a95c53339ba8ed24d1723c355d248746921a76e0f13216b60926eea9",
+  "schema_version": "dsvire.visual-review-packet.v2"
+}

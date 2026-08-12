@@ -1,0 +1,23 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification and merge in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/pinout-positive", "note": "Exact source hash and corrected full 18-lead rendered crop inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/table-positive", "note": "Exact source hash and complete pin-description table inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/package-positive", "note": "Exact source hash and SOIC-18 mechanical outline inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/wrong-package", "note": "Exact source hash and SOIC-versus-QFN package mismatch inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/wrong-variant", "note": "Exact source hash and MCP2515 product-identification evidence inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/wrong-view", "note": "Exact source hash and orientation adversary inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp2515-ds20001801k-2021/wrong-figure-block-as-pinout", "note": "Exact source hash and functional-block negative inspected.", "outcome": "accepted"}
+  ],
+  "packet_sha256": "61543b7a59f84eca5f9f11589682da0cca2835d090d6f96d3282da9838dec96a",
+  "registry_sha256": "154cfec8a95c53339ba8ed24d1723c355d248746921a76e0f13216b60926eea9",
+  "reviewed_at": "2026-08-12T11:53:00Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {
+    "cases": 7,
+    "documents": 1,
+    "exact_source_hashes": 1,
+    "excluded_findings": ["The first pinout crop clipped VSS and RX1BF; it was widened and the packet regenerated before acceptance."]
+  }
+}
