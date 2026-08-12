@@ -48,8 +48,11 @@ to derive document/family/manufacturer/category/split/case/review counts from
 the canonical visual registry. The policy assigns every current component
 category to one Technical Bible stratum and fails on unassigned or overlapping
 categories. It counts strict `query_registry.v1.json` records separately from
-visual cases; each future query must bind to positive cases in the same family,
-split, and intent. The current truthful query count is zero.
+visual cases. The first tranche contains 90 deterministic-template development
+queries—pinout, pin-function table, and package drawing for each of 30
+development families. Each query binds to a positive case in the same family,
+split, and intent. They are not manual, independently reviewed, calibration, or
+held-out evidence.
 
 ## Visual-verifier calibration contract
 

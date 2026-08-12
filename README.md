@@ -19,7 +19,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Piece | State |
 |---|---|
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
-| Benchmark | Public source-free registry: 40 official families and 279 positive/adversarial cases across 14 manufacturer labels and 32 component categories; 30 are development, five calibration, and five reviewed evaluation families. The generated [coverage ledger](examples/corpus-coverage.json) records the honest Technical Bible gap: 40/500 documents and 0/2,000 explicit natural-language queries. |
+| Benchmark | Public source-free registry: 40 official families and 279 positive/adversarial cases across 14 manufacturer labels and 32 component categories; 30 are development, five calibration, and five reviewed evaluation families. The generated [coverage ledger](examples/corpus-coverage.json) records the honest Technical Bible gap: 40/500 documents and 90/2,000 explicit natural-language queries. |
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
@@ -48,10 +48,11 @@ hand-maintained benchmark numbers.
 ![Corpus coverage against Technical Bible targets](docs/assets/corpus-coverage.svg)
 
 The 279 visual annotations are not relabelled as 279 benchmark queries. A
-separate, strictly grounded query registry counts explicit natural-language
-queries, currently zero, and the ledger reports owner-authorized agent review
-separately from independent human review. This keeps corpus growth measurable
-without overstating accuracy, representativeness, or legal approval.
+separate, strictly grounded query registry counts 90 deterministic-template
+development queries—three intents for each development family—and the ledger
+reports them separately from manual or independently reviewed queries. This
+keeps corpus growth measurable without overstating accuracy,
+representativeness, held-out performance, or legal approval.
 
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
