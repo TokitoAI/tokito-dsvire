@@ -88,6 +88,7 @@ def test_independent_builder_workflow_is_manual_bounded_and_cleans_resources() -
     workflow = (ROOT / ".github/workflows/image-reproducibility.yml").read_text(encoding="utf-8")
     assert "workflow_dispatch:" in workflow
     assert "contents: read" in workflow
+    assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
     assert "tokito-vps" in workflow and "private-build" in workflow
     assert workflow.count("docker build --pull --no-cache") == 2
     assert "GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT" in workflow

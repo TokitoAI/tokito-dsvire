@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   reproduce:
-    runs-on: [self-hosted, linux, x64, tokito-vps, private-build]
+    runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
