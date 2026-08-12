@@ -1,0 +1,18 @@
+{
+  "schema_version": "dsvire.corpus-coverage-policy.v1",
+  "targets": {
+    "documents": 500,
+    "queries": 2000
+  },
+  "required_splits": ["development", "calibration", "evaluation"],
+  "required_case_labels": ["positive", "wrong_package", "wrong_variant", "wrong_view", "wrong_figure"],
+  "required_region_types": ["pinout", "table", "package"],
+  "category_strata": {
+    "mcu": ["microcontroller"],
+    "pmic": ["voltage_regulator", "led_driver", "battery_charger", "power_monitor", "current_power_monitor", "motor_gate_driver", "stepper_motor_driver"],
+    "rf": ["wireless_microcontroller"],
+    "sensor": ["environmental_sensor", "temperature_sensor", "thermocouple_converter", "inertial_measurement_unit", "touchscreen_controller", "analog_to_digital_converter", "digital_to_analog_converter", "operational_amplifier"],
+    "connector": ["can_transceiver", "can_controller", "ethernet_controller", "ethernet_phy", "usb_uart_bridge", "usb_i2c_uart_bridge", "usb_hub_controller", "gpio_expander"],
+    "discrete": ["timer", "real_time_clock", "serial_eeprom", "shift_register", "parallel_in_shift_register", "analog_multiplexer", "optocoupler"]
+  }
+}

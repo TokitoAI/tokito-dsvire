@@ -42,6 +42,15 @@ calibration estimate. Scale the registry toward the planned 500-document,
 2,000-query corpus without changing result-field meanings; new metrics require
 a new result schema version.
 
+`corpus_coverage_policy.v1.json` makes that long-range target executable. Run
+`python scripts/audit_corpus_coverage.py --json-out examples/corpus-coverage.json`
+to derive document/family/manufacturer/category/split/case/review counts from
+the canonical visual registry. The policy assigns every current component
+category to one Technical Bible stratum and fails on unassigned or overlapping
+categories. It counts strict `query_registry.v1.json` records separately from
+visual cases; each future query must bind to positive cases in the same family,
+split, and intent. The current truthful query count is zero.
+
 ## Visual-verifier calibration contract
 
 `dsvire.visual_metrics` is the model-independent policy boundary for the EGVV
