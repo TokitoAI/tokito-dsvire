@@ -162,6 +162,32 @@ python scripts/evaluate_visual.py \
   --json-out visual-openclip.json
 ```
 
+Calibration and evaluation must be scored into separate artifacts. Freeze the
+policy without exposing evaluation scores, then apply the immutable policy to
+the separately generated held-out artifact:
+
+```bash
+python scripts/evaluate_visual.py --cache-dir .cache/dsvire-eval \
+  --adapter rapidocr --split calibration --offline \
+  --json-out visual-rapidocr-calibration.json
+python scripts/evaluate_visual_policy.py freeze \
+  --calibration-benchmark visual-rapidocr-calibration.json \
+  --json-out rapidocr-policy.json
+
+# Generate this only after rapidocr-policy.json is frozen.
+python scripts/evaluate_visual.py --cache-dir .cache/dsvire-eval \
+  --adapter rapidocr --split evaluation --offline \
+  --json-out visual-rapidocr-evaluation.json
+python scripts/evaluate_visual_policy.py evaluate \
+  --evaluation-benchmark visual-rapidocr-evaluation.json \
+  --policy rapidocr-policy.json --json-out rapidocr-held-out.json
+```
+
+The freeze/evaluate boundary rejects mixed or mislabeled split artifacts,
+adapter/model/preprocessing drift, full-dataset digest drift, and modified
+policy digests. A similarity adapter remains similarity; this workflow does not
+manufacture calibrated-probability semantics.
+
 Render local review sheets from the same hash-pinned bytes before accepting an
 annotation change:
 

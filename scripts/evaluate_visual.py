@@ -30,10 +30,25 @@ def main() -> int:
     parser.add_argument("--adapter", choices=["text-layout", "rapidocr", "openclip"], required=True)
     parser.add_argument("--offline", action="store_true")
     parser.add_argument("--document-id", action="append", default=[])
+    parser.add_argument("--split", choices=["development", "calibration", "evaluation"])
     parser.add_argument("--json-out", type=Path)
     args = parser.parse_args()
     try:
         registry_data = json.loads(args.registry.read_text(encoding="utf-8"))
+        full_registry = load_visual_registry_data(registry_data)
+        if args.split and args.document_id:
+            raise ValueError("--split and --document-id are mutually exclusive")
+        if args.split:
+            registry_data = {
+                "schema_version": registry_data["schema_version"],
+                "documents": [
+                    document
+                    for document in registry_data["documents"]
+                    if document["split"] == args.split
+                ],
+            }
+            if not registry_data["documents"]:
+                raise ValueError(f"registry has no {args.split} documents")
         if args.document_id:
             selected = set(args.document_id)
             known = {document["id"] for document in registry_data["documents"]}
@@ -75,6 +90,8 @@ def main() -> int:
             ),
             adapter,
         )
+        result["dataset_sha256"] = full_registry.content_sha256
+        result["selected_split"] = args.split
     except (OSError, ValueError, RuntimeError) as exc:
         parser.error(str(exc))
     rendered = json.dumps(result, indent=2, sort_keys=True) + "\n"
