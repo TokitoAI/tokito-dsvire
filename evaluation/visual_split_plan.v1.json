@@ -3,7 +3,7 @@
   "created_at": "2026-08-12T15:30:00Z",
   "assignment_method": "Preassigned before any adapter scoring; balanced five-family calibration and evaluation tranches across vendors and component categories.",
   "families": [
-    {"id":"nexperia-74hc165-rev-11-2024","split":"calibration","category":"parallel_in_shift_register","source_url":"https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf","content_sha256":"a0b5afb4abde43bfdc07cb906426fa4ef63aa3d5eb65ed362424026e88dd101b"},
+    {"id":"nexperia-74hc165-rev-8-2025-05","split":"calibration","category":"parallel_in_shift_register","source_url":"https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf","content_sha256":"a0b5afb4abde43bfdc07cb906426fa4ef63aa3d5eb65ed362424026e88dd101b"},
     {"id":"ti-ina219-rev-g","split":"calibration","category":"current_power_monitor","source_url":"https://www.ti.com/lit/ds/symlink/ina219.pdf","content_sha256":"58004eda854d07478e6fc6f4398c114f60a3bcf18d4877471c7c1a306d1fa1cb"},
     {"id":"microchip-mcp7940n-ds20005010j","split":"calibration","category":"real_time_clock","source_url":"https://ww1.microchip.com/downloads/en/DeviceDoc/MCP7940N-Battery-Backed-I2C-RTCC-with-SRAM-20005010J.pdf","content_sha256":"92385d740e31ab2b291be5d2c6a8781674c4ab10ca91b4f83268f85041eada05"},
     {"id":"ti-tmp117-rev-c","split":"calibration","category":"temperature_sensor","source_url":"https://www.ti.com/lit/ds/symlink/tmp117.pdf","content_sha256":"8b58dbdb5ea4618aa7e620f0bce4480cffa60da77943037515f40bf5c54bee37"},
