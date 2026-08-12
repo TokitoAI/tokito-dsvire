@@ -489,8 +489,8 @@ def apply_review_decision(
     missing = sorted(set(selected) - set(current))
     if missing:
         raise VisualReviewError(f"reviewed documents are missing from current registry: {missing}")
-    for document_id, packet_document in selected.items():
-        if _annotation_sha256(current[document_id]) != packet_document["annotation_sha256"]:
+    for document_id, expected_annotation in selected.items():
+        if _annotation_sha256(current[document_id]) != expected_annotation["annotation_sha256"]:
             raise VisualReviewError(f"{document_id}: annotation drifted after review")
     output = cast(dict[str, Any], json.loads(json.dumps(registry_data)))
     for document in output["documents"]:
