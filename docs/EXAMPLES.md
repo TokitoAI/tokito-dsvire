@@ -33,11 +33,12 @@ the frozen eight-pin TPS5430DDAR spec through:
 python scripts/wave_d_acceptance.py
 ```
 
-The report records exact repository commits, stage timings, artifact SHA-256
-digests, and all 29 contract findings. The recorded Windows run completed in
-13.2 seconds with every finding passing. MCP returned all eight pins, the
-generated namespace, the TI datasheet URL, package and MPN metadata, plus the
-two cited evidence region IDs.
+The report records exact repository commits, stage timings, total runtime,
+artifact SHA-256 digests, and all 29 contract findings. The checked run has
+every finding passing. MCP returned all eight pins, the generated namespace,
+the TI datasheet URL, package and MPN metadata, plus the two cited evidence
+region IDs. Read timing values from the report itself so regenerated evidence
+cannot diverge from this narrative.
 
 This is a seeded integration acceptance, not a live extraction score. The
 checked `fixtures/acceptance` pair is explicitly marked as frozen EGVV input;
