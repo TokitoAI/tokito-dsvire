@@ -1,0 +1,468 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-tps5430-rev-l-2026-04/wrong-figure-package-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-lm358-rev-ab-2024-10/wrong-figure-package-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ne555-rev-k/wrong-figure-package-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp3008-ds20001295e-2022-10/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp3008-ds20001295e-2022-10/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp3008-ds20001295e-2022-10/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-figure-package-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-figure-package-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-figure-package-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-figure-table-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pca9685-rev-4-2015-04/wrong-figure-application-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-figure-block-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-figure-thermal-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-figure-timing-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-figure-block-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/pinout-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/table-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/package-positive",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-package",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-variant",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-view",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-figure-read-sequence-as-pinout",
+      "note": "Exact source hash and rendered crop inspected.",
+      "outcome": "accepted"
+    }
+  ],
+  "packet_sha256": "27ed6141f035afbf9bcf72af591360e57ec7a15ba6f53e6fb43ba3800cd925bf",
+  "registry_sha256": "5a5557fb7064f359f6eb52ee90b12e3d7707ae2996c02005b3e63c55113bebf3",
+  "reviewed_at": "2026-08-12T10:59:48Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {
+    "cases": 90,
+    "documents": 13,
+    "exact_source_hashes": 13,
+    "excluded_findings": [
+      "ATmega328P was excluded after its table-positive crop was found to show oscillator configuration rather than pin evidence."
+    ]
+  }
+}

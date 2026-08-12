@@ -19,11 +19,11 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Piece | State |
 |---|---|
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
-| Benchmark | Public source-free registry: 16 official development families, 111 positive/adversarial cases, 10 manufacturer labels, and 12 component categories; labels still await independent review and family-isolated calibration/evaluation splits |
+| Benchmark | Public source-free registry: 16 official development families, 111 positive/adversarial cases, 10 manufacturer labels, and 12 component categories; an owner-authorized, explicitly agent-attributed audit accepted 90 cases across 13 families, while independent review and family-isolated calibration/evaluation splits remain open |
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
-| Visual comparators / benchmark corpus | Text-layout, RapidOCR, and pinned OpenCLIP comparators exist; the 16-family / 111-case visual registry remains unreviewed development data pending independent review |
+| Visual comparators / benchmark corpus | Text-layout, RapidOCR, and pinned OpenCLIP comparators exist; all 16 families remain development data, 13 have agent-audited labels, and none are held-out accuracy evidence |
 
 ## Start here
 

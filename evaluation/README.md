@@ -212,6 +212,17 @@ agent-self-asserted decisions fail closed. The packet and decision schemas live
 in `scripts/schema/`; neither tool grants review status merely because an agent
 generated the initial annotations.
 
+When the repository owner explicitly authorizes an agent audit, use the
+separate `dsvire.visual-agent-review-decision.v1` contract and `apply-agent`.
+It records an `agent:<id>` reviewer, the authorization note, exact source/case
+counts, excluded findings, and one decision per packet-bound crop. This path
+does not claim human or independent review. On 2026-08-12, the owner authorized
+that audit for packet `27ed6141...25bf`: 13 exact-hash documents and 90 crops
+were accepted after visual inspection. ATmega328P was excluded because review
+found its proposed table crop showed oscillator settings rather than pin
+evidence; it remains unreviewed and the frozen five-document comparator result
+was not silently rewritten.
+
 The first non-TI tranche has a compact, source-free evidence export at
 [`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).
 On Windows/Python 3.11, text-layout processed the five documents in 0.480 s
