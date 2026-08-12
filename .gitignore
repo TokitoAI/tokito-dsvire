@@ -40,6 +40,7 @@ fixtures/evidence/crops/
 
 # End-to-end pipeline artifacts produced by scripts/demo_run.py.
 artifacts/
+!examples/wave-d-acceptance.json
 
 # Secrets
 .env

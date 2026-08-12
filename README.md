@@ -25,6 +25,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
 | Service load evidence | Real authenticated Linux HTTP/worker boundary: cold p95 623.6 ms, warm p95 612.0 ms, five bounded overload rejections, 166.7 MiB peak process-tree RSS, and zero scratch/partial residue; generated 12-request evidence, not capacity or MaxSim SLO proof |
 | Visual comparators / benchmark corpus | Text-layout was frozen after comparison with RapidOCR and pinned OpenCLIP; held-out evaluation accepted zero wrong figures/identities but reached 46.7% positive coverage versus the frozen 50% minimum, so the gate failed and publication remains disabled |
+| Tokito Wave D integration | Seeded acceptance crosses authenticated Cloud ingestion, immutable generated SQLite, catalog sync, MCP streamable HTTP resolve/provenance, and Desktop place/save/reopen with exact compiler bytes. See [`examples/wave-d-acceptance.json`](examples/wave-d-acceptance.json). |
 
 ## Start here
 
@@ -75,6 +76,17 @@ Run the same aggregate gate used by CI and tagged releases with:
 uv run --frozen --no-sync python scripts/verify_release.py \
   --json-out release-verification.json
 ```
+
+With sibling `tokito`, `tokito-ai`, `tokito-catalog`, and `tokito-mcp`
+checkouts, reproduce the seeded product-level acceptance with:
+
+```bash
+python scripts/wave_d_acceptance.py
+```
+
+This command makes no model call. Its checked EGVV evidence/spec pair is the
+explicit seed; every downstream boundary is the real production path. Live
+extractor qualification remains a separate production-readiness gate.
 
 For the hosted service, build the image and send raw `application/pdf` bytes to
 `POST /v1/evidence/symbol` with the exact identity as query parameters. The

@@ -1,0 +1,30 @@
+{
+  "schema_version": "tokito.symbol-spec.v1",
+  "manufacturer": "Texas Instruments",
+  "mpn": "TPS5430DDAR",
+  "package": "SO-PowerPAD-8",
+  "reference_prefix": "U",
+  "pins": [
+    {"number":"1","name":"BOOT","electrical":"passive","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"2","name":"NC","electrical":"no_connect","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"3","name":"NC","electrical":"no_connect","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"4","name":"VSENSE","electrical":"input","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"5","name":"ENA","electrical":"input","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"6","name":"GND","electrical":"power_in","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"7","name":"VIN","electrical":"power_in","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]},
+    {"number":"8","name":"PH","electrical":"power_out","style":"line","unit":1,"hidden":false,"confidence":0.95,"evidence_region_ids":["r_pin_table_01","r_pinout_01"]}
+  ],
+  "properties": {
+    "datasheet": "https://www.ti.com/lit/ds/symlink/tps5430.pdf",
+    "description": "3-A step-down converter, 5.5 V to 36 V input",
+    "footprint": "Package_SO:PowerPAD-8",
+    "keywords": "buck regulator step-down"
+  },
+  "provenance": {
+    "evidence_datasheet_id": "ti-slvs632l",
+    "evidence_content_sha256": "83074fc1265c8e5c6639511bdb9f83e96c6e6f993613deadea0d09c3a12a2c07",
+    "extractor_version": "tokito-ai.symbol-extractor@0.4.1",
+    "model": "frozen-wave-d-acceptance-fixture",
+    "extracted_at": "2026-08-08T07:12:00Z"
+  }
+}
