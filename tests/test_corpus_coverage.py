@@ -35,16 +35,21 @@ def test_committed_coverage_is_deterministic_and_honest() -> None:
     assert first["achieved"] == {
         "documents": 40,
         "document_families": 40,
-        "explicit_queries": 0,
+        "explicit_queries": 90,
         "annotated_cases": 279,
         "manufacturers": 14,
         "categories": 32,
     }
-    assert first["remaining"] == {"documents": 460, "queries": 2000}
+    assert first["remaining"] == {"documents": 460, "queries": 1910}
     assert first["target_met"] is False
     assert first["review"]["independent_human_documents"] == 0
     assert sum(first["case_labels"].values()) == 279
     assert sum(first["case_intents"].values()) == 279
+    assert first["query_provenance"] == {
+        "deterministic_template": 90,
+        "manual": 0,
+        "independently_reviewed": 0,
+    }
 
 
 def test_policy_rejects_overlapping_strata() -> None:
@@ -91,6 +96,11 @@ def test_query_registry_validates_grounding_and_changes_count() -> None:
                 "query_text": "Where is the pin map?",
                 "query_type": positive.region_type,
                 "relevant_case_ids": [f"{first.document_id}/{positive.case_id}"],
+                "provenance": {
+                    "method": "manual",
+                    "generator": "test",
+                    "independently_reviewed": False,
+                },
             }
         ],
     }
@@ -102,3 +112,32 @@ def test_query_registry_validates_grounding_and_changes_count() -> None:
     data["queries"][0]["split"] = "evaluation"
     with pytest.raises(CorpusCoverageError, match="split differs"):
         load_query_registry(data, registry)
+
+
+def test_development_query_tranche_is_complete_and_grounded() -> None:
+    registry_data, policy_data, query_data = _inputs()
+    registry = load_visual_registry_data(registry_data)
+    queries = load_query_registry(query_data, registry)
+    assert len(queries.queries) == 90
+    assert {query.split for query in queries.queries} == {"development"}
+    assert {query.query_type for query in queries.queries} == {"pinout", "table", "package"}
+    assert all(query.method == "deterministic_template" for query in queries.queries)
+    assert not any(query.independently_reviewed for query in queries.queries)
+    result = audit_corpus_coverage(registry, load_coverage_policy(policy_data), queries)
+    assert result["achieved"]["explicit_queries"] == 90
+    assert result["remaining"]["queries"] == 1910
+    assert result["query_intents"] == {"pinout": 30, "table": 30, "package": 30}
+
+
+def test_development_query_generator_is_byte_stable(tmp_path: Path) -> None:
+    import subprocess
+    import sys
+
+    root = Path(__file__).parents[1]
+    output = tmp_path / "queries.json"
+    subprocess.run(
+        [sys.executable, "scripts/build_development_queries.py", "--out", str(output)],
+        cwd=root,
+        check=True,
+    )
+    assert output.read_bytes() == (root / "evaluation/query_registry.v1.json").read_bytes()

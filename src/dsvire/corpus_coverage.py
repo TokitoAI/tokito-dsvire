@@ -56,6 +56,9 @@ class QueryRecord:
     query_text: str
     query_type: str
     relevant_case_ids: tuple[str, ...]
+    method: str
+    generator: str
+    independently_reviewed: bool
 
 
 @dataclasses.dataclass(frozen=True)
@@ -140,6 +143,7 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
             "query_text",
             "query_type",
             "relevant_case_ids",
+            "provenance",
         }
         if not isinstance(raw, Mapping) or set(raw) != required:
             raise CorpusCoverageError(f"{context} keys are invalid")
@@ -166,6 +170,28 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
         if split != document.split:
             raise CorpusCoverageError(f"{context} split differs from its document group")
         relevant = _strings(raw["relevant_case_ids"], f"{context}.relevant_case_ids")
+        provenance = raw["provenance"]
+        if not isinstance(provenance, Mapping) or set(provenance) != {
+            "method",
+            "generator",
+            "independently_reviewed",
+        }:
+            raise CorpusCoverageError(f"{context}.provenance keys are invalid")
+        method = provenance["method"]
+        generator = provenance["generator"]
+        independently_reviewed = provenance["independently_reviewed"]
+        if method not in {"deterministic_template", "manual"}:
+            raise CorpusCoverageError(f"{context}.provenance.method is unsupported")
+        if not isinstance(generator, str) or not generator.strip():
+            raise CorpusCoverageError(f"{context}.provenance.generator must be non-empty text")
+        if not isinstance(independently_reviewed, bool):
+            raise CorpusCoverageError(
+                f"{context}.provenance.independently_reviewed must be boolean"
+            )
+        if split != "development" and not independently_reviewed:
+            raise CorpusCoverageError(
+                f"{context} held-out query records require independent review"
+            )
         for case_id in relevant:
             owner = case_owners.get(case_id)
             if owner is None:
@@ -185,6 +211,9 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
                 query_text,
                 query_type,
                 relevant,
+                method,
+                generator,
+                independently_reviewed,
             )
         )
     encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
@@ -289,6 +318,15 @@ def audit_corpus_coverage(
         "query_intents": _counts(
             [query.query_type for query in query_registry.queries], policy.required_region_types
         ),
+        "query_provenance": {
+            "deterministic_template": sum(
+                query.method == "deterministic_template" for query in query_registry.queries
+            ),
+            "manual": sum(query.method == "manual" for query in query_registry.queries),
+            "independently_reviewed": sum(
+                query.independently_reviewed for query in query_registry.queries
+            ),
+        },
         "category_strata_documents": stratum_documents,
         "review": {
             "independent_human_documents": independent,
@@ -297,6 +335,7 @@ def audit_corpus_coverage(
         },
         "limitations": [
             "annotated visual cases are not natural-language benchmark queries",
+            "deterministically templated development queries are not independent annotations or held-out evidence",
             "owner-authorized agent review is not independent human annotation",
             "download-only source records do not establish legal approval",
             "coverage counts do not establish retrieval accuracy or representativeness",

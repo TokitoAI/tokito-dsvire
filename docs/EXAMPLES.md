@@ -22,17 +22,18 @@ generated JSON or SVG files by hand.
 The generated [coverage report](../examples/corpus-coverage.json) evaluates the
 canonical visual and explicit-query registries against the versioned
 [`corpus_coverage_policy.v1.json`](../evaluation/corpus_coverage_policy.v1.json).
-It currently records 40 of 500 target documents, 0 of 2,000 explicit
+It currently records 40 of 500 target documents, 90 of 2,000 explicit
 natural-language benchmark queries, 279 visual annotation cases, 14
 manufacturers, and 32 component categories. Development, calibration, and
 evaluation counts remain separate, and the policy rejects category strata it
 cannot account for.
 
-The zero query count is intentional: the strict
-[`query_registry.v1.json`](../evaluation/query_registry.v1.json) is currently
-empty, and crop annotations are not silently promoted into natural-language
-retrieval queries. Future query records must bind to positive cases in the same
-document family, split, and intent. The
+The strict [`query_registry.v1.json`](../evaluation/query_registry.v1.json)
+contains three deterministic-template development queries for each of the 30
+development families: pinout, pin-function table, and package drawing. Every
+query binds to a positive case in the same document family, split, and intent;
+crop annotations are not silently promoted into queries. These 90 records are
+not manual, independently reviewed, calibration, or held-out data. The
 report also records zero independent-human-reviewed documents because the 40
 current records were owner-authorized agent audits. Coverage does not establish
 accuracy, representative sampling, legal approval, or publication readiness.
