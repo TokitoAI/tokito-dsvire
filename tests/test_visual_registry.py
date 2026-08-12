@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 10
+    assert len(registry.documents) == 12
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
@@ -243,8 +243,9 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "wireless_microcontroller",
         "led_driver",
         "environmental_sensor",
+        "gpio_expander",
     }
-    assert len({document.identity.manufacturer for document in registry.documents}) >= 8
+    assert len({document.identity.manufacturer for document in registry.documents}) >= 9
     assert all(document.redistribution == "download_only" for document in registry.documents)
     assert all(len(document.cases) >= 6 for document in registry.documents)
     assert not list((root / "evaluation").glob("*.pdf"))
@@ -258,6 +259,14 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "bosch-bme280-rev-1-23-2022-01": (
             "a2ccdb449fec94380742fe8eec851a11d9bd4142252d332b34682b4deecd7d89",
             "BME280",
+        ),
+        "onsemi-ncp1117-rev-31-2021-08": (
+            "72a1aeb60abf0acae2f5c9cfecd9a9ff34fd1bbb903624625666609fde20526c",
+            "NCP1117ST33T3G",
+        ),
+        "nxp-pcf8574-rev-5-2013-05": (
+            "15873fa13e8b9e3baeb924cc5ce845eabf0e1d2671a441feaaa3c4bb56e77013",
+            "PCF8574T/3",
         ),
     }
     for document_id, (content_sha256, mpn) in expected_expansion.items():
