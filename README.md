@@ -21,7 +21,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
-| Visual comparators / benchmark corpus | Text-layout, RapidOCR, and pinned OpenCLIP comparators exist; the eight-family visual registry remains unreviewed development data |
+| Visual comparators / benchmark corpus | Text-layout, RapidOCR, and pinned OpenCLIP comparators exist; the 14-family / 97-case visual registry remains unreviewed development data pending independent review |
 
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;

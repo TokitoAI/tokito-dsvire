@@ -145,7 +145,7 @@ def test_review_packet_is_deterministic_and_binds_rendered_crop_bytes() -> None:
         for case in document["cases"]
     )
     root = Path(__file__).parents[1]
-    schema = json.loads((root / "scripts/schema/visual_review_packet_v1.schema.json").read_text())
+    schema = json.loads((root / "scripts/schema/visual_review_packet_v2.schema.json").read_text())
     Draft202012Validator.check_schema(schema)
     Draft202012Validator(schema).validate(first)
 
@@ -160,7 +160,7 @@ def test_review_packet_rejects_tampering_and_unknown_selection() -> None:
         build_review_packet(registry, lambda _document: payload, document_ids={"missing"})
 
 
-def test_complete_named_human_review_applies_to_exact_registry_revision() -> None:
+def test_complete_named_human_review_applies_after_unrelated_registry_append() -> None:
     payload, registry_data, registry = _fixture()
     packet = build_review_packet(registry, lambda _document: payload)
     decision = _decision(packet)
@@ -170,8 +170,16 @@ def test_complete_named_human_review_applies_to_exact_registry_revision() -> Non
     schema = json.loads((root / "scripts/schema/visual_review_decision_v1.schema.json").read_text())
     Draft202012Validator.check_schema(schema)
     Draft202012Validator(schema).validate(decision)
+    appended = json.loads(json.dumps(registry_data))
+    extra = json.loads(json.dumps(appended["documents"][0]))
+    extra["id"] = "../acme/a-2"
+    extra["document_group"] = "acme-a-2"
+    extra["content_sha256"] = "1" * 64
+    extra["source"]["url"] = "https://example.invalid/a-2.pdf"
+    extra["review"]["annotation_revision"] = "fixture@2"
+    appended["documents"].append(extra)
     output = apply_review_decision(
-        registry_data,
+        appended,
         packet,
         decision,
         provenance_loader=lambda _url: _approved_review(decision),
@@ -183,6 +191,7 @@ def test_complete_named_human_review_applies_to_exact_registry_revision() -> Non
         "reviewed_at": "2026-08-12T04:00:00+05:30",
         "annotation_revision": "fixture@1",
     }
+    assert output["documents"][1]["review"]["status"] == "unreviewed"
 
 
 def test_partial_rejected_or_drifted_review_cannot_apply() -> None:
@@ -203,11 +212,22 @@ def test_partial_rejected_or_drifted_review_cannot_apply() -> None:
         )
 
     drifted = json.loads(json.dumps(registry_data))
-    drifted["documents"][0]["review"]["annotation_revision"] = "fixture@2"
-    with pytest.raises(VisualReviewError, match="current registry does not match"):
+    drifted["documents"][0]["cases"][0]["rationale"] = "Mutated after packet creation."
+    with pytest.raises(VisualReviewError, match="annotation drifted after review"):
         decision = _decision(packet)
         apply_review_decision(
             drifted,
+            packet,
+            decision,
+            provenance_loader=lambda _url: _approved_review(decision),
+        )
+
+    missing = json.loads(json.dumps(registry_data))
+    missing["documents"][0]["id"] = "../acme/replacement"
+    with pytest.raises(VisualReviewError, match="reviewed documents are missing"):
+        decision = _decision(packet)
+        apply_review_decision(
+            missing,
             packet,
             decision,
             provenance_loader=lambda _url: _approved_review(decision),
