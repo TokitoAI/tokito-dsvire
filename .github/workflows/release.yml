@@ -46,6 +46,10 @@ jobs:
           path: identity-eval.json
           if-no-files-found: warn
       - run: docker build --pull -t tokito-dsvire:release-check .
+      - name: Container robustness corpus
+        run: >-
+          docker run --rm --entrypoint python tokito-dsvire:release-check
+          scripts/evaluate_robustness.py
       - name: Container boundary smoke
         env:
           DSVIRE_CI_TOKEN: ci-service-token-that-is-at-least-32-bytes

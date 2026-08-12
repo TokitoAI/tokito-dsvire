@@ -13,6 +13,7 @@ def test_universal_lock_covers_every_supported_environment() -> None:
     assert 'requires-python = ">=3.11"' in lock
     for package in [
         "tokito-dsvire",
+        "pypdf",
         "pytest",
         "hatchling",
         "rapidocr",
@@ -46,6 +47,8 @@ def test_container_never_resolves_dependencies_or_build_requirements() -> None:
     assert re.search(r"^FROM python:3\.12-slim-bookworm@sha256:[0-9a-f]{64}$", dockerfile, re.M)
     assert "--require-hashes -r requirements/runtime.lock" in dockerfile
     assert "PYTHONPATH=/app/src" in dockerfile
+    assert "COPY fixtures/robustness ./fixtures/robustness" in dockerfile
+    assert "COPY scripts/evaluate_robustness.py ./scripts/evaluate_robustness.py" in dockerfile
     assert "pip install --no-cache-dir ." not in dockerfile
     assert "pip install --no-cache-dir --upgrade" not in dockerfile
 
@@ -62,3 +65,5 @@ def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
             assert "python scripts/check_dependency_lock.py" in workflow
         else:
             assert "python scripts/verify_release.py" in workflow
+            assert "Container robustness corpus" in workflow
+            assert "scripts/evaluate_robustness.py" in workflow

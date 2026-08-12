@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 from pathlib import Path
 
@@ -21,6 +22,19 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
         commands.append(command)
         if command == ("uv", "--version"):
             return _completed(command, stdout="uv 0.12.3\n")
+        if "scripts/evaluate_robustness.py" in command:
+            output = Path(command[command.index("--json-out") + 1])
+            output.write_text(
+                json.dumps(
+                    {
+                        "schema_version": "dsvire.robustness-result.v1",
+                        "ok": True,
+                        "case_count": 11,
+                        "manifest_sha256": "a" * 64,
+                    }
+                ),
+                encoding="utf-8",
+            )
         return _completed(command)
 
     report = verify_release(runner=runner)
@@ -33,11 +47,14 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
         "format",
         "compile",
         "tests-and-artifacts",
+        "generated-robustness-corpus",
         "package-build",
         "runtime-vulnerability-audit",
     ]
     assert any(command[:2] == ("pytest", "-q") for command in commands)
+    assert any("scripts/evaluate_robustness.py" in command for command in commands)
     assert any("--require-hashes" in command for command in commands)
+    assert report["artifacts"]["robustness"]["case_count"] == 11
 
 
 def test_release_verifier_propagates_the_first_failure() -> None:

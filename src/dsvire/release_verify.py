@@ -36,7 +36,7 @@ class StageResult:
 Runner = Callable[..., subprocess.CompletedProcess[str]]
 
 
-def _stages(build_out: Path) -> tuple[Stage, ...]:
+def _stages(build_out: Path, robustness_out: Path) -> tuple[Stage, ...]:
     python = sys.executable
     return (
         Stage("dependency-lock", (python, "scripts/check_dependency_lock.py")),
@@ -45,6 +45,15 @@ def _stages(build_out: Path) -> tuple[Stage, ...]:
         Stage("format", ("ruff", "format", "--check", ".")),
         Stage("compile", (python, "-m", "compileall", "-q", "src", "scripts")),
         Stage("tests-and-artifacts", ("pytest", "-q")),
+        Stage(
+            "generated-robustness-corpus",
+            (
+                python,
+                "scripts/evaluate_robustness.py",
+                "--json-out",
+                str(robustness_out),
+            ),
+        ),
         Stage(
             "package-build",
             (python, "-m", "build", "--no-isolation", "--outdir", str(build_out)),
@@ -83,7 +92,9 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
 
     results: list[StageResult] = []
     with tempfile.TemporaryDirectory(prefix="dsvire-release-") as directory:
-        for stage in _stages(Path(directory)):
+        build_out = Path(directory) / "dist"
+        robustness_out = Path(directory) / "robustness.json"
+        for stage in _stages(build_out, robustness_out):
             started = time.perf_counter()
             completed = runner(
                 stage.command,
@@ -97,11 +108,32 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
                     f"release stage {stage.name!r} failed with exit code {completed.returncode}"
                 )
             results.append(StageResult(stage.name, elapsed))
+        try:
+            robustness = json.loads(robustness_out.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ReleaseVerificationError(
+                "generated robustness corpus did not emit valid evidence"
+            ) from exc
+        if (
+            robustness.get("schema_version") != "dsvire.robustness-result.v1"
+            or robustness.get("ok") is not True
+            or not isinstance(robustness.get("case_count"), int)
+            or robustness["case_count"] < 1
+            or not re.fullmatch(r"[0-9a-f]{64}", str(robustness.get("manifest_sha256", "")))
+        ):
+            raise ReleaseVerificationError("generated robustness evidence failed validation")
     return {
         "schema_version": "dsvire.release-verification.v1",
         "ok": True,
         "uv_version": EXPECTED_UV_VERSION,
         "stages": [dataclasses.asdict(result) for result in results],
+        "artifacts": {
+            "robustness": {
+                "schema_version": robustness["schema_version"],
+                "manifest_sha256": robustness["manifest_sha256"],
+                "case_count": robustness["case_count"],
+            }
+        },
     }
 
 

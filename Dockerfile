@@ -11,6 +11,8 @@ COPY requirements/runtime.lock ./requirements/runtime.lock
 RUN python -m pip install --no-cache-dir --require-hashes -r requirements/runtime.lock \
     && python -m pip check
 COPY src ./src
+COPY fixtures/robustness ./fixtures/robustness
+COPY scripts/evaluate_robustness.py ./scripts/evaluate_robustness.py
 
 RUN mkdir -p /data/dsvire && chown -R dsvire:dsvire /data/dsvire
 USER dsvire

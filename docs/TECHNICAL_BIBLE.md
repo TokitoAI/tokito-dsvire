@@ -482,6 +482,16 @@ No production release tag if DS-ViRe regresses more than 2 nDCG points or p95 mi
 - Mix born-digital and scanned.
 - **Do not redistribute PDFs.** Ship URLs, SHA256, page counts, annotation JSON, download script.
 
+The baseline release gate also runs the source-generated manifest at
+`fixtures/robustness/v1/manifest.json`. Its recipes create synthetic PDFs at
+test time rather than committing opaque or copyrighted document bytes. Each
+case binds the production outcome, evidence-pack publication/cleanup behavior,
+and a strict `pypdf` structural observation. This covers deterministic controls
+for rotation, scan-only abstention, encryption, truncation/partial transfer,
+byte/page/render bounds, duplicate idempotency, and changed revisions. It is a
+regression corpus, not a substitute for mutation fuzzing or the representative
+retrieval benchmark.
+
 ### 9.2 Annotations
 
 ```text
