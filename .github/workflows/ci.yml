@@ -39,6 +39,10 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
       - run: docker build --pull -t tokito-dsvire:ci .
+      - name: Container robustness corpus
+        run: >-
+          docker run --rm --entrypoint python tokito-dsvire:ci
+          scripts/evaluate_robustness.py
       - name: Container refuses unsafe production configuration
         run: |
           if docker run --rm tokito-dsvire:ci; then

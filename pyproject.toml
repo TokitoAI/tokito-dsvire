@@ -12,6 +12,7 @@ dependencies = [
   "fastapi>=0.116,<1",
   "filelock>=3.20,<4",
   "pillow>=11.3,<13",
+  "pypdf>=6.0,<7",
   "pymupdf>=1.26,<2",
   "uvicorn[standard]>=0.35,<1",
 ]

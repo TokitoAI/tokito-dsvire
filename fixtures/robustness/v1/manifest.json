@@ -1,0 +1,22 @@
+{
+  "schema_version": "dsvire.robustness-corpus.v1",
+  "generator_version": "dsvire.robustness-generator@1.0.0",
+  "identity": {
+    "manufacturer": "Acme",
+    "mpn": "A-1",
+    "package": "SOIC-8"
+  },
+  "cases": [
+    {"id": "born-digital-control", "recipe": "born_digital", "expected": "accepted", "strict_parser": "accepted"},
+    {"id": "rotated-90", "recipe": "rotated_90", "expected": "accepted", "strict_parser": "accepted"},
+    {"id": "scan-only-no-ocr", "recipe": "scan_only", "expected": "rejected", "error": "no candidate region found", "strict_parser": "accepted"},
+    {"id": "encrypted", "recipe": "encrypted", "expected": "rejected", "error": "encrypted PDFs are not accepted", "strict_parser": "encrypted"},
+    {"id": "truncated-xref", "recipe": "truncated_xref", "expected": "rejected", "error": "required parser repair", "strict_parser": "rejected"},
+    {"id": "partial-download", "recipe": "partial_download", "expected": "rejected", "error": "PDF parser rejected input", "strict_parser": "rejected"},
+    {"id": "byte-limit-plus-one", "recipe": "byte_limit_plus_one", "expected": "rejected", "error": "PDF size outside", "strict_parser": "not_run"},
+    {"id": "page-limit-plus-one", "recipe": "page_limit_plus_one", "expected": "rejected", "error": "PDF page count", "strict_parser": "accepted"},
+    {"id": "render-geometry-limit", "recipe": "render_geometry_limit", "expected": "rejected", "error": "render safety limit", "strict_parser": "accepted"},
+    {"id": "exact-duplicate", "recipe": "born_digital", "expected": "accepted_duplicate", "strict_parser": "accepted", "same_as": "born-digital-control"},
+    {"id": "changed-revision", "recipe": "changed_revision", "expected": "accepted_revision", "strict_parser": "accepted", "different_from": "born-digital-control"}
+  ]
+}
