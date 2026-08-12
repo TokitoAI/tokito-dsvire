@@ -6,7 +6,9 @@ Current release: **v0.3.1**. See [`CHANGELOG.md`](CHANGELOG.md).
 
 Pinouts, package drawings, timing diagrams, and application circuits live in the pictures, not in OCR text. This project indexes those regions with a vision-first cascade, returns crops with page and bbox provenance, and stays small enough to query without stuffing a 400-page PDF into a model.
 
-**DS-ViRe** is the name of the retrieval problem and the planned open benchmark.
+**DS-ViRe** is the retrieval system and its growing open, source-free benchmark.
+
+![Source-free DS-ViRe evidence bundle](docs/assets/evidence-bundle-example.svg)
 
 ## Why
 
@@ -17,11 +19,29 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Piece | State |
 |---|---|
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
-| Benchmark design | Specced; corpus and labels not released yet |
+| Benchmark | Public source-free registry: 15 official development families, 104 positive/adversarial cases, 10 manufacturer labels, and 12 component categories; labels still await independent review and family-isolated calibration/evaluation splits |
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
 | Visual comparators / benchmark corpus | Text-layout, RapidOCR, and pinned OpenCLIP comparators exist; the 15-family / 104-case visual registry remains unreviewed development data pending independent review |
+
+## Start here
+
+- [Technical Bible](docs/TECHNICAL_BIBLE.md) — canonical architecture, evidence contract, benchmark, and SLOs.
+- [Reproducible examples](docs/EXAMPLES.md) — commands, source-free evidence screenshot, values, benchmark graph, and interpretation.
+- [Production readiness](docs/PRODUCTION_READINESS.md) — evidence ledger and honest remaining gates.
+- [Contracts](docs/CONTRACTS.md) — versioned machine-facing schemas.
+
+Regenerate the public JSON and SVG examples from committed evidence:
+
+```bash
+python scripts/generate_docs_assets.py
+git diff --exit-code -- examples docs/assets
+```
+
+Generated assets are byte-checked in CI. The script derives values from the
+committed fixture and benchmark JSON; it does not contain a second set of
+hand-maintained benchmark numbers.
 
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
