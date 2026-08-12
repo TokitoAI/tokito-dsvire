@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 13
+    assert len(registry.documents) == 14
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
@@ -245,6 +245,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "environmental_sensor",
         "gpio_expander",
         "real_time_clock",
+        "serial_eeprom",
     }
     assert len({document.identity.manufacturer for document in registry.documents}) >= 10
     assert all(document.redistribution == "download_only" for document in registry.documents)
@@ -272,6 +273,10 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "renesas-isl1208-rev-9-01-2022-07": (
             "73335397f3926212bcb1d64a0aa6b301af400b3adab1f67953751db49772921c",
             "ISL1208IB8Z",
+        ),
+        "onsemi-cat24c32-rev-28-2025-07": (
+            "460c65458075bad2a8eebb59ce40831020b246145e95d7529cc12647d266a7f3",
+            "CAT24C32WI-GT3",
         ),
     }
     for document_id, (content_sha256, mpn) in expected_expansion.items():
