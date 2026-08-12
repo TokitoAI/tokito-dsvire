@@ -5615,6 +5615,811 @@
         "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/00001692C.pdf"
       },
       "split": "calibration"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.48,
+            0.32,
+            0.96,
+            0.61
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1115IDGSR",
+            "package": "VSSOP-10 DGS"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "Figure 4-2 gives the DYN and DGS ten-pin top-view assignment used by ADS1115IDGSR.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.58,
+            0.96,
+            0.9
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1115IDGSR",
+            "package": "VSSOP-10 DGS"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "Table 4-1 maps ADS1115 pins for the DGS package.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1115IDGSR",
+            "package": "VSSOP-10 DGS"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 51,
+          "rationale": "DGS0010A is the dimensioned ten-pin VSSOP outline.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1115IDGSR",
+            "package": "X2QFN-10 RUG"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 51,
+          "rationale": "The crop is VSSOP DGS, not X2QFN RUG.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1114IDGSR",
+            "package": "VSSOP-10 DGS"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 51,
+          "rationale": "ADS1114 is the reduced-input sibling, not ADS1115.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.48,
+            0.32,
+            0.96,
+            0.61
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1115IDGSR",
+            "package": "VSSOP-10 DGS"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 3,
+          "rationale": "Figure 4-2 is explicitly top view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.4,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "ADS1115IDGSR",
+            "package": "VSSOP-10 DGS"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 12,
+          "rationale": "The crop contains functional block diagrams, not package pin placement.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "analog_to_digital_converter",
+      "content_sha256": "5fe00cf9509daba7ca311cd0a461debc563dd57598c5de3bf9c31903dc2238da",
+      "document_group": "ti-ads1115-family",
+      "id": "ti-ads1115-rev-d",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "ADS1115IDGSR",
+        "package": "VSSOP-10 DGS"
+      },
+      "license_note": "Official Texas Instruments data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-evaluation-1@2026-08-12",
+        "reviewed_at": "2026-08-12T16:15:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision D, December 2024",
+        "url": "https://www.ti.com/lit/ds/symlink/ads1115.pdf"
+      },
+      "split": "evaluation"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.25,
+            0.39,
+            0.75,
+            0.72
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24074RGTR",
+            "package": "VQFN-16 RGT"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 7,
+          "rationale": "Figure 7-2 is the BQ24074 RGT0016B top view.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24074RGTR",
+            "package": "VQFN-16 RGT"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 8,
+          "rationale": "Table 7-1 maps the BQ24074 package pins and functions.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24074RGTR",
+            "package": "VQFN-16 RGT"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 50,
+          "rationale": "RGT0016C is the dimensioned sixteen-pin VQFN outline.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24074RGTR",
+            "package": "WSON-16"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 50,
+          "rationale": "The crop is VQFN RGT, not WSON.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24073RGTR",
+            "package": "VQFN-16 RGT"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 50,
+          "rationale": "BQ24073 is a neighboring charger variant, not BQ24074.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.25,
+            0.39,
+            0.75,
+            0.72
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24074RGTR",
+            "package": "VQFN-16 RGT"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 7,
+          "rationale": "Figure 7-2 is explicitly top view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "BQ24074RGTR",
+            "package": "VQFN-16 RGT"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 18,
+          "rationale": "The crop is the charger functional block diagram, not a package pinout.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "battery_charger",
+      "content_sha256": "05585ca0112a74b0ad1ef22f3cc30e92c1cdce50430d32605a00f4c3b57b7435",
+      "document_group": "ti-bq24074-family",
+      "id": "ti-bq24074-rev-k",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "BQ24074RGTR",
+        "package": "VQFN-16 RGT"
+      },
+      "license_note": "Official Texas Instruments data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-evaluation-2@2026-08-12",
+        "reviewed_at": "2026-08-12T16:15:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision K, October 2021",
+        "url": "https://www.ti.com/lit/ds/symlink/bq24074.pdf"
+      },
+      "split": "evaluation"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.25,
+            0.1,
+            0.75,
+            0.4
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8825PWPR",
+            "package": "HTSSOP-28 PWP"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "The 28-pin PowerPAD top-view assignment is shown above the pin table.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.39,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8825PWPR",
+            "package": "HTSSOP-28 PWP"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "The pin-functions table maps the 28-pin PWP device.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8825PWPR",
+            "package": "HTSSOP-28 PWP"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 30,
+          "rationale": "PWP0028C is the dimensioned PowerPAD TSSOP outline.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8825PWPR",
+            "package": "VQFN-28"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 30,
+          "rationale": "The crop is PWP PowerPAD TSSOP, not VQFN.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8818PWPR",
+            "package": "HTSSOP-28 PWP"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 30,
+          "rationale": "DRV8818 is a neighboring motor-driver identity, not DRV8825.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.25,
+            0.1,
+            0.75,
+            0.4
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8825PWPR",
+            "package": "HTSSOP-28 PWP"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 3,
+          "rationale": "The pin configuration is a top view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Texas Instruments",
+            "mpn": "DRV8825PWPR",
+            "package": "HTSSOP-28 PWP"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 10,
+          "rationale": "The crop is a functional block diagram, not package pin placement.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "stepper_motor_driver",
+      "content_sha256": "5b4dccc2497334e10574ffa5a55518c8d59b0ed35758f5e8f099b84bbfbb407b",
+      "document_group": "ti-drv8825-family",
+      "id": "ti-drv8825-rev-f",
+      "identity": {
+        "manufacturer": "Texas Instruments",
+        "mpn": "DRV8825PWPR",
+        "package": "HTSSOP-28 PWP"
+      },
+      "license_note": "Official Texas Instruments data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-evaluation-3@2026-08-12",
+        "reviewed_at": "2026-08-12T16:15:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Revision F, July 2014",
+        "url": "https://www.ti.com/lit/ds/symlink/drv8825.pdf"
+      },
+      "split": "evaluation"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.15,
+            0.5,
+            0.4
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4051BT",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 5,
+          "rationale": "The T-package panel gives SOT109-1 SO16 pinning.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.43,
+            0.96,
+            0.64
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4051BT",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 5,
+          "rationale": "Table 2 maps the HEF4051B pin symbols and functions.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.88
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4051BT",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 14,
+          "rationale": "Figure 20 is the dimensioned SOT109-1 SO16 outline.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.88
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4051BT",
+            "package": "TSSOP16 SOT403-1"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 14,
+          "rationale": "The crop is SO16 SOT109-1, not TSSOP16.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.88
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4052BT",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 14,
+          "rationale": "HEF4052B is a different multiplexer topology.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.15,
+            0.5,
+            0.4
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4051BT",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 5,
+          "rationale": "The pinning panel is top view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.75
+          ],
+          "claimed_identity": {
+            "manufacturer": "Nexperia",
+            "mpn": "HEF4051BT",
+            "package": "SO16 SOT109-1"
+          },
+          "id": "wrong-figure-functional-as-pinout",
+          "label": "wrong_figure",
+          "page": 4,
+          "rationale": "The crop is a functional diagram, not package pinning.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "analog_multiplexer",
+      "content_sha256": "7bef8ec5fb05c9fea387e5c8453f41cd78b0242b84725bd394d4a141b3055887",
+      "document_group": "nexperia-hef4051b-family",
+      "id": "nexperia-hef4051b-rev-11-2024",
+      "identity": {
+        "manufacturer": "Nexperia",
+        "mpn": "HEF4051BT",
+        "package": "SO16 SOT109-1"
+      },
+      "license_note": "Official Nexperia product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-evaluation-4@2026-08-12",
+        "reviewed_at": "2026-08-12T16:15:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "Rev. 14, 25 July 2024",
+        "url": "https://assets.nexperia.com/documents/data-sheet/HEF4051B.pdf"
+      },
+      "split": "evaluation"
+    },
+    {
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.55,
+            0.39
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2221A-I/SL",
+            "package": "SOIC-14 3.90 mm SL"
+          },
+          "id": "pinout-positive",
+          "label": "positive",
+          "page": 2,
+          "rationale": "The PDIP/SOIC/TSSOP panel gives the shared 14-pin top-view assignment.",
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.18,
+            0.96,
+            0.9
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2221A-I/SL",
+            "package": "SOIC-14 3.90 mm SL"
+          },
+          "id": "table-positive",
+          "label": "positive",
+          "page": 3,
+          "rationale": "Table 1-1 maps the 14-pin SOIC column to standard and alternate functions.",
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2221A-I/SL",
+            "package": "SOIC-14 3.90 mm SL"
+          },
+          "id": "package-positive",
+          "label": "positive",
+          "page": 65,
+          "rationale": "The SL sheet is the dimensioned 14-lead narrow SOIC outline.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2221A-I/SL",
+            "package": "QFN-16 ML"
+          },
+          "id": "wrong-package",
+          "label": "wrong_package",
+          "page": 65,
+          "rationale": "The crop is 14-lead SOIC SL, not 16-lead QFN ML.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2200-I/SL",
+            "package": "SOIC-14 3.90 mm SL"
+          },
+          "id": "wrong-variant",
+          "label": "wrong_variant",
+          "page": 65,
+          "rationale": "MCP2200 is a different USB-UART bridge identity.",
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.55,
+            0.39
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2221A-I/SL",
+            "package": "SOIC-14 3.90 mm SL"
+          },
+          "id": "wrong-view",
+          "label": "wrong_view",
+          "page": 2,
+          "rationale": "The package-types panel is top view.",
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.4,
+            0.96,
+            0.91
+          ],
+          "claimed_identity": {
+            "manufacturer": "Microchip Technology",
+            "mpn": "MCP2221A-I/SL",
+            "package": "SOIC-14 3.90 mm SL"
+          },
+          "id": "wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "page": 2,
+          "rationale": "The crop is the MCP2221A block diagram, not package pin placement.",
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "category": "usb_i2c_uart_bridge",
+      "content_sha256": "7760f2692b2469e1b0290244de95d73e75adfc27229182406be012e4cd688fcb",
+      "document_group": "microchip-mcp2221a-family",
+      "id": "microchip-mcp2221a-ds20005565b",
+      "identity": {
+        "manufacturer": "Microchip Technology",
+        "mpn": "MCP2221A-I/SL",
+        "package": "SOIC-14 3.90 mm SL"
+      },
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "redistribution": "download_only",
+      "review": {
+        "annotation_revision": "agent-heldout-evaluation-5@2026-08-12",
+        "reviewed_at": "2026-08-12T16:15:00Z",
+        "reviewers": [
+          "agent:codex-gpt5"
+        ],
+        "status": "reviewed"
+      },
+      "source": {
+        "revision": "DS20005565B, November 2017",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf"
+      },
+      "split": "evaluation"
     }
   ],
   "schema_version": "dsvire.visual-eval-registry.v1"

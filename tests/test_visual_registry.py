@@ -235,15 +235,15 @@ def test_adapter_score_set_must_match_registry_exactly() -> None:
         bind_prediction_scores(registry, invalid)
 
 
-def test_committed_visual_registry_has_reviewed_development_and_calibration_data() -> None:
+def test_committed_visual_registry_has_reviewed_frozen_splits() -> None:
     root = Path(__file__).parents[1]
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 35
+    assert len(registry.documents) == 40
     assert sum(document.split == "development" for document in registry.documents) == 30
     assert sum(document.split == "calibration" for document in registry.documents) == 5
-    assert not any(document.split == "evaluation" for document in registry.documents)
+    assert sum(document.split == "evaluation" for document in registry.documents) == 5
     reviews = {document.document_id: document.review.status for document in registry.documents}
     assert set(reviews.values()) == {"reviewed"}
     assert all(
@@ -281,6 +281,9 @@ def test_committed_visual_registry_has_reviewed_development_and_calibration_data
         "parallel_in_shift_register",
         "current_power_monitor",
         "usb_hub_controller",
+        "stepper_motor_driver",
+        "analog_multiplexer",
+        "usb_i2c_uart_bridge",
     }
     assert len({document.identity.manufacturer for document in registry.documents}) >= 14
     assert all(document.redistribution == "download_only" for document in registry.documents)

@@ -1,0 +1,193 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification and merge in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {
+      "case_id": "ti-ads1115-rev-d/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ads1115-rev-d/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ads1115-rev-d/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ads1115-rev-d/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ads1115-rev-d/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ads1115-rev-d/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-ads1115-rev-d/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-bq24074-rev-k/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "ti-drv8825-rev-f/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "nexperia-hef4051b-rev-11-2024/wrong-figure-functional-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/pinout-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/table-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/package-positive",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/wrong-package",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/wrong-variant",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/wrong-view",
+      "note": "",
+      "outcome": "accepted"
+    },
+    {
+      "case_id": "microchip-mcp2221a-ds20005565b/wrong-figure-block-as-pinout",
+      "note": "",
+      "outcome": "accepted"
+    }
+  ],
+  "packet_sha256": "f1627975795074c839cfe39caf75d17fc33718525b5c687fb1f6fe620b91763b",
+  "registry_sha256": "3334e08f350e0dd1b740a5ee2143de754332631f6c3f9fbebccacba41cca90de",
+  "reviewed_at": "2026-08-12T16:15:00Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {
+    "cases": 35,
+    "documents": 5,
+    "exact_source_hashes": 5,
+    "excluded_findings": [
+      "MCP2221A source presentation is internally inconsistent around human-readable package suffix descriptions; the ordering decoder, /SL identity, 14-pin table, and SL SOIC mechanical drawing agree and were used as the bound evidence."
+    ]
+  }
+}
