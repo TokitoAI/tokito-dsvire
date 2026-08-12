@@ -127,15 +127,15 @@ reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
 PDF hash from the TI CDN on all three bounded attempts and correctly produced
 no benchmark artifact; the registered source hash was not relaxed.
 
-`visual_registry.v1.json` now contains twenty hash-pinned official development
+`visual_registry.v1.json` now contains 25 hash-pinned official development
 documents across ten manufacturer labels: the original three TI families plus
 ATmega328P, MCP3008, AP2112, ESP32, RP2040, PCA9685, BME280, NCP1117, and
 PCF8574, ISL1208, CAT24C32, MCP2561/2, MCP23017/23S17, MCP2515, MCP4725,
-MCP73831, and W5500. Its 139 cases include positive
+MCP73831, W5500, MCP9808, MCP9600, PAC1934, MCP8024, and BMI160. Its 174 cases include positive
 pinout/table/package evidence and explicit package, variant, view, and figure
-adversaries. All twenty exact-hash families were rendered into local contact
+adversaries. All 25 exact-hash families were rendered into local contact
 sheets and inspected under the repository owner's explicit authorization. The
-source-free agent decision packets accept all 139 cases and identify the
+source-free agent decision packets accept all 174 cases and identify the
 reviewer as `agent:codex-gpt5`; this is not independent human annotation. Every
 family remains development-only, cannot enter calibration/evaluation, and is
 not held-out accuracy evidence. PDF and contact-sheet bytes remain excluded
@@ -229,6 +229,15 @@ exact-hash documents and 21 crops. The registry now has agent-attributed review
 for the first sixteen families without claiming independent human review. A
 third packet, `61543b7a...c96a`, accepts the seven MCP2515 cases after its first
 pinout crop was rejected for clipping two leads and regenerated.
+
+Packet `477d8d60...13fcd` adds five category-diverse families: precision
+temperature sensing (MCP9808), thermocouple conversion (MCP9600), four-channel
+power monitoring (PAC1934), three-phase motor gate drive (MCP8024), and inertial
+measurement (BMI160). Its 35 cases were accepted only after rejecting initial
+packet `8d390416...4942`, correcting clipped MCP9808/MCP9600 labels, and
+isolating the BMI160 top-view crop from the adjacent bottom view. The attempted
+ST LIS3DH source was excluded after repeated official-CDN timeouts; no mirror
+bytes were substituted.
 
 The first non-TI tranche has a compact, source-free evidence export at
 [`results/multivendor-development-2026-08-12.json`](results/multivendor-development-2026-08-12.json).

@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 20
+    assert len(registry.documents) == 25
     assert {document.split for document in registry.documents} == {"development"}
     reviews = {document.document_id: document.review.status for document in registry.documents}
     assert set(reviews.values()) == {"reviewed"}
@@ -257,6 +257,11 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
         "digital_to_analog_converter",
         "battery_charger",
         "ethernet_controller",
+        "temperature_sensor",
+        "thermocouple_converter",
+        "power_monitor",
+        "motor_gate_driver",
+        "inertial_measurement_unit",
     }
     assert len({document.identity.manufacturer for document in registry.documents}) >= 11
     assert all(document.redistribution == "download_only" for document in registry.documents)
@@ -296,6 +301,26 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
         "microchip-mcp23017-23s17-ds20001952d-2022-06": (
             "63cb5f2bec44434cdeeada1790d0316c9dc06b33febb489ad87bb0e2d540496a",
             "MCP23017-E/SO",
+        ),
+        "microchip-mcp9808-ds20005095b-2018": (
+            "e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f",
+            "MCP9808T-E/MS",
+        ),
+        "microchip-mcp9600-ds20005426j-2025": (
+            "fcb9c5c0773a2ec04e73c3f1e5248c3629d8b2b0fcecd9b38076296e1f6a58ff",
+            "MCP9600T-E/MX",
+        ),
+        "microchip-pac1934-ds20005850e-2019": (
+            "7a4bb54c2f04b178fc42d2499f75314196eb377a3dcd6de335389bd77e20a3da",
+            "PAC1934T-I/JQ",
+        ),
+        "microchip-mcp8024-ds20005228a-2013": (
+            "f6d86cb064c95c47928a36f835e9377c54f3118db59edd0d80daa1df0d9d0f79",
+            "MCP8024-H/MP",
+        ),
+        "bosch-bmi160-rev-1-0-2020-11": (
+            "0c3dca28517322bdcfcef9be8b1dd2b872ff9df9464d0088c17ccc4a67472f3b",
+            "BMI160",
         ),
     }
     for document_id, (content_sha256, mpn) in expected_expansion.items():
