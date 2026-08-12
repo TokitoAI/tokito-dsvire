@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 14
+    assert len(registry.documents) == 15
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
@@ -246,6 +246,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "gpio_expander",
         "real_time_clock",
         "serial_eeprom",
+        "can_transceiver",
     }
     assert len({document.identity.manufacturer for document in registry.documents}) >= 10
     assert all(document.redistribution == "download_only" for document in registry.documents)
@@ -277,6 +278,10 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "onsemi-cat24c32-rev-28-2025-07": (
             "460c65458075bad2a8eebb59ce40831020b246145e95d7529cc12647d266a7f3",
             "CAT24C32WI-GT3",
+        ),
+        "microchip-mcp2561-2-ds20005167c-2014-07": (
+            "c36b24e45446d8a1b7d90c0618a924cac0f117994390e60169287e6ba488c53e",
+            "MCP2562-E/SN",
         ),
     }
     for document_id, (content_sha256, mpn) in expected_expansion.items():

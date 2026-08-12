@@ -807,6 +807,27 @@
         {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1, "bbox_norm": [0.60, 0.49, 0.90, 0.69], "view": "bottom", "claimed_identity": {"manufacturer": "onsemi", "mpn": "CAT24C32WI-GT3", "package": "SOIC-8 150 mil"}, "rationale": "The pin configuration is explicitly labelled Top Views; a bottom-view claim reverses lead numbering. Independent review pending."},
         {"id": "wrong-figure-read-sequence-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 9, "bbox_norm": [0.14, 0.31, 0.86, 0.89], "view": "not_applicable", "claimed_identity": {"manufacturer": "onsemi", "mpn": "CAT24C32WI-GT3", "package": "SOIC-8 150 mil"}, "rationale": "Figures 10-12 are I2C read-sequence timing diagrams, not a package pinout. Independent review pending."}
       ]
+    },
+    {
+      "id": "microchip-mcp2561-2-ds20005167c-2014-07",
+      "document_group": "microchip-mcp2561-2-family",
+      "split": "development",
+      "category": "can_transceiver",
+      "source": {"url": "https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/20005167C.pdf", "revision": "DS20005167C, July 2014"},
+      "content_sha256": "c36b24e45446d8a1b7d90c0618a924cac0f117994390e60169287e6ba488c53e",
+      "redistribution": "download_only",
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-5@2026-08-12"},
+      "cases": [
+        {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1, "bbox_norm": [0.70, 0.35, 0.91, 0.52], "view": "top", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The upper-right MCP2562 PDIP/SOIC top-view diagram identifies VIO on pin 5 and the eight SOIC leads. Independent review pending."},
+        {"id": "table-positive", "label": "positive", "region_type": "table", "page": 4, "bbox_norm": [0.10, 0.48, 0.90, 0.73], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "Table 1-2 maps the MCP2562 PDIP/SOIC column to all eight signals and distinguishes VIO from the MCP2561 SPLIT pin. Independent review pending."},
+        {"id": "package-positive", "label": "positive", "region_type": "package", "page": 27, "bbox_norm": [0.13, 0.13, 0.59, 0.53], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The product-identification system defines SN as the narrow 3.90 mm body eight-lead SOIC suffix used by MCP2562-E/SN. Independent review pending."},
+        {"id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 27, "bbox_norm": [0.13, 0.13, 0.59, 0.53], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "DFN-8 3x3"}, "rationale": "The registered SN suffix denotes narrow SOIC-8, not the MF suffix for the 3x3 DFN-8 package. Independent review pending."},
+        {"id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 27, "bbox_norm": [0.13, 0.13, 0.59, 0.53], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2561-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "MCP2561-E/SN shares the SOIC package but exposes SPLIT instead of the MCP2562 VIO function. Independent review pending."},
+        {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1, "bbox_norm": [0.70, 0.35, 0.91, 0.52], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The conventional package diagram is a top view; a bottom-view claim reverses the SOIC lead order. Independent review pending."},
+        {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 2, "bbox_norm": [0.12, 0.18, 0.87, 0.79], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2562-E/SN", "package": "SOIC-8 Narrow"}, "rationale": "The crop is the CAN transceiver functional block diagram, not a package pinout. Independent review pending."}
+      ]
     }
   ]
 }
