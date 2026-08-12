@@ -1,0 +1,47 @@
+{
+  "schema_version": "dsvire.public-service-load-summary.v1",
+  "source": {
+    "commit": "ab36220afb0b1f5bbcea82a62633c5fc52f1dd47",
+    "workflow_run": 31632587220,
+    "artifact_id": 9155724717,
+    "artifact_sha256": "4e7a7cf049c9721cd9ce5319edbae709c261e49bcf5f8faabf73b5fc491bf799",
+    "artifact_schema": "dsvire.service-load-evidence.v1"
+  },
+  "environment": {
+    "platform": "Linux-6.17.0-1020-azure-x86_64-with-glibc2.39",
+    "python": "3.12.13",
+    "cpu_count": 4,
+    "dsvire_version": "0.3.1",
+    "index_version": "dsvire-baseline@0.3.1"
+  },
+  "workload": {
+    "version": "dsvire.generated-http-load@1.0.0",
+    "sha256": "a438fcdce9e92a44b569324014995a31fe77fe8a06e6c8d81dc21effd41b24ff",
+    "cold_requests": 2,
+    "warm_requests": 4,
+    "overload_requests": 6,
+    "max_concurrent_jobs": 1,
+    "admission_timeout_ms": 100
+  },
+  "results": {
+    "cold": {"successful": 2, "p50_ms": 611.516, "p95_ms": 623.588, "throughput_requests_per_second": 1.615},
+    "warm": {"successful": 4, "p50_ms": 206.182, "p95_ms": 612.045, "throughput_requests_per_second": 3.238, "steady_cached_min_ms": 202.818, "steady_cached_max_ms": 219.75},
+    "overload": {"successful": 1, "rejected_503": 5, "rejection_min_ms": 102.61, "rejection_max_ms": 104.796},
+    "peak_process_tree_rss_bytes": 174796800,
+    "published_packs": 4,
+    "published_bytes": 261650,
+    "scratch_entries_after_shutdown": 0,
+    "partial_entries_after_shutdown": 0,
+    "unexpected_responses": 0
+  },
+  "slo_mapping": {
+    "technical_bible_hot_pack_query_p95_ms": 800,
+    "verdict": "not_applicable",
+    "reason": "The measured path performs synchronous PDF-to-evidence indexing, not the future hot-pack MaxSim query named by the v1 SLO."
+  },
+  "limitations": [
+    "Generated two-page PDFs are deterministic boundary evidence, not representative vendor-document load.",
+    "The run excludes Tokito Cloud upload, blob I/O, extractor, catalog publication, Companion projection, and client network latency.",
+    "One GitHub-hosted four-vCPU runner and twelve requests are not an availability, capacity-planning, or soak result."
+  ]
+}

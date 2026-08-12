@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT
 EVIDENCE = ROOT / "fixtures/evidence/tps5430ddar.json"
 BENCHMARK = ROOT / "evaluation/results/multivendor-development-2026-08-12.json"
+SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -147,9 +148,53 @@ def _benchmark_svg(benchmark: dict[str, Any]) -> str:
 '''
 
 
+def _service_load_svg(result: dict[str, Any]) -> str:
+    values = result["results"]
+    cold = values["cold"]
+    warm = values["warm"]
+    overload = values["overload"]
+    rss = _fmt_mib(values["peak_process_tree_rss_bytes"])
+    bars = (
+        ("Cold PDF to evidence p95", float(cold["p95_ms"]), "#62a6ff"),
+        ("Warm/cache phase p95", float(warm["p95_ms"]), "#16d6b3"),
+        ("Warm steady max", float(warm["steady_cached_max_ms"]), "#a78bfa"),
+        ("Overload rejection max", float(overload["rejection_max_ms"]), "#f2b84b"),
+    )
+    rows = []
+    scale = 720 / max(value for _, value, _ in bars)
+    for index, (label, value, color) in enumerate(bars):
+        y = 208 + index * 80
+        rows.append(f'<text x="64" y="{y + 21}" class="row">{label}</text>')
+        rows.append(f'<rect x="350" y="{y}" width="720" height="26" rx="13" fill="#202631"/>')
+        rows.append(
+            f'<rect x="350" y="{y}" width="{round(value * scale)}" height="26" rx="13" fill="{color}"/>'
+        )
+        rows.append(f'<text x="1090" y="{y + 21}" class="mono">{value:.1f} ms</text>')
+    run = result["source"]["workflow_run"]
+    commit = result["source"]["commit"][:8]
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe authenticated service load evidence</title>
+  <desc id="desc">Latency, bounded overload, memory, and cleanup measurements from a generated-PDF Linux CI run.</desc>
+  <rect width="1200" height="760" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:15px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.metric{{font:700 24px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="70" class="title">Authenticated service boundary · Linux CI</text>
+  <text x="64" y="108" class="sub">Real Uvicorn HTTP → admission → spawned worker → persistent pack · generated PDFs only</text>
+  <text x="64" y="154" class="label">RUN {run} · COMMIT {commit} · 1 WORKER · 100 MS ADMISSION WINDOW</text>
+  {"".join(rows)}
+  <rect x="48" y="558" width="1104" height="120" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="76" y="590" class="label">BOUNDARY OUTCOMES</text>
+  <text x="76" y="630" class="metric">7 success · 5 bounded 503 · 0 unexpected</text>
+  <text x="640" y="590" class="label">RESOURCE / DURABILITY</text>
+  <text x="640" y="630" class="metric">{rss} peak RSS · 4 packs · 0 residue</text>
+  <text x="64" y="720" class="foot">Indexing evidence, not the future hot-pack MaxSim query SLO · single 4-vCPU CI runner · 12 requests · no E2E extrapolation</text>
+</svg>
+"""
+
+
 def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
+    service_load = _read(SERVICE_LOAD)
     example = _example(evidence)
     _write(
         output_root / "examples/tps5430ddar-evidence-summary.json",
@@ -160,6 +205,7 @@ def generate(output_root: Path) -> None:
         output_root / "docs/assets/multivendor-development-benchmark.svg",
         _benchmark_svg(benchmark),
     )
+    _write(output_root / "docs/assets/service-load-evidence.svg", _service_load_svg(service_load))
 
 
 def main() -> int:

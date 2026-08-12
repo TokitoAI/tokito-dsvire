@@ -81,6 +81,47 @@ Use `--offline` after the exact PDFs are cached. A vendor URL that returns
 different bytes is an error requiring source revision review; the runner never
 silently accepts the new document.
 
+## Authenticated service load evidence
+
+![DS-ViRe authenticated service load evidence](assets/service-load-evidence.svg)
+
+The source-free summary
+[`service-load-linux-2026-08-12.json`](../evaluation/results/service-load-linux-2026-08-12.json)
+is derived from the schema-validated artifact published by GitHub Actions run
+[`31632587220`](https://github.com/TokitoAI/tokito-dsvire/actions/runs/31632587220).
+It binds exact commit `ab36220afb0b1f5bbcea82a62633c5fc52f1dd47`, workload
+digest `a438fcd...b24ff`, full artifact digest `4e7a7cf...f799`, the runner
+environment, service limits, and these measurements:
+
+| Phase | Result |
+|---|---:|
+| Cold PDF-to-evidence p95 | 623.588 ms (2/2 success) |
+| Warm/cache phase p95 | 612.045 ms (4/4 success) |
+| Warm steady cached samples | 202.818–219.750 ms |
+| Overload | 1 progress, 5 HTTP 503 rejections in 102.610–104.796 ms |
+| Peak Uvicorn + worker process-tree RSS | 174,796,800 bytes (166.7 MiB) |
+| Durable output | 4 packs, 261,650 bytes, zero scratch/partial residue |
+
+This deliberately starts a real Uvicorn process and crosses bearer
+authentication, TCP request parsing, bounded admission, the spawned PDF worker,
+pack creation/cache validation, and shutdown cleanup. The input is a
+deterministic generated two-page PDF, so it redistributes no vendor content.
+
+The Technical Bible's 800 ms p95 target applies to the future hot-pack MaxSim
+query path. This run measures synchronous PDF-to-evidence indexing, so its SLO
+verdict is `not_applicable`; the latency is evidence, not a claim that the
+future query SLO passes. It also excludes Cloud upload/blob I/O, extraction,
+catalog publication, Companion projection, client network latency, and soak.
+
+Run the same harness locally with:
+
+```bash
+uv run --frozen --no-sync python scripts/evaluate_service_load.py \
+  --cold-requests 2 --warm-requests 4 --overload-requests 6 \
+  --source-commit "$(git rev-parse HEAD)" \
+  --json-out service-load-evidence.json
+```
+
 ## Inspecting a result safely
 
 When consuming an evidence region, interpret these fields together:
