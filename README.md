@@ -19,7 +19,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Piece | State |
 |---|---|
 | Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
-| Benchmark | Public source-free registry: 35 official families and 244 positive/adversarial cases across 14 manufacturer labels and 29 component categories; 30 families are development data and five pre-registered families are isolated calibration data, with five additional evaluation families still frozen outside the registry |
+| Benchmark | Public source-free registry: 40 official families and 279 positive/adversarial cases across 14 manufacturer labels and 32 component categories; 30 are development, five calibration, and five reviewed evaluation families that remain unscored |
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |

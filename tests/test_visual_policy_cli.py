@@ -75,7 +75,7 @@ def test_evaluation_artifact_cannot_be_consumed_as_calibration() -> None:
         predictions(_artifact("evaluation"), "calibration")
 
 
-def test_committed_registry_materializes_only_reviewed_pre_registered_calibration() -> None:
+def test_committed_registry_materializes_only_reviewed_pre_registered_heldout_splits() -> None:
     root = Path(__file__).parents[1]
     registry = json.loads((root / "evaluation/visual_registry.v1.json").read_text())
     plan = json.loads((root / "evaluation/visual_split_plan.v1.json").read_text())
@@ -84,8 +84,15 @@ def test_committed_registry_materializes_only_reviewed_pre_registered_calibratio
         document for document in registry["documents"] if document["split"] == "calibration"
     ]
     assert len(calibration) == 5
-    assert not any(document["split"] == "evaluation" for document in registry["documents"])
+    evaluation = [
+        document for document in registry["documents"] if document["split"] == "evaluation"
+    ]
+    assert len(evaluation) == 5
     for document in calibration:
         assert planned[document["id"]]["split"] == "calibration"
+        assert planned[document["id"]]["content_sha256"] == document["content_sha256"]
+        assert document["review"]["status"] == "reviewed"
+    for document in evaluation:
+        assert planned[document["id"]]["split"] == "evaluation"
         assert planned[document["id"]]["content_sha256"] == document["content_sha256"]
         assert document["review"]["status"] == "reviewed"

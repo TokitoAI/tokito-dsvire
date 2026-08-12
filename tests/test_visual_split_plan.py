@@ -30,7 +30,13 @@ def test_held_out_split_plan_is_frozen_before_scoring() -> None:
         assert document["source"]["url"] == family["source_url"]
         assert document["content_sha256"] == family["content_sha256"]
         assert document["review"]["status"] == "reviewed"
-    assert not set(documents).intersection(family["id"] for family in evaluation)
+    for family in evaluation:
+        document = documents[family["id"]]
+        assert document["split"] == family["split"]
+        assert document["category"] == family["category"]
+        assert document["source"]["url"] == family["source_url"]
+        assert document["content_sha256"] == family["content_sha256"]
+        assert document["review"]["status"] == "reviewed"
 
     result_files = list((root / "evaluation/results").glob("*.json"))
     serialized_results = "\n".join(path.read_text() for path in result_files)

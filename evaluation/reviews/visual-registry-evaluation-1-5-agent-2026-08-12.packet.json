@@ -1,0 +1,537 @@
+{
+  "documents": [
+    {
+      "annotation_revision": "agent-heldout-evaluation-1@2026-08-12",
+      "annotation_sha256": "f758b3eaa9b220d83f3506a847f2b43f1133e298c93feef2f7aff21d32f058cc",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.48,
+            0.32,
+            0.96,
+            0.61
+          ],
+          "case_id": "ti-ads1115-rev-d/pinout-positive",
+          "crop_sha256": "4adf0b2e91b6aba55fffe589503a20d1faff8e29715fa2cb7c4e64d5bd4fa3de",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.58,
+            0.96,
+            0.9
+          ],
+          "case_id": "ti-ads1115-rev-d/table-positive",
+          "crop_sha256": "269d90c7d8a4e60148296e49d03ecc2636c7e29040eb6c520c189228523d7694",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-ads1115-rev-d/package-positive",
+          "crop_sha256": "9364f0447733df47a3be52bf885d99014655ef623d37a88197f2170ebbffa2bc",
+          "label": "positive",
+          "page": 51,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-ads1115-rev-d/wrong-package",
+          "crop_sha256": "9364f0447733df47a3be52bf885d99014655ef623d37a88197f2170ebbffa2bc",
+          "label": "wrong_package",
+          "page": 51,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-ads1115-rev-d/wrong-variant",
+          "crop_sha256": "9364f0447733df47a3be52bf885d99014655ef623d37a88197f2170ebbffa2bc",
+          "label": "wrong_variant",
+          "page": 51,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.48,
+            0.32,
+            0.96,
+            0.61
+          ],
+          "case_id": "ti-ads1115-rev-d/wrong-view",
+          "crop_sha256": "4adf0b2e91b6aba55fffe589503a20d1faff8e29715fa2cb7c4e64d5bd4fa3de",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.4,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-ads1115-rev-d/wrong-figure-block-as-pinout",
+          "crop_sha256": "7ed55ad4fcfab6b274ba6dd3eea8cbfa318b84f15ff1c3648721ceae961b19c9",
+          "label": "wrong_figure",
+          "page": 12,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-ads1115-rev-d",
+      "source_sha256": "5fe00cf9509daba7ca311cd0a461debc563dd57598c5de3bf9c31903dc2238da"
+    },
+    {
+      "annotation_revision": "agent-heldout-evaluation-2@2026-08-12",
+      "annotation_sha256": "cb65e7f7fbf25bc612d650d65599ec1dcbe56c4c6aafe4b3ac65451d49df4c07",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.25,
+            0.39,
+            0.75,
+            0.72
+          ],
+          "case_id": "ti-bq24074-rev-k/pinout-positive",
+          "crop_sha256": "a2a0ffa466b2698c2a0342694f485ef7783a33e06e68d4f895a89755cc6103e6",
+          "label": "positive",
+          "page": 7,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-bq24074-rev-k/table-positive",
+          "crop_sha256": "09824edb4a42434653c7eddf58772a4041aeef814f895027d0a6140de7870837",
+          "label": "positive",
+          "page": 8,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-bq24074-rev-k/package-positive",
+          "crop_sha256": "e6684190345671df8527cda95faaf56e37d3967b829ee4bac99d81c207e1e4ef",
+          "label": "positive",
+          "page": 50,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-bq24074-rev-k/wrong-package",
+          "crop_sha256": "e6684190345671df8527cda95faaf56e37d3967b829ee4bac99d81c207e1e4ef",
+          "label": "wrong_package",
+          "page": 50,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-bq24074-rev-k/wrong-variant",
+          "crop_sha256": "e6684190345671df8527cda95faaf56e37d3967b829ee4bac99d81c207e1e4ef",
+          "label": "wrong_variant",
+          "page": 50,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.25,
+            0.39,
+            0.75,
+            0.72
+          ],
+          "case_id": "ti-bq24074-rev-k/wrong-view",
+          "crop_sha256": "a2a0ffa466b2698c2a0342694f485ef7783a33e06e68d4f895a89755cc6103e6",
+          "label": "wrong_view",
+          "page": 7,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-bq24074-rev-k/wrong-figure-block-as-pinout",
+          "crop_sha256": "ba5158d524a233c4fb7a1defe542a95b3d1d6070f04254253d30db203f0e40ef",
+          "label": "wrong_figure",
+          "page": 18,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-bq24074-rev-k",
+      "source_sha256": "05585ca0112a74b0ad1ef22f3cc30e92c1cdce50430d32605a00f4c3b57b7435"
+    },
+    {
+      "annotation_revision": "agent-heldout-evaluation-3@2026-08-12",
+      "annotation_sha256": "1bf399195dd1fd5ec003be04dc31be4b97e6b285f2228b699fa71b146f00eade",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.25,
+            0.1,
+            0.75,
+            0.4
+          ],
+          "case_id": "ti-drv8825-rev-f/pinout-positive",
+          "crop_sha256": "190234e3815a865374ea3aee4823b540ff6180148521b282f96bdbfb17b1af02",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.39,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-drv8825-rev-f/table-positive",
+          "crop_sha256": "190cbdee04208d5f07af18d2db87c1d87ad41a446f02ead2527360c765f09d54",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-drv8825-rev-f/package-positive",
+          "crop_sha256": "c79c46132483382eadcf61f8afeeff6d2b0f0eb3ca8306293c68c18cffa03f49",
+          "label": "positive",
+          "page": 30,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-drv8825-rev-f/wrong-package",
+          "crop_sha256": "c79c46132483382eadcf61f8afeeff6d2b0f0eb3ca8306293c68c18cffa03f49",
+          "label": "wrong_package",
+          "page": 30,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-drv8825-rev-f/wrong-variant",
+          "crop_sha256": "c79c46132483382eadcf61f8afeeff6d2b0f0eb3ca8306293c68c18cffa03f49",
+          "label": "wrong_variant",
+          "page": 30,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.25,
+            0.1,
+            0.75,
+            0.4
+          ],
+          "case_id": "ti-drv8825-rev-f/wrong-view",
+          "crop_sha256": "190234e3815a865374ea3aee4823b540ff6180148521b282f96bdbfb17b1af02",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-drv8825-rev-f/wrong-figure-block-as-pinout",
+          "crop_sha256": "c6882cb552824d0a85cd26d7b41b8f1bf047186f47f87b8ebd416c6c2a9d4ba8",
+          "label": "wrong_figure",
+          "page": 10,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-drv8825-rev-f",
+      "source_sha256": "5b4dccc2497334e10574ffa5a55518c8d59b0ed35758f5e8f099b84bbfbb407b"
+    },
+    {
+      "annotation_revision": "agent-heldout-evaluation-4@2026-08-12",
+      "annotation_sha256": "7c8cdfd8609acf9d5ae74889544dffa53184c52aa7a0ac9621b79a0cc5f8d75c",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.15,
+            0.5,
+            0.4
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/pinout-positive",
+          "crop_sha256": "1fd22a87f8864566611f981137fedda4f5a051b6bbba296ad578884f9ce61638",
+          "label": "positive",
+          "page": 5,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.43,
+            0.96,
+            0.64
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/table-positive",
+          "crop_sha256": "129537c837e14c2f36f623cdcfab0268e478e90e054ffe388708389554dc21a2",
+          "label": "positive",
+          "page": 5,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.88
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/package-positive",
+          "crop_sha256": "d272482bbbb6add9bc92ac7e748596ddebe8d700a26657e0cb665e2d423345a4",
+          "label": "positive",
+          "page": 14,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.88
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-package",
+          "crop_sha256": "d272482bbbb6add9bc92ac7e748596ddebe8d700a26657e0cb665e2d423345a4",
+          "label": "wrong_package",
+          "page": 14,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.88
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-variant",
+          "crop_sha256": "d272482bbbb6add9bc92ac7e748596ddebe8d700a26657e0cb665e2d423345a4",
+          "label": "wrong_variant",
+          "page": 14,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.15,
+            0.5,
+            0.4
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-view",
+          "crop_sha256": "1fd22a87f8864566611f981137fedda4f5a051b6bbba296ad578884f9ce61638",
+          "label": "wrong_view",
+          "page": 5,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.75
+          ],
+          "case_id": "nexperia-hef4051b-rev-11-2024/wrong-figure-functional-as-pinout",
+          "crop_sha256": "8a7a1a41fa2ef42bafbd7fa27fefb19006b53e6d51ded3faa33cc661f2a6862c",
+          "label": "wrong_figure",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "nexperia-hef4051b-rev-11-2024",
+      "source_sha256": "7bef8ec5fb05c9fea387e5c8453f41cd78b0242b84725bd394d4a141b3055887"
+    },
+    {
+      "annotation_revision": "agent-heldout-evaluation-5@2026-08-12",
+      "annotation_sha256": "181c6ddc9461896b2fbc1f2e617a0a80b46ac84d72db9d52a15164d23021e547",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.55,
+            0.39
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/pinout-positive",
+          "crop_sha256": "0c8908c16afa986e1b8244183b4b1d9028a8ac003a6afb5a51dec8ef797f427c",
+          "label": "positive",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.18,
+            0.96,
+            0.9
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/table-positive",
+          "crop_sha256": "73e897777b7ac57508c31f467b392fa38bb8532ae888acd674ed9a9978b3bf4e",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/package-positive",
+          "crop_sha256": "debf863bef2825e1512a8c5732d9570e49d121af5ea071d3e2ae5cf6cec6065d",
+          "label": "positive",
+          "page": 65,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-package",
+          "crop_sha256": "debf863bef2825e1512a8c5732d9570e49d121af5ea071d3e2ae5cf6cec6065d",
+          "label": "wrong_package",
+          "page": 65,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-variant",
+          "crop_sha256": "debf863bef2825e1512a8c5732d9570e49d121af5ea071d3e2ae5cf6cec6065d",
+          "label": "wrong_variant",
+          "page": 65,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.55,
+            0.39
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-view",
+          "crop_sha256": "0c8908c16afa986e1b8244183b4b1d9028a8ac003a6afb5a51dec8ef797f427c",
+          "label": "wrong_view",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.4,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp2221a-ds20005565b/wrong-figure-block-as-pinout",
+          "crop_sha256": "0563331fd94e49345911143c2ae79b384786ee6f4260b364dba4498e63a8eb48",
+          "label": "wrong_figure",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp2221a-ds20005565b",
+      "source_sha256": "7760f2692b2469e1b0290244de95d73e75adfc27229182406be012e4cd688fcb"
+    }
+  ],
+  "packet_sha256": "f1627975795074c839cfe39caf75d17fc33718525b5c687fb1f6fe620b91763b",
+  "registry_sha256": "3334e08f350e0dd1b740a5ee2143de754332631f6c3f9fbebccacba41cca90de",
+  "schema_version": "dsvire.visual-review-packet.v2"
+}
