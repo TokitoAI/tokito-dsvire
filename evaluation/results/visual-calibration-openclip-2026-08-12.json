@@ -1,0 +1,257 @@
+{
+  "adapter": {
+    "adapter_id": "dsvire.visual-adapter.openclip-vit-b-32@1.0.0",
+    "implementation_sha256": "2ea326b2d593a70e429a710118026599ade55f953a0021d880cc2df8a9c63cf9",
+    "model_sha256": "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6",
+    "preprocessing_id": "open-clip-torch-3.3.0-torch-2.13.0-pillow-12.3.0-pymupdf-1.28.2-vit-b-32-cpu-single-thread-rgb-220dpi-prompt-v1-score-5dp@1",
+    "score_semantics": "similarity"
+  },
+  "dataset_sha256": "2126649ef51d24c5595dc027e929400014646cf7ef225f55d86804a2e4fd9efb",
+  "documents": [
+    {
+      "document_group": "nexperia-74hc-hct165-family",
+      "elapsed_ms": 2071.331,
+      "id": "nexperia-74hc165-rev-8-2025-05",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/pinout-positive",
+          "label": "positive",
+          "score": 0.6782
+        },
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/table-positive",
+          "label": "positive",
+          "score": 0.64764
+        },
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/package-positive",
+          "label": "positive",
+          "score": 0.65351
+        },
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-package",
+          "label": "wrong_package",
+          "score": 0.64455
+        },
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.65095
+        },
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-view",
+          "label": "wrong_view",
+          "score": 0.67826
+        },
+        {
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-figure-timing-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.64618
+        }
+      ],
+      "split": "calibration"
+    },
+    {
+      "document_group": "ti-ina219-family",
+      "elapsed_ms": 2038.7,
+      "id": "ti-ina219-rev-g",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "ti-ina219-rev-g/pinout-positive",
+          "label": "positive",
+          "score": 0.65384
+        },
+        {
+          "case_id": "ti-ina219-rev-g/table-positive",
+          "label": "positive",
+          "score": 0.62186
+        },
+        {
+          "case_id": "ti-ina219-rev-g/package-positive",
+          "label": "positive",
+          "score": 0.61869
+        },
+        {
+          "case_id": "ti-ina219-rev-g/wrong-package",
+          "label": "wrong_package",
+          "score": 0.62749
+        },
+        {
+          "case_id": "ti-ina219-rev-g/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.61902
+        },
+        {
+          "case_id": "ti-ina219-rev-g/wrong-view",
+          "label": "wrong_view",
+          "score": 0.65374
+        },
+        {
+          "case_id": "ti-ina219-rev-g/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.61863
+        }
+      ],
+      "split": "calibration"
+    },
+    {
+      "document_group": "microchip-mcp7940n-family",
+      "elapsed_ms": 2008.806,
+      "id": "microchip-mcp7940n-ds20005010j",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/pinout-positive",
+          "label": "positive",
+          "score": 0.6316
+        },
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/table-positive",
+          "label": "positive",
+          "score": 0.65354
+        },
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/package-positive",
+          "label": "positive",
+          "score": 0.62066
+        },
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-package",
+          "label": "wrong_package",
+          "score": 0.61339
+        },
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.61976
+        },
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-view",
+          "label": "wrong_view",
+          "score": 0.6262
+        },
+        {
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.6059
+        }
+      ],
+      "split": "calibration"
+    },
+    {
+      "document_group": "ti-tmp117-family",
+      "elapsed_ms": 1957.606,
+      "id": "ti-tmp117-rev-d",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "ti-tmp117-rev-d/pinout-positive",
+          "label": "positive",
+          "score": 0.69258
+        },
+        {
+          "case_id": "ti-tmp117-rev-d/table-positive",
+          "label": "positive",
+          "score": 0.65407
+        },
+        {
+          "case_id": "ti-tmp117-rev-d/package-positive",
+          "label": "positive",
+          "score": 0.62241
+        },
+        {
+          "case_id": "ti-tmp117-rev-d/wrong-package",
+          "label": "wrong_package",
+          "score": 0.62697
+        },
+        {
+          "case_id": "ti-tmp117-rev-d/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.6224
+        },
+        {
+          "case_id": "ti-tmp117-rev-d/wrong-view",
+          "label": "wrong_view",
+          "score": 0.69083
+        },
+        {
+          "case_id": "ti-tmp117-rev-d/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.64225
+        }
+      ],
+      "split": "calibration"
+    },
+    {
+      "document_group": "microchip-usb2514b-family",
+      "elapsed_ms": 2478.366,
+      "id": "microchip-usb2514b-ds00001692c",
+      "review_status": "reviewed",
+      "scores": [
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/pinout-positive",
+          "label": "positive",
+          "score": 0.6498
+        },
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/table-positive",
+          "label": "positive",
+          "score": 0.61813
+        },
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/package-positive",
+          "label": "positive",
+          "score": 0.66354
+        },
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-package",
+          "label": "wrong_package",
+          "score": 0.66716
+        },
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-variant",
+          "label": "wrong_variant",
+          "score": 0.66333
+        },
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-view",
+          "label": "wrong_view",
+          "score": 0.64749
+        },
+        {
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-figure-block-as-pinout",
+          "label": "wrong_figure",
+          "score": 0.60526
+        }
+      ],
+      "split": "calibration"
+    }
+  ],
+  "eligible_for_policy_fitting": true,
+  "registry_sha256": "ceab949fe8bc63ee32b441ee3c0bdbfec3fa843df06efdd5ac76b190b19e1470",
+  "schema_version": "dsvire.visual-adapter-benchmark.v1",
+  "score_sha256": "12eac58c91f132a9d00c07b090cbd5f0d06dbc1d73f6d7a2ae2b12776678e966",
+  "selected_split": "calibration",
+  "summary": {
+    "cases": 35,
+    "document_latency_mean_ms": 2110.962,
+    "document_latency_p50_ms": 2038.7,
+    "document_latency_p95_ms": 2478.366,
+    "documents": 5,
+    "documents_per_second": 0.472229,
+    "elapsed_seconds": 10.588094,
+    "external_cost_usd": 0.0,
+    "labels": {
+      "positive": 15,
+      "wrong_figure": 5,
+      "wrong_package": 5,
+      "wrong_variant": 5,
+      "wrong_view": 5
+    },
+    "peak_rss_bytes": 1065951232,
+    "reviewed_calibration_documents": 5,
+    "reviewed_evaluation_documents": 0
+  }
+}

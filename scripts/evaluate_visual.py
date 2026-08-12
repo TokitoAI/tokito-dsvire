@@ -18,14 +18,17 @@ from dsvire.visual_adapters import (
 )
 from dsvire.visual_benchmark import benchmark_registry
 from dsvire.visual_registry import load_visual_registry_data
+from dsvire.visual_split_plan import bind_registry_to_split_plan, load_visual_split_plan_data
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REGISTRY = REPO_ROOT / "evaluation" / "visual_registry.v1.json"
+DEFAULT_SPLIT_PLAN = REPO_ROOT / "evaluation" / "visual_split_plan.v1.json"
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--registry", type=Path, default=DEFAULT_REGISTRY)
+    parser.add_argument("--split-plan", type=Path, default=DEFAULT_SPLIT_PLAN)
     parser.add_argument("--cache-dir", type=Path, required=True)
     parser.add_argument("--adapter", choices=["text-layout", "rapidocr", "openclip"], required=True)
     parser.add_argument("--offline", action="store_true")
@@ -90,7 +93,14 @@ def main() -> int:
             ),
             adapter,
         )
-        result["dataset_sha256"] = full_registry.content_sha256
+        if args.split in {"calibration", "evaluation"}:
+            plan, dataset_sha256 = load_visual_split_plan_data(
+                json.loads(args.split_plan.read_text(encoding="utf-8"))
+            )
+            bind_registry_to_split_plan(registry, plan, args.split)
+        else:
+            dataset_sha256 = full_registry.content_sha256
+        result["dataset_sha256"] = dataset_sha256
         result["selected_split"] = args.split
     except (OSError, ValueError, RuntimeError) as exc:
         parser.error(str(exc))
