@@ -150,6 +150,25 @@ def test_review_packet_is_deterministic_and_binds_rendered_crop_bytes() -> None:
     Draft202012Validator(schema).validate(first)
 
 
+def test_published_fourteen_family_review_packet_binds_current_registry() -> None:
+    root = Path(__file__).parents[1]
+    registry = load_visual_registry_data(
+        json.loads((root / "evaluation/visual_registry.v1.json").read_text())
+    )
+    packet = load_review_packet_data(
+        json.loads(
+            (root / "evaluation/reviews/visual-registry-14-2026-08-12.packet.json").read_text()
+        )
+    )
+
+    assert packet["registry_sha256"] == registry.content_sha256
+    assert len(packet["documents"]) == 14
+    assert sum(len(document["cases"]) for document in packet["documents"]) == 97
+    assert packet["packet_sha256"] == (
+        "81dbd810d442524f664c3b6d48f9ef46298be186dfeb18eb6dd55a4d6fb9a814"
+    )
+
+
 def test_review_packet_rejects_tampering_and_unknown_selection() -> None:
     payload, _data, registry = _fixture()
     packet = build_review_packet(registry, lambda _document: payload)

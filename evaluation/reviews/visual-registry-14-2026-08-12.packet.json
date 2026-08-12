@@ -1,0 +1,1477 @@
+{
+  "documents": [
+    {
+      "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12",
+      "annotation_sha256": "4c95e6dfe83a52ea7dea4cb2fb4204ebd80596c8f54a4d14f707ac8fb26d164c",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.035,
+            0.059441,
+            0.965,
+            0.399441
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/pinout-positive",
+          "crop_sha256": "df9a5c594ab0901a8408101806fc8568b0219147456edd4a6d6003a1107f1c64",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.300201,
+            0.965,
+            0.720201
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/table-positive",
+          "crop_sha256": "67c59055df95f620d2547637f6527efab145f283f4277563a02aab7f6320dbdd",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.527551,
+            0.965,
+            0.687551
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/package-positive",
+          "crop_sha256": "a9f41e35a16bedf8e7f79b5f0a5ad54089afd6bb85414b2a324ebd7176b15e1f",
+          "label": "positive",
+          "page": 31,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.527551,
+            0.965,
+            0.687551
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-package",
+          "crop_sha256": "a9f41e35a16bedf8e7f79b5f0a5ad54089afd6bb85414b2a324ebd7176b15e1f",
+          "label": "wrong_package",
+          "page": 31,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.527551,
+            0.965,
+            0.687551
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-variant",
+          "crop_sha256": "a9f41e35a16bedf8e7f79b5f0a5ad54089afd6bb85414b2a324ebd7176b15e1f",
+          "label": "wrong_variant",
+          "page": 31,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.059441,
+            0.965,
+            0.399441
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-view",
+          "crop_sha256": "df9a5c594ab0901a8408101806fc8568b0219147456edd4a6d6003a1107f1c64",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.527551,
+            0.965,
+            0.687551
+          ],
+          "case_id": "ti-tps5430-rev-l-2026-04/wrong-figure-package-as-pinout",
+          "crop_sha256": "a9f41e35a16bedf8e7f79b5f0a5ad54089afd6bb85414b2a324ebd7176b15e1f",
+          "label": "wrong_figure",
+          "page": 31,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-tps5430-rev-l-2026-04",
+      "source_sha256": "88c98e6e51851285fbbfc17837d002b29af7cd3fe30442fa7e4612c5179985da"
+    },
+    {
+      "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12",
+      "annotation_sha256": "7d6ec509203b118e5339e4a806a516ae0cea2e5e575b7ab2909bf5afff588617",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.035,
+            0.059441,
+            0.965,
+            0.399441
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/pinout-positive",
+          "crop_sha256": "a402dd74b6091b620adacb0237f2a3f614e83b0482c0ea6adcf2208eb269511b",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.462629,
+            0.965,
+            0.882629
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/table-positive",
+          "crop_sha256": "fdd4c18575e38a61937adf8dc8b20d0c940fb30a8aa8a353830b3f81bd1abee0",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.609334,
+            0.965,
+            0.769334
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/package-positive",
+          "crop_sha256": "ea3325efd61eb6cd12c1ef22260b7ad2bbfeced310613a337eaf930e3b4f1d34",
+          "label": "positive",
+          "page": 39,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.609334,
+            0.965,
+            0.769334
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-package",
+          "crop_sha256": "ea3325efd61eb6cd12c1ef22260b7ad2bbfeced310613a337eaf930e3b4f1d34",
+          "label": "wrong_package",
+          "page": 39,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.609334,
+            0.965,
+            0.769334
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-variant",
+          "crop_sha256": "ea3325efd61eb6cd12c1ef22260b7ad2bbfeced310613a337eaf930e3b4f1d34",
+          "label": "wrong_variant",
+          "page": 39,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.059441,
+            0.965,
+            0.399441
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-view",
+          "crop_sha256": "a402dd74b6091b620adacb0237f2a3f614e83b0482c0ea6adcf2208eb269511b",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.609334,
+            0.965,
+            0.769334
+          ],
+          "case_id": "ti-lm358-rev-ab-2024-10/wrong-figure-package-as-pinout",
+          "crop_sha256": "ea3325efd61eb6cd12c1ef22260b7ad2bbfeced310613a337eaf930e3b4f1d34",
+          "label": "wrong_figure",
+          "page": 39,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-lm358-rev-ab-2024-10",
+      "source_sha256": "ef646b009b0524a8c564406095632cbe1d2ebe26a399d845565241d2cfaad038"
+    },
+    {
+      "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12",
+      "annotation_sha256": "90465a96d4b0e5e0e5246113744e3e2cf4a9d86de5ea903e5d6939baf290aa2f",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.035,
+            0.059441,
+            0.965,
+            0.399441
+          ],
+          "case_id": "ti-ne555-rev-k/pinout-positive",
+          "crop_sha256": "6c6c3903fa320491a1943cd5cf8707b3448121a4d2577c30a243a89cbee7ac7e",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.322765,
+            0.965,
+            0.742765
+          ],
+          "case_id": "ti-ne555-rev-k/table-positive",
+          "crop_sha256": "e5c78e77ee4581d6ee5efc677632d0258016ca6e429add5f5dc353cf4d01a839",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.487043,
+            0.965,
+            0.647043
+          ],
+          "case_id": "ti-ne555-rev-k/package-positive",
+          "crop_sha256": "577c4eca431d6ed902899649c8b5f7385daebf1468bd3cee37699de4b4b1293f",
+          "label": "positive",
+          "page": 21,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.487043,
+            0.965,
+            0.647043
+          ],
+          "case_id": "ti-ne555-rev-k/wrong-package",
+          "crop_sha256": "577c4eca431d6ed902899649c8b5f7385daebf1468bd3cee37699de4b4b1293f",
+          "label": "wrong_package",
+          "page": 21,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.487043,
+            0.965,
+            0.647043
+          ],
+          "case_id": "ti-ne555-rev-k/wrong-variant",
+          "crop_sha256": "577c4eca431d6ed902899649c8b5f7385daebf1468bd3cee37699de4b4b1293f",
+          "label": "wrong_variant",
+          "page": 21,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.059441,
+            0.965,
+            0.399441
+          ],
+          "case_id": "ti-ne555-rev-k/wrong-view",
+          "crop_sha256": "6c6c3903fa320491a1943cd5cf8707b3448121a4d2577c30a243a89cbee7ac7e",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.035,
+            0.487043,
+            0.965,
+            0.647043
+          ],
+          "case_id": "ti-ne555-rev-k/wrong-figure-package-as-pinout",
+          "crop_sha256": "577c4eca431d6ed902899649c8b5f7385daebf1468bd3cee37699de4b4b1293f",
+          "label": "wrong_figure",
+          "page": 21,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-ne555-rev-k",
+      "source_sha256": "dae2be1a919b0cfe2d34e120cbbda2d638204e3000b1555004c4c76cf5c1f30f"
+    },
+    {
+      "annotation_revision": "agent-seed-dsvire@0.3.1",
+      "annotation_sha256": "3c2ba213ec0e6f8bf9bed0295a7338dabbfb9c933e74baf3abdd800920b09519",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.04,
+            0.05,
+            0.62,
+            0.46
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/pinout-positive",
+          "crop_sha256": "69bbf4f8e65ffb94534894a07534214afb9f7ce57a2e16897a07d8b9076206b2",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.13,
+            0.95,
+            0.73
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/table-positive",
+          "crop_sha256": "2ce0cc17771f28155fb494d63189fe72284c0c429a970dfaaec5281a467cd9a5",
+          "label": "positive",
+          "page": 29,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.39
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/package-positive",
+          "crop_sha256": "feb5bcd7c6c4ef1aa288107207964a87c3cda4ace2012d45d8e5813ca8a73283",
+          "label": "positive",
+          "page": 285,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.39
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-package",
+          "crop_sha256": "feb5bcd7c6c4ef1aa288107207964a87c3cda4ace2012d45d8e5813ca8a73283",
+          "label": "wrong_package",
+          "page": 285,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.39
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-variant",
+          "crop_sha256": "feb5bcd7c6c4ef1aa288107207964a87c3cda4ace2012d45d8e5813ca8a73283",
+          "label": "wrong_variant",
+          "page": 285,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.04,
+            0.05,
+            0.62,
+            0.46
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-view",
+          "crop_sha256": "69bbf4f8e65ffb94534894a07534214afb9f7ce57a2e16897a07d8b9076206b2",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.39
+          ],
+          "case_id": "atmel-atmega328p-7810d-2015-01/wrong-figure-package-as-pinout",
+          "crop_sha256": "feb5bcd7c6c4ef1aa288107207964a87c3cda4ace2012d45d8e5813ca8a73283",
+          "label": "wrong_figure",
+          "page": 285,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "atmel-atmega328p-7810d-2015-01",
+      "source_sha256": "fb84858d0b12c695a12b13f0c74b962d81210247d440c7a24c0ed23dfabfdfaf"
+    },
+    {
+      "annotation_revision": "agent-seed-dsvire@0.3.1",
+      "annotation_sha256": "edf79f6a7890b8b268e8774c1c8fd23adbdd0adb222abbea2c7e6972f4e2982c",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.54,
+            0.6,
+            0.93,
+            0.91
+          ],
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/pinout-positive",
+          "crop_sha256": "48af4bf470dee00c12063cc1147b9b03d648c9927d4b2f0d55e8387bbb3022b5",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "unknown"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.07,
+            0.95,
+            0.54
+          ],
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/table-positive",
+          "crop_sha256": "23a49fc8f952567d0c03722fae31df4472d1d0c4d49b68a5ed461c83274353bb",
+          "label": "positive",
+          "page": 15,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.72
+          ],
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/package-positive",
+          "crop_sha256": "bad2751eba70aa44c8be219cc4169b52aa16ab439cd58771e527594b57d5446b",
+          "label": "positive",
+          "page": 40,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.72
+          ],
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-package",
+          "crop_sha256": "bad2751eba70aa44c8be219cc4169b52aa16ab439cd58771e527594b57d5446b",
+          "label": "wrong_package",
+          "page": 40,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.72
+          ],
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-variant",
+          "crop_sha256": "bad2751eba70aa44c8be219cc4169b52aa16ab439cd58771e527594b57d5446b",
+          "label": "wrong_variant",
+          "page": 40,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.95,
+            0.72
+          ],
+          "case_id": "microchip-mcp3008-ds20001295e-2022-10/wrong-figure-package-as-pinout",
+          "crop_sha256": "bad2751eba70aa44c8be219cc4169b52aa16ab439cd58771e527594b57d5446b",
+          "label": "wrong_figure",
+          "page": 40,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp3008-ds20001295e-2022-10",
+      "source_sha256": "26a503d76279cc10e40cfc36e80bb87fd33d0de80093d1bdcc4dc29435b10f72"
+    },
+    {
+      "annotation_revision": "agent-seed-dsvire@0.3.1",
+      "annotation_sha256": "fc8a6b2aa1a50daed2152f4e81aa46cec3b25c59dc8fcbf94f980627e05fdb89",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.54,
+            0.09,
+            0.95,
+            0.75
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/pinout-positive",
+          "crop_sha256": "90d5343b8f4d44a7b88e654df85215d4db6f91c76125e52de0f7b8bcf0bcaa15",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.07,
+            0.34,
+            0.95,
+            0.7
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/table-positive",
+          "crop_sha256": "2270fb26e742e7fa96f9b84fd45273666894ef9d14bb1ce9fad74a6317ce451b",
+          "label": "positive",
+          "page": 2,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.95,
+            0.54
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/package-positive",
+          "crop_sha256": "121095f16b07db93236180c2816954f4c87aa06d0eb798ed06c822ec72533831",
+          "label": "positive",
+          "page": 12,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.95,
+            0.54
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-package",
+          "crop_sha256": "121095f16b07db93236180c2816954f4c87aa06d0eb798ed06c822ec72533831",
+          "label": "wrong_package",
+          "page": 12,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.95,
+            0.54
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-variant",
+          "crop_sha256": "121095f16b07db93236180c2816954f4c87aa06d0eb798ed06c822ec72533831",
+          "label": "wrong_variant",
+          "page": 12,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.54,
+            0.09,
+            0.95,
+            0.75
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-view",
+          "crop_sha256": "90d5343b8f4d44a7b88e654df85215d4db6f91c76125e52de0f7b8bcf0bcaa15",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.05,
+            0.95,
+            0.54
+          ],
+          "case_id": "diodes-ap2112-ds39724-rev2-2-2017-06/wrong-figure-package-as-pinout",
+          "crop_sha256": "121095f16b07db93236180c2816954f4c87aa06d0eb798ed06c822ec72533831",
+          "label": "wrong_figure",
+          "page": 12,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "diodes-ap2112-ds39724-rev2-2-2017-06",
+      "source_sha256": "ef8d376f2ec356e29172eb9e053819a0ebdcc576dba7fc9ab0505c568427920f"
+    },
+    {
+      "annotation_revision": "agent-seed-dsvire@0.3.1",
+      "annotation_sha256": "36810d0ffbc2ecf2c462e6b0e461b469a708e1e05d8b8d3ededde4316cb9db0e",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.1,
+            0.07,
+            0.9,
+            0.67
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/pinout-positive",
+          "crop_sha256": "8acb533c4e0d191ffc4c9b73643c8500fca19f9c6085168d59cd3ac803b41e0b",
+          "label": "positive",
+          "page": 13,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.04,
+            0.07,
+            0.96,
+            0.93
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/table-positive",
+          "crop_sha256": "bba4614af9bbf826a8fa189b6c3c4b2b62f47ed5d5fa0ddd7550ebb10f2f4e51",
+          "label": "positive",
+          "page": 14,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.04,
+            0.34,
+            0.96,
+            0.88
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/package-positive",
+          "crop_sha256": "17d8eee177095b8b7a9ca797496cb33696067a3f6b79e1f0d4f607005b176c56",
+          "label": "positive",
+          "page": 11,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.04,
+            0.34,
+            0.96,
+            0.88
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-package",
+          "crop_sha256": "17d8eee177095b8b7a9ca797496cb33696067a3f6b79e1f0d4f607005b176c56",
+          "label": "wrong_package",
+          "page": 11,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.04,
+            0.34,
+            0.96,
+            0.88
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-variant",
+          "crop_sha256": "17d8eee177095b8b7a9ca797496cb33696067a3f6b79e1f0d4f607005b176c56",
+          "label": "wrong_variant",
+          "page": 11,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.1,
+            0.07,
+            0.9,
+            0.67
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-view",
+          "crop_sha256": "8acb533c4e0d191ffc4c9b73643c8500fca19f9c6085168d59cd3ac803b41e0b",
+          "label": "wrong_view",
+          "page": 13,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.04,
+            0.34,
+            0.96,
+            0.88
+          ],
+          "case_id": "espressif-esp32-series-v5-3-2026-07/wrong-figure-package-as-pinout",
+          "crop_sha256": "17d8eee177095b8b7a9ca797496cb33696067a3f6b79e1f0d4f607005b176c56",
+          "label": "wrong_figure",
+          "page": 11,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "espressif-esp32-series-v5-3-2026-07",
+      "source_sha256": "a7917e6b47528c9dcab06837a49d452e582751335797db879f1cf2d17cd29adf"
+    },
+    {
+      "annotation_revision": "agent-seed-dsvire@0.3.1",
+      "annotation_sha256": "a355065e8bd68fb201914bbeb10528fd617ccffd51ba705387e36912655ae72c",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.08,
+            0.05,
+            0.86,
+            0.59
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/pinout-positive",
+          "crop_sha256": "11b026e7f244111bd140fa3d16b075dfb95aba1ac94ab86b3e69edd084f22d7f",
+          "label": "positive",
+          "page": 12,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.58,
+            0.92,
+            0.96
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/table-positive",
+          "crop_sha256": "34913698b12cfbf351084b44e190eca406095c8db4ea47b8b086d5ed7a99061b",
+          "label": "positive",
+          "page": 12,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.05,
+            0.86,
+            0.59
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/package-positive",
+          "crop_sha256": "11b026e7f244111bd140fa3d16b075dfb95aba1ac94ab86b3e69edd084f22d7f",
+          "label": "positive",
+          "page": 12,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.05,
+            0.86,
+            0.59
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-package",
+          "crop_sha256": "11b026e7f244111bd140fa3d16b075dfb95aba1ac94ab86b3e69edd084f22d7f",
+          "label": "wrong_package",
+          "page": 12,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.05,
+            0.86,
+            0.59
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-variant",
+          "crop_sha256": "11b026e7f244111bd140fa3d16b075dfb95aba1ac94ab86b3e69edd084f22d7f",
+          "label": "wrong_variant",
+          "page": 12,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.05,
+            0.86,
+            0.59
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-view",
+          "crop_sha256": "11b026e7f244111bd140fa3d16b075dfb95aba1ac94ab86b3e69edd084f22d7f",
+          "label": "wrong_view",
+          "page": 12,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.58,
+            0.92,
+            0.96
+          ],
+          "case_id": "raspberry-pi-rp2040-2025-02-20/wrong-figure-table-as-pinout",
+          "crop_sha256": "34913698b12cfbf351084b44e190eca406095c8db4ea47b8b086d5ed7a99061b",
+          "label": "wrong_figure",
+          "page": 12,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "raspberry-pi-rp2040-2025-02-20",
+      "source_sha256": "be56fbb75ba0ae9e26558a73c93ac3e75c2ad4e6878d3b6703de2a76d886ea8c"
+    },
+    {
+      "annotation_revision": "auto-seed-corpus-expansion@2026-08-12",
+      "annotation_sha256": "16bdc06e2ebc2500114e4ee16d435394e87f8c7e7102ce30c4fc9da1e250d079",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.24,
+            0.19,
+            0.56,
+            0.46
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/pinout-positive",
+          "crop_sha256": "4d7373cb05faf32316042f8742527e472a8d32e580c587482030f83579bd6482",
+          "label": "positive",
+          "page": 6,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.24,
+            0.5,
+            0.82,
+            0.9
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/table-positive",
+          "crop_sha256": "5734d49085d7ed7fd533b3298164cfc224bfd973af4a86fbde88e1038bb84deb",
+          "label": "positive",
+          "page": 6,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.14,
+            0.92,
+            0.9
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/package-positive",
+          "crop_sha256": "953be32e8fb46a3021dd9c2341bdd7a55b90a7b059a7492083a1c8b2b079ee86",
+          "label": "positive",
+          "page": 44,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.14,
+            0.92,
+            0.9
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-package",
+          "crop_sha256": "953be32e8fb46a3021dd9c2341bdd7a55b90a7b059a7492083a1c8b2b079ee86",
+          "label": "wrong_package",
+          "page": 44,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.14,
+            0.92,
+            0.9
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-variant",
+          "crop_sha256": "953be32e8fb46a3021dd9c2341bdd7a55b90a7b059a7492083a1c8b2b079ee86",
+          "label": "wrong_variant",
+          "page": 44,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.24,
+            0.19,
+            0.56,
+            0.46
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-view",
+          "crop_sha256": "4d7373cb05faf32316042f8742527e472a8d32e580c587482030f83579bd6482",
+          "label": "wrong_view",
+          "page": 6,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.17,
+            0.92,
+            0.76
+          ],
+          "case_id": "nxp-pca9685-rev-4-2015-04/wrong-figure-application-as-pinout",
+          "crop_sha256": "fdf89b6a45eefa20354588729d5c7ae05a6f2935875deee12ab3892b0891db48",
+          "label": "wrong_figure",
+          "page": 35,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "nxp-pca9685-rev-4-2015-04",
+      "source_sha256": "237d47f339cac4c3a0d56a5f0b4d3c93df71e3eb43f36ac57ea4ff38e6b2e585"
+    },
+    {
+      "annotation_revision": "auto-seed-corpus-expansion@2026-08-12",
+      "annotation_sha256": "14accbfe777a8e3e350b79c781e9e44d9df1bb62ee88d23abb8d111a3a5eb1de",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.12,
+            0.12,
+            0.47,
+            0.45
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/pinout-positive",
+          "crop_sha256": "d4525f52de424105840ee51b0e6027d25c9a3404bbe44adbacd09b7a6a4531c5",
+          "label": "positive",
+          "page": 38,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.5,
+            0.9,
+            0.8
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/table-positive",
+          "crop_sha256": "70b042939a22e59b39b9b7f9a70bfcaf5d9eaa64afd7e5f10f131bfc0cec157d",
+          "label": "positive",
+          "page": 38,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.9,
+            0.59
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/package-positive",
+          "crop_sha256": "db58f60ff7ba67b396830d6de127a13678e8df81af4352ca036469f14840548f",
+          "label": "positive",
+          "page": 42,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.9,
+            0.59
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-package",
+          "crop_sha256": "db58f60ff7ba67b396830d6de127a13678e8df81af4352ca036469f14840548f",
+          "label": "wrong_package",
+          "page": 42,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.9,
+            0.59
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-variant",
+          "crop_sha256": "db58f60ff7ba67b396830d6de127a13678e8df81af4352ca036469f14840548f",
+          "label": "wrong_variant",
+          "page": 42,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.12,
+            0.47,
+            0.45
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-view",
+          "crop_sha256": "d4525f52de424105840ee51b0e6027d25c9a3404bbe44adbacd09b7a6a4531c5",
+          "label": "wrong_view",
+          "page": 38,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.13,
+            0.88,
+            0.45
+          ],
+          "case_id": "bosch-bme280-rev-1-23-2022-01/wrong-figure-block-as-pinout",
+          "crop_sha256": "735ee1ba6c60e8059cfb463bbb1e5434be33f0fb37d1ebd167e86b29c6535ed3",
+          "label": "wrong_figure",
+          "page": 14,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "bosch-bme280-rev-1-23-2022-01",
+      "source_sha256": "a2ccdb449fec94380742fe8eec851a11d9bd4142252d332b34682b4deecd7d89"
+    },
+    {
+      "annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12",
+      "annotation_sha256": "b81584d97c3c3681daa9875187e950a3ff465ded24bc6b992321ba45726e7b7f",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.62,
+            0.2,
+            0.84,
+            0.32
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/pinout-positive",
+          "crop_sha256": "702340f94ead9f3f69bd7381fbbc9db4b81f42c00be8d1b2b986251e009f7536",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.09,
+            0.06,
+            0.91,
+            0.45
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/table-positive",
+          "crop_sha256": "65ceac681d5e129e4b5bf75b96c1b20f710122724ed6c1fe512eb6fd8697ecd6",
+          "label": "positive",
+          "page": 12,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.07,
+            0.92,
+            0.91
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/package-positive",
+          "crop_sha256": "96ba153f36635bf1ecd14da489c862358905273cc10c5301cdb4d930c43dde22",
+          "label": "positive",
+          "page": 17,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.07,
+            0.92,
+            0.91
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-package",
+          "crop_sha256": "96ba153f36635bf1ecd14da489c862358905273cc10c5301cdb4d930c43dde22",
+          "label": "wrong_package",
+          "page": 17,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.07,
+            0.92,
+            0.91
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-variant",
+          "crop_sha256": "96ba153f36635bf1ecd14da489c862358905273cc10c5301cdb4d930c43dde22",
+          "label": "wrong_variant",
+          "page": 17,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.62,
+            0.2,
+            0.84,
+            0.32
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-view",
+          "crop_sha256": "702340f94ead9f3f69bd7381fbbc9db4b81f42c00be8d1b2b986251e009f7536",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.26,
+            0.06,
+            0.75,
+            0.64
+          ],
+          "case_id": "onsemi-ncp1117-rev-31-2021-08/wrong-figure-thermal-as-pinout",
+          "crop_sha256": "fc8f2a60f4af0b5e24b7858929723bc5a968d0ae6aa33f56f6f4aca56cbb1854",
+          "label": "wrong_figure",
+          "page": 8,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "onsemi-ncp1117-rev-31-2021-08",
+      "source_sha256": "72a1aeb60abf0acae2f5c9cfecd9a9ff34fd1bbb903624625666609fde20526c"
+    },
+    {
+      "annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12",
+      "annotation_sha256": "aac2997975c7395db493f4675d1c10f2433e5f131400a9b0192be04019373b53",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.35,
+            0.21,
+            0.63,
+            0.47
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/pinout-positive",
+          "crop_sha256": "f58df9f74e8da4bbd53eeb1dbd9bb2e2dafe1849c74cf095613a76ea534325a1",
+          "label": "positive",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.23,
+            0.5,
+            0.9,
+            0.87
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/table-positive",
+          "crop_sha256": "4a47d886c9fa5ef0f22bbe734685604336bddb1b5d308976201534d19e674569",
+          "label": "positive",
+          "page": 4,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.16,
+            0.91,
+            0.9
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/package-positive",
+          "crop_sha256": "d0b19123543aca9d1854c6fe7da394cb522e9bb1e258c4cec90b4f179e7ec669",
+          "label": "positive",
+          "page": 20,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.16,
+            0.91,
+            0.9
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-package",
+          "crop_sha256": "d0b19123543aca9d1854c6fe7da394cb522e9bb1e258c4cec90b4f179e7ec669",
+          "label": "wrong_package",
+          "page": 20,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.16,
+            0.91,
+            0.9
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-variant",
+          "crop_sha256": "d0b19123543aca9d1854c6fe7da394cb522e9bb1e258c4cec90b4f179e7ec669",
+          "label": "wrong_variant",
+          "page": 20,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.35,
+            0.21,
+            0.63,
+            0.47
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-view",
+          "crop_sha256": "f58df9f74e8da4bbd53eeb1dbd9bb2e2dafe1849c74cf095613a76ea534325a1",
+          "label": "wrong_view",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.34,
+            0.91,
+            0.68
+          ],
+          "case_id": "nxp-pcf8574-rev-5-2013-05/wrong-figure-timing-as-pinout",
+          "crop_sha256": "04052d236349746c2858133a4b02a84d4864109d038d7fb0f515ef19a7466ac3",
+          "label": "wrong_figure",
+          "page": 8,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "nxp-pcf8574-rev-5-2013-05",
+      "source_sha256": "15873fa13e8b9e3baeb924cc5ce845eabf0e1d2671a441feaaa3c4bb56e77013"
+    },
+    {
+      "annotation_revision": "auto-seed-corpus-expansion-3@2026-08-12",
+      "annotation_sha256": "02862597e5bde16baaf973ba1ad5868a7ed35b9a26ad63cdf2bb1c23eb0e1ae5",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.45,
+            0.25
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/pinout-positive",
+          "crop_sha256": "45b2820c6ca3fc3e1b4c5f4ac3f28cf646ac54a2118b74f630f6cfa0cb334709",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.29,
+            0.92,
+            0.59
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/table-positive",
+          "crop_sha256": "355f1e9512bf79cf40859008d424acdf83a1356afb34e2b84bd40fed7dd369b5",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.92,
+            0.91
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/package-positive",
+          "crop_sha256": "50bd3842854b75f5726aafa9773d2b6bef86a0bc568237fee3ffa6b7e7a57723",
+          "label": "positive",
+          "page": 24,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.92,
+            0.91
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-package",
+          "crop_sha256": "50bd3842854b75f5726aafa9773d2b6bef86a0bc568237fee3ffa6b7e7a57723",
+          "label": "wrong_package",
+          "page": 24,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.92,
+            0.91
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-variant",
+          "crop_sha256": "50bd3842854b75f5726aafa9773d2b6bef86a0bc568237fee3ffa6b7e7a57723",
+          "label": "wrong_variant",
+          "page": 24,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.45,
+            0.25
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-view",
+          "crop_sha256": "45b2820c6ca3fc3e1b4c5f4ac3f28cf646ac54a2118b74f630f6cfa0cb334709",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.39
+          ],
+          "case_id": "renesas-isl1208-rev-9-01-2022-07/wrong-figure-block-as-pinout",
+          "crop_sha256": "ab8dd8f6616343060f3d0c68a1ab86448d6321254aee8c18feada1272e16fb53",
+          "label": "wrong_figure",
+          "page": 2,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "renesas-isl1208-rev-9-01-2022-07",
+      "source_sha256": "73335397f3926212bcb1d64a0aa6b301af400b3adab1f67953751db49772921c"
+    },
+    {
+      "annotation_revision": "auto-seed-corpus-expansion-4@2026-08-12",
+      "annotation_sha256": "e93975a559257e0cf624942c407279cbea1710bd33b0be22e099b249aaf4c6db",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.6,
+            0.49,
+            0.9,
+            0.69
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/pinout-positive",
+          "crop_sha256": "6b974b1820e16abf4a75a866ffb1dfd8ad18e2a5a236f23f8fdb665f896bc63e",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.07,
+            0.91,
+            0.47
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/table-positive",
+          "crop_sha256": "0507149e304ae3db7c838e6e15b20e82aca3839b6221f493c34c939ed380d475",
+          "label": "positive",
+          "page": 10,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.92,
+            0.91
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/package-positive",
+          "crop_sha256": "b3fe5d764b6930929ece6f25025ffea43489510deece7305609d309cfc836a25",
+          "label": "positive",
+          "page": 16,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.92,
+            0.91
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-package",
+          "crop_sha256": "b3fe5d764b6930929ece6f25025ffea43489510deece7305609d309cfc836a25",
+          "label": "wrong_package",
+          "page": 16,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.92,
+            0.91
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-variant",
+          "crop_sha256": "b3fe5d764b6930929ece6f25025ffea43489510deece7305609d309cfc836a25",
+          "label": "wrong_variant",
+          "page": 16,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.6,
+            0.49,
+            0.9,
+            0.69
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-view",
+          "crop_sha256": "6b974b1820e16abf4a75a866ffb1dfd8ad18e2a5a236f23f8fdb665f896bc63e",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.14,
+            0.31,
+            0.86,
+            0.89
+          ],
+          "case_id": "onsemi-cat24c32-rev-28-2025-07/wrong-figure-read-sequence-as-pinout",
+          "crop_sha256": "28073963949161d8ebf44104db37c0bae43bc3246d17fb25ad226081758710cb",
+          "label": "wrong_figure",
+          "page": 9,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "onsemi-cat24c32-rev-28-2025-07",
+      "source_sha256": "460c65458075bad2a8eebb59ce40831020b246145e95d7529cc12647d266a7f3"
+    }
+  ],
+  "packet_sha256": "81dbd810d442524f664c3b6d48f9ef46298be186dfeb18eb6dd55a4d6fb9a814",
+  "registry_sha256": "8ca445aee117b2e684eca9728d4f04bee1e6e8dfa2699d276ac54b70a52391d0",
+  "schema_version": "dsvire.visual-review-packet.v2"
+}

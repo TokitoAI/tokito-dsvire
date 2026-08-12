@@ -10,7 +10,7 @@
         "url": "https://www.ti.com/lit/ds/symlink/tps5430.pdf",
         "revision": "Rev. L, April 2026; packaging addendum observed August 2026"
       },
-      "content_sha256": "3d75dd36979b1790b65f2c41ce91307ffcf69b8984f369354a09ce8b6af84595",
+      "content_sha256": "88c98e6e51851285fbbfc17837d002b29af7cd3fe30442fa7e4612c5179985da",
       "redistribution": "download_only",
       "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {
@@ -22,7 +22,7 @@
         "status": "unreviewed",
         "reviewers": [],
         "reviewed_at": null,
-        "annotation_revision": "auto-seed-dsvire-baseline@0.3.1"
+        "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12"
       },
       "cases": [
         {
@@ -106,11 +106,11 @@
         "url": "https://www.ti.com/lit/ds/symlink/lm358.pdf",
         "revision": "Rev. AB, October 2024; packaging addendum observed August 2026"
       },
-      "content_sha256": "08372f104636d6e88ea1aa697bba46e5afd20cf9ca72dbae63023fbae46c219f",
+      "content_sha256": "ef646b009b0524a8c564406095632cbe1d2ebe26a399d845565241d2cfaad038",
       "redistribution": "download_only",
       "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-dsvire-baseline@0.3.1"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
@@ -162,11 +162,11 @@
       "split": "development",
       "category": "timer",
       "source": {"url": "https://www.ti.com/lit/ds/symlink/ne555.pdf", "revision": "Rev. K; packaging addendum observed August 2026"},
-      "content_sha256": "3d4a27dad8697cdd8547bbe8228cacaac360768b60b18e6d686d858ca5412dfd",
+      "content_sha256": "dae2be1a919b0cfe2d34e120cbbda2d638204e3000b1555004c4c76cf5c1f30f",
       "redistribution": "download_only",
       "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-dsvire-baseline@0.3.1"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
