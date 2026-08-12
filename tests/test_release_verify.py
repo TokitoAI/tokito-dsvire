@@ -49,6 +49,27 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
                 ),
                 encoding="utf-8",
             )
+        if "scripts/evaluate_hostile_pdfs.py" in command:
+            output = Path(command[command.index("--json-out") + 1])
+            output.write_text(
+                json.dumps(
+                    {
+                        "schema_version": "dsvire.hostile-pdf-evidence.v1",
+                        "ok": True,
+                        "case_count": 48,
+                        "campaign_sha256": "b" * 64,
+                        "outcomes": {
+                            "accepted": 0,
+                            "rejected": 48,
+                            "worker_error": 0,
+                            "timeout": 0,
+                        },
+                        "elapsed_ms": {"max": 500, "p95": 400},
+                        "peak_rss_bytes": 70_000_000,
+                    }
+                ),
+                encoding="utf-8",
+            )
         return _completed(command)
 
     report = verify_release(runner=runner)
@@ -63,14 +84,17 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
         "tests-and-artifacts",
         "generated-robustness-corpus",
         "runtime-license-policy",
+        "hostile-pdf-resource-gate",
         "package-build",
         "runtime-vulnerability-audit",
     ]
     assert any(command[:2] == ("pytest", "-q") for command in commands)
     assert any("scripts/evaluate_robustness.py" in command for command in commands)
     assert any("scripts/audit_runtime_licenses.py" in command for command in commands)
+    assert any("scripts/evaluate_hostile_pdfs.py" in command for command in commands)
     assert any("--require-hashes" in command for command in commands)
     assert report["artifacts"]["robustness"]["case_count"] == 11
+    assert report["artifacts"]["hostile_pdf"]["case_count"] == 48
     assert report["artifacts"]["runtime_licenses"] == {
         "schema_version": "dsvire.runtime-license-audit.v1",
         "release_ready": False,
