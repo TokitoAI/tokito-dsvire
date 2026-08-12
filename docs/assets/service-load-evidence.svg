@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe authenticated service load evidence</title>
+  <desc id="desc">Latency, bounded overload, memory, and cleanup measurements from a generated-PDF Linux CI run.</desc>
+  <rect width="1200" height="760" rx="28" fill="#090b10"/>
+  <style>.title{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.sub{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}.row{font:17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}.mono{font:15px ui-monospace,Consolas,monospace;fill:#f4f7fb}.metric{font:700 24px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.label{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}.foot{font:14px Inter,Segoe UI,sans-serif;fill:#697386}</style>
+  <text x="64" y="70" class="title">Authenticated service boundary · Linux CI</text>
+  <text x="64" y="108" class="sub">Real Uvicorn HTTP → admission → spawned worker → persistent pack · generated PDFs only</text>
+  <text x="64" y="154" class="label">RUN 31632587220 · COMMIT ab36220a · 1 WORKER · 100 MS ADMISSION WINDOW</text>
+  <text x="64" y="229" class="row">Cold PDF to evidence p95</text><rect x="350" y="208" width="720" height="26" rx="13" fill="#202631"/><rect x="350" y="208" width="720" height="26" rx="13" fill="#62a6ff"/><text x="1090" y="229" class="mono">623.6 ms</text><text x="64" y="309" class="row">Warm/cache phase p95</text><rect x="350" y="288" width="720" height="26" rx="13" fill="#202631"/><rect x="350" y="288" width="707" height="26" rx="13" fill="#16d6b3"/><text x="1090" y="309" class="mono">612.0 ms</text><text x="64" y="389" class="row">Warm steady max</text><rect x="350" y="368" width="720" height="26" rx="13" fill="#202631"/><rect x="350" y="368" width="254" height="26" rx="13" fill="#a78bfa"/><text x="1090" y="389" class="mono">219.8 ms</text><text x="64" y="469" class="row">Overload rejection max</text><rect x="350" y="448" width="720" height="26" rx="13" fill="#202631"/><rect x="350" y="448" width="121" height="26" rx="13" fill="#f2b84b"/><text x="1090" y="469" class="mono">104.8 ms</text>
+  <rect x="48" y="558" width="1104" height="120" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="76" y="590" class="label">BOUNDARY OUTCOMES</text>
+  <text x="76" y="630" class="metric">7 success · 5 bounded 503 · 0 unexpected</text>
+  <text x="640" y="590" class="label">RESOURCE / DURABILITY</text>
+  <text x="640" y="630" class="metric">166.7 MiB peak RSS · 4 packs · 0 residue</text>
+  <text x="64" y="720" class="foot">Indexing evidence, not the future hot-pack MaxSim query SLO · single 4-vCPU CI runner · 12 requests · no E2E extrapolation</text>
+</svg>

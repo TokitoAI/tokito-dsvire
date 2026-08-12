@@ -23,6 +23,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
 | Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
+| Service load evidence | Real authenticated Linux HTTP/worker boundary: cold p95 623.6 ms, warm p95 612.0 ms, five bounded overload rejections, 166.7 MiB peak process-tree RSS, and zero scratch/partial residue; generated 12-request evidence, not capacity or MaxSim SLO proof |
 | Visual comparators / benchmark corpus | Text-layout was frozen after comparison with RapidOCR and pinned OpenCLIP; held-out evaluation accepted zero wrong figures/identities but reached 46.7% positive coverage versus the frozen 50% minimum, so the gate failed and publication remains disabled |
 
 ## Start here
