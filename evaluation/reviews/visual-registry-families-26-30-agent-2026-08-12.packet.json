@@ -1,0 +1,537 @@
+{
+  "documents": [
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-16@2026-08-12",
+      "annotation_sha256": "53c99cef22cad6e1703ab7c3501e4c31e821a5ae31e622b655aae7a9303d3b37",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.57
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/pinout-positive",
+          "crop_sha256": "e2dec5dedfd5b31b31d3a115f936d1ae0954c4677614f3ff18d3dcea5f81d06a",
+          "label": "positive",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.95,
+            0.5
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/table-positive",
+          "crop_sha256": "77cc2d63a3d0018a3a97b20bf8f6c4866ac75b054c9cc5ef4f9a3feda3242854",
+          "label": "positive",
+          "page": 5,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/package-positive",
+          "crop_sha256": "af56d9cf59f06ab054092a1131485993c632f48c4fa94b39050d95f456294527",
+          "label": "positive",
+          "page": 15,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-package",
+          "crop_sha256": "af56d9cf59f06ab054092a1131485993c632f48c4fa94b39050d95f456294527",
+          "label": "wrong_package",
+          "page": 15,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-variant",
+          "crop_sha256": "af56d9cf59f06ab054092a1131485993c632f48c4fa94b39050d95f456294527",
+          "label": "wrong_variant",
+          "page": 15,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.57
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-view",
+          "crop_sha256": "e2dec5dedfd5b31b31d3a115f936d1ae0954c4677614f3ff18d3dcea5f81d06a",
+          "label": "wrong_view",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.62
+          ],
+          "case_id": "nexperia-74hc595-rev-12-2024-03/wrong-figure-timing-as-pinout",
+          "crop_sha256": "1ae4643159d90221696bcc0c04f04fe7bc517e3ad88a0ca5efcc9c287ad66007",
+          "label": "wrong_figure",
+          "page": 6,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "nexperia-74hc595-rev-12-2024-03",
+      "source_sha256": "fa24207e780cd8c4cdb9018d67eb83e53ee75578fc126bda6f59f0d84ceb211a"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-17@2026-08-12",
+      "annotation_sha256": "12c7a6cd540a67dd5e3088b304b8c93ca682ce906a77a61ff7adcf64d5461861",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.16,
+            0.52,
+            0.39,
+            0.68
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/pinout-positive",
+          "crop_sha256": "b32ea7e980bb0a84b6504b73f98d543b4f58e48ac69812719d088597546fda33",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.43
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/table-positive",
+          "crop_sha256": "61afecc398d1de1abf7d74a316334e130d4541e1bdf93401b9a8638b65f084b5",
+          "label": "positive",
+          "page": 2,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.82
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/package-positive",
+          "crop_sha256": "0def5ebd02aeae0ac24d4356beb0ac259f9726f91a6bfc87d7c3ce1877d9ecb3",
+          "label": "positive",
+          "page": 8,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.82
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-package",
+          "crop_sha256": "0def5ebd02aeae0ac24d4356beb0ac259f9726f91a6bfc87d7c3ce1877d9ecb3",
+          "label": "wrong_package",
+          "page": 8,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.82
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-variant",
+          "crop_sha256": "0def5ebd02aeae0ac24d4356beb0ac259f9726f91a6bfc87d7c3ce1877d9ecb3",
+          "label": "wrong_variant",
+          "page": 8,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.52,
+            0.39,
+            0.68
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-view",
+          "crop_sha256": "b32ea7e980bb0a84b6504b73f98d543b4f58e48ac69812719d088597546fda33",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.45,
+            0.08,
+            0.96,
+            0.48
+          ],
+          "case_id": "vishay-vo617a-rev-2-8-2025-01/wrong-figure-graph-as-pinout",
+          "crop_sha256": "717c7480db0ed11dacf74e85a8058d76239744b5b366e640ae5ea68e1e18fa91",
+          "label": "wrong_figure",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "vishay-vo617a-rev-2-8-2025-01",
+      "source_sha256": "145893b5422f68cc3f2016e2dddfc33f6ee26f0d2444fe8889d0dc0388f805a1"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-18@2026-08-12",
+      "annotation_sha256": "88ec18f3225c8ed1a946a06deabaeb1479d103a635f943e696aaac8f89d4a965",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.88,
+            0.76
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/pinout-positive",
+          "crop_sha256": "0142b558f686e8fd60c2c31eb5cbee6ae2d0751220fb800155534d03589ae171",
+          "label": "positive",
+          "page": 27,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.06,
+            0.96,
+            0.92
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/table-positive",
+          "crop_sha256": "63057bbcfc7a10845ca713803ea1c8436c3ce9fb58f954332f7c2f8f77a53af0",
+          "label": "positive",
+          "page": 28,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.95,
+            0.91
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/package-positive",
+          "crop_sha256": "71481850f08489e9fbee2aa0e19c5ade7e3b8ce50395eed46dc9c7ae0f00bd5c",
+          "label": "positive",
+          "page": 33,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.95,
+            0.91
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-package",
+          "crop_sha256": "71481850f08489e9fbee2aa0e19c5ade7e3b8ce50395eed46dc9c7ae0f00bd5c",
+          "label": "wrong_package",
+          "page": 33,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.08,
+            0.08,
+            0.95,
+            0.91
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-variant",
+          "crop_sha256": "71481850f08489e9fbee2aa0e19c5ade7e3b8ce50395eed46dc9c7ae0f00bd5c",
+          "label": "wrong_variant",
+          "page": 33,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.12,
+            0.1,
+            0.88,
+            0.76
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-view",
+          "crop_sha256": "0142b558f686e8fd60c2c31eb5cbee6ae2d0751220fb800155534d03589ae171",
+          "label": "wrong_view",
+          "page": 27,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.48,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "silicon-labs-cp2102n-rev-1-5/wrong-figure-connection-as-pinout",
+          "crop_sha256": "a1f24399dd3133b4624fab2b26baa7d9613edf8f66ff43167b094da9edb7adb1",
+          "label": "wrong_figure",
+          "page": 5,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "silicon-labs-cp2102n-rev-1-5",
+      "source_sha256": "32fbab0ba17f394ab76fbbd8129bddad228c1c486a1693d96ea5905936e437fe"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-19@2026-08-12",
+      "annotation_sha256": "930b394ffeb23732e1982951be35de06a1a57f822d92d7980aeddde890143ad8",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.17,
+            0.15,
+            0.84,
+            0.82
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/pinout-positive",
+          "crop_sha256": "c8ef4e88899347cea7503f2927428dcf167552e6883e29032c47c4822d858e03",
+          "label": "positive",
+          "page": 6,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.53
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/table-positive",
+          "crop_sha256": "d18fcccb26298497acdff37428bb16787c081a252279b9917fb8b1469337b48e",
+          "label": "positive",
+          "page": 12,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/package-positive",
+          "crop_sha256": "1333847b4a66d67cac54144644a734464ea6207b4459d69b6514854923da222e",
+          "label": "positive",
+          "page": 66,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-package",
+          "crop_sha256": "1333847b4a66d67cac54144644a734464ea6207b4459d69b6514854923da222e",
+          "label": "wrong_package",
+          "page": 66,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-variant",
+          "crop_sha256": "1333847b4a66d67cac54144644a734464ea6207b4459d69b6514854923da222e",
+          "label": "wrong_variant",
+          "page": 66,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.17,
+            0.15,
+            0.84,
+            0.82
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-view",
+          "crop_sha256": "c8ef4e88899347cea7503f2927428dcf167552e6883e29032c47c4822d858e03",
+          "label": "wrong_view",
+          "page": 6,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-lan8720a-ds00002165b-2016/wrong-figure-block-as-pinout",
+          "crop_sha256": "ce3b115325d8d7785a9e7ef4b108ff2f1c495a5554a4836547d0d7650996335a",
+          "label": "wrong_figure",
+          "page": 5,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-lan8720a-ds00002165b-2016",
+      "source_sha256": "a7c18ff064f5e520724d9525a14623af403a2bce203a91026bca82a6b1d38439"
+    },
+    {
+      "annotation_revision": "agent-seed-corpus-expansion-20@2026-08-12",
+      "annotation_sha256": "dad900404aaea10e92131c8155653cd8edcbf3044e58d25e96987325492352e0",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.17,
+            0.1,
+            0.85,
+            0.84
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/pinout-positive",
+          "crop_sha256": "a91fa389fa586079dba5a9bc2c2a8aded2c554aa6affb2e55f6820a5190b2e01",
+          "label": "positive",
+          "page": 7,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/table-positive",
+          "crop_sha256": "413eaf11b521ea595a3b9ae2c33113fc6227bf6f3bbdebf6f835e4a848f6a465",
+          "label": "positive",
+          "page": 8,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.91
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/package-positive",
+          "crop_sha256": "0cc7162a3093525f855361743e8747049aab3bb0aace05c56c06dfb3c27b2c48",
+          "label": "positive",
+          "page": 63,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.91
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-package",
+          "crop_sha256": "0cc7162a3093525f855361743e8747049aab3bb0aace05c56c06dfb3c27b2c48",
+          "label": "wrong_package",
+          "page": 63,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.16,
+            0.08,
+            0.84,
+            0.91
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-variant",
+          "crop_sha256": "0cc7162a3093525f855361743e8747049aab3bb0aace05c56c06dfb3c27b2c48",
+          "label": "wrong_variant",
+          "page": 63,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.17,
+            0.1,
+            0.85,
+            0.84
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-view",
+          "crop_sha256": "a91fa389fa586079dba5a9bc2c2a8aded2c554aa6affb2e55f6820a5190b2e01",
+          "label": "wrong_view",
+          "page": 7,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "atmel-mxt336t-rev-3-1-bx-2016-10/wrong-figure-schematic-as-pinout",
+          "crop_sha256": "aed5c042207ec7ab6ea8dd7680f6bedeaa09b2e439a00a0d9ba6ab677bbe46dd",
+          "label": "wrong_figure",
+          "page": 20,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "atmel-mxt336t-rev-3-1-bx-2016-10",
+      "source_sha256": "0894eb9f67c052cd60593f1e57428fc91e39a11e0b9fb6288098c948022910b5"
+    }
+  ],
+  "packet_sha256": "52fb8c2a822b65909591aa8f8078bf58f9883ee2c5ffb8ab9b0bdf70af9ab471",
+  "registry_sha256": "10bd27c5444e8a54f07e67a5f891bf0d5979f0653c2d346012e94e9a949aa35f",
+  "schema_version": "dsvire.visual-review-packet.v2"
+}
