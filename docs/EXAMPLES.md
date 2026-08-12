@@ -28,7 +28,7 @@ manufacturers, and 32 component categories. Development, calibration, and
 evaluation counts remain separate, and the policy rejects category strata it
 cannot account for.
 
-The strict [`query_registry.v1.json`](../evaluation/query_registry.v1.json)
+The strict [`query_registry.v2.json`](../evaluation/query_registry.v2.json)
 contains three deterministic-template development queries for each of the 30
 development families: pinout, pin-function table, and package drawing. Every
 query binds to a positive case in the same document family, split, and intent;
@@ -44,6 +44,29 @@ Regenerate the ledger directly with:
 python scripts/audit_corpus_coverage.py \
   --json-out examples/corpus-coverage.json
 ```
+
+## Query-ranking measurement contract
+
+![Query-ranking contract canary](assets/query-ranking-canary.svg)
+
+Query registry v2 binds every prompt to graded relevant regions and explicit
+same-family adversarial regions. An external retriever writes a digest-bound
+[`dsvire.query-ranking.v1`](../scripts/schema/query_ranking_v1.schema.json)
+artifact, and the model-independent evaluator reports nDCG@5, R@5, mAP, MRR,
+coverage/abstention, and hard-negative exposure:
+
+```bash
+python scripts/evaluate_query_rankings.py ranking.json \
+  --json-out query-ranking-result.json
+```
+
+The committed [ranking canary](../examples/query-ranking-canary.json) is
+deliberately relevance-first. Its perfect scores prove only that the schemas,
+binding checks, metric equations, CLI, and documentation regeneration agree.
+It operates over each query's closed judged pool; it performs no PDF retrieval,
+contains no vendor bytes, is development-only, and is not an accuracy result.
+Full-corpus comparisons require independently reviewed held-out queries and
+actual system rankings.
 
 ## Tokito Wave D product acceptance
 

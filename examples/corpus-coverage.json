@@ -1,7 +1,7 @@
 {
   "schema_version": "dsvire.corpus-coverage.v1",
   "registry_sha256": "f0b249b3cf208149da4bdbbc31cc730c9434ec5d5cc4d81f38fc16dec77c64fd",
-  "query_registry_sha256": "06d5b3aa7ca8705a8346e6be41036889b1d5d93b6ca9339ab59e5de61cd0498f",
+  "query_registry_sha256": "8a53a2f506218f72abeb961fa4692a8bd250cac92087a44e0b3ab1b6c620fa1c",
   "policy_sha256": "6c17ca8c4ca40fb5ce14e1dd5c6c64159fd4337e785ba27575f32a05321f3f07",
   "targets": {
     "documents": 500,

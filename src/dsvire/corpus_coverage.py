@@ -12,7 +12,7 @@ from typing import Any
 from .visual_registry import VisualRegistry
 
 POLICY_VERSION = "dsvire.corpus-coverage-policy.v1"
-QUERY_REGISTRY_VERSION = "dsvire.query-registry.v1"
+QUERY_REGISTRY_VERSION = "dsvire.query-registry.v2"
 RESULT_VERSION = "dsvire.corpus-coverage.v1"
 
 
@@ -55,7 +55,8 @@ class QueryRecord:
     split: str
     query_text: str
     query_type: str
-    relevant_case_ids: tuple[str, ...]
+    relevance_judgments: tuple[tuple[str, int], ...]
+    hard_negative_case_ids: tuple[str, ...]
     method: str
     generator: str
     independently_reviewed: bool
@@ -142,7 +143,8 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
             "split",
             "query_text",
             "query_type",
-            "relevant_case_ids",
+            "relevance_judgments",
+            "hard_negative_case_ids",
             "provenance",
         }
         if not isinstance(raw, Mapping) or set(raw) != required:
@@ -169,7 +171,30 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
             raise CorpusCoverageError(f"{context} references unknown document group")
         if split != document.split:
             raise CorpusCoverageError(f"{context} split differs from its document group")
-        relevant = _strings(raw["relevant_case_ids"], f"{context}.relevant_case_ids")
+        judgments_raw = raw["relevance_judgments"]
+        if not isinstance(judgments_raw, list) or not judgments_raw:
+            raise CorpusCoverageError(f"{context}.relevance_judgments must be non-empty")
+        judgments: list[tuple[str, int]] = []
+        judgment_ids: set[str] = set()
+        for judgment_index, judgment in enumerate(judgments_raw):
+            judgment_context = f"{context}.relevance_judgments[{judgment_index}]"
+            if not isinstance(judgment, Mapping) or set(judgment) != {"case_id", "grade"}:
+                raise CorpusCoverageError(f"{judgment_context} keys are invalid")
+            case_id = judgment["case_id"]
+            grade = judgment["grade"]
+            if not isinstance(case_id, str) or not case_id.strip():
+                raise CorpusCoverageError(f"{judgment_context}.case_id must be non-empty text")
+            if case_id in judgment_ids:
+                raise CorpusCoverageError(f"{context} contains duplicate relevance judgments")
+            if not isinstance(grade, int) or isinstance(grade, bool) or grade not in {1, 2}:
+                raise CorpusCoverageError(f"{judgment_context}.grade must be 1 or 2")
+            judgment_ids.add(case_id)
+            judgments.append((case_id, grade))
+        hard_negatives = _strings(
+            raw["hard_negative_case_ids"], f"{context}.hard_negative_case_ids"
+        )
+        if judgment_ids & set(hard_negatives):
+            raise CorpusCoverageError(f"{context} relevance and hard negatives overlap")
         provenance = raw["provenance"]
         if not isinstance(provenance, Mapping) or set(provenance) != {
             "method",
@@ -192,7 +217,7 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
             raise CorpusCoverageError(
                 f"{context} held-out query records require independent review"
             )
-        for case_id in relevant:
+        for case_id, _grade in judgments:
             owner = case_owners.get(case_id)
             if owner is None:
                 raise CorpusCoverageError(f"{context} references unknown case {case_id!r}")
@@ -203,6 +228,17 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
                 )
             if case.region_type != query_type:
                 raise CorpusCoverageError(f"{context} relevant case type differs from query_type")
+        for case_id in hard_negatives:
+            owner = case_owners.get(case_id)
+            if owner is None:
+                raise CorpusCoverageError(f"{context} references unknown hard negative {case_id!r}")
+            owner_document, case = owner
+            if owner_document.document_group != document_group or (
+                case.label == "positive" and case.region_type == query_type
+            ):
+                raise CorpusCoverageError(
+                    f"{context} hard negatives must be non-relevant cases in its document group"
+                )
         records.append(
             QueryRecord(
                 query_id,
@@ -210,7 +246,8 @@ def load_query_registry(value: Any, registry: VisualRegistry) -> QueryRegistry:
                 split,
                 query_text,
                 query_type,
-                relevant,
+                tuple(judgments),
+                hard_negatives,
                 method,
                 generator,
                 independently_reviewed,

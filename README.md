@@ -54,6 +54,13 @@ reports them separately from manual or independently reviewed queries. This
 keeps corpus growth measurable without overstating accuracy,
 representativeness, held-out performance, or legal approval.
 
+Query registry v2 also binds graded relevant regions and explicit adversarial
+regions. The source-free evaluator computes nDCG@5, R@5, mAP, MRR, abstention,
+and hard-negative exposure from digest-bound system rankings. The checked
+perfect-score canary validates metric plumbing over a closed judged pool; it is
+not a retriever benchmark or production accuracy claim. See
+[`docs/EXAMPLES.md`](docs/EXAMPLES.md#query-ranking-measurement-contract).
+
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
 DS-ViRe runs behind it on the private service network. The baseline never

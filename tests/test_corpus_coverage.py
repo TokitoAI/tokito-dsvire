@@ -19,7 +19,7 @@ def _inputs() -> tuple[dict[str, object], dict[str, object], dict[str, object]]:
     root = Path(__file__).parents[1]
     registry = json.loads((root / "evaluation/visual_registry.v1.json").read_text())
     policy = json.loads((root / "evaluation/corpus_coverage_policy.v1.json").read_text())
-    queries = json.loads((root / "evaluation/query_registry.v1.json").read_text())
+    queries = json.loads((root / "evaluation/query_registry.v2.json").read_text())
     return registry, policy, queries
 
 
@@ -87,7 +87,7 @@ def test_query_registry_validates_grounding_and_changes_count() -> None:
     first = registry.documents[0]
     positive = next(case for case in first.cases if case.label == "positive")
     data = {
-        "schema_version": "dsvire.query-registry.v1",
+        "schema_version": "dsvire.query-registry.v2",
         "queries": [
             {
                 "id": "q-1",
@@ -95,7 +95,14 @@ def test_query_registry_validates_grounding_and_changes_count() -> None:
                 "split": first.split,
                 "query_text": "Where is the pin map?",
                 "query_type": positive.region_type,
-                "relevant_case_ids": [f"{first.document_id}/{positive.case_id}"],
+                "relevance_judgments": [
+                    {"case_id": f"{first.document_id}/{positive.case_id}", "grade": 2}
+                ],
+                "hard_negative_case_ids": [
+                    f"{first.document_id}/{case.case_id}"
+                    for case in first.cases
+                    if case.label != "positive"
+                ],
                 "provenance": {
                     "method": "manual",
                     "generator": "test",
@@ -140,4 +147,37 @@ def test_development_query_generator_is_byte_stable(tmp_path: Path) -> None:
         cwd=root,
         check=True,
     )
-    assert output.read_bytes() == (root / "evaluation/query_registry.v1.json").read_bytes()
+    assert output.read_bytes() == (root / "evaluation/query_registry.v2.json").read_bytes()
+
+
+@pytest.mark.parametrize(
+    "mutation, message",
+    [
+        ("unknown_relevant", "unknown case"),
+        ("duplicate_relevant", "duplicate relevance"),
+        ("invalid_grade", "grade must be 1 or 2"),
+        ("relevant_as_negative", "relevance and hard negatives overlap"),
+        ("cross_family", "hard negatives must be non-relevant"),
+        ("overlap", "relevance and hard negatives overlap"),
+    ],
+)
+def test_query_v2_rejects_invalid_judgments_and_negatives(mutation: str, message: str) -> None:
+    registry_data, _, query_data = _inputs()
+    registry = load_visual_registry_data(registry_data)
+    broken = deepcopy(query_data)
+    query = broken["queries"][0]
+    relevant = query["relevance_judgments"][0]["case_id"]
+    if mutation == "unknown_relevant":
+        query["relevance_judgments"][0]["case_id"] = "unknown/case"
+    elif mutation == "duplicate_relevant":
+        query["relevance_judgments"].append(deepcopy(query["relevance_judgments"][0]))
+    elif mutation == "invalid_grade":
+        query["relevance_judgments"][0]["grade"] = 3
+    elif mutation == "relevant_as_negative":
+        query["hard_negative_case_ids"][0] = relevant
+    elif mutation == "cross_family":
+        query["hard_negative_case_ids"][0] = broken["queries"][-1]["hard_negative_case_ids"][0]
+    else:
+        query["hard_negative_case_ids"][0] = relevant
+    with pytest.raises(CorpusCoverageError, match=message):
+        load_query_registry(broken, registry)
