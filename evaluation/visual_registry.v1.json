@@ -865,6 +865,27 @@
         {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1, "bbox_norm": [0.49, 0.25, 0.94, 0.65], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2515-E/SO", "package": "SOIC-18 Wide 7.50 mm"}, "rationale": "The conventional package diagram is a top view; a bottom-view claim reverses lead numbering."},
         {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 3, "bbox_norm": [0.07, 0.35, 0.94, 0.89], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP2515-E/SO", "package": "SOIC-18 Wide 7.50 mm"}, "rationale": "Figure 1-1 is the CAN/SPI functional block diagram, not a package pinout."}
       ]
+    },
+    {
+      "id": "microchip-mcp4725-ds20002039f-2023-08",
+      "document_group": "microchip-mcp4725-family",
+      "split": "development",
+      "category": "digital_to_analog_converter",
+      "source": {"url": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP4725-12-Bit-Digital-to-Analog-Converter-with-EEPROM-Memory-DS20002039.pdf", "revision": "DS20002039F, August 2023"},
+      "content_sha256": "8623f4eb8030104be6fa3b4db0013caca987ff2afb8def70e02212aa3d7077e9",
+      "redistribution": "download_only",
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"},
+      "review": {"status": "reviewed", "reviewers": ["agent:codex-gpt5"], "reviewed_at": "2026-08-12T12:02:00Z", "annotation_revision": "agent-seed-corpus-expansion-8@2026-08-12"},
+      "cases": [
+        {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 2, "bbox_norm": [0.07, 0.08, 0.60, 0.42], "view": "top", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "The SOT-23-6 package diagram maps VOUT, VSS, VDD, SDA, SCL, and A0 for MCP4725."},
+        {"id": "table-positive", "label": "positive", "region_type": "table", "page": 13, "bbox_norm": [0.07, 0.08, 0.94, 0.36], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "Table 3-1 maps all six SOT-23 pins to the MCP4725 signal names and functions."},
+        {"id": "package-positive", "label": "positive", "region_type": "package", "page": 44, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "The drawing is the six-lead CH/CHY SOT-23 mechanical outline selected by the /CH suffix."},
+        {"id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 44, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "DFN-6 2x2"}, "rationale": "The selected drawing is SOT-23-6 /CH, not the 2x2 DFN-6 /MAY package."},
+        {"id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 53, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A1T-E/CH", "package": "SOT-23-6"}, "rationale": "The product-identification system distinguishes A0 and A1 factory address options; the registered identity is A0."},
+        {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 2, "bbox_norm": [0.07, 0.08, 0.60, 0.42], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "The package diagram uses conventional top-view lead numbering; a bottom-view claim reverses it."},
+        {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 1, "bbox_norm": [0.07, 0.33, 0.60, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "The crop is the DAC/EEPROM/I2C functional block diagram, not a package pinout."}
+      ]
     }
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification and merge in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/pinout-positive", "note": "Exact source hash and complete SOT-23-6 rendered pinout inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/table-positive", "note": "Exact source hash and pin-function table inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/package-positive", "note": "Exact source hash and CH/CHY SOT-23 mechanical outline inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-package", "note": "Exact source hash and SOT-23-versus-DFN package mismatch inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-variant", "note": "Exact source hash and A0-versus-A1 factory address option inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-view", "note": "Exact source hash and orientation adversary inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp4725-ds20002039f-2023-08/wrong-figure-block-as-pinout", "note": "Exact source hash and DAC functional-block negative inspected.", "outcome": "accepted"}
+  ],
+  "packet_sha256": "9a6af98403ddb62da319cae66f5893d2e51cc6dabdaf1c8ed16f8f8e466cb272",
+  "registry_sha256": "ddb3d120dddfcafb14ea5d1109da5d9dcf3a33d98980bc82fb572962897560f7",
+  "reviewed_at": "2026-08-12T12:02:00Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {"cases": 7, "documents": 1, "exact_source_hashes": 1, "excluded_findings": []}
+}

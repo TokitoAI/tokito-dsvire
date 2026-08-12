@@ -204,6 +204,12 @@ def test_published_fourteen_family_review_packet_is_valid_but_stale_after_correc
             1,
             7,
         ),
+        (
+            "visual-registry-mcp4725-agent-2026-08-12",
+            "9a6af98403ddb62da319cae66f5893d2e51cc6dabdaf1c8ed16f8f8e466cb272",
+            1,
+            7,
+        ),
     ],
 )
 def test_committed_agent_audit_is_packet_bound_and_explicit(
