@@ -14,6 +14,7 @@ from fastapi.testclient import TestClient
 from dsvire import api
 from dsvire.config import ConfigurationError, ServiceConfig
 from dsvire.pipeline import RetrievalError
+from dsvire.trace import TraceContext
 from dsvire.worker import WorkerError, WorkerTimeout
 
 TOKEN = "test-service-token-that-is-at-least-32-bytes"
@@ -94,9 +95,29 @@ def test_symbol_evidence_runs_isolated_retrieval(monkeypatch, tmp_path: Path) ->
 
     monkeypatch.setattr(api, "run_pdf_job", fake_run)
     with TestClient(api.create_app(_config(tmp_path))) as client:
-        response = client.post(_url(), content=b"%PDF-fake", headers=_headers())
+        headers = _headers() | {
+            "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
+        }
+        response = client.post(_url(), content=b"%PDF-fake", headers=headers)
     assert response.status_code == 200
+    returned = TraceContext.parse(response.headers["traceparent"])
+    assert returned is not None
+    assert returned.trace_id == "4bf92f3577b34da6a3ce929d0e0e4736"
+    assert returned.parent_id != "00f067aa0ba902b7"
     assert response.json()["schema_version"] == "dsvire.symbol-evidence.v2"
+
+
+def test_invalid_traceparent_is_replaced(monkeypatch, tmp_path: Path) -> None:
+    async def fake_run(*args, **kwargs):
+        return {"schema_version": "dsvire.symbol-evidence.v2", "regions": []}
+
+    monkeypatch.setattr(api, "run_pdf_job", fake_run)
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        response = client.post(
+            _url(), content=b"%PDF-fake", headers=_headers() | {"traceparent": "attacker-data"}
+        )
+    assert response.status_code == 200
+    assert TraceContext.parse(response.headers["traceparent"]) is not None
 
 
 @pytest.mark.parametrize(
