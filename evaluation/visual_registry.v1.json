@@ -18,12 +18,7 @@
         "mpn": "TPS5430DDAR",
         "package": "SO-PowerPAD-8"
       },
-      "review": {
-        "status": "unreviewed",
-        "reviewers": [],
-        "reviewed_at": null,
-        "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12"
-      },
+      "review": {"annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive",
@@ -110,7 +105,7 @@
       "redistribution": "download_only",
       "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Texas Instruments", "mpn": "LM358DR", "package": "SOIC-8"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
@@ -166,7 +161,7 @@
       "redistribution": "download_only",
       "license_note": "Official Texas Instruments datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Texas Instruments", "mpn": "NE555DR", "package": "SOIC-8"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-ti-cdn-refresh@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
@@ -284,7 +279,7 @@
       "redistribution": "download_only",
       "license_note": "Official Microchip datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP3008-I/SL", "package": "SOIC-16"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "review": {"annotation_revision": "agent-seed-dsvire@0.3.1", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1,
@@ -334,7 +329,7 @@
       "redistribution": "download_only",
       "license_note": "Official Diodes Incorporated datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Diodes Incorporated", "mpn": "AP2112K-3.3TRG1", "package": "SOT25"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "review": {"annotation_revision": "agent-seed-dsvire@0.3.1", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1,
@@ -390,7 +385,7 @@
       "redistribution": "download_only",
       "license_note": "Official Espressif Systems datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Espressif Systems", "mpn": "ESP32-D0WD-V3", "package": "QFN 5*5"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "review": {"annotation_revision": "agent-seed-dsvire@0.3.1", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 13,
@@ -446,7 +441,7 @@
       "redistribution": "download_only",
       "license_note": "Official Raspberry Pi datasheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Raspberry Pi", "mpn": "RP2040", "package": "QFN-56"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "agent-seed-dsvire@0.3.1"},
+      "review": {"annotation_revision": "agent-seed-dsvire@0.3.1", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 12,
@@ -505,7 +500,7 @@
       "redistribution": "download_only",
       "license_note": "Official NXP product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCA9685PW", "package": "TSSOP28"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-corpus-expansion@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 6,
@@ -564,7 +559,7 @@
       "redistribution": "download_only",
       "license_note": "Official Bosch Sensortec data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Bosch Sensortec", "mpn": "BME280", "package": "LGA-8 2.5x2.5"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-corpus-expansion@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 38,
@@ -623,7 +618,7 @@
       "redistribution": "download_only",
       "license_note": "Official onsemi data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "onsemi", "mpn": "NCP1117ST33T3G", "package": "SOT-223"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1,
@@ -682,7 +677,7 @@
       "redistribution": "download_only",
       "license_note": "Official NXP product data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "NXP Semiconductors", "mpn": "PCF8574T/3", "package": "SO16"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-corpus-expansion-2@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 4,
@@ -741,7 +736,7 @@
       "redistribution": "download_only",
       "license_note": "Official Renesas data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-3@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-corpus-expansion-3@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {
           "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
@@ -797,7 +792,7 @@
       "redistribution": "download_only",
       "license_note": "Official onsemi data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
       "identity": {"manufacturer": "onsemi", "mpn": "CAT24C32WI-GT3", "package": "SOIC-8 150 mil"},
-      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-4@2026-08-12"},
+      "review": {"annotation_revision": "auto-seed-corpus-expansion-4@2026-08-12", "reviewed_at": "2026-08-12T10:59:48Z", "reviewers": ["agent:codex-gpt5"], "status": "reviewed"},
       "cases": [
         {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1, "bbox_norm": [0.60, 0.49, 0.90, 0.69], "view": "top", "claimed_identity": {"manufacturer": "onsemi", "mpn": "CAT24C32WI-GT3", "package": "SOIC-8 150 mil"}, "rationale": "The eight-lead top-view map covers the W-suffix SOIC package and identifies A0-A2, VSS, SDA, SCL, WP, and VCC. Independent review pending."},
         {"id": "table-positive", "label": "positive", "region_type": "table", "page": 10, "bbox_norm": [0.08, 0.07, 0.91, 0.47], "view": "not_applicable", "claimed_identity": {"manufacturer": "onsemi", "mpn": "CAT24C32WI-GT3", "package": "SOIC-8 150 mil"}, "rationale": "The ordering table maps CAT24C32WI-GT3 to the standard JEDEC SOIC-8 package and active tape-and-reel option. Independent review pending."},

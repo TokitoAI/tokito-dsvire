@@ -12,9 +12,11 @@ from dsvire.visual_adapters import AdapterError
 from dsvire.visual_registry import VisualRegistry, load_visual_registry_data
 from dsvire.visual_review import (
     VisualReviewError,
+    apply_agent_review_decision,
     apply_review_decision,
     build_review_packet,
     fetch_github_review_provenance,
+    load_agent_review_decision_data,
     load_review_decision_data,
     load_review_packet_data,
     render_review_sheet,
@@ -152,21 +154,59 @@ def test_review_packet_is_deterministic_and_binds_rendered_crop_bytes() -> None:
 
 def test_published_fourteen_family_review_packet_binds_current_registry() -> None:
     root = Path(__file__).parents[1]
-    registry = load_visual_registry_data(
-        json.loads((root / "evaluation/visual_registry.v1.json").read_text())
-    )
+    registry_data = json.loads((root / "evaluation/visual_registry.v1.json").read_text())
     packet = load_review_packet_data(
         json.loads(
             (root / "evaluation/reviews/visual-registry-14-2026-08-12.packet.json").read_text()
         )
     )
 
-    assert packet["registry_sha256"] == registry.content_sha256
+    selected = {document["id"] for document in packet["documents"]}
+    subset_data = {
+        "schema_version": registry_data["schema_version"],
+        "documents": [
+            document for document in registry_data["documents"] if document["id"] in selected
+        ],
+    }
+    for document in subset_data["documents"]:
+        document["review"] = {
+            "status": "unreviewed",
+            "reviewers": [],
+            "reviewed_at": None,
+            "annotation_revision": document["review"]["annotation_revision"],
+        }
+    assert packet["registry_sha256"] == load_visual_registry_data(subset_data).content_sha256
     assert len(packet["documents"]) == 14
     assert sum(len(document["cases"]) for document in packet["documents"]) == 97
     assert packet["packet_sha256"] == (
         "81dbd810d442524f664c3b6d48f9ef46298be186dfeb18eb6dd55a4d6fb9a814"
     )
+
+
+def test_committed_agent_audit_is_packet_bound_and_explicit() -> None:
+    root = Path(__file__).parents[1]
+    packet = load_review_packet_data(
+        json.loads(
+            (
+                root / "evaluation/reviews/visual-registry-13-agent-2026-08-12.packet.json"
+            ).read_text()
+        )
+    )
+    decision = json.loads(
+        (root / "evaluation/reviews/visual-registry-13-agent-2026-08-12.decision.json").read_text()
+    )
+    assert load_agent_review_decision_data(decision, packet) == decision
+    assert (
+        packet["packet_sha256"]
+        == "27ed6141f035afbf9bcf72af591360e57ec7a15ba6f53e6fb43ba3800cd925bf"
+    )
+    assert len(packet["documents"]) == 13
+    assert sum(len(document["cases"]) for document in packet["documents"]) == 90
+    schema = json.loads(
+        (root / "scripts/schema/visual_agent_review_decision_v1.schema.json").read_text()
+    )
+    Draft202012Validator.check_schema(schema)
+    Draft202012Validator(schema).validate(decision)
 
 
 def test_review_packet_rejects_tampering_and_unknown_selection() -> None:
@@ -211,6 +251,38 @@ def test_complete_named_human_review_applies_after_unrelated_registry_append() -
         "annotation_revision": "fixture@1",
     }
     assert output["documents"][1]["review"]["status"] == "unreviewed"
+
+
+def test_owner_authorized_agent_review_is_explicit_and_complete() -> None:
+    payload, registry_data, registry = _fixture()
+    packet = build_review_packet(registry, lambda _document: payload)
+    decision = {
+        "schema_version": "dsvire.visual-agent-review-decision.v1",
+        "packet_sha256": packet["packet_sha256"],
+        "registry_sha256": packet["registry_sha256"],
+        "reviewer": "agent:codex-gpt5",
+        "reviewed_at": "2026-08-12T10:59:48Z",
+        "authorization_note": "Owner explicitly authorized agent review.",
+        "verification_summary": {
+            "documents": 1,
+            "cases": 4,
+            "exact_source_hashes": 1,
+            "excluded_findings": [],
+        },
+        "decisions": [
+            {"case_id": case["case_id"], "outcome": "accepted", "note": "Inspected."}
+            for document in packet["documents"]
+            for case in document["cases"]
+        ],
+    }
+
+    assert load_agent_review_decision_data(decision, packet) == decision
+    output = apply_agent_review_decision(registry_data, packet, decision)
+    assert output["documents"][0]["review"]["reviewers"] == ["agent:codex-gpt5"]
+
+    decision["verification_summary"]["exact_source_hashes"] = 0
+    with pytest.raises(VisualReviewError, match="every exact source hash"):
+        load_agent_review_decision_data(decision, packet)
 
 
 def test_partial_rejected_or_drifted_review_cannot_apply() -> None:

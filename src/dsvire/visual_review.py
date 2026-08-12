@@ -32,6 +32,7 @@ _SAFE_FILENAME = re.compile(r"[^a-zA-Z0-9._-]+")
 _SHA256 = re.compile(r"[0-9a-f]{64}")
 REVIEW_PACKET_VERSION = "dsvire.visual-review-packet.v2"
 REVIEW_DECISION_VERSION = "dsvire.visual-review-decision.v1"
+AGENT_REVIEW_DECISION_VERSION = "dsvire.visual-agent-review-decision.v1"
 MAX_GITHUB_REVIEW_BYTES = 1_000_000
 _GITHUB_REVIEW_URL = re.compile(
     r"https://github\.com/TokitoAI/(?P<repo>[A-Za-z0-9_.-]+)/pull/(?P<pr>[1-9][0-9]*)"
@@ -461,6 +462,90 @@ def load_review_decision_data(value: Any, packet: Mapping[str, Any]) -> dict[str
     return dict(value)
 
 
+def load_agent_review_decision_data(value: Any, packet: Mapping[str, Any]) -> dict[str, object]:
+    """Validate an explicit owner-authorized agent audit against one packet."""
+    packet = load_review_packet_data(packet)
+    if not isinstance(value, Mapping):
+        raise VisualReviewError("agent review decision must be an object")
+    _strict(
+        value,
+        {
+            "schema_version",
+            "packet_sha256",
+            "registry_sha256",
+            "reviewer",
+            "reviewed_at",
+            "authorization_note",
+            "verification_summary",
+            "decisions",
+        },
+        "agent review decision",
+    )
+    if value["schema_version"] != AGENT_REVIEW_DECISION_VERSION:
+        raise VisualReviewError("unsupported agent review decision schema")
+    if value["packet_sha256"] != packet["packet_sha256"]:
+        raise VisualReviewError("agent review decision packet digest mismatch")
+    if value["registry_sha256"] != packet["registry_sha256"]:
+        raise VisualReviewError("agent review decision registry digest mismatch")
+    reviewer = _text(value["reviewer"], "agent review decision.reviewer")
+    if re.fullmatch(r"agent:[A-Za-z0-9][A-Za-z0-9_.-]{0,63}", reviewer) is None:
+        raise VisualReviewError("agent review decision.reviewer must be agent:<id>")
+    reviewed_at = _text(value["reviewed_at"], "agent review decision.reviewed_at")
+    try:
+        import datetime as dt
+
+        parsed = dt.datetime.fromisoformat(reviewed_at.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise VisualReviewError("agent review decision.reviewed_at must be ISO-8601") from exc
+    if parsed.tzinfo is None:
+        raise VisualReviewError("agent review decision.reviewed_at must include a timezone")
+    _text(value["authorization_note"], "agent review decision.authorization_note")
+    summary = value["verification_summary"]
+    if not isinstance(summary, Mapping):
+        raise VisualReviewError("agent review decision.verification_summary must be an object")
+    _strict(
+        summary,
+        {"documents", "cases", "exact_source_hashes", "excluded_findings"},
+        "agent review decision.verification_summary",
+    )
+    packet_documents = cast(list[dict[str, Any]], packet["documents"])
+    expected = {case["case_id"] for document in packet_documents for case in document["cases"]}
+    if summary["documents"] != len(packet_documents) or summary["cases"] != len(expected):
+        raise VisualReviewError("agent review decision verification counts do not match packet")
+    if summary["exact_source_hashes"] != len(packet_documents):
+        raise VisualReviewError("agent review decision must bind every exact source hash")
+    excluded = summary["excluded_findings"]
+    if not isinstance(excluded, list) or not all(
+        isinstance(item, str) and item.strip() for item in excluded
+    ):
+        raise VisualReviewError("agent review decision.excluded_findings must be text entries")
+    decisions = value["decisions"]
+    if not isinstance(decisions, list):
+        raise VisualReviewError("agent review decision.decisions must be an array")
+    observed: set[str] = set()
+    for index, decision in enumerate(decisions):
+        context = f"agent review decision.decisions[{index}]"
+        if not isinstance(decision, Mapping):
+            raise VisualReviewError(f"{context} must be an object")
+        _strict(decision, {"case_id", "outcome", "note"}, context)
+        case_id = _text(decision["case_id"], f"{context}.case_id")
+        if case_id in observed:
+            raise VisualReviewError(f"duplicate agent review decision: {case_id}")
+        observed.add(case_id)
+        if decision["outcome"] not in {"accepted", "rejected"}:
+            raise VisualReviewError(f"{context}.outcome must be accepted or rejected")
+        if not isinstance(decision["note"], str):
+            raise VisualReviewError(f"{context}.note must be text")
+        if decision["outcome"] == "rejected" and not decision["note"].strip():
+            raise VisualReviewError(f"{context}.note is required for rejection")
+    if observed != expected:
+        raise VisualReviewError(
+            f"agent review decisions incomplete: missing={sorted(expected - observed)}, "
+            f"unknown={sorted(observed - expected)}"
+        )
+    return dict(value)
+
+
 def apply_review_decision(
     registry_data: Any,
     packet_data: Any,
@@ -474,10 +559,29 @@ def apply_review_decision(
     per-document digest prevents any mutation of the reviewed annotations while
     allowing that append-only corpus growth.
     """
-    registry = load_visual_registry_data(registry_data)
     packet = load_review_packet_data(packet_data)
     decision = load_review_decision_data(decision_data, packet)
     verify_github_review_provenance(decision, provenance_loader)
+    return _apply_validated_decision(registry_data, packet, decision)
+
+
+def apply_agent_review_decision(
+    registry_data: Any,
+    packet_data: Any,
+    decision_data: Any,
+) -> dict[str, object]:
+    """Apply a complete owner-authorized agent audit without claiming human review."""
+    packet = load_review_packet_data(packet_data)
+    decision = load_agent_review_decision_data(decision_data, packet)
+    return _apply_validated_decision(registry_data, packet, decision)
+
+
+def _apply_validated_decision(
+    registry_data: Any,
+    packet: Mapping[str, Any],
+    decision: Mapping[str, Any],
+) -> dict[str, object]:
+    registry = load_visual_registry_data(registry_data)
     decisions = cast(list[dict[str, Any]], decision["decisions"])
     rejected = [item["case_id"] for item in decisions if item["outcome"] == "rejected"]
     if rejected:

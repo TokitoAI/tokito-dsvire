@@ -13,6 +13,7 @@ from dsvire.eval_download import fetch_hash_pinned_pdf
 from dsvire.visual_registry import VisualDocument, load_visual_registry_data
 from dsvire.visual_review import (
     VisualReviewError,
+    apply_agent_review_decision,
     apply_review_decision,
     build_review_packet,
     fetch_github_review_provenance,
@@ -72,6 +73,12 @@ def main() -> int:
     apply.add_argument("--decision", type=Path, required=True)
     apply.add_argument("--out", type=Path, required=True)
 
+    apply_agent = subparsers.add_parser("apply-agent")
+    apply_agent.add_argument("--registry", type=Path, default=DEFAULT_REGISTRY)
+    apply_agent.add_argument("--packet", type=Path, required=True)
+    apply_agent.add_argument("--decision", type=Path, required=True)
+    apply_agent.add_argument("--out", type=Path, required=True)
+
     args = parser.parse_args()
     try:
         if args.command == "export":
@@ -120,7 +127,7 @@ def main() -> int:
             packet = load_review_packet_data(_read(args.packet))
             load_review_decision_data(_read(args.decision), packet)
             print("review decision valid")
-        else:
+        elif args.command == "apply":
             output = apply_review_decision(
                 _read(args.registry),
                 _read(args.packet),
@@ -128,6 +135,14 @@ def main() -> int:
                 provenance_loader=lambda url: fetch_github_review_provenance(
                     url, os.environ.get("GITHUB_TOKEN")
                 ),
+            )
+            _write_atomic(args.out, output)
+            print(args.out)
+        else:
+            output = apply_agent_review_decision(
+                _read(args.registry),
+                _read(args.packet),
+                _read(args.decision),
             )
             _write_atomic(args.out, output)
             print(args.out)
