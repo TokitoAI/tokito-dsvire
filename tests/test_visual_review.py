@@ -160,6 +160,30 @@ def test_review_packet_rejects_tampering_and_unknown_selection() -> None:
         build_review_packet(registry, lambda _document: payload, document_ids={"missing"})
 
 
+def test_committed_thirteen_family_review_packet_matches_current_registry() -> None:
+    root = Path(__file__).parents[1]
+    packet = load_review_packet_data(
+        json.loads(
+            (root / "evaluation/reviews/visual-registry-13-2026-08-12.packet.json").read_text(
+                encoding="utf-8"
+            )
+        )
+    )
+    registry = load_visual_registry_data(
+        json.loads((root / "evaluation/visual_registry.v1.json").read_text(encoding="utf-8"))
+    )
+
+    assert packet["packet_sha256"] == (
+        "574616d0f64b0c94198575499e6340fc146c35f9ebbad6d9018b4cd662aa1f58"
+    )
+    assert packet["registry_sha256"] == registry.content_sha256
+    assert len(packet["documents"]) == len(registry.documents) == 13
+    assert sum(len(document["cases"]) for document in packet["documents"]) == 90
+    assert {
+        document["id"] for document in packet["documents"]
+    } == {document.document_id for document in registry.documents}
+
+
 def test_complete_named_human_review_applies_to_exact_registry_revision() -> None:
     payload, registry_data, registry = _fixture()
     packet = build_review_packet(registry, lambda _document: payload)
