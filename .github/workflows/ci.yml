@@ -38,7 +38,33 @@ jobs:
           path: release-verification.json
           if-no-files-found: warn
           retention-days: 30
-      - run: docker build --pull -t tokito-dsvire:ci .
+      - name: Build production image twice without cache
+        run: |
+          docker build --pull --no-cache -t tokito-dsvire:repro-a .
+          docker build --pull --no-cache -t tokito-dsvire:repro-b .
+          docker tag tokito-dsvire:repro-a tokito-dsvire:ci
+      - name: Compare independent production image root filesystems
+        run: |
+          docker create --name dsvire-repro-a tokito-dsvire:repro-a
+          docker create --name dsvire-repro-b tokito-dsvire:repro-b
+          docker export --output dsvire-rootfs-a.tar dsvire-repro-a
+          docker export --output dsvire-rootfs-b.tar dsvire-repro-b
+          first_id=$(docker image inspect --format '{{.Id}}' tokito-dsvire:repro-a)
+          second_id=$(docker image inspect --format '{{.Id}}' tokito-dsvire:repro-b)
+          base_image=$(head -n 1 Dockerfile | sed 's/^FROM //')
+          uv run --frozen --no-sync python scripts/compare_image_rootfs.py \
+            dsvire-rootfs-a.tar dsvire-rootfs-b.tar \
+            --source-commit "$GITHUB_SHA" --base-image "$base_image" \
+            --first-image-id "$first_id" --second-image-id "$second_id" \
+            --json-out image-reproducibility.json
+      - name: Publish image reproducibility evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: image-reproducibility-${{ github.sha }}
+          path: image-reproducibility.json
+          if-no-files-found: warn
+          retention-days: 30
       - name: Container robustness corpus
         run: >-
           docker run --rm --entrypoint python tokito-dsvire:ci
@@ -80,4 +106,6 @@ jobs:
           docker logs dsvire-ci
           exit 1
       - if: always()
-        run: docker rm -f dsvire-ci 2>/dev/null || true
+        run: >-
+          docker rm -f dsvire-ci dsvire-repro-a dsvire-repro-b
+          2>/dev/null || true

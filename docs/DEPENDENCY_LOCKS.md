@@ -58,3 +58,15 @@ The base image digest is deliberately separate from the Python lock. Update the
 tag and digest together after reviewing the upstream Python image, then let CI
 build and smoke-test the exact manifest. Never replace the digest with a mutable
 tag or reintroduce a packaging-tool upgrade inside the Dockerfile.
+
+CI also builds the production Dockerfile twice with `--pull --no-cache`, exports
+both container root filesystems, and compares a canonical inventory of every
+path's type, mode, uid/gid, link target, size, and file SHA-256. Tar ordering and
+mtimes are intentionally not identity; Docker's runtime-injected
+`/etc/hostname`, `/etc/hosts`, and `/etc/resolv.conf` are the only excluded paths
+and are named in the JSON evidence. A mismatch fails CI with up to 100 differing
+paths. The uploaded `dsvire.image-reproducibility.v1` report binds the result to
+the source commit, pinned base reference, both image IDs, entry counts, and both
+normalized rootfs digests. This proves runtime-filesystem reproducibility on one
+clean CI runner; it does not claim that provenance-bearing registry manifests or
+Docker configuration timestamps are byte-identical.
