@@ -1,0 +1,63 @@
+name: independent image reproducibility
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsvire-image-reproducibility-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  reproduce:
+    runs-on: [self-hosted, linux, x64, tokito-vps, private-build]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+      - uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
+        with:
+          version: '0.12.3'
+          enable-cache: false
+      - name: Build production image twice without cache
+        run: |
+          suffix="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          echo "DSVIRE_REPRO_SUFFIX=$suffix" >> "$GITHUB_ENV"
+          docker build --pull --no-cache -t "dsvire-repro-a:$suffix" .
+          docker build --pull --no-cache -t "dsvire-repro-b:$suffix" .
+      - name: Compare independent root filesystems
+        run: |
+          suffix="$DSVIRE_REPRO_SUFFIX"
+          docker create --name "dsvire-repro-a-$suffix" "dsvire-repro-a:$suffix"
+          docker create --name "dsvire-repro-b-$suffix" "dsvire-repro-b:$suffix"
+          docker export --output dsvire-rootfs-a.tar "dsvire-repro-a-$suffix"
+          docker export --output dsvire-rootfs-b.tar "dsvire-repro-b-$suffix"
+          first_id=$(docker image inspect --format '{{.Id}}' "dsvire-repro-a:$suffix")
+          second_id=$(docker image inspect --format '{{.Id}}' "dsvire-repro-b:$suffix")
+          base_image=$(head -n 1 Dockerfile | sed 's/^FROM //')
+          python scripts/compare_image_rootfs.py \
+            dsvire-rootfs-a.tar dsvire-rootfs-b.tar \
+            --source-commit "$GITHUB_SHA" --base-image "$base_image" \
+            --first-image-id "$first_id" --second-image-id "$second_id" \
+            --json-out image-reproducibility.json
+      - name: Publish independent builder evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: independent-image-reproducibility-${{ github.sha }}
+          path: image-reproducibility.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Clean runner resources
+        if: always()
+        run: |
+          suffix="$DSVIRE_REPRO_SUFFIX"
+          if [ -n "$suffix" ]; then
+            docker rm -f "dsvire-repro-a-$suffix" "dsvire-repro-b-$suffix" 2>/dev/null || true
+            docker image rm "dsvire-repro-a:$suffix" "dsvire-repro-b:$suffix" 2>/dev/null || true
+          fi
+          rm -f dsvire-rootfs-a.tar dsvire-rootfs-b.tar
