@@ -82,7 +82,9 @@ def main() -> int:
     args = parser.parse_args()
     try:
         if args.command == "export":
-            registry = load_visual_registry_data(_read(args.registry))
+            registry = load_visual_registry_data(
+                _read(args.registry), allow_unreviewed_heldout_draft=True
+            )
             selected = set(args.document_id) if args.document_id else None
             payloads: dict[str, bytes] = {}
 

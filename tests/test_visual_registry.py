@@ -107,6 +107,15 @@ def test_unreviewed_development_labels_are_explicitly_allowed() -> None:
     assert parsed.documents[0].review.status == "unreviewed"
 
 
+def test_review_draft_loader_does_not_weaken_normal_heldout_admission() -> None:
+    draft = load_visual_registry_data(
+        _registry("calibration", reviewed=False), allow_unreviewed_heldout_draft=True
+    )
+    assert draft.documents[0].review.status == "unreviewed"
+    with pytest.raises(VisualRegistryError, match="annotations must be reviewed"):
+        load_visual_registry_data(_registry("calibration", reviewed=False))
+
+
 def test_document_family_cannot_leak_across_splits() -> None:
     data = _registry()
     duplicate = deepcopy(data["documents"][0])
@@ -226,13 +235,15 @@ def test_adapter_score_set_must_match_registry_exactly() -> None:
         bind_prediction_scores(registry, invalid)
 
 
-def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
+def test_committed_visual_registry_has_reviewed_development_and_calibration_data() -> None:
     root = Path(__file__).parents[1]
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 30
-    assert {document.split for document in registry.documents} == {"development"}
+    assert len(registry.documents) == 35
+    assert sum(document.split == "development" for document in registry.documents) == 30
+    assert sum(document.split == "calibration" for document in registry.documents) == 5
+    assert not any(document.split == "evaluation" for document in registry.documents)
     reviews = {document.document_id: document.review.status for document in registry.documents}
     assert set(reviews.values()) == {"reviewed"}
     assert all(
@@ -267,6 +278,9 @@ def test_committed_visual_seed_is_agent_audited_development_data_only() -> None:
         "usb_uart_bridge",
         "ethernet_phy",
         "touchscreen_controller",
+        "parallel_in_shift_register",
+        "current_power_monitor",
+        "usb_hub_controller",
     }
     assert len({document.identity.manufacturer for document in registry.documents}) >= 14
     assert all(document.redistribution == "download_only" for document in registry.documents)

@@ -1,0 +1,537 @@
+{
+  "documents": [
+    {
+      "annotation_revision": "agent-heldout-calibration-1@2026-08-12",
+      "annotation_sha256": "624df3a7d51f4a7bbbb84e8a1e0aaf10a0e8ade3423a424d0c83560e07809c69",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.58
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/pinout-positive",
+          "crop_sha256": "67dd5daafbbcf8213562af4989ffa4c16e57378759ff83a170e1bd244d65b9ea",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.48
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/table-positive",
+          "crop_sha256": "2e6e9db71547d2ccdc7b4b03aee1f96980e8d487d6d827625d43ad66d72e6724",
+          "label": "positive",
+          "page": 4,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/package-positive",
+          "crop_sha256": "4aaa8a70540955edcbcf11c4606589fdb2c4cd64186644de8a3f0e16653cbe08",
+          "label": "positive",
+          "page": 14,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-package",
+          "crop_sha256": "4aaa8a70540955edcbcf11c4606589fdb2c4cd64186644de8a3f0e16653cbe08",
+          "label": "wrong_package",
+          "page": 14,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-variant",
+          "crop_sha256": "4aaa8a70540955edcbcf11c4606589fdb2c4cd64186644de8a3f0e16653cbe08",
+          "label": "wrong_variant",
+          "page": 14,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.12,
+            0.49,
+            0.58
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-view",
+          "crop_sha256": "67dd5daafbbcf8213562af4989ffa4c16e57378759ff83a170e1bd244d65b9ea",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.49
+          ],
+          "case_id": "nexperia-74hc165-rev-8-2025-05/wrong-figure-timing-as-pinout",
+          "crop_sha256": "d9341874c59e2cbe6465026ea090e7d1347cc4a77e0eb289cdbc3f62c8f95452",
+          "label": "wrong_figure",
+          "page": 5,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "nexperia-74hc165-rev-8-2025-05",
+      "source_sha256": "a0b5afb4abde43bfdc07cb906426fa4ef63aa3d5eb65ed362424026e88dd101b"
+    },
+    {
+      "annotation_revision": "agent-heldout-calibration-2@2026-08-12",
+      "annotation_sha256": "80bd5da00619f283d9493847762ad94296df3b9f0a5938cd461b8eccbc52d35e",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.47
+          ],
+          "case_id": "ti-ina219-rev-g/pinout-positive",
+          "crop_sha256": "7f5b3982e751c8885c52a84947eb4e790033cdfcf583a5b0f8a1bcf934ca6fa7",
+          "label": "positive",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.43,
+            0.96,
+            0.92
+          ],
+          "case_id": "ti-ina219-rev-g/table-positive",
+          "crop_sha256": "d7ad4f2a43d01e5ab6062b40c7682cdab2c3e89cb8c2476b6079f1ea19f0fdae",
+          "label": "positive",
+          "page": 3,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.03,
+            0.12,
+            0.97,
+            0.67
+          ],
+          "case_id": "ti-ina219-rev-g/package-positive",
+          "crop_sha256": "26bf8e7cdaa4f9674adc3d924384213473ed65ceb92ffc4a1132b26d34b19e15",
+          "label": "positive",
+          "page": 29,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.03,
+            0.12,
+            0.97,
+            0.67
+          ],
+          "case_id": "ti-ina219-rev-g/wrong-package",
+          "crop_sha256": "26bf8e7cdaa4f9674adc3d924384213473ed65ceb92ffc4a1132b26d34b19e15",
+          "label": "wrong_package",
+          "page": 29,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.03,
+            0.12,
+            0.97,
+            0.67
+          ],
+          "case_id": "ti-ina219-rev-g/wrong-variant",
+          "crop_sha256": "26bf8e7cdaa4f9674adc3d924384213473ed65ceb92ffc4a1132b26d34b19e15",
+          "label": "wrong_variant",
+          "page": 29,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.47
+          ],
+          "case_id": "ti-ina219-rev-g/wrong-view",
+          "crop_sha256": "7f5b3982e751c8885c52a84947eb4e790033cdfcf583a5b0f8a1bcf934ca6fa7",
+          "label": "wrong_view",
+          "page": 3,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-ina219-rev-g/wrong-figure-block-as-pinout",
+          "crop_sha256": "5fde8b64a3324eeea005a4846758426e95acfd7e089cc4d87beef3e8ada56f4e",
+          "label": "wrong_figure",
+          "page": 9,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-ina219-rev-g",
+      "source_sha256": "58004eda854d07478e6fc6f4398c114f60a3bcf18d4877471c7c1a306d1fa1cb"
+    },
+    {
+      "annotation_revision": "agent-heldout-calibration-3@2026-08-12",
+      "annotation_sha256": "defd67cd696f09c45ba676fcd572801eff276b043739c6266d120416d46f1d61",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.54,
+            0.54,
+            0.96,
+            0.79
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/pinout-positive",
+          "crop_sha256": "9fb9ce7f672f5a3a8c03735c05cfd8976752618ee8805fb8ee62d8abbbb7ca5e",
+          "label": "positive",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.7
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/table-positive",
+          "crop_sha256": "b231a1feb20e07614355beeaf726098d276eb56d4fa36632fb39dabb315f968d",
+          "label": "positive",
+          "page": 8,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/package-positive",
+          "crop_sha256": "0c92cddbbed39b4a5b1f952b95eabd1cd379f7d8656586b97ac1ff091d3421bd",
+          "label": "positive",
+          "page": 44,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-package",
+          "crop_sha256": "0c92cddbbed39b4a5b1f952b95eabd1cd379f7d8656586b97ac1ff091d3421bd",
+          "label": "wrong_package",
+          "page": 44,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-variant",
+          "crop_sha256": "0c92cddbbed39b4a5b1f952b95eabd1cd379f7d8656586b97ac1ff091d3421bd",
+          "label": "wrong_variant",
+          "page": 44,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.54,
+            0.54,
+            0.96,
+            0.79
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-view",
+          "crop_sha256": "9fb9ce7f672f5a3a8c03735c05cfd8976752618ee8805fb8ee62d8abbbb7ca5e",
+          "label": "wrong_view",
+          "page": 1,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-mcp7940n-ds20005010j/wrong-figure-block-as-pinout",
+          "crop_sha256": "dbd10a67708e8c6774c621de9b05b1984bec2e168a08969d3d7a89d078f6ca25",
+          "label": "wrong_figure",
+          "page": 20,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-mcp7940n-ds20005010j",
+      "source_sha256": "92385d740e31ab2b291be5d2c6a8781674c4ab10ca91b4f83268f85041eada05"
+    },
+    {
+      "annotation_revision": "agent-heldout-calibration-4@2026-08-12",
+      "annotation_sha256": "a8029a58204068a1cdb949b011244899ae55fe41510e796719cbdc5a5ac2cc26",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.49,
+            0.31
+          ],
+          "case_id": "ti-tmp117-rev-d/pinout-positive",
+          "crop_sha256": "e54642d7b4e02916d6678ee40592b3987328c2709481fead9e7d08146f7f681b",
+          "label": "positive",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.34,
+            0.96,
+            0.57
+          ],
+          "case_id": "ti-tmp117-rev-d/table-positive",
+          "crop_sha256": "6dbd5b27be20c71d3e7427d51216df90cf84b71a6369fda797361dd860ec3250",
+          "label": "positive",
+          "page": 4,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-tmp117-rev-d/package-positive",
+          "crop_sha256": "fddce779cae1acc3cc8b34f80f3016106f9c0fa1740f658373e0235bc4a94db1",
+          "label": "positive",
+          "page": 40,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-tmp117-rev-d/wrong-package",
+          "crop_sha256": "fddce779cae1acc3cc8b34f80f3016106f9c0fa1740f658373e0235bc4a94db1",
+          "label": "wrong_package",
+          "page": 40,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "ti-tmp117-rev-d/wrong-variant",
+          "crop_sha256": "fddce779cae1acc3cc8b34f80f3016106f9c0fa1740f658373e0235bc4a94db1",
+          "label": "wrong_variant",
+          "page": 40,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.49,
+            0.31
+          ],
+          "case_id": "ti-tmp117-rev-d/wrong-view",
+          "crop_sha256": "e54642d7b4e02916d6678ee40592b3987328c2709481fead9e7d08146f7f681b",
+          "label": "wrong_view",
+          "page": 4,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.7
+          ],
+          "case_id": "ti-tmp117-rev-d/wrong-figure-block-as-pinout",
+          "crop_sha256": "f00d4694b90719a20495072029779a3568b93ab9d734b0de5e30757e0ef013cf",
+          "label": "wrong_figure",
+          "page": 11,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "ti-tmp117-rev-d",
+      "source_sha256": "8b58dbdb5ea4618aa7e620f0bce4480cffa60da77943037515f40bf5c54bee37"
+    },
+    {
+      "annotation_revision": "agent-heldout-calibration-5@2026-08-12",
+      "annotation_sha256": "c1c2ef89276b93fb6477087488fb80ddcf0f35ebe234188364d89d1444a290a4",
+      "cases": [
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.76
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/pinout-positive",
+          "crop_sha256": "7fc1795d4eb42493f0076f578700ffcb224a0f4a3e55852756b1f1b0f7f1dced",
+          "label": "positive",
+          "page": 9,
+          "region_type": "pinout",
+          "view": "top"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/table-positive",
+          "crop_sha256": "2639ac687ce58ded5657c23815828071d6caf17f0d1f68ab4f6f8b80798fefc3",
+          "label": "positive",
+          "page": 12,
+          "region_type": "table",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/package-positive",
+          "crop_sha256": "b2d92431607a93b9acd5c65f2b489b8c31f72cea5cea1b4bd40427912fe2b792",
+          "label": "positive",
+          "page": 48,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-package",
+          "crop_sha256": "b2d92431607a93b9acd5c65f2b489b8c31f72cea5cea1b4bd40427912fe2b792",
+          "label": "wrong_package",
+          "page": 48,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-variant",
+          "crop_sha256": "b2d92431607a93b9acd5c65f2b489b8c31f72cea5cea1b4bd40427912fe2b792",
+          "label": "wrong_variant",
+          "page": 48,
+          "region_type": "package",
+          "view": "not_applicable"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.1,
+            0.96,
+            0.76
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-view",
+          "crop_sha256": "7fc1795d4eb42493f0076f578700ffcb224a0f4a3e55852756b1f1b0f7f1dced",
+          "label": "wrong_view",
+          "page": 9,
+          "region_type": "pinout",
+          "view": "bottom"
+        },
+        {
+          "bbox_norm": [
+            0.05,
+            0.08,
+            0.96,
+            0.91
+          ],
+          "case_id": "microchip-usb2514b-ds00001692c/wrong-figure-block-as-pinout",
+          "crop_sha256": "01b6d0bc31d61cdcff49cf2e9e2d4d416270250580bd24147f0b2ffeec2f8658",
+          "label": "wrong_figure",
+          "page": 6,
+          "region_type": "pinout",
+          "view": "not_applicable"
+        }
+      ],
+      "id": "microchip-usb2514b-ds00001692c",
+      "source_sha256": "3fca1a17701a3fd513c867f4deab71887b317302ff7cbbc22310c1ddaa6bdaa9"
+    }
+  ],
+  "packet_sha256": "b1cf26e7df324b5b635596ac38f16a2ac0bc9289d35b907b72c9b281bae1335f",
+  "registry_sha256": "383c35cff9c1337c3b41759bacf24819de080c5e8deb951fa472fd734306efec",
+  "schema_version": "dsvire.visual-review-packet.v2"
+}

@@ -581,7 +581,11 @@ def _apply_validated_decision(
     packet: Mapping[str, Any],
     decision: Mapping[str, Any],
 ) -> dict[str, object]:
-    registry = load_visual_registry_data(registry_data)
+    # A packet is necessarily applied to the unreviewed draft it attests. The
+    # ordinary loader remains strict everywhere else; only this transition may
+    # admit unreviewed held-out annotations, and the packet digests below bind
+    # every selected source, annotation, and case before status is changed.
+    registry = load_visual_registry_data(registry_data, allow_unreviewed_heldout_draft=True)
     decisions = cast(list[dict[str, Any]], decision["decisions"])
     rejected = [item["case_id"] for item in decisions if item["outcome"] == "rejected"]
     if rejected:

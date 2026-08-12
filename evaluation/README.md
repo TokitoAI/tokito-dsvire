@@ -127,20 +127,23 @@ reproduced that digest with valid uploaded checksums at 5.05/7.07 seconds and
 PDF hash from the TI CDN on all three bounded attempts and correctly produced
 no benchmark artifact; the registered source hash was not relaxed.
 
-`visual_registry.v1.json` now contains 30 hash-pinned official development
-documents across 14 manufacturer labels: the original three TI families plus
+`visual_registry.v1.json` now contains 35 hash-pinned official documents
+across 14 manufacturer labels: 30 development families (the original three TI families plus
 ATmega328P, MCP3008, AP2112, ESP32, RP2040, PCA9685, BME280, NCP1117, and
 PCF8574, ISL1208, CAT24C32, MCP2561/2, MCP23017/23S17, MCP2515, MCP4725,
 MCP73831, W5500, MCP9808, MCP9600, PAC1934, MCP8024, BMI160, 74HC595,
-VO617A, CP2102N, LAN8720A, and mXT336T. Its 209 cases include positive
+VO617A, CP2102N, LAN8720A, and mXT336T) plus five pre-registered calibration
+families: 74HC165, INA219, MCP7940N, TMP117, and USB2514B. Its 244 cases include positive
 pinout/table/package evidence and explicit package, variant, view, and figure
 adversaries. All 30 exact-hash families were rendered into local contact
 sheets and inspected under the repository owner's explicit authorization. The
-source-free agent decision packets accept all 209 cases and identify the
+source-free agent decision packets accept all 244 cases and identify the
 reviewer as `agent:codex-gpt5`; this is not independent human annotation. Every
-family remains development-only, cannot enter calibration/evaluation, and is
-not held-out accuracy evidence. PDF and contact-sheet bytes remain excluded
-from Git.
+first 30 families remain development-only; the five calibration families are
+isolated from evaluation and may only fit/freeze policy through the two-stage
+workflow. The five pre-registered evaluation families remain outside the
+registry until their annotations are audited, and no evaluation score has been
+generated. PDF and contact-sheet bytes remain excluded from Git.
 
 Run a frozen comparator against the registry:
 
