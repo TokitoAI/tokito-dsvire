@@ -210,6 +210,12 @@ def test_published_fourteen_family_review_packet_is_valid_but_stale_after_correc
             1,
             7,
         ),
+        (
+            "visual-registry-mcp73831-w5500-agent-2026-08-12",
+            "ab32da9b3c2ea9aa9b2d0beca9c45f6b2840ea371d7d6a58e4085350d6795f8e",
+            2,
+            14,
+        ),
     ],
 )
 def test_committed_agent_audit_is_packet_bound_and_explicit(

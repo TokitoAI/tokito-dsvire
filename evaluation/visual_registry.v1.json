@@ -886,6 +886,48 @@
         {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 2, "bbox_norm": [0.07, 0.08, 0.60, 0.42], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "The package diagram uses conventional top-view lead numbering; a bottom-view claim reverses it."},
         {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 1, "bbox_norm": [0.07, 0.33, 0.60, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP4725A0T-E/CH", "package": "SOT-23-6"}, "rationale": "The crop is the DAC/EEPROM/I2C functional block diagram, not a package pinout."}
       ]
+    },
+    {
+      "id": "microchip-mcp73831-ds20001984h-2020",
+      "document_group": "microchip-mcp73831-family",
+      "split": "development",
+      "category": "battery_charger",
+      "source": {"url": "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP73831-Family-Data-Sheet-DS20001984H.pdf", "revision": "DS20001984H, 2020"},
+      "content_sha256": "75297f2a5235599368381adfb63df2652cc22d757f171f388147b2ab3d32776f",
+      "redistribution": "download_only",
+      "license_note": "Official Microchip data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "SOT-23-5"},
+      "review": {"status": "reviewed", "reviewers": ["agent:codex-gpt5"], "reviewed_at": "2026-08-12T12:25:00Z", "annotation_revision": "agent-seed-corpus-expansion-9@2026-08-12"},
+      "cases": [
+        {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 1, "bbox_norm": [0.57, 0.53, 0.94, 0.83], "view": "top", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "SOT-23-5"}, "rationale": "The MCP73831/2 SOT-23-5 diagram maps STAT, VSS, VBAT, VDD, and PROG."},
+        {"id": "table-positive", "label": "positive", "region_type": "table", "page": 11, "bbox_norm": [0.07, 0.08, 0.94, 0.42], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "SOT-23-5"}, "rationale": "Table 3-1 maps every SOT-23-5 pin to the charger signal and function."},
+        {"id": "package-positive", "label": "positive", "region_type": "package", "page": 22, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "SOT-23-5"}, "rationale": "The drawing is the five-lead OT SOT-23 mechanical outline selected by the /OT suffix."},
+        {"id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 22, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "DFN-8 2x3"}, "rationale": "The selected drawing is SOT-23-5 /OT, not the 2x3 DFN-8 /MC package."},
+        {"id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 26, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73832T-2ACI/OT", "package": "SOT-23-5"}, "rationale": "The product system distinguishes MCP73831 tri-state STAT from the MCP73832 open-drain STAT variant."},
+        {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 1, "bbox_norm": [0.57, 0.53, 0.94, 0.83], "view": "bottom", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "SOT-23-5"}, "rationale": "The conventional SOT-23 diagram uses top-view lead numbering; a bottom-view claim reverses it."},
+        {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 2, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "Microchip Technology", "mpn": "MCP73831T-2ACI/OT", "package": "SOT-23-5"}, "rationale": "The crop is the charge-controller functional block diagram, not a package pinout."}
+      ]
+    },
+    {
+      "id": "wiznet-w5500-v1-1-0-2022-12",
+      "document_group": "wiznet-w5500-family",
+      "split": "development",
+      "category": "ethernet_controller",
+      "source": {"url": "https://docs.wiznet.io/img/products/w5500/W5500_ds_v110e.pdf", "revision": "Version 1.1.0, 17 December 2022"},
+      "content_sha256": "7b826b808084ccd986bcc22904c00a07a508ef42fb93d079fe7150a4c4f1a63d",
+      "redistribution": "download_only",
+      "license_note": "Official WIZnet data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "LQFP-48 7x7 mm"},
+      "review": {"status": "reviewed", "reviewers": ["agent:codex-gpt5"], "reviewed_at": "2026-08-12T12:25:00Z", "annotation_revision": "agent-seed-corpus-expansion-10@2026-08-12"},
+      "cases": [
+        {"id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 7, "bbox_norm": [0.07, 0.08, 0.94, 0.76], "view": "top", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "LQFP-48 7x7 mm"}, "rationale": "Figure 1 maps all 48 W5500 LQFP pins around the package in top view."},
+        {"id": "table-positive", "label": "positive", "region_type": "table", "page": 8, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "LQFP-48 7x7 mm"}, "rationale": "Table 2 begins the bounded W5500 pin-description mapping for PHY, analog supply, and reference pins."},
+        {"id": "package-positive", "label": "positive", "region_type": "package", "page": 64, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "LQFP-48 7x7 mm"}, "rationale": "Figure 26 is the current W5500 48-lead LQFP mechanical package drawing."},
+        {"id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 64, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "QFN-48 7x7 mm"}, "rationale": "The official identity and drawing specify 48-lead LQFP, not QFN-48."},
+        {"id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 64, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5100S", "package": "LQFP-48 7x7 mm"}, "rationale": "W5100S is a neighboring WIZnet controller identity; this exact source and drawing are for W5500."},
+        {"id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 7, "bbox_norm": [0.07, 0.08, 0.94, 0.76], "view": "bottom", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "LQFP-48 7x7 mm"}, "rationale": "Figure 1 uses top-view counter-clockwise LQFP numbering; a bottom-view claim reverses it."},
+        {"id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 4, "bbox_norm": [0.07, 0.08, 0.94, 0.91], "view": "not_applicable", "claimed_identity": {"manufacturer": "WIZnet", "mpn": "W5500", "package": "LQFP-48 7x7 mm"}, "rationale": "The crop is the W5500 TCP/IP, memory, SPI, MAC, and PHY block diagram, not a package pinout."}
+      ]
     }
   ]
 }

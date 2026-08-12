@@ -1,0 +1,25 @@
+{
+  "authorization_note": "Repository owner explicitly authorized agent verification and merge in Codex task 019f652b-be20-7681-9e77-3179f1d72a93 on 2026-08-12.",
+  "decisions": [
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/pinout-positive", "note": "Exact source hash and complete SOT-23-5 target diagram inspected; adjacent clipped DFN is not the claimed target.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/table-positive", "note": "Exact source hash and complete SOT-23-5 pin-function mapping inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/package-positive", "note": "Exact source hash and five-lead OT SOT-23 drawing inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/wrong-package", "note": "Exact source hash and SOT-23-versus-DFN mismatch inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/wrong-variant", "note": "Exact source hash and MCP73831-versus-MCP73832 STAT behavior inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/wrong-view", "note": "Exact source hash and orientation adversary inspected.", "outcome": "accepted"},
+    {"case_id": "microchip-mcp73831-ds20001984h-2020/wrong-figure-block-as-pinout", "note": "Exact source hash and functional-block negative inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/pinout-positive", "note": "Exact source hash and complete 48LQFP pin assignment inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/table-positive", "note": "Exact source hash and bounded W5500 pin-description table inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/package-positive", "note": "Exact source hash and current W5500 LQFP drawing inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-package", "note": "Exact source hash and LQFP-versus-QFN mismatch inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-variant", "note": "Exact source hash and W5500-versus-W5100S identity mismatch inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-view", "note": "Exact source hash and orientation adversary inspected.", "outcome": "accepted"},
+    {"case_id": "wiznet-w5500-v1-1-0-2022-12/wrong-figure-block-as-pinout", "note": "Exact source hash and network-controller block-diagram negative inspected.", "outcome": "accepted"}
+  ],
+  "packet_sha256": "ab32da9b3c2ea9aa9b2d0beca9c45f6b2840ea371d7d6a58e4085350d6795f8e",
+  "registry_sha256": "e2e738b6d16eade34571549b062aa4ce80f25e945bb24085cbe42408c932675d",
+  "reviewed_at": "2026-08-12T12:25:00Z",
+  "reviewer": "agent:codex-gpt5",
+  "schema_version": "dsvire.visual-agent-review-decision.v1",
+  "verification_summary": {"cases": 14, "documents": 2, "exact_source_hashes": 2, "excluded_findings": []}
+}
