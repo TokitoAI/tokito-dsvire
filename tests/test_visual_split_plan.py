@@ -34,4 +34,5 @@ def test_held_out_split_plan_is_frozen_before_scoring() -> None:
 
     result_files = list((root / "evaluation/results").glob("*.json"))
     serialized_results = "\n".join(path.read_text() for path in result_files)
-    assert not any(family["id"] in serialized_results for family in families)
+    assert not any(family["id"] in serialized_results for family in evaluation)
+    assert all(family["id"] in serialized_results for family in calibration)

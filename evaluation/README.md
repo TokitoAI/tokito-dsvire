@@ -165,6 +165,18 @@ python scripts/evaluate_visual.py \
   --json-out visual-openclip.json
 ```
 
+The committed calibration artifacts compare all three candidates on the five
+pre-registered calibration families. Text-layout and RapidOCR each fit a
+zero-adversary-accept threshold with 53.3% positive coverage, but text-layout
+completed in 0.799 seconds at 66.8 MB peak RSS versus RapidOCR's 176.244
+seconds at 814.0 MB. OpenCLIP completed inference in 10.588 seconds at 1.066 GB
+but reached only 6.7% positive coverage; its wrong-view mean similarity
+(0.65930) exceeded its positive mean (0.64534). The frozen candidate is
+therefore text-layout, selected on calibration accuracy, latency, memory, and
+operability. This does not authorize publication: the evaluation tranche has
+not been annotated or scored, and the policy remains subject to the held-out
+SLO.
+
 Calibration and evaluation must be scored into separate artifacts. Freeze the
 policy without exposing evaluation scores, then apply the immutable policy to
 the separately generated held-out artifact:
