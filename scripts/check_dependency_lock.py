@@ -20,6 +20,14 @@ def run(*args: str, quiet: bool = False) -> None:
     )
 
 
+def locks_equal(first: Path, second: Path) -> bool:
+    """Compare generated lock text without platform-specific newline noise."""
+    return (
+        first.read_text(encoding="utf-8").splitlines()
+        == second.read_text(encoding="utf-8").splitlines()
+    )
+
+
 def main() -> int:
     run("uv", "lock", "--check")
     with tempfile.TemporaryDirectory(prefix="dsvire-lock-") as directory:
@@ -37,7 +45,11 @@ def main() -> int:
             str(exported),
             quiet=True,
         )
-        if exported.read_bytes() != RUNTIME_LOCK.read_bytes():
+        # Git may check this generated text file out with CRLF on Windows while
+        # uv always exports LF. Compare decoded lines so platform newlines do
+        # not masquerade as dependency drift; every package/hash byte remains
+        # covered by the comparison.
+        if not locks_equal(exported, RUNTIME_LOCK):
             print(
                 "requirements/runtime.lock is stale; run "
                 "'uv export --locked --format requirements.txt --no-dev "

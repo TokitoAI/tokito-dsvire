@@ -36,7 +36,7 @@ class StageResult:
 Runner = Callable[..., subprocess.CompletedProcess[str]]
 
 
-def _stages(build_out: Path, robustness_out: Path) -> tuple[Stage, ...]:
+def _stages(build_out: Path, robustness_out: Path, license_out: Path) -> tuple[Stage, ...]:
     python = sys.executable
     return (
         Stage("dependency-lock", (python, "scripts/check_dependency_lock.py")),
@@ -52,6 +52,15 @@ def _stages(build_out: Path, robustness_out: Path) -> tuple[Stage, ...]:
                 "scripts/evaluate_robustness.py",
                 "--json-out",
                 str(robustness_out),
+            ),
+        ),
+        Stage(
+            "runtime-license-policy",
+            (
+                python,
+                "scripts/audit_runtime_licenses.py",
+                "--json-out",
+                str(license_out),
             ),
         ),
         Stage(
@@ -94,7 +103,8 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="dsvire-release-") as directory:
         build_out = Path(directory) / "dist"
         robustness_out = Path(directory) / "robustness.json"
-        for stage in _stages(build_out, robustness_out):
+        license_out = Path(directory) / "runtime-licenses.json"
+        for stage in _stages(build_out, robustness_out, license_out):
             started = time.perf_counter()
             completed = runner(
                 stage.command,
@@ -122,6 +132,28 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
             or not re.fullmatch(r"[0-9a-f]{64}", str(robustness.get("manifest_sha256", "")))
         ):
             raise ReleaseVerificationError("generated robustness evidence failed validation")
+        try:
+            license_audit = json.loads(license_out.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ReleaseVerificationError(
+                "runtime license policy did not emit valid evidence"
+            ) from exc
+        decisions = license_audit.get("legal_decisions")
+        if (
+            license_audit.get("schema_version") != "dsvire.runtime-license-audit.v1"
+            or license_audit.get("ok") is not True
+            or not isinstance(license_audit.get("release_ready"), bool)
+            or not isinstance(license_audit.get("runtime_package_count"), int)
+            or license_audit["runtime_package_count"] < 1
+            or not isinstance(decisions, list)
+            or any(
+                not isinstance(item, dict)
+                or not isinstance(item.get("name"), str)
+                or not isinstance(item.get("version"), str)
+                for item in decisions
+            )
+        ):
+            raise ReleaseVerificationError("runtime license evidence failed validation")
     return {
         "schema_version": "dsvire.release-verification.v1",
         "ok": True,
@@ -132,7 +164,15 @@ def verify_release(*, runner: Runner = subprocess.run) -> dict[str, Any]:
                 "schema_version": robustness["schema_version"],
                 "manifest_sha256": robustness["manifest_sha256"],
                 "case_count": robustness["case_count"],
-            }
+            },
+            "runtime_licenses": {
+                "schema_version": license_audit["schema_version"],
+                "release_ready": license_audit["release_ready"],
+                "runtime_package_count": license_audit["runtime_package_count"],
+                "legal_decisions": [
+                    {"name": item["name"], "version": item["version"]} for item in decisions
+                ],
+            },
         },
     }
 

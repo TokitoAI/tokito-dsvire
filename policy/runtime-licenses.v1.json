@@ -1,0 +1,40 @@
+{
+  "schema_version": "dsvire.runtime-license-policy.v1",
+  "reviewed_at": "2026-08-12",
+  "allowed_expressions": ["Apache-2.0", "BSD-3-Clause", "MIT", "MIT-CMU", "PSF-2.0"],
+  "packages": [
+    {"name":"annotated-doc","version":"0.0.5","license":"MIT","status":"allowed"},
+    {"name":"annotated-types","version":"0.8.0","license":"MIT","status":"allowed"},
+    {"name":"anyio","version":"4.14.2","license":"MIT","status":"allowed"},
+    {"name":"click","version":"8.4.2","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"colorama","version":"0.4.6","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"fastapi","version":"0.141.1","license":"MIT","status":"allowed"},
+    {"name":"filelock","version":"3.32.2","license":"MIT","status":"allowed"},
+    {"name":"h11","version":"0.16.0","license":"MIT","status":"allowed"},
+    {"name":"httptools","version":"0.8.0","license":"MIT","status":"allowed"},
+    {"name":"idna","version":"3.18","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"pillow","version":"12.3.0","license":"MIT-CMU","status":"allowed"},
+    {"name":"pydantic","version":"2.13.4","license":"MIT","status":"allowed"},
+    {"name":"pydantic-core","version":"2.46.4","license":"MIT","status":"allowed"},
+    {
+      "name":"pymupdf",
+      "version":"1.28.2",
+      "license":"AGPL-3.0-or-later OR LicenseRef-Artifex-Commercial",
+      "status":"requires_legal_decision",
+      "exception_expires":"2026-09-30",
+      "owner":"TokitoAI",
+      "evidence":"https://pymupdf.readthedocs.io/en/latest/about.html#license-and-copyright",
+      "obligations":"Before a production release, record either a valid Artifex commercial license covering the deployed service or counsel-approved AGPL-3.0-or-later compliance, including Corresponding Source and network-use obligations. This technical exception is not legal approval."
+    },
+    {"name":"pypdf","version":"6.15.0","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"python-dotenv","version":"1.2.2","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"pyyaml","version":"6.0.3","license":"MIT","status":"allowed"},
+    {"name":"starlette","version":"1.6.0","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"typing-extensions","version":"4.16.0","license":"PSF-2.0","status":"allowed"},
+    {"name":"typing-inspection","version":"0.4.3","license":"MIT","status":"allowed"},
+    {"name":"uvicorn","version":"0.52.1","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"uvloop","version":"0.22.1","license":"MIT","status":"allowed"},
+    {"name":"watchfiles","version":"1.2.0","license":"MIT","status":"allowed"},
+    {"name":"websockets","version":"17.0.1","license":"BSD-3-Clause","status":"allowed"}
+  ]
+}
