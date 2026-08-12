@@ -179,9 +179,9 @@ def test_committed_thirteen_family_review_packet_matches_current_registry() -> N
     assert packet["registry_sha256"] == registry.content_sha256
     assert len(packet["documents"]) == len(registry.documents) == 13
     assert sum(len(document["cases"]) for document in packet["documents"]) == 90
-    assert {
-        document["id"] for document in packet["documents"]
-    } == {document.document_id for document in registry.documents}
+    assert {document["id"] for document in packet["documents"]} == {
+        document.document_id for document in registry.documents
+    }
 
 
 def test_complete_named_human_review_applies_to_exact_registry_revision() -> None:
