@@ -727,6 +727,65 @@
           "rationale": "Figure 8 is an I2C write-mode timing diagram, not a package pinout. Independent review pending."
         }
       ]
+    },
+    {
+      "id": "renesas-isl1208-rev-9-01-2022-07",
+      "document_group": "renesas-isl1208-family",
+      "split": "development",
+      "category": "real_time_clock",
+      "source": {
+        "url": "https://www.renesas.com/en/document/dst/isl1208-datasheet?r=528396",
+        "revision": "FN8085 Revision 9.01, 15 July 2022"
+      },
+      "content_sha256": "73335397f3926212bcb1d64a0aa6b301af400b3adab1f67953751db49772921c",
+      "redistribution": "download_only",
+      "license_note": "Official Renesas data sheet; URL, hash, and annotations only; PDF bytes are not redistributed.",
+      "identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
+      "review": {"status": "unreviewed", "reviewers": [], "reviewed_at": null, "annotation_revision": "auto-seed-corpus-expansion-3@2026-08-12"},
+      "cases": [
+        {
+          "id": "pinout-positive", "label": "positive", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.16, 0.08, 0.45, 0.25], "view": "top",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
+          "rationale": "The left pinout explicitly covers the ISL1208 8-lead MSOP/SOIC top view used by ISL1208IB8Z. Independent review pending."
+        },
+        {
+          "id": "table-positive", "label": "positive", "region_type": "table", "page": 3,
+          "bbox_norm": [0.08, 0.29, 0.92, 0.59], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
+          "rationale": "The pin-description table maps all eight ISL1208 signals and functions. Independent review pending."
+        },
+        {
+          "id": "package-positive", "label": "positive", "region_type": "package", "page": 24,
+          "bbox_norm": [0.08, 0.08, 0.92, 0.91], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
+          "rationale": "M8.15E is the 8-lead narrow-body SOIC package outline registered for ISL1208IB8Z. Independent review pending."
+        },
+        {
+          "id": "wrong-package", "label": "wrong_package", "region_type": "package", "page": 24,
+          "bbox_norm": [0.08, 0.08, 0.92, 0.91], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "TDFN-8"},
+          "rationale": "The crop is the M8.15E SOIC-8 outline, not the L8.3x3A TDFN-8 option. Independent review pending."
+        },
+        {
+          "id": "wrong-variant", "label": "wrong_variant", "region_type": "package", "page": 24,
+          "bbox_norm": [0.08, 0.08, 0.92, 0.91], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL12022IB8Z", "package": "SOIC-8"},
+          "rationale": "ISL12022IB8Z is a neighboring RTC identity absent from this ISL1208 datasheet. Independent review pending."
+        },
+        {
+          "id": "wrong-view", "label": "wrong_view", "region_type": "pinout", "page": 3,
+          "bbox_norm": [0.16, 0.08, 0.45, 0.25], "view": "bottom",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
+          "rationale": "The pinout is explicitly labelled TOP VIEW; a bottom-view claim reverses lead numbering. Independent review pending."
+        },
+        {
+          "id": "wrong-figure-block-as-pinout", "label": "wrong_figure", "region_type": "pinout", "page": 2,
+          "bbox_norm": [0.16, 0.08, 0.84, 0.39], "view": "not_applicable",
+          "claimed_identity": {"manufacturer": "Renesas Electronics", "mpn": "ISL1208IB8Z", "package": "SOIC-8"},
+          "rationale": "Figure 2 is the RTC functional block diagram, not a package pinout. Independent review pending."
+        }
+      ]
     }
   ]
 }

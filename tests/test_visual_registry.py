@@ -231,7 +231,7 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
     path = root / "evaluation/visual_registry.v1.json"
     registry = load_visual_registry_data(json.loads(path.read_text(encoding="utf-8")))
 
-    assert len(registry.documents) == 12
+    assert len(registry.documents) == 13
     assert {document.split for document in registry.documents} == {"development"}
     assert {document.review.status for document in registry.documents} == {"unreviewed"}
     assert {document.category for document in registry.documents} == {
@@ -244,8 +244,9 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "led_driver",
         "environmental_sensor",
         "gpio_expander",
+        "real_time_clock",
     }
-    assert len({document.identity.manufacturer for document in registry.documents}) >= 9
+    assert len({document.identity.manufacturer for document in registry.documents}) >= 10
     assert all(document.redistribution == "download_only" for document in registry.documents)
     assert all(len(document.cases) >= 6 for document in registry.documents)
     assert not list((root / "evaluation").glob("*.pdf"))
@@ -267,6 +268,10 @@ def test_committed_visual_seed_is_strict_unreviewed_development_data_only() -> N
         "nxp-pcf8574-rev-5-2013-05": (
             "15873fa13e8b9e3baeb924cc5ce845eabf0e1d2671a441feaaa3c4bb56e77013",
             "PCF8574T/3",
+        ),
+        "renesas-isl1208-rev-9-01-2022-07": (
+            "73335397f3926212bcb1d64a0aa6b301af400b3adab1f67953751db49772921c",
+            "ISL1208IB8Z",
         ),
     }
     for document_id, (content_sha256, mpn) in expected_expansion.items():
