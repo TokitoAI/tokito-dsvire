@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import hashlib
 import io
 import json
@@ -29,7 +30,7 @@ CARD_SIZE = (940, 700)
 SHEET_COLUMNS = 2
 _SAFE_FILENAME = re.compile(r"[^a-zA-Z0-9._-]+")
 _SHA256 = re.compile(r"[0-9a-f]{64}")
-REVIEW_PACKET_VERSION = "dsvire.visual-review-packet.v1"
+REVIEW_PACKET_VERSION = "dsvire.visual-review-packet.v2"
 REVIEW_DECISION_VERSION = "dsvire.visual-review-decision.v1"
 MAX_GITHUB_REVIEW_BYTES = 1_000_000
 _GITHUB_REVIEW_URL = re.compile(
@@ -45,6 +46,11 @@ class VisualReviewError(ValueError):
 def _canonical_sha256(value: object) -> str:
     encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
     return hashlib.sha256(encoded).hexdigest()
+
+
+def _annotation_sha256(document: VisualDocument) -> str:
+    """Bind every registry-owned field for one annotation, including review state."""
+    return _canonical_sha256(dataclasses.asdict(document))
 
 
 def _strict(value: Mapping[str, Any], keys: set[str], context: str) -> None:
@@ -277,6 +283,7 @@ def build_review_packet(
                 "id": annotation.document_id,
                 "source_sha256": annotation.content_sha256,
                 "annotation_revision": annotation.review.annotation_revision,
+                "annotation_sha256": _annotation_sha256(annotation),
                 "cases": cases,
             }
         )
@@ -310,13 +317,18 @@ def load_review_packet_data(value: Any) -> dict[str, object]:
         context = f"review packet.documents[{index}]"
         if not isinstance(document, Mapping):
             raise VisualReviewError(f"{context} must be an object")
-        _strict(document, {"id", "source_sha256", "annotation_revision", "cases"}, context)
+        _strict(
+            document,
+            {"id", "source_sha256", "annotation_revision", "annotation_sha256", "cases"},
+            context,
+        )
         document_id = _text(document["id"], f"{context}.id")
         if document_id in document_ids:
             raise VisualReviewError(f"duplicate review document ID: {document_id}")
         document_ids.add(document_id)
         _digest(document["source_sha256"], f"{context}.source_sha256")
         _text(document["annotation_revision"], f"{context}.annotation_revision")
+        _digest(document["annotation_sha256"], f"{context}.annotation_sha256")
         cases = document["cases"]
         if not isinstance(cases, list) or not cases:
             raise VisualReviewError(f"{context}.cases must be a non-empty array")
@@ -456,13 +468,16 @@ def apply_review_decision(
     *,
     provenance_loader: Callable[[str], Mapping[str, Any]],
 ) -> dict[str, object]:
-    """Apply an all-accepted decision to the exact registry revision."""
+    """Apply an all-accepted decision if every packet annotation is unchanged.
+
+    The registry may have gained unrelated documents since packet creation. The
+    per-document digest prevents any mutation of the reviewed annotations while
+    allowing that append-only corpus growth.
+    """
     registry = load_visual_registry_data(registry_data)
     packet = load_review_packet_data(packet_data)
     decision = load_review_decision_data(decision_data, packet)
     verify_github_review_provenance(decision, provenance_loader)
-    if registry.content_sha256 != packet["registry_sha256"]:
-        raise VisualReviewError("current registry does not match reviewed registry digest")
     decisions = cast(list[dict[str, Any]], decision["decisions"])
     rejected = [item["case_id"] for item in decisions if item["outcome"] == "rejected"]
     if rejected:
@@ -470,6 +485,13 @@ def apply_review_decision(
 
     packet_documents = cast(list[dict[str, Any]], packet["documents"])
     selected = {document["id"]: document for document in packet_documents}
+    current = {document.document_id: document for document in registry.documents}
+    missing = sorted(set(selected) - set(current))
+    if missing:
+        raise VisualReviewError(f"reviewed documents are missing from current registry: {missing}")
+    for document_id, expected_annotation in selected.items():
+        if _annotation_sha256(current[document_id]) != expected_annotation["annotation_sha256"]:
+            raise VisualReviewError(f"{document_id}: annotation drifted after review")
     output = cast(dict[str, Any], json.loads(json.dumps(registry_data)))
     for document in output["documents"]:
         packet_document = selected.get(document["id"])
