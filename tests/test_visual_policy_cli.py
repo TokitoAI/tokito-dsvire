@@ -80,7 +80,9 @@ def test_committed_registry_materializes_only_reviewed_pre_registered_calibratio
     registry = json.loads((root / "evaluation/visual_registry.v1.json").read_text())
     plan = json.loads((root / "evaluation/visual_split_plan.v1.json").read_text())
     planned = {family["id"]: family for family in plan["families"]}
-    calibration = [document for document in registry["documents"] if document["split"] == "calibration"]
+    calibration = [
+        document for document in registry["documents"] if document["split"] == "calibration"
+    ]
     assert len(calibration) == 5
     assert not any(document["split"] == "evaluation" for document in registry["documents"])
     for document in calibration:
