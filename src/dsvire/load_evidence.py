@@ -29,6 +29,7 @@ from .robustness import _born_digital
 
 SCHEMA_VERSION = "dsvire.service-load-evidence.v1"
 WORKLOAD_VERSION = "dsvire.generated-http-load@1.0.0"
+UNKNOWN_COMMIT = "unknown"
 TOKEN = "load-evidence-service-token-at-least-32-bytes"
 IDENTITY = {
     "manufacturer": "Acme",
@@ -185,7 +186,11 @@ def _workload(cold_requests: int, warm_requests: int, overload_requests: int) ->
 
 
 async def run_service_load(
-    *, cold_requests: int = 3, warm_requests: int = 6, overload_requests: int = 6
+    *,
+    cold_requests: int = 3,
+    warm_requests: int = 6,
+    overload_requests: int = 6,
+    source_commit: str = UNKNOWN_COMMIT,
 ) -> dict[str, Any]:
     """Run cold, warm-cache, and overload phases through a real Uvicorn process."""
     for name, value in (
@@ -288,6 +293,7 @@ async def run_service_load(
             "schema_version": SCHEMA_VERSION,
             "ok": True,
             "implementation": {
+                "source_commit": source_commit,
                 "dsvire_version": __version__,
                 "index_version": INDEX_VERSION,
                 "python": platform.python_version(),

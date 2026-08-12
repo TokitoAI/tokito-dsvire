@@ -14,6 +14,7 @@ def main() -> int:
     parser.add_argument("--cold-requests", type=int, default=3)
     parser.add_argument("--warm-requests", type=int, default=6)
     parser.add_argument("--overload-requests", type=int, default=6)
+    parser.add_argument("--source-commit", default="unknown")
     parser.add_argument("--json-out", type=Path, required=True)
     args = parser.parse_args()
     try:
@@ -22,6 +23,7 @@ def main() -> int:
                 cold_requests=args.cold_requests,
                 warm_requests=args.warm_requests,
                 overload_requests=args.overload_requests,
+                source_commit=args.source_commit,
             )
         )
     except LoadEvidenceError as exc:

@@ -54,6 +54,7 @@ jobs:
         run: >-
           uv run --frozen --no-sync python scripts/evaluate_service_load.py
           --cold-requests 2 --warm-requests 4 --overload-requests 6
+          --source-commit "$GITHUB_SHA"
           --json-out service-load-evidence.json
       - name: Publish service load evidence
         if: always()

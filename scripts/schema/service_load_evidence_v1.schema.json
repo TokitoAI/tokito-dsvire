@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.dev/schemas/dsvire/service-load-evidence-v1.json",
+  "title": "DS-ViRe service load evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "ok", "implementation", "workload", "service_config", "phases", "totals", "slo_mapping", "samples"],
+  "properties": {
+    "schema_version": {"const": "dsvire.service-load-evidence.v1"},
+    "ok": {"const": true},
+    "implementation": {
+      "type": "object",
+      "required": ["source_commit", "dsvire_version", "index_version", "python", "platform", "cpu_count"],
+      "properties": {
+        "source_commit": {"type": "string", "minLength": 7, "maxLength": 64},
+        "dsvire_version": {"type": "string", "minLength": 1},
+        "index_version": {"type": "string", "minLength": 1},
+        "python": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1},
+        "cpu_count": {"type": ["integer", "null"], "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "workload": {
+      "type": "object",
+      "required": ["version", "sha256", "source", "cold_requests", "warm_requests", "overload_requests"],
+      "properties": {
+        "version": {"const": "dsvire.generated-http-load@1.0.0"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source": {"const": "deterministic generated PDF; no vendor bytes"},
+        "cold_requests": {"type": "integer", "minimum": 1},
+        "warm_requests": {"type": "integer", "minimum": 1},
+        "overload_requests": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "service_config": {"type": "object"},
+    "phases": {
+      "type": "object",
+      "required": ["cold", "warm", "overload"],
+      "properties": {
+        "cold": {"$ref": "#/$defs/phase"},
+        "warm": {"$ref": "#/$defs/phase"},
+        "overload": {"$ref": "#/$defs/phase"}
+      },
+      "additionalProperties": false
+    },
+    "totals": {
+      "type": "object",
+      "required": ["requests", "successful", "overload_rejections", "unexpected", "peak_process_tree_rss_bytes", "published_packs", "published_bytes", "scratch_entries_after_shutdown", "partial_entries_after_shutdown"],
+      "properties": {
+        "requests": {"type": "integer", "minimum": 3},
+        "successful": {"type": "integer", "minimum": 3},
+        "overload_rejections": {"type": "integer", "minimum": 1},
+        "unexpected": {"const": 0},
+        "peak_process_tree_rss_bytes": {"type": "integer", "minimum": 1},
+        "published_packs": {"type": "integer", "minimum": 3},
+        "published_bytes": {"type": "integer", "minimum": 1},
+        "scratch_entries_after_shutdown": {"const": 0},
+        "partial_entries_after_shutdown": {"const": 0}
+      },
+      "additionalProperties": false
+    },
+    "slo_mapping": {
+      "type": "object",
+      "required": ["technical_bible_hot_pack_query_p95_ms", "verdict", "reason"],
+      "properties": {
+        "technical_bible_hot_pack_query_p95_ms": {"const": 800},
+        "verdict": {"const": "not_applicable"},
+        "reason": {"type": "string", "minLength": 40}
+      },
+      "additionalProperties": false
+    },
+    "samples": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/sample"}}
+  },
+  "$defs": {
+    "latency": {
+      "type": "object",
+      "required": ["min", "p50", "p95", "p99", "max"],
+      "properties": {"min": {"type": "number", "minimum": 0}, "p50": {"type": "number", "minimum": 0}, "p95": {"type": "number", "minimum": 0}, "p99": {"type": "number", "minimum": 0}, "max": {"type": "number", "minimum": 0}},
+      "additionalProperties": false
+    },
+    "phase": {
+      "type": "object",
+      "required": ["requests", "statuses", "latency_ms", "elapsed_seconds", "throughput_requests_per_second", "response_bytes"],
+      "properties": {"requests": {"type": "integer", "minimum": 1}, "statuses": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}, "latency_ms": {"$ref": "#/$defs/latency"}, "elapsed_seconds": {"type": "number", "exclusiveMinimum": 0}, "throughput_requests_per_second": {"type": "number", "exclusiveMinimum": 0}, "response_bytes": {"type": "integer", "minimum": 1}},
+      "additionalProperties": false
+    },
+    "sample": {
+      "type": "object",
+      "required": ["phase", "request_id", "status", "elapsed_ms", "response_bytes"],
+      "properties": {"phase": {"enum": ["cold", "warm", "overload"]}, "request_id": {"type": "string", "minLength": 1}, "status": {"enum": [200, 503]}, "elapsed_ms": {"type": "number", "minimum": 0}, "response_bytes": {"type": "integer", "minimum": 1}},
+      "additionalProperties": false
+    }
+  }
+}
