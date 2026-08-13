@@ -1,8 +1,10 @@
 # Dependency locks
 
 DS-ViRe uses one committed universal `uv.lock` for Python 3.11+ on supported
-platforms. Runtime, test, visual, and OpenCLIP extras are resolved together, so
+platforms. Runtime and compatible extras are resolved in one universal lock, so
 an optional benchmark cannot silently select a different shared dependency.
+The OpenCLIP and ColSmol extras are explicitly mutually exclusive because their
+verified Torch lines differ; `uv` refuses an environment that requests both.
 
 CI and release jobs install uv 0.12.3 through a commit-pinned setup action,
 verify that `pyproject.toml` would not change the lock, and install with
@@ -34,6 +36,20 @@ For an OpenCLIP dependency update, also install `--extra openclip` and run the
 manual visual benchmark workflow. Review the complete lock diff, not only the
 direct dependency line. A dependency PR must include any changed benchmark
 evidence and must pass the container boundary tests.
+
+For a ColSmol update, preserve exact pins for ColPali Engine, Transformers,
+PEFT, Hugging Face Hub, Torch, and Torchvision, then regenerate its reviewable export:
+
+```bash
+uv export --locked --no-dev --extra colsmol --no-emit-project --no-hashes \
+  --output-file requirements/colsmol.lock
+uv sync --locked --extra test --extra colsmol
+uv run --frozen --no-sync pip-audit --local --strict
+```
+
+`requirements/colsmol.lock` is audit evidence, not an image input and not a
+substitute for `uv.lock`; model indexing is deliberately absent from the thin
+production service image. Never resolve ColSmol and OpenCLIP together.
 
 Every runtime lock change must also update
 `policy/runtime-licenses.v1.json` with the exact normalized package/version and

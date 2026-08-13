@@ -28,6 +28,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Full-corpus query baseline | The identity-assisted text/layout baseline ranks all 209 registered development candidates for each of 90 queries (18,810 pairs): nDCG@5 0.963, R@5 1.000, mAP/MRR 0.950. This is deterministic-template development evidence, not held-out accuracy. |
 | Unscoped visual baseline | Pinned OpenCLIP ranks the same 18,810 pairs from raw query text and pixels only: nDCG@5 0.141, R@5 0.189, mAP/MRR 0.152. Pinouts reach 0.342 nDCG@5; tables reach 0.021. Generic global CLIP is not the planned hybrid late-interaction system. |
 | Hybrid query core | `dsvire.retrieval-pack.v1` validates content/model/provenance and real dense/multi-vector payloads. The metadata-blind core runs BM25 + dense retrieval, deterministic RRF, then exact MaxSim on a hard-capped candidate set. An exact-registry 209-region/90-query synthetic-vector capacity run records 45.39 ms p95 and 9.24 MB traced peak allocation; this is core evidence, not model accuracy. |
+| ColSmol integration | The exact MIT ColSmol-256M adapter/base revisions and every required file are frozen in `evaluation/models/colsmol-256m.v1.json`. Acquisition verifies size and SHA-256 before atomic offline materialization; the encoder emits genuine 128-dimensional crop/query multi-vectors. The full-corpus development runner is implemented, but no accuracy result is claimed until a GPU run and independent reproduction complete. |
 | Tokito Wave D integration | Seeded acceptance crosses authenticated Cloud ingestion, immutable generated SQLite, catalog sync, MCP streamable HTTP resolve/provenance, and Desktop place/save/reopen with exact compiler bytes. See [`examples/wave-d-acceptance.json`](examples/wave-d-acceptance.json). |
 
 ## Start here
@@ -94,6 +95,24 @@ Development and release environments are resolved from the committed universal
 `uv.lock`. Use uv 0.12.3 and follow
 [`docs/DEPENDENCY_LOCKS.md`](docs/DEPENDENCY_LOCKS.md) when changing a dependency;
 CI rejects stale locks and stale container exports.
+
+The ColSmol indexer is an optional, mutually exclusive runtime profile because
+its verified Torch 2.13 stack differs from the OpenCLIP comparator's Torch
+line. Model bytes are download-only and never committed:
+
+```bash
+uv sync --locked --extra colsmol
+python scripts/acquire_model.py --manifest evaluation/models/colsmol-256m.v1.json \
+  --destination .cache/colsmol-offline
+python scripts/evaluate_full_corpus_colsmol.py --device cuda \
+  --model-root .cache/colsmol-offline --cache-root .cache/dsvire-eval \
+  --offline --json-out colsmol-development.json
+```
+
+The runner ranks the complete development universe. Exact MaxSim is limited to
+the top 32 candidates from BM25+dense RRF; the remaining candidates retain the
+deterministic fused order. This mirrors Technical Bible section 7.2 rather than
+running unbounded MaxSim over the corpus.
 
 Run the same aggregate gate used by CI and tagged releases with:
 

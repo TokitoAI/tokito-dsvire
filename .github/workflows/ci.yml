@@ -26,6 +26,16 @@ jobs:
           version: '0.12.3'
           enable-cache: true
       - run: uv sync --locked --extra test --extra visual
+      - name: Validate pinned model boundary without downloading weights
+        run: >-
+          uv run --frozen --no-sync pytest -q
+          tests/test_model_manifest.py tests/test_acquire_model.py
+          tests/test_colsmol_encoder.py tests/test_hybrid_query.py
+      - name: Audit frozen ColSmol indexing profile
+        run: >-
+          uv run --frozen --no-sync pip-audit
+          --requirement requirements/colsmol.lock
+          --no-deps --disable-pip --strict
       - name: Run release-wide verification
         run: >-
           uv run --frozen --no-sync python scripts/verify_release.py

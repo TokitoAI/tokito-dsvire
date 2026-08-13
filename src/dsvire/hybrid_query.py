@@ -44,6 +44,7 @@ class HybridResult:
     routed_types: tuple[str, str]
     considered: int
     maxsim_evaluated: int
+    prefiltered_region_ids: tuple[str, ...]
     hits: tuple[HybridHit, ...]
 
 
@@ -183,4 +184,13 @@ def hybrid_query(
         bm25_score, dense_score = score_by_id[region_id]
         rescored.append(HybridHit(region_id, score, bm25_score, dense_score, score))
     hits = tuple(sorted(rescored, key=lambda hit: (-hit.score, hit.region_id))[:limit])
-    return HybridResult(routed, len(fused), len(candidates), hits)
+    prefiltered = tuple(
+        sorted(
+            fused,
+            key=lambda region_id: (
+                -(fused[region_id] + (0.001 if by_id[region_id].region_type in routed else 0.0)),
+                region_id,
+            ),
+        )
+    )
+    return HybridResult(routed, len(fused), len(candidates), prefiltered, hits)
