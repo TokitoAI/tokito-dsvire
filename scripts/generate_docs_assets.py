@@ -228,7 +228,7 @@ def _staging_restart_load_svg(result: dict[str, Any]) -> str:
             ]
         )
     source = result["source"]
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
   <title id="title">Tokito Cloud DS-ViRe staging restart saturation evidence</title>
   <desc id="desc">Aggregate source-free staging results for multi-tenant admission, restart recovery, cleanup, isolation, and idempotency.</desc>
   <rect width="1200" height="720" rx="28" fill="#090b10"/>
@@ -246,7 +246,7 @@ def _staging_restart_load_svg(result: dict[str, Any]) -> str:
   <text x="64" y="668" class="foot">Run {source["workflow_run"]} · commit {source["commit"][:8]} · Cloud {source["release"]} · deterministic private fixture · aggregate source-free evidence</text>
   <text x="64" y="696" class="foot">Not vendor/provider capacity, soak/availability, retrieval quality, production enablement, or the Technical Bible hot-query SLO.</text>
 </svg>
-'''
+"""
 
 
 def _coverage_svg(result: dict[str, Any]) -> str:
