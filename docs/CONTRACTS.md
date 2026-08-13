@@ -1,7 +1,7 @@
 # Pipeline contracts
 
-**Status:** versioned production boundary; v2 rollout in progress
-**Updated:** 2026-08-11
+**Status:** versioned production boundary; v2 current
+**Updated:** 2026-08-13
 **Home for Rust definitions:** `tokito-catalog::pipeline`
 
 This file is the source of truth for the wire types between DS-ViRe, the extractor, the compiler, the ingestion service, and the MCP read surface. Every producer and consumer must reject unknown fields.
@@ -26,7 +26,7 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
   },
   "identity_verification": {
     "method": "exact_text_orderable_part",
-    "policy_version": "dsvire.identity-text@1.0.0",
+    "policy_version": "dsvire.identity-text@2.0.0",
     "outcome": "accepted",
     "manufacturer_observed": true,
     "exact_mpn_observed": true,
@@ -43,7 +43,7 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
       "content_hash": "sha256:aa...",
       "verification": {
         "method": "text_layout_heuristic",
-        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "policy_version": "dsvire.region-text-layout@2.0.0",
         "outcome": "accepted",
         "score": 0.97,
         "score_semantics": "heuristic_evidence_strength"
@@ -59,7 +59,7 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
       "content_hash": "sha256:bb...",
       "verification": {
         "method": "text_layout_heuristic",
-        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "policy_version": "dsvire.region-text-layout@2.0.0",
         "outcome": "accepted",
         "score": 0.94,
         "score_semantics": "heuristic_evidence_strength"
@@ -74,7 +74,7 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
       "content_hash": "sha256:cc...",
       "verification": {
         "method": "text_layout_heuristic",
-        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "policy_version": "dsvire.region-text-layout@2.0.0",
         "outcome": "accepted",
         "score": 1.0,
         "score_semantics": "heuristic_evidence_strength"
@@ -82,8 +82,8 @@ Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
     }
   ],
   "retrieval": {
-    "index_version": "dsvire-index@0.1.0",
-    "model_ids": ["colqwen2-v1.0", "doclayout-yolo@abcd"],
+    "index_version": "dsvire-baseline@0.4.0",
+    "model_ids": ["pdfium@754f2dc4fc47", "pypdf@6.7.0"],
     "query_ids": ["q_pinout", "q_pin_table"]
   }
 }

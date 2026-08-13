@@ -1,7 +1,7 @@
 # Tokito datasheet-to-symbol product pipeline
 
 **Status:** product architecture contract  
-**Updated:** 2026-08-08
+**Updated:** 2026-08-13
 
 This document defines how DS-ViRe evidence becomes a native, cataloged Tokito
 symbol. The hackathon is the first delivery milestone for this product, not a
@@ -96,7 +96,7 @@ The generator receives typed evidence, never a raw unbounded PDF dump.
   },
   "identity_verification": {
     "method": "exact_text_orderable_part",
-    "policy_version": "dsvire.identity-text@1.0.0",
+    "policy_version": "dsvire.identity-text@2.0.0",
     "outcome": "accepted",
     "manufacturer_observed": true,
     "exact_mpn_observed": true,
@@ -113,7 +113,7 @@ The generator receives typed evidence, never a raw unbounded PDF dump.
       "content_hash": "sha256:...",
       "verification": {
         "method": "text_layout_heuristic",
-        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "policy_version": "dsvire.region-text-layout@2.0.0",
         "outcome": "accepted",
         "score": 0.97,
         "score_semantics": "heuristic_evidence_strength"
@@ -121,8 +121,8 @@ The generator receives typed evidence, never a raw unbounded PDF dump.
     }
   ],
   "retrieval": {
-    "index_version": "...",
-    "model_ids": ["..."],
+    "index_version": "dsvire-baseline@0.4.0",
+    "model_ids": ["pdfium@754f2dc4fc47", "pypdf@6.7.0"],
     "query_ids": ["..."]
   }
 }
