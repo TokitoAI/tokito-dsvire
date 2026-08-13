@@ -17,6 +17,7 @@ EVIDENCE = ROOT / "fixtures/evidence/tps5430ddar.json"
 BENCHMARK = ROOT / "evaluation/results/multivendor-development-2026-08-12.json"
 SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
 STAGING_RESTART_LOAD = ROOT / "evaluation/results/tokito-staging-restart-load-2026-08-13.json"
+STAGING_SOAK = ROOT / "evaluation/results/tokito-staging-soak-2026-08-13.json"
 VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
@@ -249,6 +250,47 @@ def _staging_restart_load_svg(result: dict[str, Any]) -> str:
 """
 
 
+def _staging_soak_svg(result: dict[str, Any]) -> str:
+    workload = result["workload"]
+    values = result["results"]
+    p95_values = values["round_completion_p95_seconds"]
+    max_seconds = max(p95_values)
+    bars = []
+    for index, value in enumerate(p95_values):
+        y = 320 + index * 57
+        width = round(610 * value / max_seconds)
+        bars.extend(
+            [
+                f'<text x="72" y="{y + 21}" class="row">Round {index + 1}</text>',
+                f'<rect x="220" y="{y}" width="610" height="24" rx="12" fill="#202631"/>',
+                f'<rect x="220" y="{y}" width="{width}" height="24" rx="12" fill="#62a6ff"/>',
+                f'<text x="864" y="{y + 20}" class="mono">{value:.3f} s p95</text>',
+            ]
+        )
+    source = result["source"]
+    memory_mib = values["cloud_memory_bytes"]["max"] / (1024 * 1024)
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Tokito Cloud bounded DS-ViRe staging soak</title>
+  <desc id="desc">Four consecutive source-free restart rounds with aggregate outcomes and Cloud resource observations.</desc>
+  <rect width="1200" height="720" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 29px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Bounded staging soak · four restart rounds</text>
+  <text x="64" y="105" class="sub">{workload["attempted_uploads"]} authenticated uploads · {workload["admitted_jobs"]} admitted · {workload["quota_rejections"]} bounded 429 · {workload["cloud_restarts"]} in-flight restarts</text>
+  <rect x="58" y="136" width="1084" height="132" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="169" class="label">CONVERGENCE / CLEANUP</text><text x="84" y="210" class="metric">{values["source_blobs_released"]} succeeded + released</text>
+  <text x="84" y="244" class="row">{values["cross_tenant_reads_denied"]} foreign reads denied · {values["idempotent_replays"]} exact replays · 0 final errors</text>
+  <text x="660" y="169" class="label">CLOUD RESOURCE OBSERVATION · {values["resource_samples"]} SAMPLES</text>
+  <text x="660" y="210" class="metric">{values["cloud_cpu_percent"]["max"]:.2f}% CPU · {memory_mib:.2f} MiB max</text>
+  <text x="660" y="244" class="row">{values["cloud_pids"]["max"]} PIDs max · single delayed worker</text>
+  {"".join(bars)}
+  <rect x="58" y="579" width="1084" height="58" rx="14" fill="#14251f" stroke="#286451"/>
+  <text x="82" y="615" class="row">ALL FOUR ROUNDS PASSED · NO RETAINED SOURCES · NO MISSING BLOBS · NO WORKER ERROR</text>
+  <text x="64" y="672" class="foot">Run {source["workflow_run"]} · commit {source["commit"][:8]} · Cloud {source["release"]} · aggregate source-free evidence</text>
+  <text x="64" y="698" class="foot">A 65.6-second bounded reliability observation—not long-duration availability, representative capacity, retrieval quality, or query SLO evidence.</text>
+</svg>
+"""
+
+
 def _coverage_svg(result: dict[str, Any]) -> str:
     achieved = result["achieved"]
     targets = result["targets"]
@@ -442,6 +484,7 @@ def generate(output_root: Path) -> None:
     benchmark = _read(BENCHMARK)
     service_load = _read(SERVICE_LOAD)
     staging_restart_load = _read(STAGING_RESTART_LOAD)
+    staging_soak = _read(STAGING_SOAK)
     query_ranking = _read(QUERY_RANKING)
     full_corpus_text = _read(FULL_CORPUS_TEXT)
     full_corpus_openclip = _read(FULL_CORPUS_OPENCLIP)
@@ -467,6 +510,7 @@ def generate(output_root: Path) -> None:
         output_root / "docs/assets/staging-restart-load.svg",
         _staging_restart_load_svg(staging_restart_load),
     )
+    _write(output_root / "docs/assets/staging-soak.svg", _staging_soak_svg(staging_soak))
     _write(
         output_root / "examples/corpus-coverage.json",
         json.dumps(coverage, indent=2, ensure_ascii=False) + "\n",
