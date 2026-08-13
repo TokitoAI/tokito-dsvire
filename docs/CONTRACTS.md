@@ -6,6 +6,14 @@
 
 This file is the source of truth for the wire types between DS-ViRe, the extractor, the compiler, the ingestion service, and the MCP read surface. Every producer and consumer must reject unknown fields.
 
+The held-out retrieval authoring boundary is separately defined by the strict
+`retrieval_authoring_{packet,submission,review,seal}_v1.schema.json` schemas in
+`scripts/schema/`. Their semantic validator additionally enforces page/source
+bindings, exact intent and hard-negative coverage, natural-query constraints,
+distinct GitHub humans, immutable review provenance, canonical digests, and the
+final score-access authorization bit. See `evaluation/README.md` for the
+leakage-safe operator sequence.
+
 Rust: all types derive `Serialize, Deserialize` with `#[serde(deny_unknown_fields)]`, plus `Debug, Clone, PartialEq, Eq` where applicable. `schema_version` is a required `&'static str` constant per type; deserialization rejects mismatched versions.
 
 ---

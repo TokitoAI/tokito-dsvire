@@ -17,9 +17,49 @@ The post-merge source seal completed all twelve exact official families with
 zero invalidations. Source manifest digest
 `d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6`
 contains only URLs, byte counts, SHA-256 values, bounded identity markers, and
-split/status metadata. Vendor bytes remain local and ignored. Annotation,
-independent review, query authoring, and scoring remain disabled until their
-separate frozen stages are implemented and sealed.
+split/status metadata. Vendor bytes remain local and ignored.
+
+The score-free authoring packet is frozen at
+`retrieval_cycle_v4_authoring_packet.json`. It binds all 12 exact source hashes
+and 587 PDFium-rendered pages; packet digest
+`021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68`.
+It deliberately contains no split, score, threshold, calibration, or evaluation
+field. Vendor PDFs and rendered pages remain ignored and local-only.
+
+Prepare or independently reproduce it from the sealed source cache:
+
+```bash
+python scripts/prepare_retrieval_authoring.py prepare \
+  --source-dir .cache/retrieval-cycle-v4/sources \
+  --packet-out evaluation/retrieval_cycle_v4_authoring_packet.json \
+  --template-out evaluation/retrieval_cycle_v4_authoring_submission.template.json \
+  --pages-out .cache/retrieval-cycle-v4/authoring-pages
+```
+
+The annotator must be a human who has not accessed model scores. Copy the
+template, inspect the local pages, record exactly one positive region for each
+of `pinout`, `table`, and `package`, record all four hard-negative kinds, and
+write two natural queries per intent for every document. Model-generated or
+template-only query text is prohibited. Finalize the completed file with:
+
+```bash
+python scripts/prepare_retrieval_authoring.py finalize-submission \
+  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
+  --submission /private/completed-submission.json \
+  --out /private/finalized-submission.json
+```
+
+The author then leaves a GitHub PR review containing
+`HUMAN_AUTHORED_NO_MODEL=TRUE` and
+`DSVIRE_AUTHORING_SUBMISSION_SHA256=<digest>`. A different human inspects the
+regions and queries and submits an approving review containing
+`DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE`,
+`DSVIRE_AUTHORING_PACKET_SHA256=<digest>`, and
+`DSVIRE_AUTHORING_SUBMISSION_SHA256=<digest>`. `seal` fetches both reviews and
+fails closed on identity, state, timestamp, URL, marker, digest, coverage, or
+independence mismatch. Before any v4 scoring process receives score access, it
+must run `validate-seal` against the exact packet and submission. No v4 scoring
+entry point exists before that seal, and no score has been observed.
 
 ## Retrieval benchmark cycle v3 pre-registration
 

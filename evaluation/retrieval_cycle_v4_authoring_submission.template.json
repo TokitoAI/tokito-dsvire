@@ -1,0 +1,69 @@
+{
+  "author": "github:REPLACE_WITH_HUMAN_AUTHOR",
+  "documents": [
+    {
+      "id": "ti-tmp102-rev-i",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-pca9548a-rev-5-1",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-drv8833-rev-f",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-pcf8523-rev-7",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-ads1015-rev-e",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-mma8451q-rev-10-3",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-tps63070-rev-e",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-tja1051-rev-9",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-iso1042-rev-e",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-fxos8700cq-rev-7",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-lm75a-rev-j",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-p3t1755-rev-1-3",
+      "queries": [],
+      "regions": []
+    }
+  ],
+  "manual_query_attestation": "REPLACE_WITH_EXPLICIT_HUMAN_ATTESTATION",
+  "packet_sha256": "021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68",
+  "schema_version": "dsvire.retrieval-authoring-submission.v1",
+  "submission_sha256": "RECOMPUTED_BY_SEAL_COMMAND"
+}
