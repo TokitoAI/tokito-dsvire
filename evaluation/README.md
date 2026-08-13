@@ -1,5 +1,18 @@
 # Identity evaluation registry
 
+## Retrieval benchmark cycle v4 pre-registration
+
+Cycle v4 replaces the immutable invalidated v2/v3 plans without editing either.
+Its twelve new TI/NXP families passed a disposable eligibility check that
+streamed each exact official body through strict PDF parsing and bounded
+identity/orderable-package text checks, then immediately deleted the bytes.
+Eligibility retained no hash, page render, region inspection, annotation,
+query, or score. The actual source seal remains a post-merge operation.
+
+The frozen v4 protocol keeps the Technical Bible gates and explicit independent
+human review requirement. Agent audit can reject unsafe material but cannot
+satisfy that review requirement or authorize held-out scoring/publication.
+
 ## Retrieval benchmark cycle v3 pre-registration
 
 `retrieval_cycle_v3_preregistration.json` is the replacement cycle tracked by

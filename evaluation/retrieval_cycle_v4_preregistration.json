@@ -1,0 +1,54 @@
+{
+  "schema_version": "dsvire.retrieval-preregistration.v1",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v4@2026-08-13",
+  "parent_issue": "https://github.com/TokitoAI/tokito/issues/440",
+  "tracking_issue": "https://github.com/TokitoAI/tokito-dsvire/issues/114",
+  "sealed_before": ["source_download", "content_hashing", "page_rendering", "region_annotation", "query_authoring", "model_scoring"],
+  "families": [
+    {"id":"ti-tmp102-rev-i","split":"calibration","manufacturer":"Texas Instruments","category":"temperature_sensor","datasheet_identity":"TMP102 SBOS397I","selected_mpn":"TMP102AIDRLR","selected_package":"SOT-563-6","official_source_url":"https://www.ti.com/lit/ds/symlink/tmp102.pdf"},
+    {"id":"nxp-pca9548a-rev-5-1","split":"calibration","manufacturer":"NXP Semiconductors","category":"i2c_switch","datasheet_identity":"PCA9548A Rev. 5.1","selected_mpn":"PCA9548APW,118","selected_package":"TSSOP-24","official_source_url":"https://www.nxp.com/docs/en/data-sheet/PCA9548A.pdf"},
+    {"id":"ti-drv8833-rev-f","split":"calibration","manufacturer":"Texas Instruments","category":"dual_motor_driver","datasheet_identity":"DRV8833 SLVSAR1F","selected_mpn":"DRV8833PWPR","selected_package":"HTSSOP-16","official_source_url":"https://www.ti.com/lit/ds/symlink/drv8833.pdf"},
+    {"id":"nxp-pcf8523-rev-7","split":"calibration","manufacturer":"NXP Semiconductors","category":"real_time_clock","datasheet_identity":"PCF8523 Rev. 7","selected_mpn":"PCF8523T/1,118","selected_package":"SOIC-8","official_source_url":"https://www.nxp.com/docs/en/data-sheet/PCF8523.pdf"},
+    {"id":"ti-ads1015-rev-e","split":"calibration","manufacturer":"Texas Instruments","category":"analog_to_digital_converter","datasheet_identity":"ADS1015 SBAS473E","selected_mpn":"ADS1015IDGSR","selected_package":"VSSOP-10","official_source_url":"https://www.ti.com/lit/ds/symlink/ads1015.pdf"},
+    {"id":"nxp-mma8451q-rev-10-3","split":"calibration","manufacturer":"NXP Semiconductors","category":"accelerometer","datasheet_identity":"MMA8451Q Rev. 10.3","selected_mpn":"MMA8451QR1","selected_package":"QFN-16","official_source_url":"https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf"},
+    {"id":"ti-tps63070-rev-e","split":"evaluation","manufacturer":"Texas Instruments","category":"buck_boost_converter","datasheet_identity":"TPS63070 SLVSC58E","selected_mpn":"TPS63070RNMR","selected_package":"VQFN-15","official_source_url":"https://www.ti.com/lit/ds/symlink/tps63070.pdf"},
+    {"id":"nxp-tja1051-rev-9","split":"evaluation","manufacturer":"NXP Semiconductors","category":"can_transceiver","datasheet_identity":"TJA1051 Rev. 9","selected_mpn":"TJA1051T/3,118","selected_package":"SOIC-8","official_source_url":"https://www.nxp.com/docs/en/data-sheet/TJA1051.pdf"},
+    {"id":"ti-iso1042-rev-e","split":"evaluation","manufacturer":"Texas Instruments","category":"isolated_can_transceiver","datasheet_identity":"ISO1042 SLLSF09E","selected_mpn":"ISO1042DWR","selected_package":"SOIC-16","official_source_url":"https://www.ti.com/lit/ds/symlink/iso1042.pdf"},
+    {"id":"nxp-fxos8700cq-rev-7","split":"evaluation","manufacturer":"NXP Semiconductors","category":"accelerometer_magnetometer","datasheet_identity":"FXOS8700CQ Rev. 7","selected_mpn":"FXOS8700CQR1","selected_package":"QFN-16","official_source_url":"https://www.nxp.com/docs/en/data-sheet/FXOS8700CQ.pdf"},
+    {"id":"ti-lm75a-rev-j","split":"evaluation","manufacturer":"Texas Instruments","category":"thermal_watchdog","datasheet_identity":"LM75A SNIS147J","selected_mpn":"LM75AIMX/NOPB","selected_package":"SOIC-8","official_source_url":"https://www.ti.com/lit/ds/symlink/lm75a.pdf"},
+    {"id":"nxp-p3t1755-rev-1-3","split":"evaluation","manufacturer":"NXP Semiconductors","category":"i3c_temperature_sensor","datasheet_identity":"P3T1755 Rev. 1.3","selected_mpn":"P3T1755DPZ","selected_package":"TSSOP-8","official_source_url":"https://www.nxp.com/docs/en/data-sheet/P3T1755.pdf"}
+  ],
+  "acquisition": {
+    "availability_preflight": "all exact URLs were streamed through strict PDF parsing and bounded identity/orderable-package text checks on 2026-08-13; bodies were immediately deleted and no hash, render, region, annotation, query, or score was retained",
+    "allowed_redirects": 5,
+    "maximum_pdf_bytes": 67108864,
+    "require_pdf_magic": true,
+    "require_declared_identity_in_bounded_text": true,
+    "on_unavailable_or_mismatched_source": "invalidate_family_without_replacement",
+    "post_seal_artifact": "dsvire.retrieval-cycle-source-manifest.v1 with final URL, bytes, and SHA-256"
+  },
+  "annotation": {
+    "region_types": ["pinout", "table", "package"],
+    "required_positive_regions_per_family": 3,
+    "required_hard_negative_kinds": ["wrong_intent", "wrong_package", "wrong_variant", "wrong_view"],
+    "minimum_hard_negatives_per_family": 4,
+    "review_protocol": "two-pass blinded review; author and independent human adjudicator cannot inspect model scores",
+    "agent_audit_policy": "agent audit may reject unsafe crops before independent review but cannot satisfy independent-review acceptance",
+    "disagreements": "adjudicate before query encoding; unresolved regions are excluded and recorded"
+  },
+  "queries": {
+    "authoring": "manual natural-language prompts written after region adjudication and before model scoring",
+    "intents": ["pinout", "table", "package"],
+    "queries_per_intent_per_family": 2,
+    "minimum_total": 72,
+    "review_protocol": "independent human reviewer checks intent, exact identity, relevance, and hard-negative links without model scores",
+    "prohibited": ["template-only queries", "model-generated queries", "post-score edits", "labels or case IDs in query text"]
+  },
+  "candidate_universe": {"crop_ranking":"every adjudicated region in the selected split for every query","full_page_baseline":"every rendered page in the selected split for every query","unannotated_figures":"not silently counted as negatives; record judgment incompleteness separately","maxsim_k":32},
+  "systems": {"candidate":"pinned ColSmol crop BM25+dense/RRF+MaxSim cascade plus a separately calibrated EGVV decision layer","comparators":["same pinned ColSmol over naive full pages","pinned unscoped OpenCLIP over crops","unscoped BM25 text-RAG over crop text"]},
+  "metrics": ["nDCG@5", "R@5", "mAP", "MRR", "coverage", "hard-negative-at-5", "wrong-figure acceptance", "Brier score", "ECE", "query p95", "pages/s/GPU", "compressed pack bytes"],
+  "frozen_gate": {"evaluation_queries_minimum":36,"coverage_minimum":1.0,"crop_recall_at_5_vs_full_page_minimum_delta":-0.01,"crop_recall_at_5_vs_openclip_minimum_delta":0.15,"crop_recall_at_5_vs_text_rag_minimum_delta":0.15,"verified_wrong_figure_rate_maximum":0.02,"target_gpu_hot_query_p95_ms_maximum":800,"crop_index_pages_per_second_per_gpu_minimum":2.0,"compressed_crop_pack_vs_full_page_ratio_maximum":0.15,"all_conditions_required":true},
+  "execution_order": ["merge this pre-registration unchanged","acquire and hash official sources into a separate immutable manifest","annotate calibration and evaluation without model scores","obtain independent review and seal annotations before score access","author and independently review queries without model scores","run calibration systems and freeze the candidate and EGVV policy","run evaluation systems exactly once","publish passing or failing compact evidence without retuning"],
+  "invalidation": ["family/source identity mismatch or unavailable official source","family overlap with any previously consumed or pre-registered cycle","score access before annotation and query review are sealed","threshold, metric, comparator, split, or query mutation after this plan merges","substitution of unofficial mirror bytes","agent audit represented as independent human review","tuning on evaluation outcomes"],
+  "publication_policy": "automated catalog publication remains disabled unless this exact held-out gate passes, an independently reviewed calibrated EGVV contract is emitted, and the deterministic publication contract passes"
+}
