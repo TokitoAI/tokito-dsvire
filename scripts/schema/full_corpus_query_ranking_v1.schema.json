@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.dev/schemas/dsvire.full-corpus-query-ranking.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "query_registry_sha256", "visual_registry_sha256", "split", "system", "candidate_case_ids", "rankings"],
+  "properties": {
+    "schema_version": { "const": "dsvire.full-corpus-query-ranking.v1" },
+    "query_registry_sha256": { "$ref": "#/$defs/sha256" },
+    "visual_registry_sha256": { "$ref": "#/$defs/sha256" },
+    "split": { "enum": ["development", "calibration", "evaluation"] },
+    "system": {
+      "type": "object", "additionalProperties": false, "required": ["id", "sha256"],
+      "properties": { "id": { "type": "string", "minLength": 1 }, "sha256": { "$ref": "#/$defs/sha256" } }
+    },
+    "candidate_case_ids": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "rankings": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["query_id", "candidates"],
+        "properties": {
+          "query_id": { "type": "string", "minLength": 1 },
+          "candidates": {
+            "type": "array", "minItems": 1,
+            "items": {
+              "type": "object", "additionalProperties": false, "required": ["case_id", "score"],
+              "properties": { "case_id": { "type": "string", "minLength": 1 }, "score": { "type": "number" } }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } }
+}

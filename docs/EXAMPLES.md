@@ -68,6 +68,53 @@ contains no vendor bytes, is development-only, and is not an accuracy result.
 Full-corpus comparisons require independently reviewed held-out queries and
 actual system rankings.
 
+## Full-corpus text/layout development baseline
+
+![Full-corpus text/layout development baseline](assets/full-corpus-text-development.svg)
+
+The compact, source-free
+[`full-corpus-text-development-2026-08-13.json`](../evaluation/results/full-corpus-text-development-2026-08-13.json)
+is the first actual system ranking through the complete-split contract. It
+extracts text once from each registered crop in 30 exact hash-pinned development
+PDFs, then ranks all 209 registered candidates for each of 90 queries: 18,810
+scored pairs with no missing, duplicate, injected, cross-split, non-finite, or
+unsorted candidates.
+
+| Measurement | Result |
+|---|---:|
+| Aggregate nDCG@5 | 0.9631 |
+| R@5 | 1.0000 |
+| mAP / MRR | 0.9500 / 0.9500 |
+| Pinout / table / package nDCG@5 | 0.9139 / 1.0000 / 0.9754 |
+| Coverage | 90 / 90 queries |
+| Judged / unjudged top-five results | 450 / 0 |
+| Explicit hard negatives exposed in top five | 360 across 90 / 90 queries |
+| Local Windows runtime | 2.713 s total; 93.90 ranked queries/s |
+| Peak RSS / external cost | 73.0 MiB / $0 |
+
+The raw ranking is deliberately not committed: it is about 2.25 MB and is
+independently reproducible from the pinned inputs. The compact result binds all
+30 source hashes, both registry hashes, the scorer implementation and PyMuPDF
+version, the byte-stable ranking digest, metrics, runtime, and environment. Two
+local runs produced the same raw ranking bytes and deterministic result digest;
+only timing and RSS varied.
+
+```bash
+python scripts/evaluate_full_corpus_text_baseline.py \
+  --download-cache .cache/dsvire-query-sources \
+  --json-out full-corpus-text-result.json
+```
+
+This scorer never reads ground-truth labels, but it does use the exact MPN and
+package from query/document metadata plus the requested intent. Consequently it
+is an **identity-assisted development baseline**, not unscoped semantic
+retrieval. The candidate universe is every registered development annotation,
+not every unannotated figure in every PDF. The deterministic-template queries
+are not independently reviewed or held out, so these values cannot calibrate a
+policy or authorize publication. The manual **query ranking benchmark** workflow
+repeats the run on ephemeral hash-pinned downloads and uploads only compact JSON
+and its checksum—never PDFs, crops, or the raw ranking dump.
+
 ## Tokito Wave D product acceptance
 
 The checked [Wave D acceptance report](../examples/wave-d-acceptance.json) is
