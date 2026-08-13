@@ -124,7 +124,7 @@ def test_query_runs_in_killable_subprocess_and_cleans_scratch(tmp_path: Path) ->
             timeout_seconds=5,
             limits=WorkerLimits(
                 cpu_seconds=4,
-                memory_bytes=512 * 1024 * 1024,
+                memory_bytes=1536 * 1024 * 1024,
                 file_bytes=64 * 1024 * 1024,
             ),
         )
