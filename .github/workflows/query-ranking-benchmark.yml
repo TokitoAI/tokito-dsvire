@@ -39,7 +39,7 @@ jobs:
           mkdir -p "$RESULT_DIR"
           result="$RESULT_DIR/query-ranking-text-development-${GITHUB_SHA}.json"
           uv run --frozen --no-sync python scripts/evaluate_full_corpus_text_baseline.py \
-            --cache-root /opt/tokito/dsvire-benchmark-sources \
+            --cache-root /opt/actions-runner/.dsvire-benchmark-sources \
             --download-cache "$RUNNER_TEMP/dsvire-query-sources" \
             --json-out "$result"
           cd "$RESULT_DIR"
