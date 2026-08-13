@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Tokito Cloud DS-ViRe staging restart saturation evidence</title>
+  <desc id="desc">Aggregate source-free staging results for multi-tenant admission, restart recovery, cleanup, isolation, and idempotency.</desc>
+  <rect width="1200" height="720" rx="28" fill="#090b10"/>
+  <style>.title{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.sub{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}.metric{font:700 30px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.label{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}.row{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}.mono{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}.foot{font:14px Inter,Segoe UI,sans-serif;fill:#697386}</style>
+  <text x="64" y="68" class="title">Cloud restart saturation · synthetic staging</text>
+  <text x="64" y="105" class="sub">4 isolated tenants · 32 authenticated uploads · 1 deliberately delayed worker · 1 in-flight restart</text>
+  <rect x="58" y="136" width="1084" height="130" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="169" class="label">ATOMIC ADMISSION</text><text x="84" y="211" class="metric">20 admitted · 12 bounded 429</text>
+  <text x="630" y="169" class="label">RECOVERY / CLEANUP</text><text x="630" y="211" class="metric">20 succeeded + released</text>
+  <text x="84" y="244" class="row">4 foreign reads denied · 4 exact replays</text>
+  <text x="630" y="244" class="row">0 active · 0 missing blobs · no worker error</text>
+  <text x="70" y="338" class="row">Completion p50</text><rect x="280" y="316" width="610" height="26" rx="13" fill="#202631"/><rect x="280" y="316" width="307" height="26" rx="13" fill="#16d6b3"/><text x="920" y="337" class="mono">30.766 s</text><text x="70" y="408" class="row">Completion p95</text><rect x="280" y="386" width="610" height="26" rx="13" fill="#202631"/><rect x="280" y="386" width="580" height="26" rx="13" fill="#62a6ff"/><text x="920" y="407" class="mono">58.078 s</text><text x="70" y="478" class="row">Completion max</text><rect x="280" y="456" width="610" height="26" rx="13" fill="#202631"/><rect x="280" y="456" width="610" height="26" rx="13" fill="#a78bfa"/><text x="920" y="477" class="mono">61.039 s</text>
+  <rect x="58" y="565" width="1084" height="64" rx="14" fill="#14251f" stroke="#286451"/>
+  <text x="82" y="604" class="row">ALL 20 ADMITTED JOBS CONVERGED AFTER RESTART · 0.327 JOBS/S INCLUDING LEASE RECOVERY</text>
+  <text x="64" y="668" class="foot">Run 31710924242 · commit fd90d9c3 · Cloud v0.9.4 · deterministic private fixture · aggregate source-free evidence</text>
+  <text x="64" y="696" class="foot">Not vendor/provider capacity, soak/availability, retrieval quality, production enablement, or the Technical Bible hot-query SLO.</text>
+</svg>

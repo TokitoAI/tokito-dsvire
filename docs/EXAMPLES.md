@@ -193,6 +193,33 @@ The result is development evidence only. Its queries are deterministic-template
 records, not independently reviewed or held out, and it cannot authorize
 automated symbol publication.
 
+## Tokito Cloud restart saturation
+
+![Tokito Cloud DS-ViRe staging restart saturation](assets/staging-restart-load.svg)
+
+Tokito Cloud workflow
+[`31710924242`](https://github.com/TokitoAI/tokito-ai/actions/runs/31710924242)
+ran the merged `fd90d9c` gate against the exact deployed v0.9.4 release. Four
+isolated synthetic tenants issued 32 authenticated multipart uploads while one
+worker used a deterministic private-network retrieval/model fixture. The gate
+admitted exactly five active jobs per tenant (20 total), rejected the remaining
+12 with the bounded quota response, and restarted Cloud with work visibly in
+flight.
+
+All 20 admitted jobs subsequently succeeded and released their source blobs.
+The gate also verified one deterministic revision, four exact idempotent
+replays, four denied cross-tenant reads, matching per-project Companion
+projections, and final health with zero active jobs, zero missing referenced
+blobs, and no worker error. Completion latency—including safe lease expiry and
+recovery after restart—was 30.766 s p50 / 58.078 s p95 / 61.039 s max. The
+aggregate source-free result is committed at
+[`evaluation/results/tokito-staging-restart-load-2026-08-13.json`](../evaluation/results/tokito-staging-restart-load-2026-08-13.json).
+
+This is a bounded orchestration acceptance run, not vendor-document or model
+provider capacity, sustained soak/availability evidence, retrieval accuracy or
+calibration, production worker enablement, or the Technical Bible hot-pack
+query SLO.
+
 ## Hybrid query-core capacity
 
 ![Hybrid query-core capacity](assets/hybrid-query-core-capacity.svg)

@@ -16,6 +16,7 @@ DEFAULT_OUTPUT = ROOT
 EVIDENCE = ROOT / "fixtures/evidence/tps5430ddar.json"
 BENCHMARK = ROOT / "evaluation/results/multivendor-development-2026-08-12.json"
 SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
+STAGING_RESTART_LOAD = ROOT / "evaluation/results/tokito-staging-restart-load-2026-08-13.json"
 VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
@@ -199,6 +200,51 @@ def _service_load_svg(result: dict[str, Any]) -> str:
   <text x="640" y="590" class="label">RESOURCE / DURABILITY</text>
   <text x="640" y="630" class="metric">{rss} peak RSS · 4 packs · 0 residue</text>
   <text x="64" y="720" class="foot">Indexing evidence, not the future hot-pack MaxSim query SLO · single 4-vCPU CI runner · 12 requests · no E2E extrapolation</text>
+</svg>
+"""
+
+
+def _staging_restart_load_svg(result: dict[str, Any]) -> str:
+    workload = result["workload"]
+    values = result["results"]
+    completion = values["completion_latency_seconds"]
+    max_seconds = float(completion["max"])
+    bars = []
+    for index, (label, value, color) in enumerate(
+        (
+            ("Completion p50", float(completion["p50"]), "#16d6b3"),
+            ("Completion p95", float(completion["p95"]), "#62a6ff"),
+            ("Completion max", max_seconds, "#a78bfa"),
+        )
+    ):
+        y = 316 + index * 70
+        width = round(610 * value / max_seconds)
+        bars.extend(
+            [
+                f'<text x="70" y="{y + 22}" class="row">{label}</text>',
+                f'<rect x="280" y="{y}" width="610" height="26" rx="13" fill="#202631"/>',
+                f'<rect x="280" y="{y}" width="{width}" height="26" rx="13" fill="{color}"/>',
+                f'<text x="920" y="{y + 21}" class="mono">{value:.3f} s</text>',
+            ]
+        )
+    source = result["source"]
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Tokito Cloud DS-ViRe staging restart saturation evidence</title>
+  <desc id="desc">Aggregate source-free staging results for multi-tenant admission, restart recovery, cleanup, isolation, and idempotency.</desc>
+  <rect width="1200" height="720" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 30px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Cloud restart saturation · synthetic staging</text>
+  <text x="64" y="105" class="sub">{workload["synthetic_tenants"]} isolated tenants · {workload["attempted_uploads"]} authenticated uploads · {workload["workers"]} deliberately delayed worker · {workload["cloud_restarts"]} in-flight restart</text>
+  <rect x="58" y="136" width="1084" height="130" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="169" class="label">ATOMIC ADMISSION</text><text x="84" y="211" class="metric">{values["admitted"]} admitted · {values["quota_rejected"]} bounded 429</text>
+  <text x="630" y="169" class="label">RECOVERY / CLEANUP</text><text x="630" y="211" class="metric">{values["source_blobs_released"]} succeeded + released</text>
+  <text x="84" y="244" class="row">{values["cross_tenant_reads_denied"]} foreign reads denied · {values["idempotent_replays"]} exact replays</text>
+  <text x="630" y="244" class="row">0 active · 0 missing blobs · no worker error</text>
+  {"".join(bars)}
+  <rect x="58" y="565" width="1084" height="64" rx="14" fill="#14251f" stroke="#286451"/>
+  <text x="82" y="604" class="row">ALL {values["admitted"]} ADMITTED JOBS CONVERGED AFTER RESTART · {values["admitted_jobs_per_second"]:.3f} JOBS/S INCLUDING LEASE RECOVERY</text>
+  <text x="64" y="668" class="foot">Run {source["workflow_run"]} · commit {source["commit"][:8]} · Cloud {source["release"]} · deterministic private fixture · aggregate source-free evidence</text>
+  <text x="64" y="696" class="foot">Not vendor/provider capacity, soak/availability, retrieval quality, production enablement, or the Technical Bible hot-query SLO.</text>
 </svg>
 """
 
@@ -395,6 +441,7 @@ def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
     service_load = _read(SERVICE_LOAD)
+    staging_restart_load = _read(STAGING_RESTART_LOAD)
     query_ranking = _read(QUERY_RANKING)
     full_corpus_text = _read(FULL_CORPUS_TEXT)
     full_corpus_openclip = _read(FULL_CORPUS_OPENCLIP)
@@ -416,6 +463,10 @@ def generate(output_root: Path) -> None:
         _benchmark_svg(benchmark),
     )
     _write(output_root / "docs/assets/service-load-evidence.svg", _service_load_svg(service_load))
+    _write(
+        output_root / "docs/assets/staging-restart-load.svg",
+        _staging_restart_load_svg(staging_restart_load),
+    )
     _write(
         output_root / "examples/corpus-coverage.json",
         json.dumps(coverage, indent=2, ensure_ascii=False) + "\n",
