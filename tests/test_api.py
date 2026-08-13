@@ -172,3 +172,35 @@ def test_capacity_is_bounded_before_upload_processing(monkeypatch, tmp_path: Pat
         assert first.result(timeout=2).status_code == 200
     assert second.status_code == 503
     assert second.headers["retry-after"] == "2"
+
+
+def test_hybrid_query_requires_auth_and_returns_trace(monkeypatch, tmp_path: Path) -> None:
+    async def fake_query(body, data_dir, *, timeout_seconds, limits):
+        assert json.loads(body) == {"pack_sha256": "1" * 64}
+        assert data_dir == tmp_path
+        assert timeout_seconds == 10.0
+        return {"schema_version": "dsvire.hybrid-query-result.v1", "hits": []}
+
+    import json
+
+    monkeypatch.setattr(api, "run_query_job", fake_query)
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        denied = client.post("/v1/query", json={"pack_sha256": "1" * 64})
+        response = client.post(
+            "/v1/query",
+            json={"pack_sha256": "1" * 64},
+            headers={"authorization": f"Bearer {TOKEN}"},
+        )
+    assert denied.status_code == 401
+    assert response.status_code == 200
+    assert TraceContext.parse(response.headers["traceparent"]) is not None
+
+
+def test_hybrid_query_body_is_bounded(tmp_path: Path) -> None:
+    with TestClient(api.create_app(_config(tmp_path, max_query_bytes=1024))) as client:
+        response = client.post(
+            "/v1/query",
+            content=b"x" * 1025,
+            headers={"content-type": "application/json", "authorization": f"Bearer {TOKEN}"},
+        )
+    assert response.status_code == 413

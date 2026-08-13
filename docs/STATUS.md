@@ -14,6 +14,8 @@ The current release is **v0.4.1**.
 - content-addressed, atomically published evidence packs;
 - source-free visual registries and family-isolated evaluation tooling;
 - BM25, dense, RRF, and bounded late-interaction MaxSim query core;
+- authenticated, bounded hybrid query API over digest-addressed, model-bound
+  retrieval packs with killable execution and provenance-rich results;
 - pinned ColSmol-256M integration and reproducibility evidence;
 - immutable dependency/model/source contracts, container build evidence,
   runtime license policy, and hostile-PDF regression gates;

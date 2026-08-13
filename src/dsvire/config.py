@@ -67,6 +67,9 @@ class ServiceConfig:
     worker_cpu_seconds: int = 60
     worker_memory_bytes: int = 1536 * 1024 * 1024
     worker_file_bytes: int = 512 * 1024 * 1024
+    max_query_bytes: int = 8 * 1024 * 1024
+    max_concurrent_queries: int = 2
+    query_timeout_seconds: float = 10.0
 
     @classmethod
     def from_env(cls, env: Mapping[str, str] | None = None) -> ServiceConfig:
@@ -117,6 +120,19 @@ class ServiceConfig:
                 minimum=64 * 1024 * 1024,
                 maximum=8 * 1024 * 1024 * 1024,
             ),
+            max_query_bytes=_int(
+                values,
+                "DSVIRE_MAX_QUERY_BYTES",
+                8 * 1024 * 1024,
+                minimum=1024,
+                maximum=64 * 1024 * 1024,
+            ),
+            max_concurrent_queries=_int(
+                values, "DSVIRE_MAX_CONCURRENT_QUERIES", 2, minimum=1, maximum=32
+            ),
+            query_timeout_seconds=_float(
+                values, "DSVIRE_QUERY_TIMEOUT_SECONDS", 10.0, minimum=0.1, maximum=300.0
+            ),
         )
 
     def validate(self) -> None:
@@ -146,6 +162,9 @@ class ServiceConfig:
                 8 * 1024 * 1024 * 1024,
                 True,
             ),
+            ("DSVIRE_MAX_QUERY_BYTES", self.max_query_bytes, 1024, 64 * 1024 * 1024, True),
+            ("DSVIRE_MAX_CONCURRENT_QUERIES", self.max_concurrent_queries, 1, 32, True),
+            ("DSVIRE_QUERY_TIMEOUT_SECONDS", self.query_timeout_seconds, 0.1, 300, False),
         )
         for name, value, minimum, maximum, integer_only in ranges:
             expected = int if integer_only else int | float

@@ -14,6 +14,7 @@ from fastapi.responses import JSONResponse
 from . import __version__
 from .config import ServiceConfig
 from .pipeline import DatasheetIdentity, RetrievalError
+from .query_worker import QueryRejected, run_query_job
 from .trace import TraceContext
 from .worker import WorkerError, WorkerLimits, WorkerTimeout, run_pdf_job
 
@@ -47,7 +48,7 @@ def ready(request: Request) -> dict[str, str]:
     return {"status": "ready", "service": "tokito-dsvire", "version": __version__}
 
 
-async def _read_bounded_pdf(request: Request, maximum: int) -> bytes:
+async def _read_bounded_body(request: Request, maximum: int, noun: str) -> bytes:
     declared = request.headers.get("content-length")
     if declared:
         try:
@@ -57,12 +58,12 @@ async def _read_bounded_pdf(request: Request, maximum: int) -> bytes:
         if declared_bytes < 0:
             raise HTTPException(status_code=400, detail="invalid content-length")
         if declared_bytes > maximum:
-            raise HTTPException(status_code=413, detail="PDF exceeds configured size limit")
+            raise HTTPException(status_code=413, detail=f"{noun} exceeds configured size limit")
 
     body = bytearray()
     async for chunk in request.stream():
         if len(body) + len(chunk) > maximum:
-            raise HTTPException(status_code=413, detail="PDF exceeds configured size limit")
+            raise HTTPException(status_code=413, detail=f"{noun} exceeds configured size limit")
         body.extend(chunk)
     return bytes(body)
 
@@ -96,7 +97,7 @@ async def symbol_evidence(
         ) from exc
 
     try:
-        body = await _read_bounded_pdf(request, config.max_pdf_bytes)
+        body = await _read_bounded_body(request, config.max_pdf_bytes, "PDF")
         try:
             bundle = await run_pdf_job(
                 body,
@@ -120,6 +121,63 @@ async def symbol_evidence(
         admission.release()
 
 
+@router.post("/v1/query")
+async def query_regions(
+    request: Request,
+    authorization: str | None = Header(default=None),
+    traceparent: str | None = Header(default=None),
+) -> JSONResponse:
+    config: ServiceConfig = request.app.state.config
+    _authorize(authorization, config)
+    if (
+        request.headers.get("content-type", "").split(";", 1)[0].strip().lower()
+        != "application/json"
+    ):
+        raise HTTPException(status_code=415, detail="content-type must be application/json")
+    admission: asyncio.Semaphore = request.app.state.query_admission
+    try:
+        await asyncio.wait_for(admission.acquire(), timeout=config.admission_timeout_seconds)
+    except TimeoutError as exc:
+        raise HTTPException(
+            status_code=503, detail="query capacity is currently full", headers={"Retry-After": "1"}
+        ) from exc
+    trace = TraceContext.parse(traceparent) or TraceContext.generate()
+    logger.info("DS-ViRe query admitted", extra={"trace_id": trace.trace_id})
+    try:
+        body = await _read_bounded_body(request, config.max_query_bytes, "query request")
+        try:
+            result = await run_query_job(
+                body,
+                config.data_dir,
+                timeout_seconds=config.query_timeout_seconds,
+                limits=WorkerLimits(
+                    cpu_seconds=max(
+                        1, min(config.worker_cpu_seconds, int(config.query_timeout_seconds) + 1)
+                    ),
+                    memory_bytes=config.worker_memory_bytes,
+                    file_bytes=config.worker_file_bytes,
+                ),
+            )
+        except QueryRejected as exc:
+            raise HTTPException(status_code=422, detail="query or pack failed validation") from exc
+        except WorkerTimeout as exc:
+            raise HTTPException(status_code=504, detail="query timed out") from exc
+        except WorkerError as exc:
+            raise HTTPException(status_code=502, detail="query worker failed") from exc
+        logger.info(
+            "DS-ViRe query completed",
+            extra={
+                "trace_id": trace.trace_id,
+                "considered": result.get("considered"),
+                "maxsim_evaluated": result.get("maxsim_evaluated"),
+                "hit_count": len(result.get("hits", [])),
+            },
+        )
+        return JSONResponse(result, headers={"traceparent": trace.child().header()})
+    finally:
+        admission.release()
+
+
 def create_app(config: ServiceConfig | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
@@ -127,6 +185,7 @@ def create_app(config: ServiceConfig | None = None) -> FastAPI:
         active.prepare()
         application.state.config = active
         application.state.admission = asyncio.Semaphore(active.max_concurrent_jobs)
+        application.state.query_admission = asyncio.Semaphore(active.max_concurrent_queries)
         yield
 
     application = FastAPI(
