@@ -142,6 +142,40 @@ Generic global CLIP is therefore not the Technical Bible's target architecture.
 Pinout shape transfers somewhat, while exact package rows and dense pin tables
 need the planned hybrid text gate and datasheet-specific late interaction.
 
+## Hybrid query-core capacity
+
+![Hybrid query-core capacity](assets/hybrid-query-core-capacity.svg)
+
+The versioned `dsvire.retrieval-pack.v1` contract carries sorted region
+provenance, separate caption/pin/section/crop fields, pinned dense and
+multi-vector model identities, explicit float32 dimensions, and the actual
+vectors. Loading fails closed on payload-digest, model, dimension, dtype,
+ordering, path, coordinate, numeric, count, or text-bound violations.
+
+The query core performs metadata-blind BM25 and dense retrieval, deterministic
+reciprocal-rank fusion, then exact ColBERT-style MaxSim on at most `K` fused
+regions. It never silently substitutes global-vector similarity for MaxSim.
+
+```bash
+python scripts/benchmark_hybrid_query_core.py \
+  --json-out hybrid-query-core.json
+```
+
+The committed Windows observation uses the exact 209 registered development
+candidate IDs/types/provenance and all 90 registered query strings, with
+deterministic synthetic vectors. At 32 dimensions, 16 document patches per
+region, BM25/dense top-100, and MaxSim top-32, it records 45.06 ms mean /
+46.80 ms p95, 14,134,773 traced peak bytes, and a 2,381,138-byte JSON pack.
+Independent runs reproduce semantic result SHA-256 `aa04918c...267e62` and
+order SHA-256 `1d2ae9d6...243fe4`.
+
+This measures the correctness and bounded capacity of the dependency-light
+query core only. The exact registry scope does not make synthetic vectors model
+output and cannot establish
+retrieval quality. Encoder, vector database, network, verification, and cold
+pack download are excluded; publication remains disabled until a real pinned
+datasheet multi-vector encoder passes a newly pre-registered held-out cycle.
+
 ```bash
 python scripts/evaluate_full_corpus_openclip_baseline.py \
   --cache-root .cache/dsvire-query-sources \
