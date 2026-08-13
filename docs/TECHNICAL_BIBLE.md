@@ -251,7 +251,7 @@ contract, generation rules, publication lifecycle, and ecosystem boundaries.
 
 | Layer | Choice | Why |
 |---|---|---|
-| Index / ML workers | Python 3.11+ | ColPali-engine, DocLayout-YOLO, PyMuPDF |
+| Index / ML workers | Python 3.11+ | ColPali-engine, DocLayout-YOLO, PDFium/pypdf |
 | Query API | Rust (Axum) or FastAPI | Thin wrapper over vector DB |
 | Pack format | `.dsvire` (tar+zstd) + JSON manifest | Portable offline packs |
 | Vector DB | Qdrant | Multi-vector MaxSim, binary quant |
@@ -275,7 +275,14 @@ Pin model SHAs and DPI in every pack `manifest.json`. Eval refuses mismatched em
 
 ### 5.3 PDF / vision
 
-PyMuPDF, optional pdfium second render, Pillow/OpenCV, pin OCR (PaddleOCR/Surya) on pinout crops only, `colpali-engine` for Col* encode and MaxSim.
+Pinned PDFium is the sole production/evaluation renderer and text-geometry
+backend. Strict pypdf preflight rejects password-gated and structurally repaired
+inputs before evidence publication; readable permission-encrypted vendor PDFs
+are accepted with the empty standard user password. Every crop and text query
+is bounded, resources are explicitly closed, and backend/version changes
+invalidate caches, adapters, and renderer-bound benchmark evidence. Pillow/OpenCV,
+pin OCR (PaddleOCR/Surya) on pinout crops only, and `colpali-engine` provide the
+remaining vision path.
 
 ### 5.4 Hardware profiles
 

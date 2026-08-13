@@ -2,8 +2,8 @@
 """Build a DS-ViRe evidence-bundle fixture from a real datasheet PDF.
 
 Deterministic pipeline:
-    URL -> download (verify sha256) -> pdftoppm render at fixed DPI ->
-    Pillow crop by normalized bbox -> WebP lossless encode (fixed method/effort) ->
+    URL -> download (verify sha256) -> pinned PDFium crop render ->
+    WebP lossless encode (fixed method/effort) ->
     sha256 of crop bytes -> emit tokito-dsvire/fixtures/evidence/<mpn>.json
 
 Idempotent: rerunning with the same PDF and the same fixture recipe produces
@@ -29,7 +29,7 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
-from PIL import Image
+from dsvire.pdf_backend import BACKEND_ID, PdfDocument
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_DIR = REPO_ROOT / "fixtures" / "evidence"
@@ -179,50 +179,26 @@ def download_pdf(url: str, expected_sha256: str, cache_dir: Path) -> Path:
     return dest
 
 
-def render_page(pdf: Path, page: int, dpi: int, out_dir: Path) -> Path:
-    """Render one PDF page to PNG via pdftoppm at a fixed DPI."""
-    prefix = out_dir / f"p{page:04d}"
-    subprocess.run(
-        [
-            "pdftoppm",
-            "-r",
-            str(dpi),
-            "-f",
-            str(page),
-            "-l",
-            str(page),
-            "-png",
-            str(pdf),
-            str(prefix),
-        ],
-        check=True,
-    )
-    # pdftoppm emits <prefix>-<page>.png with variable zero-padding across
-    # versions; glob to be safe.
-    matches = sorted(out_dir.glob(f"{prefix.name}-*.png"))
-    if not matches:
-        raise RuntimeError(f"pdftoppm produced no output for {pdf} page {page}")
-    return matches[0]
-
-
-def crop_region(page_png: Path, bbox_norm: tuple[float, float, float, float], dest: Path) -> None:
-    """Crop by normalized bbox, encode as lossless WebP via cwebp for determinism."""
-    with Image.open(page_png) as img:
-        w, h = img.size
+def crop_region(
+    document: PdfDocument,
+    page_number: int,
+    bbox_norm: tuple[float, float, float, float],
+    dest: Path,
+) -> None:
+    """Render a normalized crop with pinned PDFium and lossless WebP encoding."""
+    with document.load_page(page_number - 1) as page:
         x0, y0, x1, y1 = bbox_norm
-        # Round inward to keep the crop inside the page pixel grid.
-        px = (
-            round(x0 * w),
-            round(y0 * h),
-            round(x1 * w),
-            round(y1 * h),
+        bbox = (
+            x0 * page.rect.width,
+            y0 * page.rect.height,
+            x1 * page.rect.width,
+            y1 * page.rect.height,
         )
-        crop = img.crop(px)
+        png = page.render_png(bbox, dpi=RENDER_DPI)
     with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tf:
         tmp_png = Path(tf.name)
     try:
-        # PIL PNG output is deterministic; feed the same bytes to cwebp each run.
-        crop.save(tmp_png, format="PNG", optimize=False, compress_level=9)
+        tmp_png.write_bytes(png)
         dest.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(
             ["cwebp", *CWEBP_ARGS, str(tmp_png), "-o", str(dest)],
@@ -239,16 +215,11 @@ def crop_uri(mpn_slug: str, region_id: str) -> str:
 
 def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict[str, Any]:
     pdf = download_pdf(recipe.datasheet.url, recipe.datasheet.content_sha256, cache_dir)
-    with tempfile.TemporaryDirectory() as raw:
-        raw_dir = Path(raw)
-        # Group crops by page to render each page exactly once.
-        pages_needed = sorted({r.page for r in recipe.regions})
-        page_pngs = {p: render_page(pdf, p, RENDER_DPI, raw_dir) for p in pages_needed}
-
+    with PdfDocument(pdf.read_bytes()) as document:
         regions_out = []
         for r in recipe.regions:
             crop_path = CROP_DIR / recipe.slug / f"{r.region_id}.webp"
-            crop_region(page_pngs[r.page], r.bbox_norm, crop_path)
+            crop_region(document, r.page, r.bbox_norm, crop_path)
             region_json: dict[str, Any] = {
                 "region_id": r.region_id,
                 "type": r.type,
@@ -289,7 +260,7 @@ def build_fixture(recipe: FixtureRecipe, cache_dir: Path) -> dict[str, Any]:
         "regions": regions_out,
         "retrieval": {
             "index_version": recipe.index_version,
-            "model_ids": list(recipe.model_ids),
+            "model_ids": [*recipe.model_ids, BACKEND_ID],
             "query_ids": list(recipe.query_ids),
         },
     }

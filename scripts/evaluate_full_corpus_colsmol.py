@@ -15,7 +15,6 @@ from pathlib import Path
 from typing import Any
 
 import psutil
-import pymupdf
 from PIL import Image
 
 from dsvire.colsmol_encoder import ColSmolEncoder
@@ -24,6 +23,7 @@ from dsvire.corpus_coverage import load_query_registry
 from dsvire.eval_sources import resolve_registered_sources
 from dsvire.hybrid_query import hybrid_query, implementation_sha256, maxsim_numpy
 from dsvire.model_manifest import load_model_manifest
+from dsvire.pdf_backend import PdfDocument
 from dsvire.query_ranking import (
     evaluate_full_corpus_rankings,
     full_corpus_order_sha256,
@@ -93,7 +93,7 @@ def run(
                     "bytes": len(payload),
                 }
             )
-            with pymupdf.open(stream=payload, filetype="pdf") as pdf:
+            with PdfDocument(payload) as pdf:
                 for case in document.cases:
                     png = render_registered_crop(pdf, case)
                     tick = time.perf_counter()

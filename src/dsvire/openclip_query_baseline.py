@@ -10,13 +10,14 @@ from collections.abc import Sequence
 from importlib.metadata import version
 from pathlib import Path
 
+from .pdf_backend import BACKEND_ID
 from .visual_adapters import (
     OPENCLIP_MODEL_BYTES,
     OPENCLIP_MODEL_NAME,
     OPENCLIP_MODEL_SHA256,
 )
 
-SYSTEM_ID = "dsvire.query-baseline.openclip-unscoped@1.0.0"
+SYSTEM_ID = "dsvire.query-baseline.openclip-unscoped@2.0.0"
 
 
 class OpenClipQueryError(RuntimeError):
@@ -62,7 +63,7 @@ class OpenClipQueryBaseline:
         ).encode()
         versions = (
             f"open_clip_torch={version('open_clip_torch')}\n"
-            f"torch={version('torch')}\nPillow={version('Pillow')}"
+            f"torch={version('torch')}\nPillow={version('Pillow')}\n{BACKEND_ID}"
         ).encode()
         return hashlib.sha256(source + versions).hexdigest()
 

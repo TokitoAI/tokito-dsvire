@@ -15,6 +15,7 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any, cast
 
+from .pdf_backend import PdfBackendError, PdfDocument
 from .visual_adapters import AdapterError, render_registered_crop
 from .visual_metrics import ALLOWED_LABELS
 from .visual_registry import (
@@ -88,19 +89,14 @@ def render_review_sheet(pdf_bytes: bytes, annotation: VisualDocument) -> bytes:
     if hashlib.sha256(pdf_bytes).hexdigest() != annotation.content_sha256:
         raise AdapterError(f"{annotation.document_id}: source SHA-256 mismatch")
     try:
-        import pymupdf
         from PIL import Image, ImageDraw, ImageFont
 
-        document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
+        document = PdfDocument(pdf_bytes)
     except ImportError as exc:
         raise AdapterError("install tokito-dsvire[visual] to render review sheets") from exc
     except Exception as exc:
         raise AdapterError("PDF parser rejected review input") from exc
     try:
-        if document.is_repaired:
-            raise AdapterError("review PDF required parser repair")
-        if document.needs_pass:
-            raise AdapterError("encrypted review PDFs are not accepted")
         cards = []
         font = ImageFont.load_default(size=18)
         for case in annotation.cases:
@@ -253,16 +249,10 @@ def build_review_packet(
         if hashlib.sha256(pdf_bytes).hexdigest() != annotation.content_sha256:
             raise VisualReviewError(f"{annotation.document_id}: source SHA-256 mismatch")
         try:
-            import pymupdf
-
-            document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
-        except Exception as exc:
+            document = PdfDocument(pdf_bytes)
+        except PdfBackendError as exc:
             raise VisualReviewError(f"{annotation.document_id}: PDF parser rejected input") from exc
         try:
-            if document.is_repaired or document.needs_pass:
-                raise VisualReviewError(
-                    f"{annotation.document_id}: repaired or encrypted review PDF is forbidden"
-                )
             cases = [
                 {
                     "case_id": f"{annotation.document_id}/{case.case_id}",

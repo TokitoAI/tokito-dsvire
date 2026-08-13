@@ -18,6 +18,7 @@ from importlib.resources import files
 from pathlib import Path
 from typing import Any, Protocol, cast
 
+from .pdf_backend import BACKEND_ID, PdfDocument
 from .pipeline import (
     MAX_PAGES,
     MAX_RENDER_PIXELS,
@@ -31,9 +32,9 @@ from .pipeline import (
 )
 from .visual_registry import VisualCase, VisualDocument
 
-TEXT_LAYOUT_ADAPTER_ID = "dsvire.visual-adapter.text-layout@1.0.0"
-RAPID_OCR_ADAPTER_ID = "dsvire.visual-adapter.rapidocr@1.1.0"
-OPENCLIP_ADAPTER_ID = "dsvire.visual-adapter.openclip-vit-b-32@1.0.0"
+TEXT_LAYOUT_ADAPTER_ID = "dsvire.visual-adapter.text-layout@2.0.0"
+RAPID_OCR_ADAPTER_ID = "dsvire.visual-adapter.rapidocr@2.0.0"
+OPENCLIP_ADAPTER_ID = "dsvire.visual-adapter.openclip-vit-b-32@2.0.0"
 OPENCLIP_MODEL_NAME = "ViT-B-32"
 OPENCLIP_MODEL_REVISION = "1a25a446712ba5ee05982a381eed697ef9b435cf"
 OPENCLIP_MODEL_SHA256 = "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6"
@@ -89,7 +90,7 @@ class TextLayoutAdapter:
             TEXT_LAYOUT_ADAPTER_ID,
             digest,
             None,
-            f"pymupdf-{version('PyMuPDF')}-clip-text-normalized-bbox@1",
+            f"{BACKEND_ID}-clip-text-normalized-bbox@2",
             "similarity",
         )
 
@@ -103,17 +104,18 @@ class TextLayoutAdapter:
                 f"case {case.case_id!r} references page {case.page}, PDF has {page_count}"
             )
         try:
-            import pymupdf
-
             page = pdf_document.load_page(case.page - 1)
             x0, y0, x1, y1 = case.bbox_norm
-            clip = pymupdf.Rect(
+            clip = (
                 x0 * float(page.rect.width),
                 y0 * float(page.rect.height),
                 x1 * float(page.rect.width),
                 y1 * float(page.rect.height),
             )
-            text = str(page.get_text("text", clip=clip, sort=True))
+            try:
+                text = page.text_bounded(clip)
+            finally:
+                page.close()
         except Exception as exc:
             raise AdapterError(f"failed to read registered crop for {case.case_id!r}") from exc
         if len(text) > MAX_TEXT_CHARS_PER_PAGE:
@@ -207,7 +209,7 @@ class RapidOcrAdapter:
             _rapidocr_model_digest(),
             (
                 f"rapidocr-{version('rapidocr')}-onnxruntime-{version('onnxruntime')}-"
-                f"pymupdf-{version('PyMuPDF')}-rgb-{RENDER_DPI}dpi-"
+                f"{BACKEND_ID}-rgb-{RENDER_DPI}dpi-"
                 "onnx-cpu-single-thread-score-5dp@2"
             ),
             "similarity",
@@ -249,8 +251,6 @@ def render_registered_crop(document: object, case: VisualCase) -> bytes:
             f"case {case.case_id!r} references page {case.page}, PDF has {page_count}"
         )
     try:
-        import pymupdf
-
         pdf_document: Any = document
         page = pdf_document.load_page(case.page - 1)
         x0, y0, x1, y1 = case.bbox_norm
@@ -264,13 +264,16 @@ def render_registered_crop(document: object, case: VisualCase) -> bytes:
             or width * height > MAX_RENDER_PIXELS
         ):
             raise AdapterError("registered crop exceeds render safety limit")
-        clip = pymupdf.Rect(
+        clip = (
             x0 * float(page.rect.width),
             y0 * float(page.rect.height),
             x1 * float(page.rect.width),
             y1 * float(page.rect.height),
         )
-        return cast(bytes, page.get_pixmap(clip=clip, dpi=RENDER_DPI, alpha=False).tobytes("png"))
+        try:
+            return cast(bytes, page.render_png(clip, dpi=RENDER_DPI))
+        finally:
+            page.close()
     except AdapterError:
         raise
     except Exception as exc:
@@ -366,7 +369,7 @@ class OpenClipAdapter:
             OPENCLIP_MODEL_SHA256,
             (
                 f"open-clip-torch-{version('open_clip_torch')}-torch-{version('torch')}-"
-                f"pillow-{version('Pillow')}-pymupdf-{version('PyMuPDF')}-"
+                f"pillow-{version('Pillow')}-{BACKEND_ID}-"
                 f"{OPENCLIP_MODEL_NAME.lower()}-cpu-single-thread-rgb-{RENDER_DPI}dpi-"
                 "prompt-v1-score-5dp@1"
             ),
@@ -395,16 +398,10 @@ def score_document(
             f"expected {annotation.content_sha256}, got {digest}"
         )
     try:
-        import pymupdf
-
-        document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
+        document = PdfDocument(pdf_bytes)
     except Exception as exc:
         raise AdapterError("PDF parser rejected benchmark input") from exc
     try:
-        if document.is_repaired:
-            raise AdapterError("benchmark PDF required parser repair")
-        if document.needs_pass:
-            raise AdapterError("encrypted benchmark PDFs are not accepted")
         return {
             f"{annotation.document_id}/{case.case_id}": adapter.score(document, case)
             for case in annotation.cases

@@ -8,28 +8,20 @@ from pathlib import Path
 import pytest
 
 from dsvire.evaluation import RegistryError, evaluate_registry, load_registry_data
+from dsvire.pdf_fixtures import text_pdf
 
 
 def _synthetic_pdf() -> bytes:
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open()
-    pinout = document.new_page()
-    pinout.insert_text(
-        (72, 72),
-        "Acme A-1 Active Production SOIC (D) | 8\n"
-        "Pin Configuration top view\n"
-        "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+    return text_pdf(
+        [
+            "Acme A-1 Active Production SOIC (D) | 8\n"
+            "Pin Configuration top view\n"
+            "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+            "Pin Functions\nPin Name Type Description\n"
+            "1 VIN input\n2 BOOT passive\n3 PH output\n4 GND ground\n"
+            "5 VSENSE input\n6 ENA input\n7 COMP passive\n8 PWRPAD ground",
+        ]
     )
-    table = document.new_page()
-    table.insert_text(
-        (72, 72),
-        "Pin Functions\nPin Name Type Description\n"
-        "1 VIN input\n2 BOOT passive\n3 PH output\n4 GND ground\n"
-        "5 VSENSE input\n6 ENA input\n7 COMP passive\n8 PWRPAD ground",
-    )
-    payload = document.tobytes()
-    document.close()
-    return payload
 
 
 def _registry_data(payload: bytes) -> dict:

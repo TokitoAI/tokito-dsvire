@@ -393,11 +393,16 @@ def test_multivendor_evidence_export_is_bound_to_exact_registry_subset() -> None
     assert scope["eligible_for_policy_fitting"] is False
     assert all(len(comparator["score_sha256"]) == 64 for comparator in evidence["comparators"])
 
-    adapters = [TextLayoutAdapter(), RapidOcrAdapter(engine=lambda _image: None)]
-    implementations = {
-        adapter.metadata.adapter_id: adapter.metadata.implementation_sha256 for adapter in adapters
-    }
-    assert {
+    # This checked result is historical evidence for the v1/PyMuPDF comparators.
+    # New renderer-bound adapter IDs must not be retroactively attached to it.
+    historical = {
         comparator["adapter_id"]: comparator["implementation_sha256"]
         for comparator in evidence["comparators"]
-    } == implementations
+    }
+    assert set(historical) == {
+        "dsvire.visual-adapter.text-layout@1.0.0",
+        "dsvire.visual-adapter.rapidocr@1.1.0",
+    }
+    assert all(len(digest) == 64 for digest in historical.values())
+    current = [TextLayoutAdapter(), RapidOcrAdapter(engine=lambda _image: None)]
+    assert all(adapter.metadata.adapter_id not in historical for adapter in current)

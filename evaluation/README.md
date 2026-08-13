@@ -103,7 +103,7 @@ closed. `scripts/evaluate_query_rankings.py` reports nDCG@5, R@5, mAP, MRR,
 abstention/coverage, and hard-negative exposure. Closed judged-pool canaries are
 contract tests, not full-corpus retrieval accuracy.
 
-`results/full-corpus-text-development-2026-08-13.json` is the compact result of
+`results/full-corpus-text-pdfium-development-2026-08-13.json` is the compact result of
 an actual identity-assisted text/layout scorer over the complete registered
 development candidate universe: 30 document families, 90 queries, 209 region
 candidates, and 18,810 ranked pairs. The scorer cannot inspect labels. The
@@ -119,7 +119,7 @@ vendor endpoint is unavailable to automation; it is not an Actions cache or
 artifact. Missing or mismatched cached sources still fall through to official
 download and then fail closed. Workflow artifacts remain source-free.
 
-`results/full-corpus-openclip-development-2026-08-13.json` is the corresponding
+`results/full-corpus-openclip-pdfium-development-2026-08-13.json` is the corresponding
 unscoped visual-semantic lower bound. The pinned OpenCLIP scorer receives only
 raw query strings and PNG crop bytes; tests keep identity, package, region type,
 document metadata, and labels outside its public surface. It ranks the exact
@@ -197,7 +197,7 @@ are rejected. This prevents a model runner from grading its own predictions.
 The first comparator is `dsvire.visual_adapters.TextLayoutAdapter`. It scores
 only text extracted inside each registered crop, verifies exact source bytes,
 rejects repaired/encrypted/out-of-range documents, and binds its normalized
-implementation source plus exact PyMuPDF version into adapter metadata. It is
+implementation source plus exact PDFium backend version into adapter metadata. It is
 deliberately declared as `similarity`, never visual or calibrated probability.
 Its purpose is to quantify what a real OCR/visual candidate improves and expose
 cases (for example graphical pin maps) where the text baseline abstains.
@@ -206,7 +206,7 @@ cases (for example graphical pin maps) where the text baseline abstains.
 It renders the registered crop at the bounded production DPI and runs the
 bundled RapidOCR/ONNX Runtime models on those pixels, independent of the PDF
 text layer. Metadata binds the adapter implementation, every bundled ONNX model
-byte, and exact RapidOCR/ONNX Runtime/PyMuPDF versions. OCR confidence only
+byte, and exact RapidOCR/ONNX Runtime/PDFium versions. OCR confidence only
 attenuates a structural similarity score; it remains `similarity`, not a
 calibrated probability. Install it with `tokito-dsvire[visual]`. CI and tagged
 release verification install the visual extra, run a real-engine rendered-crop

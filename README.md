@@ -65,7 +65,7 @@ perfect-score canary validates metric plumbing over a closed judged pool; it is
 not a retriever benchmark or production accuracy claim. See
 [`docs/EXAMPLES.md`](docs/EXAMPLES.md#query-ranking-measurement-contract).
 
-The measured [full-corpus development result](evaluation/results/full-corpus-text-development-2026-08-13.json)
+The measured [full-corpus development result](evaluation/results/full-corpus-text-pdfium-development-2026-08-13.json)
 exercises that contract with an actual scorer over every registered development
 candidate. Its query identity and intent metadata make it an identity-assisted
 baseline, not an unscoped semantic search result, and its queries are neither

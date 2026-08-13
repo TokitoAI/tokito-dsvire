@@ -3,15 +3,30 @@
   "$id": "https://tokito.ai/schemas/dsvire/full-corpus-text-baseline-result-v1.json",
   "title": "DS-ViRe full-corpus text baseline result v1",
   "type": "object",
-  "required": ["schema_version", "source", "system", "ranking_sha256", "result_sha256", "scope", "metrics", "by_query_type", "limitations", "runtime"],
+  "required": [
+    "schema_version",
+    "source",
+    "system",
+    "ranking_sha256",
+    "result_sha256",
+    "scope",
+    "metrics",
+    "by_query_type",
+    "limitations",
+    "runtime"
+  ],
   "properties": {
-    "schema_version": {"const": "dsvire.full-corpus-text-baseline-result.v1"},
+    "schema_version": { "const": "dsvire.full-corpus-text-baseline-result.v1" },
     "source": {
       "type": "object",
-      "required": ["visual_registry_sha256", "query_registry_sha256", "source_manifest"],
+      "required": [
+        "visual_registry_sha256",
+        "query_registry_sha256",
+        "source_manifest"
+      ],
       "properties": {
-        "visual_registry_sha256": {"$ref": "#/$defs/sha256"},
-        "query_registry_sha256": {"$ref": "#/$defs/sha256"},
+        "visual_registry_sha256": { "$ref": "#/$defs/sha256" },
+        "query_registry_sha256": { "$ref": "#/$defs/sha256" },
         "source_manifest": {
           "type": "array",
           "minItems": 1,
@@ -19,9 +34,9 @@
             "type": "object",
             "required": ["document_id", "content_sha256", "bytes"],
             "properties": {
-              "document_id": {"type": "string", "minLength": 1},
-              "content_sha256": {"$ref": "#/$defs/sha256"},
-              "bytes": {"type": "integer", "minimum": 1}
+              "document_id": { "type": "string", "minLength": 1 },
+              "content_sha256": { "$ref": "#/$defs/sha256" },
+              "bytes": { "type": "integer", "minimum": 1 }
             },
             "additionalProperties": false
           }
@@ -32,49 +47,83 @@
     "system": {
       "type": "object",
       "required": ["id", "sha256"],
-      "properties": {"id": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}},
-      "additionalProperties": false
-    },
-    "ranking_sha256": {"$ref": "#/$defs/sha256"},
-    "result_sha256": {"$ref": "#/$defs/sha256"},
-    "scope": {
-      "type": "object",
-      "required": ["split", "documents", "queries", "candidate_cases", "ranked_pairs"],
       "properties": {
-        "split": {"const": "development"},
-        "documents": {"type": "integer", "minimum": 1},
-        "queries": {"type": "integer", "minimum": 1},
-        "candidate_cases": {"type": "integer", "minimum": 1},
-        "ranked_pairs": {"type": "integer", "minimum": 1}
+        "id": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "#/$defs/sha256" }
       },
       "additionalProperties": false
     },
-    "metrics": {"$ref": "#/$defs/metrics"},
+    "ranking_sha256": { "$ref": "#/$defs/sha256" },
+    "result_sha256": { "$ref": "#/$defs/sha256" },
+    "scope": {
+      "type": "object",
+      "required": [
+        "split",
+        "documents",
+        "queries",
+        "candidate_cases",
+        "ranked_pairs"
+      ],
+      "properties": {
+        "split": { "const": "development" },
+        "documents": { "type": "integer", "minimum": 1 },
+        "queries": { "type": "integer", "minimum": 1 },
+        "candidate_cases": { "type": "integer", "minimum": 1 },
+        "ranked_pairs": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "metrics": { "$ref": "#/$defs/metrics" },
     "by_query_type": {
       "type": "object",
       "required": ["pinout", "table", "package"],
-      "properties": {"pinout": {"$ref": "#/$defs/metrics"}, "table": {"$ref": "#/$defs/metrics"}, "package": {"$ref": "#/$defs/metrics"}},
+      "properties": {
+        "pinout": { "$ref": "#/$defs/metrics" },
+        "table": { "$ref": "#/$defs/metrics" },
+        "package": { "$ref": "#/$defs/metrics" }
+      },
       "additionalProperties": false
     },
-    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
     "runtime": {
       "type": "object",
-      "required": ["total_seconds", "ranking_seconds", "queries_per_second", "candidate_extraction_mean_ms", "candidate_extraction_p95_ms", "peak_rss_bytes", "external_cost_usd", "environment"],
+      "required": [
+        "total_seconds",
+        "ranking_seconds",
+        "queries_per_second",
+        "candidate_extraction_mean_ms",
+        "candidate_extraction_p95_ms",
+        "peak_rss_bytes",
+        "external_cost_usd",
+        "environment"
+      ],
       "properties": {
-        "total_seconds": {"type": "number", "exclusiveMinimum": 0},
-        "ranking_seconds": {"type": "number", "exclusiveMinimum": 0},
-        "queries_per_second": {"type": "number", "exclusiveMinimum": 0},
-        "candidate_extraction_mean_ms": {"type": "number", "minimum": 0},
-        "candidate_extraction_p95_ms": {"type": "number", "minimum": 0},
-        "peak_rss_bytes": {"type": "integer", "minimum": 1},
-        "external_cost_usd": {"type": "number", "minimum": 0},
+        "total_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "ranking_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "queries_per_second": { "type": "number", "exclusiveMinimum": 0 },
+        "candidate_extraction_mean_ms": { "type": "number", "minimum": 0 },
+        "candidate_extraction_p95_ms": { "type": "number", "minimum": 0 },
+        "peak_rss_bytes": { "type": "integer", "minimum": 1 },
+        "external_cost_usd": { "type": "number", "minimum": 0 },
         "environment": {
           "type": "object",
-          "required": ["os", "os_release", "machine", "python", "pymupdf", "logical_cpus"],
+          "required": ["os", "os_release", "machine", "python", "logical_cpus"],
+          "anyOf": [
+            { "required": ["pdf_backend"] },
+            { "required": ["pymupdf"] }
+          ],
           "properties": {
-            "os": {"type": "string", "minLength": 1}, "os_release": {"type": "string", "minLength": 1},
-            "machine": {"type": "string", "minLength": 1}, "python": {"type": "string", "minLength": 1},
-            "pymupdf": {"type": "string", "minLength": 1}, "logical_cpus": {"type": ["integer", "null"], "minimum": 1}
+            "os": { "type": "string", "minLength": 1 },
+            "os_release": { "type": "string", "minLength": 1 },
+            "machine": { "type": "string", "minLength": 1 },
+            "python": { "type": "string", "minLength": 1 },
+            "pdf_backend": { "type": "string", "minLength": 1 },
+            "pymupdf": { "type": "string", "minLength": 1 },
+            "logical_cpus": { "type": ["integer", "null"], "minimum": 1 }
           },
           "additionalProperties": false
         }
@@ -83,17 +132,34 @@
     }
   },
   "$defs": {
-    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
     "metrics": {
       "type": "object",
-      "required": ["queries", "queries_with_results", "coverage", "ndcg_at_5", "recall_at_5", "map", "mrr", "hard_negatives_at_5", "queries_with_hard_negative_at_5", "judged_at_5", "unjudged_at_5"],
+      "required": [
+        "queries",
+        "queries_with_results",
+        "coverage",
+        "ndcg_at_5",
+        "recall_at_5",
+        "map",
+        "mrr",
+        "hard_negatives_at_5",
+        "queries_with_hard_negative_at_5",
+        "judged_at_5",
+        "unjudged_at_5"
+      ],
       "properties": {
-        "queries": {"type": "integer", "minimum": 1}, "queries_with_results": {"type": "integer", "minimum": 0},
-        "coverage": {"type": "number", "minimum": 0, "maximum": 1}, "ndcg_at_5": {"type": "number", "minimum": 0, "maximum": 1},
-        "recall_at_5": {"type": "number", "minimum": 0, "maximum": 1}, "map": {"type": "number", "minimum": 0, "maximum": 1},
-        "mrr": {"type": "number", "minimum": 0, "maximum": 1}, "hard_negatives_at_5": {"type": "integer", "minimum": 0},
-        "queries_with_hard_negative_at_5": {"type": "integer", "minimum": 0}, "judged_at_5": {"type": "integer", "minimum": 0},
-        "unjudged_at_5": {"type": "integer", "minimum": 0}
+        "queries": { "type": "integer", "minimum": 1 },
+        "queries_with_results": { "type": "integer", "minimum": 0 },
+        "coverage": { "type": "number", "minimum": 0, "maximum": 1 },
+        "ndcg_at_5": { "type": "number", "minimum": 0, "maximum": 1 },
+        "recall_at_5": { "type": "number", "minimum": 0, "maximum": 1 },
+        "map": { "type": "number", "minimum": 0, "maximum": 1 },
+        "mrr": { "type": "number", "minimum": 0, "maximum": 1 },
+        "hard_negatives_at_5": { "type": "integer", "minimum": 0 },
+        "queries_with_hard_negative_at_5": { "type": "integer", "minimum": 0 },
+        "judged_at_5": { "type": "integer", "minimum": 0 },
+        "unjudged_at_5": { "type": "integer", "minimum": 0 }
       },
       "additionalProperties": false
     }

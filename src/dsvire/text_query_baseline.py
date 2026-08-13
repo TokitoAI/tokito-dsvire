@@ -7,14 +7,14 @@ import inspect
 import math
 import re
 from dataclasses import dataclass
-from importlib.metadata import version
 from typing import Any, Protocol
 
 from .corpus_coverage import QueryRecord
+from .pdf_backend import BACKEND_ID
 from .pipeline import MAX_PAGES, MAX_TEXT_CHARS_PER_PAGE
 from .visual_registry import VisualCase, VisualDocument
 
-SYSTEM_ID = "dsvire.query-baseline.text-layout-metadata@1.0.0"
+SYSTEM_ID = "dsvire.query-baseline.text-layout-metadata@2.0.0"
 TOKEN = re.compile(r"[a-z0-9]+")
 STOP = {"a", "an", "the", "find", "show", "where", "is", "of", "for"}
 
@@ -24,7 +24,8 @@ class TextQueryBaselineError(RuntimeError):
 
 
 class PdfDocument(Protocol):
-    page_count: int
+    @property
+    def page_count(self) -> int: ...
 
     def load_page(self, page_id: int) -> Any: ...
 
@@ -42,7 +43,7 @@ def implementation_sha256() -> str:
         inspect.getsource(component).replace("\r\n", "\n")
         for component in (extract_candidate_text, score_query_candidate, _tokens)
     ).encode()
-    source += f"\nPyMuPDF={version('PyMuPDF')}".encode()
+    source += f"\n{BACKEND_ID}".encode()
     return hashlib.sha256(source).hexdigest()
 
 
@@ -55,17 +56,18 @@ def extract_candidate_text(pdf: PdfDocument, document: VisualDocument, case: Vis
             f"{document.document_id}/{case.case_id} references missing page {case.page}"
         )
     try:
-        import pymupdf
-
         page: Any = pdf.load_page(case.page - 1)
         x0, y0, x1, y1 = case.bbox_norm
-        clip = pymupdf.Rect(
+        clip = (
             x0 * float(page.rect.width),
             y0 * float(page.rect.height),
             x1 * float(page.rect.width),
             y1 * float(page.rect.height),
         )
-        text = str(page.get_text("text", clip=clip, sort=True))
+        try:
+            text = str(page.text_bounded(clip))
+        finally:
+            page.close()
     except Exception as exc:
         raise TextQueryBaselineError(
             f"failed to extract {document.document_id}/{case.case_id}"

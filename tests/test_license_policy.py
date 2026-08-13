@@ -42,29 +42,33 @@ def test_exact_runtime_inventory_is_fully_dispositioned() -> None:
     assert len(locked) == 24
     report = audit(today=dt.date(2026, 8, 12))
     assert report["ok"] is True
-    assert report["release_ready"] is False
-    assert report["legal_decisions"] == [
-        {
-            "name": "pymupdf",
-            "version": "1.28.2",
-            "license": "AGPL-3.0-or-later OR LicenseRef-Artifex-Commercial",
-            "exception_expires": "2026-09-30",
-            "owner": "TokitoAI",
-        }
-    ]
+    assert report["release_ready"] is True
+    assert report["legal_decisions"] == []
+    evidence = report["license_evidence"]["pypdfium2"]
+    assert {item["path"] for item in evidence} == {
+        "licenses/LICENSES/Apache-2.0.txt",
+        "licenses/LICENSES/BSD-3-Clause.txt",
+        "BUILD_LICENSES/pdfium.txt",
+    }
+    assert all(len(item["sha256"]) == 64 for item in evidence)
 
 
-def test_generated_notices_are_current_and_surface_legal_decision() -> None:
+def test_generated_notices_are_current_and_surface_redistribution_obligations() -> None:
     expected = notices()
     assert DEFAULT_NOTICES.read_text(encoding="utf-8") == expected
-    assert "requires_legal_decision" in expected
-    assert "Corresponding Source" in expected
-    assert "not legal approval" in expected
+    assert "requires_legal_decision" not in expected
+    assert "Redistribution obligations" in expected
+    assert "bundled native dependency license texts" in expected
 
 
-def test_expired_exception_fails_closed() -> None:
-    with pytest.raises(LicensePolicyError, match="expired"):
-        load_policy(today=dt.date(2026, 10, 1))
+def test_missing_required_license_payload_fails_closed(tmp_path: Path) -> None:
+    data = json.loads(DEFAULT_POLICY.read_text(encoding="utf-8"))
+    package = next(item for item in data["packages"] if item["name"] == "pypdfium2")
+    package["required_license_files"].append("licenses/DOES_NOT_EXIST")
+    path = tmp_path / "policy.json"
+    path.write_text(json.dumps(data), encoding="utf-8")
+    with pytest.raises(LicensePolicyError, match="required bundled license file missing"):
+        audit(policy_path=path, today=dt.date(2026, 8, 13))
 
 
 def test_new_locked_dependency_without_policy_fails_closed(tmp_path: Path) -> None:

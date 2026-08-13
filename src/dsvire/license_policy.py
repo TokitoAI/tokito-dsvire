@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import dataclasses
 import datetime as dt
+import hashlib
 import json
 import platform
 import re
@@ -35,6 +36,7 @@ class PackagePolicy:
     owner: str | None = None
     evidence: str | None = None
     obligations: str | None = None
+    required_license_files: tuple[str, ...] = ()
 
 
 @dataclasses.dataclass(frozen=True)
@@ -126,6 +128,12 @@ def load_policy(path: Path = DEFAULT_POLICY, *, today: dt.date | None = None) ->
         owner = value.get("owner")
         evidence = value.get("evidence")
         obligations = value.get("obligations")
+        required_files_value = value.get("required_license_files", [])
+        if not isinstance(required_files_value, list) or not all(
+            isinstance(item, str) and item and ".." not in Path(item).parts
+            for item in required_files_value
+        ):
+            raise LicensePolicyError(f"{name}: required license files are invalid")
         if status == "requires_legal_decision":
             if not all(
                 isinstance(item, str) and item
@@ -149,6 +157,7 @@ def load_policy(path: Path = DEFAULT_POLICY, *, today: dt.date | None = None) ->
                 cast(str | None, owner),
                 cast(str | None, evidence),
                 cast(str | None, obligations),
+                tuple(required_files_value),
             )
         )
     return Policy(str(data.get("reviewed_at", "")), allowed, tuple(packages))
@@ -163,6 +172,7 @@ def _metadata_license(distribution: metadata.Distribution) -> str:
         "MIT License": "MIT",
         "MIT": "MIT",
         "BSD-3-Clause": "BSD-3-Clause",
+        "BSD-3-Clause, Apache-2.0, dependency licenses": "Apache-2.0 OR BSD-3-Clause",
         "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License": (
             "AGPL-3.0-or-later OR LicenseRef-Artifex-Commercial"
         ),
@@ -198,7 +208,7 @@ def audit(
                 f"{name}: policy version {expected[name].version} != locked {version}"
             )
 
-    installed: list[dict[str, str]] = []
+    installed: list[dict[str, Any]] = []
     for distribution in metadata.distributions():
         raw_name = distribution.metadata["Name"]
         if not raw_name:
@@ -216,7 +226,34 @@ def audit(
             raise LicensePolicyError(
                 f"{name}: installed license {observed!r} != policy {package.license!r}"
             )
-        installed.append({"name": name, "version": distribution.version, "license": observed})
+        distribution_files = {
+            str(item).replace("\\", "/"): item for item in distribution.files or []
+        }
+        license_evidence: list[dict[str, str]] = []
+        for suffix in package.required_license_files:
+            matches = [item for path, item in distribution_files.items() if path.endswith(suffix)]
+            if len(matches) != 1:
+                raise LicensePolicyError(f"{name}: required bundled license file missing: {suffix}")
+            license_path = Path(str(distribution.locate_file(matches[0])))
+            try:
+                payload = license_path.read_bytes()
+            except OSError as exc:
+                raise LicensePolicyError(
+                    f"{name}: required bundled license file unreadable: {suffix}"
+                ) from exc
+            if not payload:
+                raise LicensePolicyError(
+                    f"{name}: required bundled license file is empty: {suffix}"
+                )
+            license_evidence.append({"path": suffix, "sha256": hashlib.sha256(payload).hexdigest()})
+        installed.append(
+            {
+                "name": name,
+                "version": distribution.version,
+                "license": observed,
+                "license_evidence": license_evidence,
+            }
+        )
     active_lock = set(active_lock_inventory(lock_path))
     if {item["name"] for item in installed} != active_lock:
         missing = sorted(active_lock - {item["name"] for item in installed})
@@ -230,6 +267,9 @@ def audit(
         "release_ready": not decisions,
         "runtime_package_count": len(locked),
         "installed_package_count": len(installed),
+        "license_evidence": {
+            item["name"]: item["license_evidence"] for item in installed if item["license_evidence"]
+        },
         "legal_decisions": [
             {
                 "name": package.name,
@@ -270,6 +310,21 @@ def notices(policy_path: Path = DEFAULT_POLICY) -> str:
                     f"- Exception expires: {package.exception_expires}",
                     f"- Owner: {package.owner}",
                     f"- Required disposition: {package.obligations}",
+                    "",
+                ]
+            )
+    obligations = [package for package in policy.packages if package.obligations]
+    if obligations:
+        lines.extend(["", "## Redistribution obligations", ""])
+        for package in obligations:
+            lines.extend(
+                [
+                    f"### {package.name} {package.version}",
+                    "",
+                    f"- Evidence: {package.evidence}",
+                    f"- Required disposition: {package.obligations}",
+                    "- Bundled license payloads: "
+                    + ", ".join(f"`{item}`" for item in package.required_license_files),
                     "",
                 ]
             )
