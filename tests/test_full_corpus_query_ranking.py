@@ -64,6 +64,7 @@ def test_full_corpus_contract_and_unjudged_accounting() -> None:
     assert result["candidate_cases"] == 209
     assert result["metrics"]["queries"] == 90
     assert result["metrics"]["judged_at_5"] + result["metrics"]["unjudged_at_5"] == 450
+    assert result["metrics"]["ndcg_at_5"] == round(result["metrics"]["ndcg_at_5"], 12)
 
 
 def test_full_corpus_contract_schema_accepts_complete_artifact() -> None:
