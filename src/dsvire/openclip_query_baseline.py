@@ -102,6 +102,6 @@ def _bounded_scores(
             value = float(raw)
             if not math.isfinite(value) or not -1.000001 <= value <= 1.000001:
                 raise OpenClipQueryError("OpenCLIP returned an invalid cosine similarity")
-            values.append(round(min(1.0, max(0.0, (value + 1.0) / 2.0)), 6))
+            values.append(round(min(1.0, max(0.0, (value + 1.0) / 2.0)), 5))
         rows.append(values)
     return rows
