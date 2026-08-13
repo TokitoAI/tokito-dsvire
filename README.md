@@ -11,12 +11,13 @@ page.
 
 ## From datasheet evidence to a usable symbol
 
-![Synthetic datasheet regions becoming a deterministic Tokito symbol](docs/assets/product-workflow.svg)
+![Actual TPS5430 datasheet regions becoming the compiled Tokito symbol](docs/assets/product-workflow.png)
 
-The example uses a redistribution-safe synthetic datasheet page and the real
-eight-pin TPS5430 fixture contract. DS-ViRe owns retrieval and provenance;
-Tokito's extractor reads only approved crops, and deterministic Rust code owns
-symbol geometry and serialization.
+The left side contains the actual pinout and pin-function-table crops retrieved
+from page 3 of the official TPS5430 datasheet. The right side is rendered from
+the exact compiled `symbol.tokito_sym` artifact—not a hand-redrawn symbol.
+DS-ViRe owns retrieval and provenance; Tokito's extractor reads approved crops,
+and deterministic Rust code owns symbol geometry and serialization.
 
 ## Why DS-ViRe
 
@@ -154,7 +155,8 @@ licenses, package construction, and known vulnerabilities.
 Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
 Manufacturer PDFs and model weights are download-only and are never
-redistributed by this repository. Public examples use synthetic artwork or
-source-free hashes, geometry, annotations, and aggregate results.
+redistributed by this repository. The workflow image includes only the two
+small factual regions needed to demonstrate grounded retrieval; evaluation
+fixtures otherwise use source-free hashes, geometry, annotations, and results.
 
 If you use DS-ViRe in research, see [CITATION.cff](CITATION.cff).
