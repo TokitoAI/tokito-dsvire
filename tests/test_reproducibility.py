@@ -104,10 +104,14 @@ def test_docker_context_excludes_nested_bytecode() -> None:
     assert "**/*.pyc" in ignored
 
 
-def test_independent_builder_workflow_is_manual_bounded_and_cleans_resources() -> None:
+def test_independent_builder_workflow_is_scheduled_attested_bounded_and_cleans_resources() -> None:
     workflow = (ROOT / ".github/workflows/image-reproducibility.yml").read_text(encoding="utf-8")
     assert "workflow_dispatch:" in workflow
+    assert "schedule:" in workflow
+    assert "cron: '17 3 * * 1'" in workflow
     assert "contents: read" in workflow
+    assert "id-token: write" in workflow
+    assert "attestations: write" in workflow
     assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
     assert "tokito-vps" in workflow and "private-build" in workflow
     assert workflow.count("docker build --pull --no-cache") == 2
@@ -115,4 +119,7 @@ def test_independent_builder_workflow_is_manual_bounded_and_cleans_resources() -
     assert "if: always()" in workflow
     assert "docker image rm" in workflow
     assert "retention-days: 90" in workflow
+    assert "if-no-files-found: error" in workflow
+    assert "actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8" in workflow
+    assert "subject-digest: sha256:${{ steps.evidence.outputs.artifact-digest }}" in workflow
     assert "--inventory-out image-rootfs-inventory.json" in workflow

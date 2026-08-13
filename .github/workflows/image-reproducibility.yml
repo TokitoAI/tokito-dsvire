@@ -2,9 +2,14 @@ name: independent image reproducibility
 
 on:
   workflow_dispatch:
+  schedule:
+    # Weekly UTC run detects drift in the pinned build inputs and toolchain.
+    - cron: '17 3 * * 1'
 
 permissions:
   contents: read
+  id-token: write
+  attestations: write
 
 concurrency:
   group: dsvire-image-reproducibility-${{ github.ref }}
@@ -47,14 +52,21 @@ jobs:
             --inventory-out image-rootfs-inventory.json
       - name: Publish independent builder evidence
         if: always()
+        id: evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: independent-image-reproducibility-${{ github.sha }}
+          name: independent-image-reproducibility-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             image-reproducibility.json
             image-rootfs-inventory.json
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 90
+      - name: Attest independent builder evidence
+        if: ${{ !cancelled() && steps.evidence.outputs.artifact-digest != '' }}
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-name: independent-image-reproducibility-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          subject-digest: sha256:${{ steps.evidence.outputs.artifact-digest }}
       - name: Clean runner resources
         if: always()
         run: |

@@ -86,6 +86,14 @@ normalized rootfs digests. This proves runtime-filesystem reproducibility on one
 clean CI runner; it does not claim that provenance-bearing registry manifests or
 Docker configuration timestamps are byte-identical.
 
+The private-runner reproduction workflow also runs every Monday at 03:17 UTC
+and remains manually dispatchable. Each run builds twice from `main` without
+cache, fails on normalized-rootfs drift, retains the source/run-bound report and
+full inventory for 90 days, and issues a GitHub artifact attestation over the
+uploaded evidence digest. The workflow has read-only repository access plus
+only the OIDC/attestation permissions needed to sign that evidence; it never
+pushes or deploys an image. Cleanup remains unconditional.
+
 The image installs Python packages with pip `--no-compile`. Prebuilt `.pyc`
 files are deliberately absent because their headers incorporate install-time
 source mtimes and caused 608 byte-level differences in the first cold-build
