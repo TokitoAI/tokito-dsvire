@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   benchmark:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
@@ -39,6 +39,7 @@ jobs:
           mkdir -p "$RESULT_DIR"
           result="$RESULT_DIR/query-ranking-text-development-${GITHUB_SHA}.json"
           uv run --frozen --no-sync python scripts/evaluate_full_corpus_text_baseline.py \
+            --cache-root /opt/tokito/dsvire-benchmark-sources \
             --download-cache "$RUNNER_TEMP/dsvire-query-sources" \
             --json-out "$result"
           cd "$RESULT_DIR"
