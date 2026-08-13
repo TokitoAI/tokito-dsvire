@@ -112,9 +112,7 @@ def test_cycle_v3_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> 
 
 
 def test_cycle_v4_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> None:
-    prior_ids = {
-        family["id"] for plan in (_plan(), _plan_v3()) for family in plan["families"]
-    }
+    prior_ids = {family["id"] for plan in (_plan(), _plan_v3()) for family in plan["families"]}
     result = acquire_source_manifest(
         _plan_v4(),
         cache_dir=tmp_path,
