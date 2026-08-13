@@ -40,6 +40,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 - [Technical Bible](docs/TECHNICAL_BIBLE.md) — canonical architecture, evidence contract, benchmark, and SLOs.
 - [Reproducible examples](docs/EXAMPLES.md) — commands, source-free evidence screenshot, values, benchmark graph, and interpretation.
 - [Production readiness](docs/PRODUCTION_READINESS.md) — evidence ledger and honest remaining gates.
+- [Evaluation registry](evaluation/README.md) — frozen cycles, source seals, and leakage-safe human review.
 - [Contracts](docs/CONTRACTS.md) — versioned machine-facing schemas.
 
 Regenerate the public JSON and SVG examples from committed evidence:

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schema/retrieval-authoring-review-v1.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "packet_sha256", "submission_sha256", "author_attested_at", "author_attestation_url", "reviewer", "reviewed_at", "review_url"],
+  "properties": {
+    "schema_version": {"const": "dsvire.retrieval-authoring-review.v1"}, "packet_sha256": {"$ref": "#/$defs/sha256"}, "submission_sha256": {"$ref": "#/$defs/sha256"},
+    "author_attested_at": {"type": "string", "format": "date-time"}, "author_attestation_url": {"$ref": "#/$defs/reviewUrl"}, "reviewer": {"type": "string", "pattern": "^github:[A-Za-z0-9][A-Za-z0-9-]{0,38}$"},
+    "reviewed_at": {"type": "string", "format": "date-time"}, "review_url": {"$ref": "#/$defs/reviewUrl"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "reviewUrl": {"type": "string", "pattern": "^https://github\\.com/.+#pullrequestreview-[0-9]+$"}}
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schema/retrieval-authoring-submission-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "packet_sha256", "author", "manual_query_attestation", "documents", "submission_sha256"],
+  "properties": {
+    "schema_version": {"const": "dsvire.retrieval-authoring-submission.v1"},
+    "packet_sha256": {"$ref": "#/$defs/sha256"},
+    "author": {"$ref": "#/$defs/human"},
+    "manual_query_attestation": {"type": "string", "minLength": 1},
+    "documents": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "regions", "queries"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "regions": {
+            "type": "array",
+            "minItems": 7,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "kind", "intent", "page", "bbox_norm", "view", "note"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "kind": {"enum": ["positive", "wrong_intent", "wrong_package", "wrong_variant", "wrong_view"]},
+                "intent": {"enum": ["pinout", "table", "package"]},
+                "page": {"type": "integer", "minimum": 1},
+                "bbox_norm": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+                "view": {"enum": ["top", "bottom", "not_applicable", "unknown"]},
+                "note": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "queries": {
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 6,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "intent", "text", "relevant_region_ids", "hard_negative_region_ids"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "intent": {"enum": ["pinout", "table", "package"]},
+                "text": {"type": "string", "minLength": 1},
+                "relevant_region_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+                "hard_negative_region_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+              }
+            }
+          }
+        }
+      }
+    },
+    "submission_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "human": {"type": "string", "pattern": "^github:[A-Za-z0-9][A-Za-z0-9-]{0,38}$"}
+  }
+}

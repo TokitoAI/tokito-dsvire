@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schema/retrieval-authoring-seal-v1.json",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "plan_sha256", "source_manifest_sha256", "packet_sha256", "submission_sha256", "author", "author_attested_at", "author_attestation_url", "reviewer", "reviewed_at", "review_url", "documents", "regions", "queries", "score_access_authorized", "seal_sha256"],
+  "properties": {
+    "schema_version": {"const": "dsvire.retrieval-authoring-seal.v1"}, "plan_id": {"type": "string", "minLength": 1}, "plan_sha256": {"$ref": "#/$defs/sha256"}, "source_manifest_sha256": {"$ref": "#/$defs/sha256"}, "packet_sha256": {"$ref": "#/$defs/sha256"}, "submission_sha256": {"$ref": "#/$defs/sha256"},
+    "author": {"$ref": "#/$defs/human"}, "author_attested_at": {"type": "string", "format": "date-time"}, "author_attestation_url": {"type": "string", "minLength": 1}, "reviewer": {"$ref": "#/$defs/human"}, "reviewed_at": {"type": "string", "format": "date-time"}, "review_url": {"type": "string", "minLength": 1},
+    "documents": {"const": 12}, "regions": {"type": "integer", "minimum": 84}, "queries": {"const": 72}, "score_access_authorized": {"const": true}, "seal_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "human": {"type": "string", "pattern": "^github:[A-Za-z0-9][A-Za-z0-9-]{0,38}$"}}
+}
