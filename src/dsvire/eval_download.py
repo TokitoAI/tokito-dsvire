@@ -18,6 +18,7 @@ class EvaluationDownloadError(ValueError):
 
 
 _SHA256 = re.compile(r"[0-9a-f]{64}")
+_USER_AGENT = "curl/8.0 Tokito-DSViRe-Evaluation/1.0"
 
 
 def fetch_hash_pinned_file(
@@ -87,7 +88,10 @@ def fetch_hash_pinned_file(
         raise EvaluationDownloadError(f"{artifact_id}: artifact is not cached in offline mode")
     request = urllib.request.Request(
         source_url,
-        headers={"User-Agent": "Tokito-DSViRe-Evaluation/1.0"},
+        # Some official semiconductor CDNs reject unfamiliar automation tokens
+        # while serving the exact same public PDF to curl. Keep the product
+        # identity explicit, but lead with a broadly accepted HTTP client token.
+        headers={"User-Agent": _USER_AGENT, "Accept": "application/pdf"},
     )
     for attempt in range(1, attempts + 1):
         temporary: Path | None = None
