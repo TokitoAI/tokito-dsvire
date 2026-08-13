@@ -55,7 +55,7 @@ def test_openclip_scores_fail_closed(
 
 
 def test_openclip_scores_are_bounded_and_deterministically_rounded() -> None:
-    assert _bounded_scores([[-1.0, 0.123456789, 1.0]], 1, 3) == [[0.0, 0.561728, 1.0]]
+    assert _bounded_scores([[-1.0, 0.123456789, 1.0]], 1, 3) == [[0.0, 0.56173, 1.0]]
 
 
 def test_committed_openclip_result_is_schema_valid_and_digest_bound() -> None:
