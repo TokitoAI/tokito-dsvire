@@ -19,6 +19,9 @@ The current release is **v0.4.1**.
   runtime license policy, and hostile-PDF regression gates;
 - Tokito Cloud upload/job integration and deterministic evidence-to-symbol
   contracts.
+- production worker operation with an owner-authorized Anthropic credential,
+  fail-closed provider-backed canaries, encrypted integrity-verified off-host
+  recovery points, independent retention, and 24-hour RPO alerting.
 
 ## Deliberately not enabled
 
@@ -36,10 +39,17 @@ human reviewer before calibration or evaluation scores may be accessed.
 - pass a newly preregistered, independently reviewed calibrated visual cycle;
 - integrate only the resulting passing evidence-gated visual policy;
 - expand representative legal corpus coverage and manual queries;
-- add longer representative workload/availability evidence;
-- complete automated encrypted off-host backup replication and recovery;
-- use a separately scoped extractor credential instead of the currently
-  owner-authorized shared Anthropic credential.
+- prove the 99.5% query-API availability target over a representative duration
+  and workload; the current short staging and production canaries do not do so;
+- perform a decrypt/restore drill from the independent replica with the
+  operator-held age identity.
+
+The production operational canary uses three exact-hash, previously consumed
+development datasheets from TI, Microchip, and Diodes. All three completed in
+11.903 seconds with one attempt each, safely abstained, published nothing,
+released their source bytes, and left ready workers with zero active jobs,
+missing blobs, or worker errors. This proves the live provider and fail-closed
+boundary, not retrieval quality, cycle-v4 evaluation, or the availability SLO.
 
 The detailed work and ownership live on the
 [Tokito project board](https://github.com/orgs/TokitoAI/projects/1). Raw,
