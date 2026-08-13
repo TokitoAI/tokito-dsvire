@@ -3,25 +3,25 @@
     "deterministic synthetic vectors measure query-core correctness and capacity, not retrieval accuracy",
     "encoder, vector database, network, verification, and cold pack download are excluded"
   ],
-  "order_sha256": "1d2ae9d6bb4cb85a43ad567fb852e17e509c2adcdb45c173459eb40c46243fe4",
+  "order_sha256": "5a470fd23a904900c33317d829eaf7bfddffd3c8811cb736c9185c79c650d505",
   "pack": {
-    "bytes_per_region": 11393.005,
-    "payload_sha256": "f1792991add38a5ac0d4c630a1c2b8d27df2f3deabfd0d74fe0aea74d1c1ebb9",
-    "serialized_bytes": 2381138
+    "bytes_per_region": 2957.675,
+    "payload_sha256": "bb83fca57b66250709739e9820103bf4d70ef8c37086ebbc624ac94afad71148",
+    "serialized_bytes": 618154
   },
   "query": {
-    "max_ms": 47.6771,
-    "mean_ms": 45.060696,
-    "p95_ms": 46.7975
+    "max_ms": 49.2926,
+    "mean_ms": 44.077844,
+    "p95_ms": 45.3904
   },
-  "result_sha256": "aa04918c46f59333fdec531d3155d0dcb227cbe54900ad88bdb8355104267e62",
+  "result_sha256": "4e5ce7fdfe38b653b2107763c280b0b2113ed2c2d1d4318d90a7bf048c872712",
   "runtime": {
     "machine": "AMD64",
     "os": "Windows",
-    "pid": 21636,
+    "pid": 5680,
     "python": "3.11.9",
-    "total_seconds": 6.052552,
-    "traced_peak_bytes": 14134773
+    "total_seconds": 5.729002,
+    "traced_peak_bytes": 9243160
   },
   "schema_version": "dsvire.hybrid-query-core-benchmark.v1",
   "scope": {

@@ -164,10 +164,10 @@ python scripts/benchmark_hybrid_query_core.py \
 The committed Windows observation uses the exact 209 registered development
 candidate IDs/types/provenance and all 90 registered query strings, with
 deterministic synthetic vectors. At 32 dimensions, 16 document patches per
-region, BM25/dense top-100, and MaxSim top-32, it records 45.06 ms mean /
-46.80 ms p95, 14,134,773 traced peak bytes, and a 2,381,138-byte JSON pack.
-Independent runs reproduce semantic result SHA-256 `aa04918c...267e62` and
-order SHA-256 `1d2ae9d6...243fe4`.
+region, BM25/dense top-100, and MaxSim top-32, it records 44.08 ms mean /
+45.39 ms p95, 9,243,160 traced peak bytes, and a 618,154-byte JSON pack.
+Independent runs reproduce semantic result SHA-256 `4e5ce7fd...872712` and
+order SHA-256 `5a470fd2...0d505`.
 
 This measures the correctness and bounded capacity of the dependency-light
 query core only. The exact registry scope does not make synthetic vectors model

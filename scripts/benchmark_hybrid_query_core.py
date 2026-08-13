@@ -25,9 +25,12 @@ SCHEMA_VERSION = "dsvire.hybrid-query-core-benchmark.v1"
 
 
 def _vector(seed: int, dimension: int) -> list[float]:
-    values = [math.sin((seed + 1) * (index + 1) * 0.017) for index in range(dimension)]
-    norm = math.sqrt(math.fsum(value * value for value in values))
-    return [value / norm for value in values]
+    # Exact binary fractions keep the fixture byte-identical across libm/CPU runtimes.
+    values = (-1.0, -0.5, -0.25, 0.25, 0.5, 1.0)
+    return [
+        values[((seed + 1) * (index + 3) + index * index) % len(values)]
+        for index in range(dimension)
+    ]
 
 
 def _contracts(
