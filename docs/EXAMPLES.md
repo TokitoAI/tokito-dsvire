@@ -246,6 +246,29 @@ availability claim, representative vendor-document or model-provider capacity,
 retrieval quality/calibration, production worker enablement, or the Technical
 Bible hot-pack query SLO.
 
+## Worker-enabled staging recovery
+
+![Tokito Cloud worker-enabled staging recovery](assets/staging-recovery.svg)
+
+Merged Tokito Cloud workflow
+[`31721245115`](https://github.com/TokitoAI/tokito-ai/actions/runs/31721245115)
+used exact release v0.9.4 to seed a completed synthetic worker job, stop Cloud
+for a quiesced checkpoint, create and independently verify a five-file archive,
+and restore it into disposable storage. The restored service passed
+authenticated reconciliation for the job, its per-design Companion projection,
+the generated revision, and an exact idempotent replay.
+
+Measured phases were 591 ms to create the backup, 397 ms to verify it, 731 ms
+to restore it, 1.432 s to boot the restored service, and 94 ms for the
+authenticated probe. Cleanup removed the restored container, volumes, archive,
+and transient state. Original staging returned healthy with zero active jobs,
+missing referenced blobs, or worker errors. The reviewed source-free result is
+[`evaluation/results/tokito-staging-recovery-2026-08-13.json`](../evaluation/results/tokito-staging-recovery-2026-08-13.json).
+
+This proves the exact-release worker-enabled staging recovery path. It does not
+prove production-data recovery or encrypted off-host replication, and it does
+not change the production worker's fail-closed credential/calibration gates.
+
 ## Hybrid query-core capacity
 
 ![Hybrid query-core capacity](assets/hybrid-query-core-capacity.svg)

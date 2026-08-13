@@ -1,0 +1,40 @@
+{
+  "schema_version": "dsvire.public-staging-recovery.v1",
+  "source": {
+    "repository": "TokitoAI/tokito-ai",
+    "commit": "f1b83c96111a6fe59802dffa16950ff2c3817493",
+    "workflow_run": 31721245115,
+    "release": "v0.9.4",
+    "artifact_schema": "tokito.staging-recovery.v1"
+  },
+  "checkpoint": {
+    "source_free": true,
+    "exact_image": true,
+    "quiesced": true,
+    "verified_files": 5,
+    "archive_verified_before_restore": true,
+    "disposable_restore_volume": true
+  },
+  "timings_ms": {
+    "backup_create": 591,
+    "backup_verify": 397,
+    "restore": 731,
+    "restored_boot": 1432,
+    "authenticated_probe": 94
+  },
+  "results": {
+    "restored_job_verified": true,
+    "restored_companion_projection_verified": true,
+    "restored_generated_revision_verified": true,
+    "restored_idempotent_replay_verified": true,
+    "original_staging_recovered": true,
+    "final_active_jobs": 0,
+    "final_missing_referenced_blobs": 0,
+    "final_worker_has_error": false,
+    "disposable_state_removed": true
+  },
+  "scope": {
+    "proves": "exact-release worker-enabled staging backup, independent archive verification, disposable restore, authenticated job and Companion reconciliation, generated revision recovery, idempotent replay, cleanup, and original-service recovery",
+    "does_not_prove": "production-data recovery, encrypted off-host replication, long-duration availability, representative capacity, retrieval quality, production worker enablement, or the Technical Bible hot-query SLO"
+  }
+}
