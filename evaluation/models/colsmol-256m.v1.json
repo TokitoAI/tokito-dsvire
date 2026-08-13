@@ -1,0 +1,57 @@
+{
+  "schema_version": "dsvire.model-manifest.v1",
+  "id": "vidore/colSmol-256M@a59110fdf114638b8018e6c9a018907e12f14855",
+  "license": "MIT",
+  "repositories": [
+    {
+      "name": "adapter",
+      "repository": "vidore/colSmol-256M",
+      "revision": "a59110fdf114638b8018e6c9a018907e12f14855",
+      "license": "MIT",
+      "files": [
+        {"path":"adapter_config.json","bytes":825,"sha256":"c7ad3631b89e2273c88c8a2c6401cbf7a5eb956e3e35a972f6941e06a541f797"},
+        {"path":"adapter_model.safetensors","bytes":39135840,"sha256":"41673fb85f448ff15356e4dfcf9e039d7c6e3cffa1936bc3513f55453005e63e"},
+        {"path":"added_tokens.json","bytes":4739,"sha256":"74135b8664b56088c0006f1c8e848d79a8eba003411f72ebf1dc2ee96227be3a"},
+        {"path":"chat_template.json","bytes":430,"sha256":"b585e3598909a5687f9f9d738d35223724dedef256b9b274e1cbfb32b13c74bf"},
+        {"path":"config.json","bytes":7268,"sha256":"e68e589bbc081d258f585d32ff90d41f0eededdddd5d5d38f006d80ff7de0c0d"},
+        {"path":"merges.txt","bytes":466391,"sha256":"0b54e8aa4e53d5383e2e4bc635a56b43f9647f7b13832d5d9ecd8f82dac4f510"},
+        {"path":"preprocessor_config.json","bytes":489,"sha256":"6b8e11369a62e97e3b2f37a0dd1440b9018d177f7ecd2cfc2492e316b930a78a"},
+        {"path":"processor_config.json","bytes":68,"sha256":"e7bff42da73ae9eec9042ef20e066e11f1ee20f025358ff79131e3c0fb549b46"},
+        {"path":"special_tokens_map.json","bytes":1069,"sha256":"aa0ff906077086dfa9734a7f97f68c825877a48f9468807be65504495cdeef09"},
+        {"path":"tokenizer.json","bytes":3548256,"sha256":"5ece781dc8d2b2f3e2f289ca0ae50b17cfc27dd27bfe7971bb8241e0b964331a"},
+        {"path":"tokenizer_config.json","bytes":28274,"sha256":"e5bc53ee738178fca59eac1df6dc821576d1082ffedb7b8f8dfe97ceab43eb92"},
+        {"path":"vocab.json","bytes":800662,"sha256":"82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"}
+      ]
+    },
+    {
+      "name": "base",
+      "repository": "vidore/ColSmolVLM-Instruct-256M-base",
+      "revision": "99ca96f1f6b95b3a69e6abef74a2416cb738fed0",
+      "license": "MIT",
+      "files": [
+        {"path":"added_tokens.json","bytes":4739,"sha256":"74135b8664b56088c0006f1c8e848d79a8eba003411f72ebf1dc2ee96227be3a"},
+        {"path":"chat_template.json","bytes":430,"sha256":"b585e3598909a5687f9f9d738d35223724dedef256b9b274e1cbfb32b13c74bf"},
+        {"path":"config.json","bytes":7275,"sha256":"6a568d65ed15700160f190bdac4b89a9fc0028f33d84e44702426234bd973e63"},
+        {"path":"merges.txt","bytes":466391,"sha256":"0b54e8aa4e53d5383e2e4bc635a56b43f9647f7b13832d5d9ecd8f82dac4f510"},
+        {"path":"model.safetensors","bytes":456405944,"sha256":"45d026bad7c9d27edaeaf8ba4f2f0cd28406179819e06fa52693c051838c9069"},
+        {"path":"preprocessor_config.json","bytes":489,"sha256":"6b8e11369a62e97e3b2f37a0dd1440b9018d177f7ecd2cfc2492e316b930a78a"},
+        {"path":"processor_config.json","bytes":68,"sha256":"e7bff42da73ae9eec9042ef20e066e11f1ee20f025358ff79131e3c0fb549b46"},
+        {"path":"special_tokens_map.json","bytes":1069,"sha256":"aa0ff906077086dfa9734a7f97f68c825877a48f9468807be65504495cdeef09"},
+        {"path":"tokenizer.json","bytes":3548256,"sha256":"5ece781dc8d2b2f3e2f289ca0ae50b17cfc27dd27bfe7971bb8241e0b964331a"},
+        {"path":"tokenizer_config.json","bytes":28274,"sha256":"e5bc53ee738178fca59eac1df6dc821576d1082ffedb7b8f8dfe97ceab43eb92"},
+        {"path":"vocab.json","bytes":800662,"sha256":"82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"}
+      ]
+    }
+  ],
+  "runtime": {
+    "adapter_config_semantic_sha256": "a945c8a8e3c2a8fa204b953b5a0c846eb8dbe4f4ea409dc1b68dfa5c9cccd576",
+    "transformers": "5.5.0",
+    "peft": "0.19.0",
+    "huggingface_hub": "1.5.0",
+    "torch": "2.13.0",
+    "torchvision": "0.28.0",
+    "embedding_dimension": 128,
+    "processor": "ColIdefics3Processor",
+    "model": "TokitoColIdefics3"
+  }
+}

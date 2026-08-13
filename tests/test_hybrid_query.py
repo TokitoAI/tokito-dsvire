@@ -83,6 +83,8 @@ def test_hybrid_query_routes_fuses_and_bounds_maxsim() -> None:
     assert result.routed_types[0] == "package"
     assert result.considered <= 3
     assert result.maxsim_evaluated == 2
+    assert len(result.prefiltered_region_ids) == result.considered
+    assert set(result.prefiltered_region_ids) == {"a", "b", "c"}
     assert result.hits[0].region_id == "b"
     assert all(math.isfinite(hit.score) for hit in result.hits)
 

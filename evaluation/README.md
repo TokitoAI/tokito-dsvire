@@ -93,6 +93,35 @@ The compact result separates a portable complete-order `ranking_sha256` from the
 runtime-only score artifact digest. CPU-specific OpenCLIP kernels may perturb
 last-digit cosine values; order and metrics must still reproduce exactly.
 
+`models/colsmol-256m.v1.json` freezes the complete official ColSmol-256M
+adapter/base file set, immutable repository commits, upstream MIT declarations,
+and the exact supported encoder runtime. The small upstream ColSmol projection
+and fixed processor templates are implemented locally on audited public
+Transformers/PEFT APIs; the vulnerable legacy `colpali-engine` runtime is not a
+dependency. `scripts/acquire_model.py` downloads
+only those immutable paths over HTTPS, verifies byte counts and SHA-256, and
+atomically constructs a network-disabled local model. The rewritten local base
+pointer is covered by a normalized semantic digest so changes to any adapter
+setting fail closed. The model files, generated packs, crop pixels, and raw
+rankings are excluded from Git and workflow artifacts.
+
+`scripts/evaluate_full_corpus_colsmol.py` is the corresponding genuine
+late-interaction development runner. It encodes raw query strings and crop
+pixels, mean-pools the same multi-vectors for the dense stage, builds a strict
+`dsvire.retrieval-pack.v1`, and executes BM25+dense/RRF plus exact top-32
+MaxSim. It emits complete 90x209 rankings for evaluation, while publication
+remains disabled. A successful local smoke is not a benchmark result: compact
+metrics are committed only after an independent environment reproduces the
+model/implementation/order identities.
+
+The audited Torch 2.13 / Transformers 5.5 CPU smoke loaded the exact
+505,257,813-byte materialized model, emitted 1,135 image vectors and 20 query
+vectors at dimension 128, and completed in 62.62 seconds. The controlled query
+token IDs reproduce exactly under the legacy Transformers 4.47 tokenizer and
+the supported 5.5 tokenizer. This verifies compatibility and the real tensor
+boundary; CPU throughput remains unsuitable for the complete 209-crop run and
+is not reported as retrieval accuracy.
+
 ## Visual-verifier calibration contract
 
 `dsvire.visual_metrics` is the model-independent policy boundary for the EGVV
