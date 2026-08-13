@@ -18,6 +18,7 @@ BENCHMARK = ROOT / "evaluation/results/multivendor-development-2026-08-12.json"
 SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
 STAGING_RESTART_LOAD = ROOT / "evaluation/results/tokito-staging-restart-load-2026-08-13.json"
 STAGING_SOAK = ROOT / "evaluation/results/tokito-staging-soak-2026-08-13.json"
+STAGING_RECOVERY = ROOT / "evaluation/results/tokito-staging-recovery-2026-08-13.json"
 VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
@@ -291,6 +292,48 @@ def _staging_soak_svg(result: dict[str, Any]) -> str:
 """
 
 
+def _staging_recovery_svg(result: dict[str, Any]) -> str:
+    timings = result["timings_ms"]
+    source = result["source"]
+    checkpoint = result["checkpoint"]
+    phases = (
+        ("Backup", timings["backup_create"]),
+        ("Verify", timings["backup_verify"]),
+        ("Restore", timings["restore"]),
+        ("Boot", timings["restored_boot"]),
+        ("Probe", timings["authenticated_probe"]),
+    )
+    maximum = max(value for _, value in phases)
+    bars = []
+    for index, (label, value) in enumerate(phases):
+        y = 292 + index * 52
+        width = round(610 * value / maximum)
+        bars.extend(
+            [
+                f'<text x="74" y="{y + 20}" class="row">{label}</text>',
+                f'<rect x="210" y="{y}" width="610" height="23" rx="11" fill="#202631"/>',
+                f'<rect x="210" y="{y}" width="{width}" height="23" rx="11" fill="#16d6b3"/>',
+                f'<text x="850" y="{y + 19}" class="mono">{value} ms</text>',
+            ]
+        )
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Tokito Cloud worker-enabled staging recovery drill</title>
+  <desc id="desc">Exact-release source-free backup, archive verification, disposable restore, authenticated reconciliation, cleanup, and recovery timings.</desc>
+  <rect width="1200" height="680" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 28px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Worker-enabled staging recovery · exact release</text>
+  <text x="64" y="105" class="sub">Quiesced checkpoint · verified archive · disposable restore · authenticated state reconciliation</text>
+  <rect x="58" y="136" width="1084" height="112" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="169" class="label">RECOVERY CONTENT</text><text x="84" y="208" class="metric">{checkpoint["verified_files"]} manifest files verified</text>
+  <text x="650" y="169" class="label">RESTORED CONTRACTS</text><text x="650" y="208" class="metric">Job · Companion · revision · replay</text>
+  {"".join(bars)}
+  <rect x="58" y="570" width="1084" height="54" rx="14" fill="#14251f" stroke="#286451"/>
+  <text x="82" y="604" class="row">PASS · ORIGINAL STAGING HEALTHY · ZERO ACTIVE JOBS / MISSING BLOBS / WORKER ERRORS · DISPOSABLE STATE REMOVED</text>
+  <text x="64" y="654" class="foot">Run {source["workflow_run"]} · commit {source["commit"][:8]} · Cloud {source["release"]} · aggregate source-free evidence · not off-host replication proof</text>
+</svg>
+'''
+
+
 def _coverage_svg(result: dict[str, Any]) -> str:
     achieved = result["achieved"]
     targets = result["targets"]
@@ -485,6 +528,7 @@ def generate(output_root: Path) -> None:
     service_load = _read(SERVICE_LOAD)
     staging_restart_load = _read(STAGING_RESTART_LOAD)
     staging_soak = _read(STAGING_SOAK)
+    staging_recovery = _read(STAGING_RECOVERY)
     query_ranking = _read(QUERY_RANKING)
     full_corpus_text = _read(FULL_CORPUS_TEXT)
     full_corpus_openclip = _read(FULL_CORPUS_OPENCLIP)
@@ -511,6 +555,10 @@ def generate(output_root: Path) -> None:
         _staging_restart_load_svg(staging_restart_load),
     )
     _write(output_root / "docs/assets/staging-soak.svg", _staging_soak_svg(staging_soak))
+    _write(
+        output_root / "docs/assets/staging-recovery.svg",
+        _staging_recovery_svg(staging_recovery),
+    )
     _write(
         output_root / "examples/corpus-coverage.json",
         json.dumps(coverage, indent=2, ensure_ascii=False) + "\n",
