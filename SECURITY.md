@@ -36,4 +36,4 @@ Do not open public issues for undisclosed security problems.
   compiler, and authenticated ingestion gates.
 
 The remaining threat-model and production gaps are tracked in
-[`docs/PRODUCTION_READINESS.md`](docs/PRODUCTION_READINESS.md).
+[`docs/STATUS.md`](docs/STATUS.md).

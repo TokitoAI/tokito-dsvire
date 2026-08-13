@@ -45,19 +45,12 @@ def test_hybrid_query_benchmark_is_schema_valid_and_semantically_repeatable(tmp_
     assert first["scope"]["maxsim_k"] == 4
 
 
-def test_committed_capacity_evidence_matches_docs_and_schema() -> None:
+def test_committed_capacity_evidence_matches_schema() -> None:
     result = json.loads(COMMITTED.read_text())
     schema = json.loads(
         (ROOT / "scripts/schema/hybrid_query_core_benchmark_v1.schema.json").read_text()
     )
     jsonschema.validate(result, schema)
-    examples = (ROOT / "docs/EXAMPLES.md").read_text()
-    readme = (ROOT / "README.md").read_text()
-    svg = (ROOT / "docs/assets/hybrid-query-core-capacity.svg").read_text()
-    assert f"{result['query']['p95_ms']:.2f} ms" in examples
-    assert f"{result['query']['p95_ms']:.2f} ms" in readme
-    assert f"{result['query']['p95_ms']:.2f} ms" in svg
-    assert result["result_sha256"][:8] in examples
-    assert result["result_sha256"][-5:] in examples
-    assert result["order_sha256"][:8] in svg
-    assert result["order_sha256"][-5:] in svg
+    assert result["scope"]["regions"] == 209
+    assert result["scope"]["queries"] == 90
+    assert result["scope"]["maxsim_k"] == 32

@@ -111,7 +111,7 @@ Success means top-k contains the region a competent EE would use, scored at page
 Industry text extractors and CAD libraries get you to a PDF or a symbol file. They do not publish an open figure-grounded datasheet retrieval benchmark.
 
 Runnable, source-free examples of the implemented evidence contract and current
-development comparators live in [`EXAMPLES.md`](EXAMPLES.md). Generated visuals
+development comparators live in the source-free `evaluation/results/` records. Generated visuals
 derive from committed JSON and must not be treated as held-out accuracy proof.
 
 ---
@@ -591,7 +591,7 @@ These controls are a parser containment baseline, not a claim that arbitrary
 PDFs are safe or that text grounding is calibrated EGVV. Production deployment
 must also enforce container CPU, memory, PID, filesystem, and network policy
 and maintain a parser vulnerability-update process. See
-[`PRODUCTION_READINESS.md`](PRODUCTION_READINESS.md).
+[`STATUS.md`](STATUS.md).
 
 ---
 

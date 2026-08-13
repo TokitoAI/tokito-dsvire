@@ -4,8 +4,8 @@
 **Updated:** 2026-08-13
 
 This document defines how DS-ViRe evidence becomes a native, cataloged Tokito
-symbol. The hackathon is the first delivery milestone for this product, not a
-throwaway implementation or a reduced architectural target.
+symbol. The first production milestone is deliberately narrow, not a throwaway
+implementation or a reduced architectural target.
 
 The core rule is:
 
@@ -356,4 +356,4 @@ The first vertical slice is complete only when an unsupported datasheet can:
 Scale work then expands corpus coverage, model quality, queue throughput,
 moderation operations, multi-unit placement, robustness, and benchmark depth.
 Those are product increments, not reasons to replace the architecture with a
-hackathon-only path.
+one-off path.

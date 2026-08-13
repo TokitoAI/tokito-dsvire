@@ -11,7 +11,7 @@ Exposes pure functions used by both the tests and the demo runner:
 
 `Finding` records a single check with a stable id and a human-readable message.
 `Report` is the top-level aggregator that maps every finding to a
-HACKATHON_SLICE.md §7 success criterion.
+the product acceptance criteria.
 
 Nothing in this module fabricates data. Every check runs against real artifacts
 on disk. Missing artifacts produce explicit MISSING findings rather than passes.
