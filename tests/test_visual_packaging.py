@@ -73,6 +73,21 @@ def test_full_corpus_query_workflow_is_manual_pinned_and_source_free() -> None:
     assert "retention-days: 30" in workflow
     assert "artifacts/*.pdf" not in workflow
     assert "actions/cache" not in workflow
+
+
+def test_openclip_query_workflow_is_private_pinned_and_source_free() -> None:
+    root = Path(__file__).parents[1]
+    workflow = (root / ".github/workflows/openclip-query-benchmark.yml").read_text(encoding="utf-8")
+    assert "workflow_dispatch:" in workflow
+    assert "contents: read" in workflow
+    assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
+    assert "--extra openclip" in workflow
+    assert "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6" in workflow
+    assert "--ranking-out" not in workflow
+    assert "artifacts/*.json" in workflow
+    assert "retention-days: 30" in workflow
+    assert "artifacts/*.pdf" not in workflow
+    assert "artifacts/*.safetensors" not in workflow
     assert "*.pdf" not in workflow
 
 

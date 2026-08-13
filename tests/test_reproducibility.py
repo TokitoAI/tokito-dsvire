@@ -60,14 +60,24 @@ def test_container_never_resolves_dependencies_or_build_requirements() -> None:
 
 
 def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
-    for name in ["ci.yml", "release.yml", "visual-benchmark.yml", "query-ranking-benchmark.yml"]:
+    for name in [
+        "ci.yml",
+        "release.yml",
+        "visual-benchmark.yml",
+        "query-ranking-benchmark.yml",
+        "openclip-query-benchmark.yml",
+    ]:
         workflow = (ROOT / ".github/workflows" / name).read_text(encoding="utf-8")
         assert SETUP_UV in workflow
         assert "version: '0.12.3'" in workflow
         assert "uv sync --locked" in workflow
         assert "uv run --frozen --no-sync" in workflow
         assert "pip install -e" not in workflow
-        if name in {"visual-benchmark.yml", "query-ranking-benchmark.yml"}:
+        if name in {
+            "visual-benchmark.yml",
+            "query-ranking-benchmark.yml",
+            "openclip-query-benchmark.yml",
+        }:
             assert "python scripts/check_dependency_lock.py" in workflow
         else:
             assert "python scripts/verify_release.py" in workflow

@@ -82,6 +82,14 @@ vendor endpoint is unavailable to automation; it is not an Actions cache or
 artifact. Missing or mismatched cached sources still fall through to official
 download and then fail closed. Workflow artifacts remain source-free.
 
+`results/full-corpus-openclip-development-2026-08-13.json` is the corresponding
+unscoped visual-semantic lower bound. The pinned OpenCLIP scorer receives only
+raw query strings and PNG crop bytes; tests keep identity, package, region type,
+document metadata, and labels outside its public surface. It ranks the exact
+same 90 x 209 universe. This compares information boundaries; generic OpenCLIP
+does not implement the Technical Bible's hybrid gate, crop multi-vectors,
+MaxSim, or reranker.
+
 ## Visual-verifier calibration contract
 
 `dsvire.visual_metrics` is the model-independent policy boundary for the EGVV
