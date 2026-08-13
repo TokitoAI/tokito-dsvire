@@ -112,8 +112,12 @@ retrieval. The candidate universe is every registered development annotation,
 not every unannotated figure in every PDF. The deterministic-template queries
 are not independently reviewed or held out, so these values cannot calibrate a
 policy or authorize publication. The manual **query ranking benchmark** workflow
-repeats the run on ephemeral hash-pinned downloads and uploads only compact JSON
-and its checksum—never PDFs, crops, or the raw ranking dump.
+repeats the run on the private self-hosted runner. It downloads reachable
+official sources into ephemeral storage and uses a non-published exact-hash
+source cache for vendor endpoints that currently block or remove automated
+downloads. Every input is still checked against the public registry hash. The
+workflow uploads only compact JSON and its checksum—never PDFs, crops, or the
+raw ranking dump.
 
 ## Tokito Wave D product acceptance
 

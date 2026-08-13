@@ -76,6 +76,12 @@ the committed artifact contains only hashes, aggregate/by-intent metrics,
 limitations, and operational measurements. It is development evidence, not
 held-out accuracy or a publication-policy result.
 
+The manual query-ranking workflow runs on the private `tokito-vps` runner. Its
+operator-managed source cache contains only exact registry hashes needed when a
+vendor endpoint is unavailable to automation; it is not an Actions cache or
+artifact. Missing or mismatched cached sources still fall through to official
+download and then fail closed. Workflow artifacts remain source-free.
+
 ## Visual-verifier calibration contract
 
 `dsvire.visual_metrics` is the model-independent policy boundary for the EGVV

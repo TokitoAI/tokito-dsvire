@@ -65,10 +65,13 @@ def test_full_corpus_query_workflow_is_manual_pinned_and_source_free() -> None:
     workflow = (root / ".github/workflows/query-ranking-benchmark.yml").read_text(encoding="utf-8")
     assert "workflow_dispatch:" in workflow
     assert "contents: read" in workflow
+    assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
+    assert "--cache-root /opt/tokito/dsvire-benchmark-sources" in workflow
     assert '--download-cache "$RUNNER_TEMP/dsvire-query-sources"' in workflow
     assert "--ranking-out" not in workflow
     assert "artifacts/*.json" in workflow
     assert "retention-days: 30" in workflow
+    assert "artifacts/*.pdf" not in workflow
     assert "actions/cache" not in workflow
     assert "*.pdf" not in workflow
 
