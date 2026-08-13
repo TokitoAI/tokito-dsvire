@@ -19,6 +19,8 @@ REQUIRED_MANUFACTURERS = {
     "Microchip": "ww1.microchip.com",
     "STMicroelectronics": "www.st.com",
     "onsemi": "www.onsemi.com",
+    "NXP Semiconductors": "www.nxp.com",
+    "Bosch Sensortec": "www.bosch-sensortec.com",
 }
 
 
