@@ -316,7 +316,7 @@ def _staging_recovery_svg(result: dict[str, Any]) -> str:
                 f'<text x="850" y="{y + 19}" class="mono">{value} ms</text>',
             ]
         )
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
   <title id="title">Tokito Cloud worker-enabled staging recovery drill</title>
   <desc id="desc">Exact-release source-free backup, archive verification, disposable restore, authenticated reconciliation, cleanup, and recovery timings.</desc>
   <rect width="1200" height="680" rx="28" fill="#090b10"/>
@@ -331,7 +331,7 @@ def _staging_recovery_svg(result: dict[str, Any]) -> str:
   <text x="82" y="604" class="row">PASS · ORIGINAL STAGING HEALTHY · ZERO ACTIVE JOBS / MISSING BLOBS / WORKER ERRORS · DISPOSABLE STATE REMOVED</text>
   <text x="64" y="654" class="foot">Run {source["workflow_run"]} · commit {source["commit"][:8]} · Cloud {source["release"]} · aggregate source-free evidence · not off-host replication proof</text>
 </svg>
-'''
+"""
 
 
 def _coverage_svg(result: dict[str, Any]) -> str:
