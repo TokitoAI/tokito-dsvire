@@ -147,13 +147,19 @@ def test_text_baseline_is_query_conditioned_without_labels() -> None:
 
 
 def test_committed_full_corpus_result_is_schema_valid_and_digest_bound() -> None:
-    result = json.loads(
-        (ROOT / "evaluation/results/full-corpus-text-development-2026-08-13.json").read_text()
-    )
     schema = json.loads(
         (ROOT / "scripts/schema/full_corpus_text_baseline_result_v1.schema.json").read_text()
     )
     jsonschema.Draft202012Validator.check_schema(schema)
+    historical = json.loads(
+        (ROOT / "evaluation/results/full-corpus-text-development-2026-08-13.json").read_text()
+    )
+    jsonschema.validate(historical, schema)
+    result = json.loads(
+        (
+            ROOT / "evaluation/results/full-corpus-text-pdfium-development-2026-08-13.json"
+        ).read_text()
+    )
     jsonschema.validate(result, schema)
     deterministic = deepcopy(result)
     deterministic.pop("runtime")

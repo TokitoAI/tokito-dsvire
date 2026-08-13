@@ -3,27 +3,151 @@
   "$id": "https://tokito.ai/schemas/dsvire/full-corpus-openclip-baseline-result-v1.json",
   "title": "DS-ViRe full-corpus unscoped OpenCLIP baseline result v1",
   "type": "object",
-  "required": ["schema_version", "source", "system", "ranking_sha256", "result_sha256", "scope", "metrics", "by_query_type", "limitations", "runtime"],
+  "required": [
+    "schema_version",
+    "source",
+    "system",
+    "ranking_sha256",
+    "result_sha256",
+    "scope",
+    "metrics",
+    "by_query_type",
+    "limitations",
+    "runtime"
+  ],
   "properties": {
-    "schema_version": {"const": "dsvire.full-corpus-openclip-baseline-result.v1"},
+    "schema_version": {
+      "const": "dsvire.full-corpus-openclip-baseline-result.v1"
+    },
     "source": {
       "type": "object",
-      "required": ["visual_registry_sha256", "query_registry_sha256", "model_sha256", "source_manifest"],
+      "required": [
+        "visual_registry_sha256",
+        "query_registry_sha256",
+        "model_sha256",
+        "source_manifest"
+      ],
       "properties": {
-        "visual_registry_sha256": {"$ref": "#/$defs/sha256"},
-        "query_registry_sha256": {"$ref": "#/$defs/sha256"},
-        "model_sha256": {"$ref": "#/$defs/sha256"},
-        "source_manifest": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["document_id", "content_sha256", "bytes"], "properties": {"document_id": {"type": "string", "minLength": 1}, "content_sha256": {"$ref": "#/$defs/sha256"}, "bytes": {"type": "integer", "minimum": 1}}, "additionalProperties": false}}
-      }, "additionalProperties": false
+        "visual_registry_sha256": { "$ref": "#/$defs/sha256" },
+        "query_registry_sha256": { "$ref": "#/$defs/sha256" },
+        "model_sha256": { "$ref": "#/$defs/sha256" },
+        "source_manifest": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["document_id", "content_sha256", "bytes"],
+            "properties": {
+              "document_id": { "type": "string", "minLength": 1 },
+              "content_sha256": { "$ref": "#/$defs/sha256" },
+              "bytes": { "type": "integer", "minimum": 1 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
     },
-    "system": {"type": "object", "required": ["id", "sha256"], "properties": {"id": {"const": "dsvire.query-baseline.openclip-unscoped@1.0.0"}, "sha256": {"$ref": "#/$defs/sha256"}}, "additionalProperties": false},
-    "ranking_sha256": {"$ref": "#/$defs/sha256"}, "result_sha256": {"$ref": "#/$defs/sha256"},
-    "scope": {"type": "object", "required": ["split", "documents", "queries", "candidate_cases", "ranked_pairs"], "properties": {"split": {"const": "development"}, "documents": {"type": "integer", "minimum": 1}, "queries": {"type": "integer", "minimum": 1}, "candidate_cases": {"type": "integer", "minimum": 1}, "ranked_pairs": {"type": "integer", "minimum": 1}}, "additionalProperties": false},
-    "metrics": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"},
-    "by_query_type": {"type": "object", "required": ["pinout", "table", "package"], "properties": {"pinout": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"}, "table": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"}, "package": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"}}, "additionalProperties": false},
-    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
-    "runtime": {"type": "object", "required": ["score_artifact_sha256", "total_seconds", "inference_seconds", "candidate_render_mean_ms", "candidate_render_p95_ms", "peak_rss_bytes", "external_cost_usd", "environment"], "properties": {"score_artifact_sha256": {"$ref": "#/$defs/sha256"}, "total_seconds": {"type": "number", "exclusiveMinimum": 0}, "inference_seconds": {"type": "number", "exclusiveMinimum": 0}, "candidate_render_mean_ms": {"type": "number", "minimum": 0}, "candidate_render_p95_ms": {"type": "number", "minimum": 0}, "peak_rss_bytes": {"type": "integer", "minimum": 1}, "external_cost_usd": {"type": "number", "minimum": 0}, "environment": {"type": "object", "required": ["os", "os_release", "machine", "python", "pymupdf", "logical_cpus"], "properties": {"os": {"type": "string", "minLength": 1}, "os_release": {"type": "string", "minLength": 1}, "machine": {"type": "string", "minLength": 1}, "python": {"type": "string", "minLength": 1}, "pymupdf": {"type": "string", "minLength": 1}, "logical_cpus": {"type": ["integer", "null"], "minimum": 1}}, "additionalProperties": false}}, "additionalProperties": false}
+    "system": {
+      "type": "object",
+      "required": ["id", "sha256"],
+      "properties": {
+        "id": {
+          "enum": [
+            "dsvire.query-baseline.openclip-unscoped@1.0.0",
+            "dsvire.query-baseline.openclip-unscoped@2.0.0"
+          ]
+        },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      },
+      "additionalProperties": false
+    },
+    "ranking_sha256": { "$ref": "#/$defs/sha256" },
+    "result_sha256": { "$ref": "#/$defs/sha256" },
+    "scope": {
+      "type": "object",
+      "required": [
+        "split",
+        "documents",
+        "queries",
+        "candidate_cases",
+        "ranked_pairs"
+      ],
+      "properties": {
+        "split": { "const": "development" },
+        "documents": { "type": "integer", "minimum": 1 },
+        "queries": { "type": "integer", "minimum": 1 },
+        "candidate_cases": { "type": "integer", "minimum": 1 },
+        "ranked_pairs": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "metrics": {
+      "$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"
+    },
+    "by_query_type": {
+      "type": "object",
+      "required": ["pinout", "table", "package"],
+      "properties": {
+        "pinout": {
+          "$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"
+        },
+        "table": {
+          "$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"
+        },
+        "package": {
+          "$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"
+        }
+      },
+      "additionalProperties": false
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "runtime": {
+      "type": "object",
+      "required": [
+        "score_artifact_sha256",
+        "total_seconds",
+        "inference_seconds",
+        "candidate_render_mean_ms",
+        "candidate_render_p95_ms",
+        "peak_rss_bytes",
+        "external_cost_usd",
+        "environment"
+      ],
+      "properties": {
+        "score_artifact_sha256": { "$ref": "#/$defs/sha256" },
+        "total_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "inference_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "candidate_render_mean_ms": { "type": "number", "minimum": 0 },
+        "candidate_render_p95_ms": { "type": "number", "minimum": 0 },
+        "peak_rss_bytes": { "type": "integer", "minimum": 1 },
+        "external_cost_usd": { "type": "number", "minimum": 0 },
+        "environment": {
+          "type": "object",
+          "required": ["os", "os_release", "machine", "python", "logical_cpus"],
+          "anyOf": [
+            { "required": ["pdf_backend"] },
+            { "required": ["pymupdf"] }
+          ],
+          "properties": {
+            "os": { "type": "string", "minLength": 1 },
+            "os_release": { "type": "string", "minLength": 1 },
+            "machine": { "type": "string", "minLength": 1 },
+            "python": { "type": "string", "minLength": 1 },
+            "pdf_backend": { "type": "string", "minLength": 1 },
+            "pymupdf": { "type": "string", "minLength": 1 },
+            "logical_cpus": { "type": ["integer", "null"], "minimum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
   },
-  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "$defs": { "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" } },
   "additionalProperties": false
 }

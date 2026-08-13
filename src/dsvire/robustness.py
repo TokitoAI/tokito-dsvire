@@ -13,11 +13,11 @@ import time
 from pathlib import Path
 from typing import Any, Literal, Protocol, cast
 
-from PIL import Image, ImageDraw
 from pypdf import PdfReader, PdfWriter
 from pypdf.constants import UserAccessPermissions
 from pypdf.generic import ArrayObject, ByteStringObject
 
+from .pdf_fixtures import add_rgb_image_page, add_text_page, text_pdf, write_pdf
 from .pipeline import (
     MAX_PAGES,
     MAX_PDF_BYTES,
@@ -124,45 +124,24 @@ def load_corpus(path: Path = DEFAULT_MANIFEST) -> Corpus:
 
 
 def _born_digital(*, revision: str = "R1", rotation: int = 0) -> bytes:
-    import pymupdf
-
-    document = pymupdf.open()
-    pinout = document.new_page()
-    pinout.insert_text(
-        (72, 72),
-        f"Acme A-1 SOIC-8 {revision}\nPin Configuration - top view\n"
-        "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+    return text_pdf(
+        [
+            f"Acme A-1 SOIC-8 {revision}\nPin Configuration - top view\n"
+            "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+            "Pin Functions\nPin Name Type Description\n1 VIN input\n2 BOOT passive\n"
+            "3 PH output\n4 GND ground\n5 VSENSE input\n6 ENA input\n"
+            "7 COMP passive\n8 PWRPAD ground",
+        ],
+        rotations=[rotation, rotation],
     )
-    table = document.new_page()
-    table.insert_text(
-        (72, 72),
-        "Pin Functions\nPin Name Type Description\n1 VIN input\n2 BOOT passive\n"
-        "3 PH output\n4 GND ground\n5 VSENSE input\n6 ENA input\n"
-        "7 COMP passive\n8 PWRPAD ground",
-    )
-    if rotation:
-        for page_index in range(document.page_count):
-            document.load_page(page_index).set_rotation(rotation)
-    payload = document.tobytes(garbage=4, deflate=True, no_new_id=True)
-    document.close()
-    return cast(bytes, payload)
 
 
 def _scan_only() -> bytes:
-    import pymupdf
-
-    image = Image.new("RGB", (800, 500), "white")
-    draw = ImageDraw.Draw(image)
-    draw.text((40, 40), "Acme A-1 SOIC-8 scan only", fill="black")
-    buffer = io.BytesIO()
-    image.save(buffer, format="PNG", optimize=False)
-    document = pymupdf.open()
+    writer = PdfWriter()
+    pixels = b"\xff\xff\xff" * (800 * 500)
     for _ in range(2):
-        page = document.new_page(width=800, height=500)
-        page.insert_image(page.rect, stream=buffer.getvalue())
-    payload = document.tobytes(garbage=4, deflate=True, no_new_id=True)
-    document.close()
-    return cast(bytes, payload)
+        add_rgb_image_page(writer, pixels, width=800, height=500)
+    return write_pdf(writer)
 
 
 def _encrypted() -> bytes:
@@ -186,40 +165,26 @@ def _encrypted() -> bytes:
 
 
 def _page_limit_plus_one() -> bytes:
-    import pymupdf
-
-    document = pymupdf.open()
-    seed = pymupdf.open()
-    seed.new_page()
-    while document.page_count < MAX_PAGES + 1:
-        remaining = MAX_PAGES + 1 - document.page_count
-        copies = min(remaining, 256)
-        for _ in range(copies):
-            document.insert_pdf(seed)
-    payload = document.tobytes(garbage=4, deflate=True, no_new_id=True)
-    seed.close()
-    document.close()
-    return cast(bytes, payload)
+    writer = PdfWriter()
+    for _ in range(MAX_PAGES + 1):
+        writer.add_blank_page(width=72, height=72)
+    return write_pdf(writer)
 
 
 def _render_geometry_limit() -> bytes:
-    import pymupdf
-
-    document = pymupdf.open()
-    page = document.new_page(width=20_000, height=20_000)
-    page.insert_text(
-        (72, 72),
+    writer = PdfWriter()
+    add_text_page(
+        writer,
         "Acme A-1 SOIC-8 Pin Configuration top view VIN 1 BOOT 2 PH 3 GND 4 "
-        "VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
-    )
-    page.insert_text(
-        (72, 10_000),
-        "Pin Functions Pin Name Type Description 1 VIN 2 BOOT 3 PH 4 GND "
+        "VSENSE 5 ENA 6 COMP 7 PWRPAD 8\n"
+        + "\n"
+        * 300
+        + "Pin Functions Pin Name Type Description 1 VIN 2 BOOT 3 PH 4 GND "
         "5 VSENSE 6 ENA 7 COMP 8 PWRPAD",
+        width=20_000,
+        height=20_000,
     )
-    payload = document.tobytes(garbage=4, deflate=True, no_new_id=True)
-    document.close()
-    return cast(bytes, payload)
+    return write_pdf(writer)
 
 
 def _truncated_xref() -> bytes:

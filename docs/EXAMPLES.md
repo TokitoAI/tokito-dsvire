@@ -73,7 +73,7 @@ actual system rankings.
 ![Full-corpus text/layout development baseline](assets/full-corpus-text-development.svg)
 
 The compact, source-free
-[`full-corpus-text-development-2026-08-13.json`](../evaluation/results/full-corpus-text-development-2026-08-13.json)
+[`full-corpus-text-pdfium-development-2026-08-13.json`](../evaluation/results/full-corpus-text-pdfium-development-2026-08-13.json)
 is the first actual system ranking through the complete-split contract. It
 extracts text once from each registered crop in 30 exact hash-pinned development
 PDFs, then ranks all 209 registered candidates for each of 90 queries: 18,810
@@ -94,10 +94,11 @@ unsorted candidates.
 
 The raw ranking is deliberately not committed: it is about 2.25 MB and is
 independently reproducible from the pinned inputs. The compact result binds all
-30 source hashes, both registry hashes, the scorer implementation and PyMuPDF
-version, the byte-stable ranking digest, metrics, runtime, and environment. Two
-local runs produced the same raw ranking bytes and deterministic result digest;
-only timing and RSS varied.
+30 source hashes, both registry hashes, the scorer implementation, and pinned
+PDFium backend version. Two PDFium runs produced the same raw ranking bytes and
+deterministic result digest; only timing and RSS varied. The metrics are
+unchanged from the historical PyMuPDF run, while the measured total time fell
+from 2.713 s to 1.965 s on the same Windows host.
 
 ```bash
 python scripts/evaluate_full_corpus_text_baseline.py \
@@ -124,7 +125,7 @@ raw ranking dump.
 ![Identity-assisted versus unscoped retrieval](assets/full-corpus-retrieval-comparison.svg)
 
 The source-free
-[`full-corpus-openclip-development-2026-08-13.json`](../evaluation/results/full-corpus-openclip-development-2026-08-13.json)
+[`full-corpus-openclip-pdfium-development-2026-08-13.json`](../evaluation/results/full-corpus-openclip-pdfium-development-2026-08-13.json)
 uses pinned LAION OpenCLIP ViT-B/32 to encode raw query text and rendered crop
 pixels. Its scorer accepts only those inputs; it cannot inspect document, MPN,
 package, intent, claimed identity, relevance, or adversarial labels.

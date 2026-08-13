@@ -60,15 +60,14 @@ uv run --frozen --no-sync python scripts/audit_runtime_licenses.py \
   --write-notices --json-out runtime-license-audit.json
 ```
 
-CI fails for missing, stale, unknown, forbidden, version-mismatched, or expired
-entries and also fails if the notices drift. A `requires_legal_decision` entry
-must name an owner, evidence URL, concrete obligations, and expiry. It allows
-review and CI only; tagged releases run `--require-release-ready` and refuse
-all unresolved decisions. Today PyMuPDF 1.28.2 is such a decision because its
-declared choice is AGPL-3.0-or-later or an Artifex commercial license. Before a
-new production release, TokitoAI must record commercial coverage or obtain
-counsel approval for the applicable AGPL source/network-use obligations. The
-technical policy is inventory and enforcement evidence, not legal advice.
+CI fails for missing, stale, unknown, forbidden, version-mismatched, expired,
+or absent required-license-file entries, and also fails if notices drift. A
+`requires_legal_decision` entry must name an owner, evidence URL, concrete
+obligations, and expiry; tagged releases refuse unresolved decisions. The
+pinned pypdfium2 wheel is permissively licensed and the audit verifies that its
+pypdfium2, PDFium, and native dependency license payloads are physically
+present in the installed distribution. The technical policy is inventory and
+enforcement evidence, not legal advice.
 
 The base image digest is deliberately separate from the Python lock. Update the
 tag and digest together after reviewing the upstream Python image, then let CI

@@ -6,7 +6,9 @@ from pathlib import Path
 
 import jsonschema
 import pytest
+from pypdf import PdfReader, PdfWriter
 
+from dsvire.pdf_fixtures import add_text_page, text_pdf, write_pdf
 from dsvire.pipeline import DatasheetIdentity, RetrievalError, score_candidate
 
 
@@ -17,22 +19,13 @@ def _synthetic_datasheet(
     package: str = "SOIC-8",
     identity_text: str | None = None,
 ) -> bytes:
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open()
-    pinout = document.new_page()
-    pinout.insert_text(
-        (72, 72),
-        f"{identity_text or f'{manufacturer} {mpn} {package}'}\nPin Configuration - top view\n"
-        "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+    return text_pdf(
+        [
+            f"{identity_text or f'{manufacturer} {mpn} {package}'}\nPin Configuration - top view\n"
+            "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8",
+            "Pin Functions\nPin Name Type Description\n1 VIN input\n2 BOOT passive\n3 PH output\n4 GND ground\n5 VSENSE input\n6 ENA input\n7 COMP passive\n8 PWRPAD ground",
+        ]
     )
-    table = document.new_page()
-    table.insert_text(
-        (72, 72),
-        "Pin Functions\nPin Name Type Description\n1 VIN input\n2 BOOT passive\n3 PH output\n4 GND ground\n5 VSENSE input\n6 ENA input\n7 COMP passive\n8 PWRPAD ground",
-    )
-    payload = document.tobytes()
-    document.close()
-    return payload
 
 
 def test_pinout_verifier_accepts_real_pin_signals() -> None:
@@ -77,15 +70,10 @@ def test_non_pdf_fails_before_parser(tmp_path: Path) -> None:
 def test_parser_repaired_pdf_fails_without_publishing_partial_pack(tmp_path: Path) -> None:
     from dsvire.pipeline import retrieve_symbol_evidence
 
-    # Removing the xref/trailer forces MuPDF's repair path while leaving enough
+    # Removing the xref/trailer forces a permissive parser's repair path while leaving enough
     # objects for it to open and render the document. A viewer may tolerate
     # that recovery; an engineering evidence producer must not.
     repaired = _synthetic_datasheet()[:-100]
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open(stream=repaired, filetype="pdf")
-    assert document.is_repaired
-    document.close()
-
     with pytest.raises(RetrievalError, match="required parser repair"):
         retrieve_symbol_evidence(
             repaired,
@@ -123,7 +111,7 @@ def test_cache_key_includes_exact_part_identity(tmp_path: Path) -> None:
     package = next(region for region in first["regions"] if region["type"] == "package")
     assert package["verification"] == {
         "method": "text_layout_heuristic",
-        "policy_version": "dsvire.region-text-layout@1.0.0",
+        "policy_version": "dsvire.region-text-layout@2.0.0",
         "outcome": "accepted",
         "score": package["verification"]["score"],
         "score_semantics": "heuristic_evidence_strength",
@@ -157,12 +145,12 @@ def test_identity_rejects_wrong_manufacturer(tmp_path: Path) -> None:
 def test_identity_rejects_package_not_associated_with_exact_mpn(tmp_path: Path) -> None:
     from dsvire.pipeline import retrieve_symbol_evidence
 
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open(stream=_synthetic_datasheet(package="TSSOP-8"), filetype="pdf")
-    unrelated = document.new_page()
-    unrelated.insert_text((72, 72), "SOIC-8 package information for another device")
-    pdf = document.tobytes()
-    document.close()
+    writer = PdfWriter()
+    writer.append_pages_from_reader(
+        PdfReader(__import__("io").BytesIO(_synthetic_datasheet(package="TSSOP-8")))
+    )
+    add_text_page(writer, "SOIC-8 package information for another device")
+    pdf = write_pdf(writer)
 
     with pytest.raises(RetrievalError, match="not associated"):
         retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "SOIC-8"), tmp_path)
@@ -171,12 +159,12 @@ def test_identity_rejects_package_not_associated_with_exact_mpn(tmp_path: Path) 
 def test_identity_does_not_borrow_package_from_adjacent_variant_row(tmp_path: Path) -> None:
     from dsvire.pipeline import retrieve_symbol_evidence
 
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open(stream=_synthetic_datasheet(package="SOIC-8"), filetype="pdf")
-    variant_table = document.new_page()
-    variant_table.insert_text((72, 72), "Acme orderable devices\nA-1 SOIC-8\nA-2 TSSOP-8")
-    pdf = document.tobytes()
-    document.close()
+    writer = PdfWriter()
+    writer.append_pages_from_reader(
+        PdfReader(__import__("io").BytesIO(_synthetic_datasheet(package="SOIC-8")))
+    )
+    add_text_page(writer, "Acme orderable devices\nA-1 SOIC-8\nA-2 TSSOP-8")
+    pdf = write_pdf(writer)
 
     with pytest.raises(RetrievalError, match="not associated"):
         retrieve_symbol_evidence(pdf, DatasheetIdentity("Acme", "A-1", "TSSOP-8"), tmp_path)
@@ -215,19 +203,13 @@ def test_invalid_cached_manifest_is_rebuilt_without_following_region_paths(tmp_p
 def test_oversized_candidate_crop_fails_before_render_allocation(tmp_path: Path) -> None:
     from dsvire.pipeline import retrieve_symbol_evidence
 
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open()
-    page = document.new_page(width=20_000, height=20_000)
-    page.insert_text(
-        (72, 72),
-        "Acme A-1 Huge Pin Configuration top view VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7",
+    pdf = text_pdf(
+        [
+            "Acme A-1 Huge Pin Configuration top view VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7",
+            "Pin Functions Pin Name Type Description 1 VIN 2 BOOT 3 PH 4 GND 5 VSENSE 6 ENA 7 COMP",
+        ],
+        sizes=[(20_000, 20_000), (20_000, 20_000)],
     )
-    page.insert_text(
-        (72, 10_000),
-        "Pin Functions Pin Name Type Description 1 VIN 2 BOOT 3 PH 4 GND 5 VSENSE 6 ENA 7 COMP",
-    )
-    pdf = document.tobytes()
-    document.close()
 
     with pytest.raises(RetrievalError, match="render safety limit"):
         retrieve_symbol_evidence(

@@ -20,8 +20,10 @@ VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
 QUERY_RANKING = ROOT / "examples/query-ranking-canary.json"
-FULL_CORPUS_TEXT = ROOT / "evaluation/results/full-corpus-text-development-2026-08-13.json"
-FULL_CORPUS_OPENCLIP = ROOT / "evaluation/results/full-corpus-openclip-development-2026-08-13.json"
+FULL_CORPUS_TEXT = ROOT / "evaluation/results/full-corpus-text-pdfium-development-2026-08-13.json"
+FULL_CORPUS_OPENCLIP = (
+    ROOT / "evaluation/results/full-corpus-openclip-pdfium-development-2026-08-13.json"
+)
 FULL_CORPUS_COLSMOL = ROOT / "evaluation/results/full-corpus-colsmol-development-2026-08-13.json"
 
 

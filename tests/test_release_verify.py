@@ -42,9 +42,9 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
                     {
                         "schema_version": "dsvire.runtime-license-audit.v1",
                         "ok": True,
-                        "release_ready": False,
+                        "release_ready": True,
                         "runtime_package_count": 24,
-                        "legal_decisions": [{"name": "pymupdf", "version": "1.28.2"}],
+                        "legal_decisions": [],
                     }
                 ),
                 encoding="utf-8",
@@ -97,9 +97,9 @@ def test_release_verifier_runs_every_gate_in_order() -> None:
     assert report["artifacts"]["hostile_pdf"]["case_count"] == 48
     assert report["artifacts"]["runtime_licenses"] == {
         "schema_version": "dsvire.runtime-license-audit.v1",
-        "release_ready": False,
+        "release_ready": True,
         "runtime_package_count": 24,
-        "legal_decisions": [{"name": "pymupdf", "version": "1.28.2"}],
+        "legal_decisions": [],
     }
 
 

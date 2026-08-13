@@ -13,7 +13,7 @@ dependencies = [
   "filelock>=3.20,<4",
   "pillow>=11.3,<13",
   "pypdf>=6.0,<7",
-  "pymupdf>=1.26,<2",
+  "pypdfium2==5.12.1",
   "uvicorn[standard]>=0.35,<1",
 ]
 
@@ -77,8 +77,6 @@ strict = true
 warn_unreachable = true
 pretty = true
 show_error_codes = true
-untyped_calls_exclude = ["pymupdf"]
-
 [[tool.mypy.overrides]]
-module = ["open_clip", "torch"]
+module = ["open_clip", "torch", "pypdfium2"]
 ignore_missing_imports = true

@@ -5,6 +5,18 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+### PDF boundary and licensing
+
+- Replace PyMuPDF with exact pypdfium2 5.12.1 plus strict pypdf preflight,
+  bounded crop/text operations, explicit resource closure, and cache/adapter
+  version bumps. Password-gated and repaired PDFs fail closed; readable
+  permission-encrypted official datasheets remain supported.
+- Remove the AGPL/commercial release decision and fail closed unless the
+  installed pypdfium2 wheel retains its PDFium/native dependency license files.
+- Replay the complete 30-document/18,810-pair text and OpenCLIP development
+  comparators twice under PDFium and commit new renderer-bound evidence; old
+  results remain historical and cannot silently authorize thresholds.
+
 ### Reproducible delivery
 
 - Add a universal, cross-platform uv lock covering runtime, test, visual, and

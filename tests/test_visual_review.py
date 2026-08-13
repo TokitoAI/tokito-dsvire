@@ -8,6 +8,7 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
+from dsvire.pdf_fixtures import text_pdf
 from dsvire.visual_adapters import AdapterError
 from dsvire.visual_registry import VisualRegistry, load_visual_registry_data
 from dsvire.visual_review import (
@@ -25,12 +26,7 @@ from dsvire.visual_review import (
 
 
 def _fixture() -> tuple[bytes, dict[str, object], VisualRegistry]:
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open()
-    page = document.new_page()
-    page.insert_text((72, 72), "ACME A-1 SOIC-8 Pin Configuration Top View Pin Functions")
-    payload = document.tobytes()
-    document.close()
+    payload = text_pdf(["ACME A-1 SOIC-8 Pin Configuration Top View Pin Functions"])
     identity = {"manufacturer": "ACME", "mpn": "A-1", "package": "SOIC-8"}
 
     def case(

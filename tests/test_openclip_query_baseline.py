@@ -61,7 +61,9 @@ def test_openclip_scores_are_bounded_and_deterministically_rounded() -> None:
 def test_committed_openclip_result_is_schema_valid_and_digest_bound() -> None:
     root = Path(__file__).parents[1]
     result = json.loads(
-        (root / "evaluation/results/full-corpus-openclip-development-2026-08-13.json").read_text()
+        (
+            root / "evaluation/results/full-corpus-openclip-pdfium-development-2026-08-13.json"
+        ).read_text()
     )
     schema_path = root / "scripts/schema/full_corpus_openclip_baseline_result_v1.schema.json"
     text_schema_path = root / "scripts/schema/full_corpus_text_baseline_result_v1.schema.json"
@@ -78,7 +80,12 @@ def test_committed_openclip_result_is_schema_valid_and_digest_bound() -> None:
         ]
     )
     jsonschema.Draft202012Validator.check_schema(schema)
-    jsonschema.Draft202012Validator(schema, registry=registry).validate(result)
+    validator = jsonschema.Draft202012Validator(schema, registry=registry)
+    historical = json.loads(
+        (root / "evaluation/results/full-corpus-openclip-development-2026-08-13.json").read_text()
+    )
+    validator.validate(historical)
+    validator.validate(result)
     deterministic = deepcopy(result)
     deterministic.pop("runtime")
     expected = deterministic.pop("result_sha256")

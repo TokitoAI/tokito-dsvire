@@ -26,17 +26,19 @@ from typing import Any, cast
 from filelock import FileLock
 from filelock import Timeout as FileLockTimeout
 
+from .pdf_backend import BACKEND_ID, PdfBackendError, PdfDocument
+
 MAX_PDF_BYTES = 64 * 1024 * 1024
 MAX_PAGES = 2_000
 MAX_TEXT_CHARS_PER_PAGE = 250_000
 RENDER_DPI = 220
 MAX_RENDER_SIDE_PIXELS = 12_000
 MAX_RENDER_PIXELS = 40_000_000
-INDEX_VERSION = "dsvire-baseline@0.3.1"
+INDEX_VERSION = "dsvire-baseline@0.4.0"
 EVIDENCE_SCHEMA_VERSION = "dsvire.symbol-evidence.v2"
-IDENTITY_POLICY_VERSION = "dsvire.identity-text@1.0.0"
-REGION_POLICY_VERSION = "dsvire.region-text-layout@1.0.0"
-MODEL_IDS = ["pymupdf-layout-text@1"]
+IDENTITY_POLICY_VERSION = "dsvire.identity-text@2.0.0"
+REGION_POLICY_VERSION = "dsvire.region-text-layout@2.0.0"
+MODEL_IDS = [f"{BACKEND_ID}-layout-text@2"]
 PACK_LOCK_TIMEOUT_SECONDS = 60
 
 PINOUT_TERMS = (
@@ -211,19 +213,17 @@ def score_candidate(kind: str, text: str) -> tuple[float, bool]:
 
 
 def _extract_blocks(page: Any) -> list[TextBlock]:
-    raw = page.get_text("blocks", sort=True)
+    raw = page.blocks()
     blocks: list[TextBlock] = []
     chars = 0
     for item in raw:
-        if len(item) < 5:
-            continue
-        text = _normalise_text(str(item[4]))
+        text = _normalise_text(item.text)
         if not text:
             continue
         chars += len(text)
         if chars > MAX_TEXT_CHARS_PER_PAGE:
             raise RetrievalError("page text exceeds safety limit")
-        x0, y0, x1, y1 = map(float, item[:4])
+        x0, y0, x1, y1 = item.bbox
         blocks.append(TextBlock((x0, y0, x1, y1), text))
     return blocks
 
@@ -267,12 +267,12 @@ def _best_candidates(document: Any) -> dict[str, Candidate]:
     if document.page_count < 1 or document.page_count > MAX_PAGES:
         raise RetrievalError(f"PDF page count {document.page_count} outside 1..={MAX_PAGES}")
     for page_index in range(document.page_count):
-        page = document.load_page(page_index)
-        blocks = _extract_blocks(page)
-        for kind in ("pinout", "table"):
-            candidate = _candidate_for_page(kind, page_index, page, blocks)
-            if candidate and (kind not in best or candidate.score > best[kind].score):
-                best[kind] = candidate
+        with document.load_page(page_index) as page:
+            blocks = _extract_blocks(page)
+            for kind in ("pinout", "table"):
+                candidate = _candidate_for_page(kind, page_index, page, blocks)
+                if candidate and (kind not in best or candidate.score > best[kind].score):
+                    best[kind] = candidate
     missing = [kind for kind in ("pinout", "table") if kind not in best]
     if missing:
         raise RetrievalError(f"no candidate region found for: {', '.join(missing)}")
@@ -296,56 +296,56 @@ def _identity_package_candidate(document: Any, identity: DatasheetIdentity) -> C
     associations: list[Candidate] = []
 
     for page_index in range(document.page_count):
-        page = document.load_page(page_index)
-        raw_text = str(page.get_text("text", sort=True))
-        if len(raw_text) > MAX_TEXT_CHARS_PER_PAGE:
-            raise RetrievalError("page text exceeds safety limit")
-        manufacturer_seen = manufacturer_seen or _contains_phrase(raw_text, identity.manufacturer)
-        lines = [line.strip() for line in raw_text.splitlines() if line.strip()]
-        for line_index, line in enumerate(lines):
-            if not _contains_exact_mpn(line, identity.mpn):
-                continue
-            mpn_seen = True
-            row_lines = [line]
-            for continuation in lines[line_index + 1 : line_index + 4]:
-                if _starts_new_part_row(continuation, identity.package):
-                    break
-                row_lines.append(continuation)
-            association_text = "\n".join(row_lines)
-            if not _contains_ordered_tokens(association_text, identity.package):
-                continue
-
-            start = max(0, line_index - 1)
-            end = min(len(lines), line_index + len(row_lines) + 1)
-            nearby_lines = lines[start:end]
-            nearby = "\n".join(nearby_lines)
-
-            blocks = _extract_blocks(page)
-            anchor = next(
-                (block for block in blocks if _contains_exact_mpn(block.text, identity.mpn)),
-                None,
+        with document.load_page(page_index) as page:
+            raw_text = page.text()
+            if len(raw_text) > MAX_TEXT_CHARS_PER_PAGE:
+                raise RetrievalError("page text exceeds safety limit")
+            manufacturer_seen = manufacturer_seen or _contains_phrase(
+                raw_text, identity.manufacturer
             )
-            page_w = float(page.rect.width)
-            page_h = float(page.rect.height)
-            if anchor is None:
-                top, bottom = 0.0, min(page_h, page_h * 0.22)
-            else:
-                top = max(0.0, anchor.bbox[1] - page_h * 0.035)
-                bottom = min(page_h, max(anchor.bbox[3] + page_h * 0.09, top + page_h * 0.16))
-            associations.append(
-                Candidate(
-                    kind="package",
-                    page_index=page_index,
-                    bbox=(page_w * 0.035, top, page_w * 0.965, bottom),
-                    caption=(
-                        f"Exact identity evidence: {identity.manufacturer.strip()} "
-                        f"{identity.mpn.strip()} {identity.package.strip()}"
-                    ),
-                    text=nearby,
-                    score=1.0,
-                    verified=True,
+            lines = [line.strip() for line in raw_text.splitlines() if line.strip()]
+            for line_index, line in enumerate(lines):
+                if not _contains_exact_mpn(line, identity.mpn):
+                    continue
+                mpn_seen = True
+                row_lines = [line]
+                for continuation in lines[line_index + 1 : line_index + 4]:
+                    if _starts_new_part_row(continuation, identity.package):
+                        break
+                    row_lines.append(continuation)
+                association_text = "\n".join(row_lines)
+                if not _contains_ordered_tokens(association_text, identity.package):
+                    continue
+
+                start = max(0, line_index - 1)
+                end = min(len(lines), line_index + len(row_lines) + 1)
+                nearby = "\n".join(lines[start:end])
+                blocks = _extract_blocks(page)
+                anchor = next(
+                    (block for block in blocks if _contains_exact_mpn(block.text, identity.mpn)),
+                    None,
                 )
-            )
+                page_w = float(page.rect.width)
+                page_h = float(page.rect.height)
+                if anchor is None:
+                    top, bottom = 0.0, min(page_h, page_h * 0.22)
+                else:
+                    top = max(0.0, anchor.bbox[1] - page_h * 0.035)
+                    bottom = min(page_h, max(anchor.bbox[3] + page_h * 0.09, top + page_h * 0.16))
+                associations.append(
+                    Candidate(
+                        kind="package",
+                        page_index=page_index,
+                        bbox=(page_w * 0.035, top, page_w * 0.965, bottom),
+                        caption=(
+                            f"Exact identity evidence: {identity.manufacturer.strip()} "
+                            f"{identity.mpn.strip()} {identity.package.strip()}"
+                        ),
+                        text=nearby,
+                        score=1.0,
+                        verified=True,
+                    )
+                )
 
     if not manufacturer_seen:
         raise RetrievalError("exact manufacturer identity is absent from PDF text")
@@ -369,7 +369,6 @@ def _bbox_norm(candidate: Candidate, page: Any) -> list[float]:
 
 
 def _render_crop(page: Any, bbox: tuple[float, float, float, float]) -> bytes:
-    import pymupdf
     from PIL import Image
 
     x0, y0, x1, y1 = bbox
@@ -383,12 +382,8 @@ def _render_crop(page: Any, bbox: tuple[float, float, float, float]) -> bytes:
         or pixel_width * pixel_height > MAX_RENDER_PIXELS
     ):
         raise RetrievalError("candidate crop exceeds render safety limit")
-    pix = page.get_pixmap(clip=pymupdf.Rect(*bbox), dpi=RENDER_DPI, alpha=False)
-    # PyMuPDF does not provide a WebP encoder on all supported builds. Encode
-    # a lossless PNG in-memory first, then use Pillow's consistently packaged
-    # WebP support so Linux containers and developer machines behave alike.
     output = io.BytesIO()
-    with Image.open(io.BytesIO(pix.tobytes("png"))) as image:
+    with Image.open(io.BytesIO(page.render_png(bbox, dpi=RENDER_DPI))) as image:
         image.save(output, format="WEBP", quality=90, method=6)
     return output.getvalue()
 
@@ -496,11 +491,6 @@ def retrieve_symbol_evidence(
     if not pdf_bytes.startswith(b"%PDF-"):
         raise RetrievalError("input is not a PDF (missing %PDF header)")
 
-    try:
-        import pymupdf
-    except ImportError as exc:  # pragma: no cover - deployment packaging guard
-        raise RetrievalError("PyMuPDF is required; install tokito-dsvire") from exc
-
     digest = hashlib.sha256(pdf_bytes).hexdigest()
     pack_id = _artifact_id(digest, identity)
     output_root.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -519,51 +509,42 @@ def retrieve_symbol_evidence(
                 crop_dir = staging / "crops"
                 crop_dir.mkdir(mode=0o700)
                 try:
-                    document = pymupdf.open(stream=pdf_bytes, filetype="pdf")
-                except Exception as exc:
-                    raise RetrievalError("PDF parser rejected input") from exc
+                    document = PdfDocument(pdf_bytes)
+                except PdfBackendError as exc:
+                    raise RetrievalError(str(exc)) from exc
                 try:
-                    # MuPDF can reconstruct a document whose xref/trailer is
-                    # truncated or inconsistent. That is useful in a viewer,
-                    # but unsafe at an engineering-evidence boundary: repaired
-                    # object relationships are not authoritative datasheet
-                    # content. Require callers to obtain an intact source.
-                    if document.is_repaired:
-                        raise RetrievalError("PDF required parser repair and was rejected")
-                    if document.needs_pass:
-                        raise RetrievalError("encrypted PDFs are not accepted")
                     candidates = _best_candidates(document)
                     candidates["package"] = _identity_package_candidate(document, identity)
                     regions = []
                     for kind in ("pinout", "table", "package"):
                         candidate = candidates[kind]
-                        page = document.load_page(candidate.page_index)
-                        crop = _render_crop(page, candidate.bbox)
-                        region_id = {
-                            "pinout": "r_pinout_01",
-                            "table": "r_pin_table_01",
-                            "package": "r_package_01",
-                        }[kind]
-                        crop_path = crop_dir / f"{region_id}.webp"
-                        crop_path.write_bytes(crop)
-                        regions.append(
-                            {
-                                "region_id": region_id,
-                                "type": kind,
-                                "page": candidate.page_index + 1,
-                                "bbox_norm": _bbox_norm(candidate, page),
-                                "crop_uri": f"dsvire://pack/{pack_id}/{region_id}.webp",
-                                "content_hash": f"sha256:{hashlib.sha256(crop).hexdigest()}",
-                                "verification": {
-                                    "method": "text_layout_heuristic",
-                                    "policy_version": REGION_POLICY_VERSION,
-                                    "outcome": "accepted",
-                                    "score": candidate.score,
-                                    "score_semantics": "heuristic_evidence_strength",
-                                },
-                                "caption": candidate.caption,
-                            }
-                        )
+                        with document.load_page(candidate.page_index) as page:
+                            crop = _render_crop(page, candidate.bbox)
+                            region_id = {
+                                "pinout": "r_pinout_01",
+                                "table": "r_pin_table_01",
+                                "package": "r_package_01",
+                            }[kind]
+                            crop_path = crop_dir / f"{region_id}.webp"
+                            crop_path.write_bytes(crop)
+                            regions.append(
+                                {
+                                    "region_id": region_id,
+                                    "type": kind,
+                                    "page": candidate.page_index + 1,
+                                    "bbox_norm": _bbox_norm(candidate, page),
+                                    "crop_uri": f"dsvire://pack/{pack_id}/{region_id}.webp",
+                                    "content_hash": f"sha256:{hashlib.sha256(crop).hexdigest()}",
+                                    "verification": {
+                                        "method": "text_layout_heuristic",
+                                        "policy_version": REGION_POLICY_VERSION,
+                                        "outcome": "accepted",
+                                        "score": candidate.score,
+                                        "score_semantics": "heuristic_evidence_strength",
+                                    },
+                                    "caption": candidate.caption,
+                                }
+                            )
                 finally:
                     document.close()
 

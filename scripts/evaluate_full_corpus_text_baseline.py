@@ -14,10 +14,10 @@ from pathlib import Path
 from typing import Any, TypedDict
 
 import psutil
-import pymupdf
 
 from dsvire.corpus_coverage import load_query_registry
 from dsvire.eval_sources import resolve_registered_sources
+from dsvire.pdf_backend import BACKEND_ID, PdfDocument
 from dsvire.query_ranking import (
     evaluate_full_corpus_rankings,
     load_full_corpus_ranking_artifact,
@@ -89,7 +89,7 @@ def run(
                     "bytes": len(payload),
                 }
             )
-            with pymupdf.open(stream=payload, filetype="pdf") as pdf:
+            with PdfDocument(payload) as pdf:
                 for case in document.cases:
                     case_started = time.perf_counter()
                     text = extract_candidate_text(pdf, document, case)
@@ -165,7 +165,7 @@ def run(
                 "os_release": platform.release(),
                 "machine": platform.machine(),
                 "python": platform.python_version(),
-                "pymupdf": pymupdf.__version__,
+                "pdf_backend": BACKEND_ID,
                 "logical_cpus": os.cpu_count(),
             },
         },

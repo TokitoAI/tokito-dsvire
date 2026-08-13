@@ -6,6 +6,8 @@ from types import SimpleNamespace
 
 import pytest
 
+from dsvire.pdf_backend import PdfDocument
+from dsvire.pdf_fixtures import text_pdf
 from dsvire.visual_adapters import (
     OPENCLIP_MODEL_SHA256,
     AdapterError,
@@ -18,22 +20,17 @@ from dsvire.visual_registry import bind_prediction_scores, load_visual_registry_
 
 
 def _pdf() -> bytes:
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open()
-    page = document.new_page()
-    page.insert_text(
-        (72, 72),
-        "Acme A-1 SOIC-8\n"
-        "Pin Configuration - top view\n"
-        "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8\n"
-        "Pin Functions\n"
-        "Pin Name Type Description\n"
-        "1 VIN input 2 BOOT passive 3 PH output 4 GND ground\n"
-        "5 VSENSE input 6 ENA input 7 COMP passive 8 PWRPAD ground",
+    return text_pdf(
+        [
+            "Acme A-1 SOIC-8\n"
+            "Pin Configuration - top view\n"
+            "VIN 1 BOOT 2 PH 3 GND 4 VSENSE 5 ENA 6 COMP 7 PWRPAD 8\n"
+            "Pin Functions\n"
+            "Pin Name Type Description\n"
+            "1 VIN input 2 BOOT passive 3 PH output 4 GND ground\n"
+            "5 VSENSE input 6 ENA input 7 COMP passive 8 PWRPAD ground",
+        ]
     )
-    payload = document.tobytes()
-    document.close()
-    return payload
 
 
 def _identity(mpn: str = "A-1", package: str = "SOIC-8") -> dict[str, str]:
@@ -148,7 +145,7 @@ def test_ocr_adapter_scores_rendered_pixels_and_keeps_similarity_semantics() -> 
 
     assert engine.seen_png
     assert adapter.metadata.score_semantics == "similarity"
-    assert adapter.metadata.adapter_id.endswith("@1.1.0")
+    assert adapter.metadata.adapter_id.endswith("@2.0.0")
     assert "onnx-cpu-single-thread-score-5dp@2" in adapter.metadata.preprocessing_id
     assert len(adapter.metadata.model_sha256 or "") == 64
     assert scores["acme-a1/pinout"] > 0.7
@@ -159,11 +156,10 @@ def test_ocr_adapter_scores_rendered_pixels_and_keeps_similarity_semantics() -> 
 
 
 def test_real_rapidocr_engine_reads_rendered_datasheet_crop() -> None:
-    pymupdf = pytest.importorskip("pymupdf")
     payload = _pdf()
     registry = load_visual_registry_data(_registry(payload))
     package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
-    document = pymupdf.open(stream=payload, filetype="pdf")
+    document = PdfDocument(payload)
     try:
         adapter = RapidOcrAdapter()
         score = adapter.score(document, package_case)
@@ -185,11 +181,10 @@ class _ConfidenceOcr:
 
 
 def test_ocr_score_quantization_removes_observed_subprecision_runtime_jitter() -> None:
-    pymupdf = pytest.importorskip("pymupdf")
     payload = _pdf()
     registry = load_visual_registry_data(_registry(payload))
     package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
-    document = pymupdf.open(stream=payload, filetype="pdf")
+    document = PdfDocument(payload)
     try:
         first = RapidOcrAdapter(_ConfidenceOcr(0.963058)).score(document, package_case)
         second = RapidOcrAdapter(_ConfidenceOcr(0.963057)).score(document, package_case)
@@ -240,12 +235,10 @@ def test_openclip_adapter_scores_pixels_with_identity_bound_prompt(
             "open_clip_torch": "3.3.0",
             "torch": "2.13.0",
             "Pillow": "12.1.1",
-            "PyMuPDF": "1.28.2",
         }[package],
     )
     adapter = OpenClipAdapter(tmp_path / "injected-model.safetensors", backend=backend)
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open(stream=payload, filetype="pdf")
+    document = PdfDocument(payload)
     try:
         score = adapter.score(document, package_case)
     finally:
@@ -266,8 +259,7 @@ def test_openclip_adapter_rejects_backend_score_outside_similarity_range(tmp_pat
     registry = load_visual_registry_data(_registry(payload))
     package_case = next(case for case in registry.documents[0].cases if case.case_id == "package")
     adapter = OpenClipAdapter(tmp_path / "injected-model.safetensors", backend=_FakeOpenClip(1.1))
-    pymupdf = pytest.importorskip("pymupdf")
-    document = pymupdf.open(stream=payload, filetype="pdf")
+    document = PdfDocument(payload)
     try:
         with pytest.raises(AdapterError, match=r"within 0\.\.=1"):
             adapter.score(document, package_case)

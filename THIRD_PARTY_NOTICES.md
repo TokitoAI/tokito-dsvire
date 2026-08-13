@@ -18,8 +18,8 @@ This inventory is not legal advice and does not replace upstream license texts.
 | `pillow` | `12.3.0` | `MIT-CMU` | `allowed` |
 | `pydantic` | `2.13.4` | `MIT` | `allowed` |
 | `pydantic-core` | `2.46.4` | `MIT` | `allowed` |
-| `pymupdf` | `1.28.2` | `AGPL-3.0-or-later OR LicenseRef-Artifex-Commercial` | `requires_legal_decision` |
 | `pypdf` | `6.15.0` | `BSD-3-Clause` | `allowed` |
+| `pypdfium2` | `5.12.1` | `Apache-2.0 OR BSD-3-Clause` | `allowed` |
 | `python-dotenv` | `1.2.2` | `BSD-3-Clause` | `allowed` |
 | `pyyaml` | `6.0.3` | `MIT` | `allowed` |
 | `starlette` | `1.6.0` | `BSD-3-Clause` | `allowed` |
@@ -30,11 +30,10 @@ This inventory is not legal advice and does not replace upstream license texts.
 | `watchfiles` | `1.2.0` | `MIT` | `allowed` |
 | `websockets` | `17.0.1` | `BSD-3-Clause` | `allowed` |
 
-## Unresolved legal decisions
+## Redistribution obligations
 
-### pymupdf 1.28.2
+### pypdfium2 5.12.1
 
-- Evidence: https://pymupdf.readthedocs.io/en/latest/about.html#license-and-copyright
-- Exception expires: 2026-09-30
-- Owner: TokitoAI
-- Required disposition: Before a production release, record either a valid Artifex commercial license covering the deployed service or counsel-approved AGPL-3.0-or-later compliance, including Corresponding Source and network-use obligations. This technical exception is not legal approval.
+- Evidence: https://pypi.org/project/pypdfium2/5.12.1/
+- Required disposition: Redistributions must retain pypdfium2, PDFium, and bundled native dependency license texts shipped in the wheel.
+- Bundled license payloads: `licenses/LICENSES/Apache-2.0.txt`, `licenses/LICENSES/BSD-3-Clause.txt`, `BUILD_LICENSES/pdfium.txt`
