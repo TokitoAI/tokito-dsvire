@@ -5,6 +5,21 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.5.0 - 2026-08-14
+
+### Hybrid query service
+
+- Expose the Technical Bible BM25, dense, RRF, and exact bounded MaxSim core
+  through an authenticated private query endpoint.
+- Require immutable digest-addressed retrieval packs and exact dense/multi
+  model identities; fail closed on missing, symlinked, malformed, tampered,
+  incompatible, oversized, or path-like inputs.
+- Run queries behind independent admission and resource limits in killable
+  subprocesses, preserve trace context, and return strict hash-bound result
+  provenance.
+- Add versioned request/result schemas and operator documentation. This release
+  does not claim cycle-v4 calibration or enable generated-symbol publication.
+
 ## 0.4.1 - 2026-08-13
 
 ### Release evaluation

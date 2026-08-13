@@ -1,7 +1,7 @@
 # Project status
 
 DS-ViRe is an actively developed research and production-engineering project.
-The current release is **v0.4.1**.
+The current release is **v0.5.0**.
 
 ## Implemented
 
