@@ -19,6 +19,24 @@ or failure without changing this plan. Automated catalog publication remains
 disabled unless the exact held-out gate and the separate deterministic EGVV
 publication contract both pass.
 
+Acquire and seal the official sources with:
+
+```bash
+python scripts/acquire_retrieval_cycle_sources.py \
+  --cache .cache/retrieval-cycle-v2/sources \
+  --out evaluation/retrieval_cycle_v2_source_manifest.json
+```
+
+The command exits `0` only when all twelve families are sealed and `2` when any
+family is explicitly invalidated. The committed manifest contains only
+provenance, final HTTPS URLs, byte counts, hashes, identity markers, and
+invalidation reasons; vendor PDFs remain ignored and local. The current
+acquisition records eight sealed sources and four fail-closed invalidations:
+Microchip's two official URLs violate the HTTPS-only redirect contract, while
+onsemi rejects automated GET requests. The frozen plan forbids mirror
+substitution, so annotation and scoring remain blocked unless those exact
+official sources become available under the registered contract.
+
 This directory records provenance and labels, not vendor PDF bytes. Each source
 is downloaded from the official HTTPS URL into an operator-selected cache and
 must match its reviewed SHA-256 before DS-ViRe parses it.

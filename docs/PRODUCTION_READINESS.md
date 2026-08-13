@@ -112,3 +112,19 @@ mean the broader workstream is complete.
    and recovery acceptance (DSV-008/009).
 4. Complete external alert delivery and trace/cost/confidence observability;
    add load/SLO evidence, resolve the license policy, and complete recovery drills.
+
+## Independent retrieval cycle v2 source seal
+
+The pre-registered cycle-v2 acquisition is implemented as a bounded,
+official-source-only operation. It verifies the exact merged plan digest,
+enforces HTTPS redirects, byte limits, declared-length completeness, PDF
+parsing, bounded identity markers, atomic content-addressed storage, exact
+family accounting, and a deterministic manifest digest. Vendor PDFs are never
+committed or uploaded as CI artifacts.
+
+The 2026-08-13 acquisition sealed 8 of 12 families (19,323,679 source bytes).
+Four families were invalidated without substitution: both registered Microchip
+URLs violate the HTTPS-only redirect contract and both onsemi endpoints reject
+automated GET acquisition. This is a valid fail-closed result, not benchmark
+completion; annotation, query authoring, scoring, and publication remain
+disabled for this cycle.
