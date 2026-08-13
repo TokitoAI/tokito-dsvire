@@ -149,12 +149,19 @@ python scripts/evaluate_full_corpus_openclip_baseline.py \
   --json-out openclip-query-result.json
 ```
 
-Two complete local runs produced byte-identical 18,810-pair raw rankings. The
+Two complete local runs produced byte-identical 18,810-pair score artifacts. The
 manual **OpenCLIP query benchmark** reruns exact source/model hashes on private
 Linux and publishes compact JSON/checksum only. Model, PDFs, crops, and raw
 ranking stay outside Git and Actions artifacts. This is deterministic-template
 development evidence, not independent review, held-out accuracy, calibration,
 or publication authorization.
+
+The portable `ranking_sha256` binds the complete ordered candidate sequence for
+every query. The runtime-only `score_artifact_sha256` also binds quantized cosine
+values and is expected to vary across CPU kernels: the measured Windows/Linux
+comparison changed 92 of 18,810 values by exactly 0.00001 while all 90 complete
+orders and every reported metric remained identical. This preserves retrieval
+evidence without pretending floating-point observations are platform-independent.
 
 ## Tokito Wave D product acceptance
 

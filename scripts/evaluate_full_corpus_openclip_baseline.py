@@ -19,7 +19,11 @@ import pymupdf
 from dsvire.corpus_coverage import load_query_registry
 from dsvire.eval_sources import resolve_registered_sources
 from dsvire.openclip_query_baseline import SYSTEM_ID, OpenClipQueryBaseline
-from dsvire.query_ranking import evaluate_full_corpus_rankings, load_full_corpus_ranking_artifact
+from dsvire.query_ranking import (
+    evaluate_full_corpus_rankings,
+    full_corpus_order_sha256,
+    load_full_corpus_ranking_artifact,
+)
 from dsvire.visual_adapters import OPENCLIP_MODEL_SHA256, render_registered_crop
 from dsvire.visual_registry import load_visual_registry_data
 
@@ -115,7 +119,7 @@ def run(
             "source_manifest": sorted(source_manifest, key=lambda item: str(item["document_id"])),
         },
         "system": raw["system"],
-        "ranking_sha256": artifact.content_sha256,
+        "ranking_sha256": full_corpus_order_sha256(artifact),
         "scope": {
             "split": "development",
             "documents": len(documents),
@@ -134,6 +138,7 @@ def run(
     return {
         **deterministic,
         "runtime": {
+            "score_artifact_sha256": artifact.content_sha256,
             "total_seconds": round(time.perf_counter() - started, 6),
             "inference_seconds": round(inference_seconds, 6),
             "candidate_render_mean_ms": round(statistics.fmean(render_ms), 3),

@@ -60,11 +60,11 @@
     "recall_at_5": 0.188888888889,
     "unjudged_at_5": 373
   },
-  "ranking_sha256": "dec4447619975b36613798161770f3de5a5a1958a63b22ee2e9aec02f4f8b1d4",
-  "result_sha256": "80fa1d160be2450ce64a52150dfd80d97f0bc08d190a10329e96631eb2631291",
+  "ranking_sha256": "5574160959c9584c000a3fbf09d0dd7cec33e633ad7e54e9b2988d02ddb5aeee",
+  "result_sha256": "7c89881c240f796c65ddfabc65927d873316ce83bdc30833b2b47d9402128ebb",
   "runtime": {
-    "candidate_render_mean_ms": 45.637,
-    "candidate_render_p95_ms": 84.999,
+    "candidate_render_mean_ms": 45.578,
+    "candidate_render_p95_ms": 84.441,
     "environment": {
       "logical_cpus": 12,
       "machine": "AMD64",
@@ -74,9 +74,10 @@
       "python": "3.11.9"
     },
     "external_cost_usd": 0.0,
-    "inference_seconds": 29.68971,
-    "peak_rss_bytes": 1737928704,
-    "total_seconds": 44.505441
+    "inference_seconds": 29.789402,
+    "peak_rss_bytes": 1735507968,
+    "score_artifact_sha256": "dec4447619975b36613798161770f3de5a5a1958a63b22ee2e9aec02f4f8b1d4",
+    "total_seconds": 44.666404
   },
   "schema_version": "dsvire.full-corpus-openclip-baseline-result.v1",
   "scope": {

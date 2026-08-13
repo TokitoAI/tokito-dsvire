@@ -13,6 +13,7 @@ from dsvire.corpus_coverage import load_query_registry
 from dsvire.query_ranking import (
     QueryRankingError,
     evaluate_full_corpus_rankings,
+    full_corpus_order_sha256,
     load_full_corpus_ranking_artifact,
 )
 from dsvire.text_query_baseline import CandidateText, implementation_sha256, score_query_candidate
@@ -65,6 +66,23 @@ def test_full_corpus_contract_and_unjudged_accounting() -> None:
     assert result["metrics"]["queries"] == 90
     assert result["metrics"]["judged_at_5"] + result["metrics"]["unjudged_at_5"] == 450
     assert result["metrics"]["ndcg_at_5"] == round(result["metrics"]["ndcg_at_5"], 12)
+
+
+def test_full_corpus_order_digest_ignores_scores_but_binds_order() -> None:
+    visual, queries, raw = _contracts()
+    first = load_full_corpus_ranking_artifact(raw, queries, visual)
+    score_changed = deepcopy(raw)
+    score_changed["rankings"][0]["candidates"][0]["score"] += 0.00001
+    second = load_full_corpus_ranking_artifact(score_changed, queries, visual)
+    assert first.content_sha256 != second.content_sha256
+    assert full_corpus_order_sha256(first) == full_corpus_order_sha256(second)
+    order_changed = deepcopy(raw)
+    candidates = order_changed["rankings"][0]["candidates"]
+    first_score, second_score = candidates[0]["score"], candidates[1]["score"]
+    candidates[0], candidates[1] = candidates[1], candidates[0]
+    candidates[0]["score"], candidates[1]["score"] = first_score, second_score
+    third = load_full_corpus_ranking_artifact(order_changed, queries, visual)
+    assert full_corpus_order_sha256(first) != full_corpus_order_sha256(third)
 
 
 def test_full_corpus_contract_schema_accepts_complete_artifact() -> None:
