@@ -60,11 +60,11 @@
     "recall_at_5": 0.188888888889,
     "unjudged_at_5": 373
   },
-  "ranking_sha256": "4b6bca00b20b53056dadf3efa27fd3fe532d64573d1b8e1f8c48176e9bb38b9c",
-  "result_sha256": "78902d35517cf2933bc7d8a9e289753301fe8a3ceb103d3debe1ace77d43ad7f",
+  "ranking_sha256": "442d11be779d7cdc8472b84a7702939df06cd3f4e6d1362e55d555628cc467f0",
+  "result_sha256": "7c7af8f71320c2b0598969e74801db48604a1b3706c35b895332b94fb30fd333",
   "runtime": {
-    "candidate_render_mean_ms": 45.568,
-    "candidate_render_p95_ms": 85.608,
+    "candidate_render_mean_ms": 45.552,
+    "candidate_render_p95_ms": 85.252,
     "environment": {
       "logical_cpus": 12,
       "machine": "AMD64",
@@ -74,9 +74,9 @@
       "python": "3.11.9"
     },
     "external_cost_usd": 0.0,
-    "inference_seconds": 29.85397,
-    "peak_rss_bytes": 1737519104,
-    "total_seconds": 44.691389
+    "inference_seconds": 29.994047,
+    "peak_rss_bytes": 1736941568,
+    "total_seconds": 44.819878
   },
   "schema_version": "dsvire.full-corpus-openclip-baseline-result.v1",
   "scope": {
@@ -245,6 +245,6 @@
   },
   "system": {
     "id": "dsvire.query-baseline.openclip-unscoped@1.0.0",
-    "sha256": "4a0666a050b355fb8b125cfaff9c2e4945f292ccff34a4917c53f929fda9032c"
+    "sha256": "3e580769b59d50a76d63d0bd0b44cbc12d813172ffe7a5f09f3f91da9889238d"
   }
 }

@@ -27,17 +27,17 @@ class OpenClipQueryBaseline:
     """Scores only raw query strings against raw PNG crop bytes."""
 
     def __init__(self, model_path: Path) -> None:
-        try:
-            import open_clip
-            import torch
-        except ImportError as exc:
-            raise OpenClipQueryError("install tokito-dsvire[openclip]") from exc
         if not model_path.is_file() or model_path.stat().st_size != OPENCLIP_MODEL_BYTES:
             raise OpenClipQueryError("OpenCLIP model size does not match the pinned artifact")
         with model_path.open("rb") as source:
             digest = hashlib.file_digest(source, "sha256").hexdigest()
         if digest != OPENCLIP_MODEL_SHA256:
             raise OpenClipQueryError("OpenCLIP model SHA-256 does not match the pinned artifact")
+        try:
+            import open_clip
+            import torch
+        except ImportError as exc:
+            raise OpenClipQueryError("install tokito-dsvire[openclip]") from exc
         torch.set_num_threads(1)
         try:
             torch.set_num_interop_threads(1)
