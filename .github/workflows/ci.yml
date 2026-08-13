@@ -38,6 +38,17 @@ jobs:
           path: release-verification.json
           if-no-files-found: warn
           retention-days: 30
+      - name: Run exact-registry hybrid query core benchmark
+        run: >-
+          uv run --frozen --no-sync python scripts/benchmark_hybrid_query_core.py
+          --json-out hybrid-query-core-evidence.json
+      - name: Publish hybrid query core evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: hybrid-query-core-evidence-${{ github.sha }}
+          path: hybrid-query-core-evidence.json
+          if-no-files-found: error
+          retention-days: 30
       - name: Export hostile PDF evidence
         run: >-
           uv run --frozen --no-sync python scripts/evaluate_hostile_pdfs.py
