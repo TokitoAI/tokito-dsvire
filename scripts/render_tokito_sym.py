@@ -26,6 +26,7 @@ PIN_RE = re.compile(
     re.DOTALL,
 )
 VALUE_RE = re.compile(r'\(property\s+"Value"\s+"([^"]+)"')
+LAYOUT_POLICY_RE = re.compile(r'\(property\s+"Tokito_Layout_Policy"\s+"([^"]+)"')
 
 
 def render(source: Path, output: Path) -> None:
@@ -33,8 +34,11 @@ def render(source: Path, output: Path) -> None:
     rectangle = RECT_RE.search(text)
     pins = list(PIN_RE.finditer(text))
     value = VALUE_RE.search(text)
-    if rectangle is None or not pins or value is None:
-        raise ValueError("expected one compiler rectangle, a Value property, and pins")
+    layout_policy = LAYOUT_POLICY_RE.search(text)
+    if rectangle is None or not pins or value is None or layout_policy is None:
+        raise ValueError(
+            "expected one compiler rectangle, Value and Tokito_Layout_Policy properties, and pins"
+        )
 
     x0, y0, x1, y1 = map(float, rectangle.groups())
     body_left, body_right = sorted((x0, x1))
@@ -70,7 +74,7 @@ def render(source: Path, output: Path) -> None:
         '<rect width="100%" height="100%" fill="#f7f8fb"/>',
         "<style>text{font-family:Inter,Arial,sans-serif;fill:#182235}.pin{stroke:#27364f;stroke-width:3}.body{fill:#fff;stroke:#182235;stroke-width:4}.name{font-size:18px;font-weight:650}.num{font-size:14px;fill:#52627a}.title{font-size:24px;font-weight:750}.meta{font-size:14px;fill:#68758a}</style>",
         f'<text x="{width / 2:.1f}" y="31" text-anchor="middle" class="title">{html.escape(value.group(1))}</text>',
-        f'<text x="{width / 2:.1f}" y="53" text-anchor="middle" class="meta">native Tokito symbol · {len(parsed)} connectivity pins · layout@0.1.0</text>',
+        f'<text x="{width / 2:.1f}" y="53" text-anchor="middle" class="meta">native Tokito symbol · {len(parsed)} connectivity pins · {html.escape(layout_policy.group(1))}</text>',
         f'<rect x="{sx(body_left):.1f}" y="{sy(body_top):.1f}" width="{(body_right - body_left) * scale:.1f}" height="{(body_top - body_bottom) * scale:.1f}" rx="5" class="body"/>',
     ]
 

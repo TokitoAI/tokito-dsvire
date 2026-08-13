@@ -115,6 +115,7 @@ git diff --exit-code -- examples docs/assets
 python scripts/verify_release.py --json-out release-verification.json
 ```
 
-Generated public graphics are derived from committed evidence. Do not edit them
-by hand. `hero-background.png` is the only authored raster asset; it contains no
-vendor pixels or factual labels.
+The benchmark graphic is generated from committed result JSON. The workflow
+raster is a reviewed composition of the actual TPS5430 page-3 regions and the
+renderer output from the compiled Tokito symbol; it must not be replaced by a
+synthetic datasheet drawing.

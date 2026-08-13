@@ -13,15 +13,19 @@ def test_public_examples_regenerate_byte_identically(tmp_path: Path) -> None:
         check=True,
     )
 
-    generated = ("docs/assets/product-workflow.svg", "docs/assets/benchmark-overview.svg")
+    generated = ("docs/assets/benchmark-overview.svg",)
     for relative in generated:
         assert (tmp_path / relative).read_bytes() == (root / relative).read_bytes()
 
 
-def test_public_workflow_is_source_free_and_names_real_fixture_output() -> None:
+def test_public_workflow_is_a_real_raster_composition() -> None:
     root = Path(__file__).parents[1]
-    text = (root / "docs/assets/product-workflow.svg").read_text(encoding="utf-8")
+    from PIL import Image
 
-    assert "TPS5430DDAR" in text
-    assert "BOOT" in text and "VSENSE" in text and "VIN" in text
-    assert "Texas Instruments" not in text
+    path = root / "docs/assets/product-workflow.png"
+    with Image.open(path) as image:
+        assert image.format == "PNG"
+        assert image.size == (1600, 900)
+        assert image.mode == "RGB"
+
+    assert not (root / "docs/assets/product-workflow.svg").exists()
