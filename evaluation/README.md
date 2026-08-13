@@ -89,6 +89,9 @@ document metadata, and labels outside its public surface. It ranks the exact
 same 90 x 209 universe. This compares information boundaries; generic OpenCLIP
 does not implement the Technical Bible's hybrid gate, crop multi-vectors,
 MaxSim, or reranker.
+The compact result separates a portable complete-order `ranking_sha256` from the
+runtime-only score artifact digest. CPU-specific OpenCLIP kernels may perturb
+last-digit cosine values; order and metrics must still reproduce exactly.
 
 ## Visual-verifier calibration contract
 

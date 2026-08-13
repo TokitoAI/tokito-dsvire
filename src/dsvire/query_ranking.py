@@ -55,6 +55,26 @@ class FullCorpusRankingArtifact:
     content_sha256: str
 
 
+def full_corpus_order_sha256(artifact: FullCorpusRankingArtifact) -> str:
+    """Hash retrieval order without backend-specific floating-point observations."""
+    value = {
+        "schema_version": "dsvire.full-corpus-query-order.v1",
+        "split": artifact.split,
+        "system": {"id": artifact.system_id, "sha256": artifact.system_sha256},
+        "candidate_case_ids": list(artifact.candidate_case_ids),
+        "rankings": [
+            {
+                "query_id": ranking.query_id,
+                "case_ids": [candidate.case_id for candidate in ranking.candidates],
+            }
+            for ranking in artifact.rankings
+        ],
+    }
+    return hashlib.sha256(
+        json.dumps(value, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+
+
 def _text(value: Any, context: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise QueryRankingError(f"{context} must be non-empty text")
