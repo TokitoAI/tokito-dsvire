@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Tokito Cloud bounded DS-ViRe staging soak</title>
+  <desc id="desc">Four consecutive source-free restart rounds with aggregate outcomes and Cloud resource observations.</desc>
+  <rect width="1200" height="720" rx="28" fill="#090b10"/>
+  <style>.title{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.sub{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}.metric{font:700 29px Inter,Segoe UI,sans-serif;fill:#f4f7fb}.label{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}.row{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}.mono{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}.foot{font:14px Inter,Segoe UI,sans-serif;fill:#697386}</style>
+  <text x="64" y="68" class="title">Bounded staging soak · four restart rounds</text>
+  <text x="64" y="105" class="sub">128 authenticated uploads · 80 admitted · 48 bounded 429 · 4 in-flight restarts</text>
+  <rect x="58" y="136" width="1084" height="132" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="169" class="label">CONVERGENCE / CLEANUP</text><text x="84" y="210" class="metric">80 succeeded + released</text>
+  <text x="84" y="244" class="row">16 foreign reads denied · 16 exact replays · 0 final errors</text>
+  <text x="660" y="169" class="label">CLOUD RESOURCE OBSERVATION · 22 SAMPLES</text>
+  <text x="660" y="210" class="metric">7.07% CPU · 6.11 MiB max</text>
+  <text x="660" y="244" class="row">11 PIDs max · single delayed worker</text>
+  <text x="72" y="341" class="row">Round 1</text><rect x="220" y="320" width="610" height="24" rx="12" fill="#202631"/><rect x="220" y="320" width="605" height="24" rx="12" fill="#62a6ff"/><text x="864" y="340" class="mono">15.410 s p95</text><text x="72" y="398" class="row">Round 2</text><rect x="220" y="377" width="610" height="24" rx="12" fill="#202631"/><rect x="220" y="377" width="605" height="24" rx="12" fill="#62a6ff"/><text x="864" y="397" class="mono">15.403 s p95</text><text x="72" y="455" class="row">Round 3</text><rect x="220" y="434" width="610" height="24" rx="12" fill="#202631"/><rect x="220" y="434" width="606" height="24" rx="12" fill="#62a6ff"/><text x="864" y="454" class="mono">15.415 s p95</text><text x="72" y="512" class="row">Round 4</text><rect x="220" y="491" width="610" height="24" rx="12" fill="#202631"/><rect x="220" y="491" width="610" height="24" rx="12" fill="#62a6ff"/><text x="864" y="511" class="mono">15.529 s p95</text>
+  <rect x="58" y="579" width="1084" height="58" rx="14" fill="#14251f" stroke="#286451"/>
+  <text x="82" y="615" class="row">ALL FOUR ROUNDS PASSED · NO RETAINED SOURCES · NO MISSING BLOBS · NO WORKER ERROR</text>
+  <text x="64" y="672" class="foot">Run 31714227479 · commit 5ff564d0 · Cloud v0.9.4 · aggregate source-free evidence</text>
+  <text x="64" y="698" class="foot">A 65.6-second bounded reliability observation—not long-duration availability, representative capacity, retrieval quality, or query SLO evidence.</text>
+</svg>

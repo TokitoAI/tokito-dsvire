@@ -220,6 +220,32 @@ provider capacity, sustained soak/availability evidence, retrieval accuracy or
 calibration, production worker enablement, or the Technical Bible hot-pack
 query SLO.
 
+## Bounded staging soak
+
+![Tokito Cloud bounded DS-ViRe staging soak](assets/staging-soak.svg)
+
+Merged Tokito Cloud workflow
+[`31714227479`](https://github.com/TokitoAI/tokito-ai/actions/runs/31714227479)
+ran four consecutive source-free restart rounds against exact release v0.9.4.
+Across 128 authenticated synthetic uploads, the gate admitted the expected 80
+jobs and returned 48 bounded quota rejections. Every admitted job succeeded and
+released its source after four in-flight Cloud restarts. Sixteen cross-tenant
+reads were denied, 16 exact replays were idempotent, Companion projections
+matched, and final health had zero active jobs, missing referenced blobs, or
+worker errors.
+
+Round completion p95 remained between 15.403 and 15.529 seconds, including
+safe lease recovery. Across 22 two-second container samples, Cloud reached
+7.07% max CPU, 6,405,751 bytes max reported memory, and 11 PIDs. The exact
+aggregate result is
+[`evaluation/results/tokito-staging-soak-2026-08-13.json`](../evaluation/results/tokito-staging-soak-2026-08-13.json).
+
+The four rounds total roughly 65.6 seconds of measured workload. This is
+repeatability evidence over a bounded staging window—not a long-duration
+availability claim, representative vendor-document or model-provider capacity,
+retrieval quality/calibration, production worker enablement, or the Technical
+Bible hot-pack query SLO.
+
 ## Hybrid query-core capacity
 
 ![Hybrid query-core capacity](assets/hybrid-query-core-capacity.svg)

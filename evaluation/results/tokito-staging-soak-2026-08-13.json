@@ -1,0 +1,40 @@
+{
+  "schema_version": "dsvire.public-staging-soak.v1",
+  "source": {
+    "repository": "TokitoAI/tokito-ai",
+    "commit": "5ff564d0dfa162bf0bd867b172f7f36ecf632a2d",
+    "workflow_run": 31714227479,
+    "release": "v0.9.4",
+    "artifact_schema": "tokito.staging-soak.v1"
+  },
+  "workload": {
+    "source_free": true,
+    "rounds": 4,
+    "attempted_uploads": 128,
+    "admitted_jobs": 80,
+    "quota_rejections": 48,
+    "cloud_restarts": 4,
+    "synthetic_tenants_per_round": 4,
+    "workers": 1,
+    "fixture_delay_ms_per_private_call": 250
+  },
+  "results": {
+    "all_admitted_succeeded": true,
+    "source_blobs_released": 80,
+    "cross_tenant_reads_denied": 16,
+    "idempotent_replays": 16,
+    "round_completion_p95_seconds": [15.410, 15.403, 15.415, 15.529],
+    "round_wall_seconds": [16.401, 16.386, 16.392, 16.396],
+    "resource_samples": 22,
+    "cloud_cpu_percent": {"median": 4.23, "p95": 7.00, "max": 7.07},
+    "cloud_memory_bytes": {"median": 5466227, "p95": 6246367, "max": 6405751},
+    "cloud_pids": {"median": 11, "p95": 11, "max": 11},
+    "final_active_jobs": 0,
+    "final_worker_has_error": false,
+    "final_missing_referenced_blobs": 0
+  },
+  "scope": {
+    "proves": "repeatable bounded staging admission, restart recovery, publication, Companion projection, tenant isolation, replay idempotency, terminal cleanup, and resource observation over four consecutive rounds",
+    "does_not_prove": "long-duration availability, representative vendor-document or provider capacity, retrieval quality or calibration, production worker enablement, or the Technical Bible hot-pack query SLO"
+  }
+}
