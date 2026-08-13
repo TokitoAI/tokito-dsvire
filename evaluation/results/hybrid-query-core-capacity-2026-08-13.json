@@ -1,0 +1,39 @@
+{
+  "limitations": [
+    "deterministic synthetic vectors measure query-core correctness and capacity, not retrieval accuracy",
+    "encoder, vector database, network, verification, and cold pack download are excluded"
+  ],
+  "order_sha256": "5a470fd23a904900c33317d829eaf7bfddffd3c8811cb736c9185c79c650d505",
+  "pack": {
+    "bytes_per_region": 2957.675,
+    "payload_sha256": "bb83fca57b66250709739e9820103bf4d70ef8c37086ebbc624ac94afad71148",
+    "serialized_bytes": 618154
+  },
+  "query": {
+    "max_ms": 49.2926,
+    "mean_ms": 44.077844,
+    "p95_ms": 45.3904
+  },
+  "result_sha256": "4e5ce7fdfe38b653b2107763c280b0b2113ed2c2d1d4318d90a7bf048c872712",
+  "runtime": {
+    "machine": "AMD64",
+    "os": "Windows",
+    "pid": 5680,
+    "python": "3.11.9",
+    "total_seconds": 5.729002,
+    "traced_peak_bytes": 9243160
+  },
+  "schema_version": "dsvire.hybrid-query-core-benchmark.v1",
+  "scope": {
+    "dimension": 32,
+    "maxsim_k": 32,
+    "patches_per_region": 16,
+    "queries": 90,
+    "regions": 209,
+    "top_n": 100
+  },
+  "system": {
+    "id": "dsvire.hybrid-query-core@1.0.0",
+    "sha256": "728c078710c4cc5de24f64bdc577a6c741c5047d9236d9fabd4a33e75ce522a4"
+  }
+}
