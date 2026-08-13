@@ -21,6 +21,7 @@ COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
 QUERY_RANKING = ROOT / "examples/query-ranking-canary.json"
 FULL_CORPUS_TEXT = ROOT / "evaluation/results/full-corpus-text-development-2026-08-13.json"
+FULL_CORPUS_OPENCLIP = ROOT / "evaluation/results/full-corpus-openclip-development-2026-08-13.json"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -309,12 +310,50 @@ def _full_corpus_text_svg(result: dict[str, Any]) -> str:
 """
 
 
+def _retrieval_comparison_svg(text: dict[str, Any], visual: dict[str, Any]) -> str:
+    metrics = ("ndcg_at_5", "recall_at_5", "map", "mrr")
+    labels = {"ndcg_at_5": "nDCG@5", "recall_at_5": "R@5", "map": "mAP", "mrr": "MRR"}
+    rows = []
+    for index, name in enumerate(metrics):
+        y = 244 + index * 76
+        assisted = float(text["metrics"][name])
+        unscoped = float(visual["metrics"][name])
+        rows.extend(
+            [
+                f'<text x="64" y="{y + 25}" class="row">{labels[name]}</text>',
+                f'<rect x="220" y="{y}" width="720" height="22" rx="11" fill="#202631"/>',
+                f'<rect x="220" y="{y}" width="{round(720 * assisted)}" height="22" rx="11" fill="#16d6b3"/>',
+                f'<rect x="220" y="{y + 29}" width="720" height="22" rx="11" fill="#202631"/>',
+                f'<rect x="220" y="{y + 29}" width="{round(720 * unscoped)}" height="22" rx="11" fill="#a78bfa"/>',
+                f'<text x="972" y="{y + 18}" class="mono">{assisted:.3f}</text>',
+                f'<text x="972" y="{y + 47}" class="mono">{unscoped:.3f}</text>',
+            ]
+        )
+    scope = visual["scope"]
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Identity-assisted versus unscoped visual retrieval</title>
+  <desc id="desc">Development comparison over the same complete registered query and candidate universe.</desc>
+  <rect width="1200" height="700" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.legend{{font:16px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.row{{font:700 18px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Same corpus, radically different information boundary</text>
+  <text x="64" y="105" class="sub">{scope["queries"]} queries x {scope["candidate_cases"]} registered crops = {scope["ranked_pairs"]:,} scored pairs</text>
+  <circle cx="72" cy="151" r="7" fill="#16d6b3"/><text x="90" y="157" class="legend">Identity-assisted text/layout</text>
+  <circle cx="338" cy="151" r="7" fill="#a78bfa"/><text x="356" y="157" class="legend">Unscoped OpenCLIP pixels</text>
+  <rect x="64" y="177" width="1072" height="42" rx="12" fill="#2a1c13" stroke="#7c4a22"/><text x="84" y="204" class="row">DEVELOPMENT ONLY - NOT HELD-OUT ACCURACY - NEITHER RESULT AUTHORIZES PUBLICATION</text>
+  {"".join(rows)}
+  <text x="64" y="628" class="row">Unscoped nDCG@5 by intent: pinout {visual["by_query_type"]["pinout"]["ndcg_at_5"]:.3f} - package {visual["by_query_type"]["package"]["ndcg_at_5"]:.3f} - table {visual["by_query_type"]["table"]["ndcg_at_5"]:.3f}</text>
+  <text x="64" y="670" class="foot">OpenCLIP scorer sees only raw query text and rendered crop pixels; no identity, package, intent, document metadata, or labels.</text>
+</svg>
+"""
+
+
 def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
     service_load = _read(SERVICE_LOAD)
     query_ranking = _read(QUERY_RANKING)
     full_corpus_text = _read(FULL_CORPUS_TEXT)
+    full_corpus_openclip = _read(FULL_CORPUS_OPENCLIP)
     visual_registry = load_visual_registry_data(_read(VISUAL_REGISTRY))
     coverage = audit_corpus_coverage(
         visual_registry,
@@ -344,6 +383,10 @@ def generate(output_root: Path) -> None:
     _write(
         output_root / "docs/assets/full-corpus-text-development.svg",
         _full_corpus_text_svg(full_corpus_text),
+    )
+    _write(
+        output_root / "docs/assets/full-corpus-retrieval-comparison.svg",
+        _retrieval_comparison_svg(full_corpus_text, full_corpus_openclip),
     )
 
 

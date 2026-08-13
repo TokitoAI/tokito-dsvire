@@ -1,0 +1,250 @@
+{
+  "by_query_type": {
+    "package": {
+      "coverage": 1.0,
+      "hard_negatives_at_5": 25,
+      "judged_at_5": 28,
+      "map": 0.069310819777,
+      "mrr": 0.069310819777,
+      "ndcg_at_5": 0.060584312177,
+      "queries": 30,
+      "queries_with_hard_negative_at_5": 12,
+      "queries_with_results": 30,
+      "recall_at_5": 0.1,
+      "unjudged_at_5": 122
+    },
+    "pinout": {
+      "coverage": 1.0,
+      "hard_negatives_at_5": 13,
+      "judged_at_5": 26,
+      "map": 0.339074227598,
+      "mrr": 0.339074227598,
+      "ndcg_at_5": 0.341606864113,
+      "queries": 30,
+      "queries_with_hard_negative_at_5": 12,
+      "queries_with_results": 30,
+      "recall_at_5": 0.433333333333,
+      "unjudged_at_5": 124
+    },
+    "table": {
+      "coverage": 1.0,
+      "hard_negatives_at_5": 22,
+      "judged_at_5": 23,
+      "map": 0.048833334671,
+      "mrr": 0.048833334671,
+      "ndcg_at_5": 0.021030991786,
+      "queries": 30,
+      "queries_with_hard_negative_at_5": 12,
+      "queries_with_results": 30,
+      "recall_at_5": 0.033333333333,
+      "unjudged_at_5": 127
+    }
+  },
+  "limitations": [
+    "development query metrics are not held-out accuracy",
+    "unjudged candidates are treated as non-relevant for reported retrieval metrics",
+    "the current query set is deterministic-template and not independently reviewed",
+    "this artifact cannot authorize automated publication",
+    "scorer uses only raw query text and crop pixels; it is not identity assisted"
+  ],
+  "metrics": {
+    "coverage": 1.0,
+    "hard_negatives_at_5": 60,
+    "judged_at_5": 77,
+    "map": 0.152406127348,
+    "mrr": 0.152406127348,
+    "ndcg_at_5": 0.141074056025,
+    "queries": 90,
+    "queries_with_hard_negative_at_5": 36,
+    "queries_with_results": 90,
+    "recall_at_5": 0.188888888889,
+    "unjudged_at_5": 373
+  },
+  "ranking_sha256": "4b6bca00b20b53056dadf3efa27fd3fe532d64573d1b8e1f8c48176e9bb38b9c",
+  "result_sha256": "78902d35517cf2933bc7d8a9e289753301fe8a3ceb103d3debe1ace77d43ad7f",
+  "runtime": {
+    "candidate_render_mean_ms": 45.568,
+    "candidate_render_p95_ms": 85.608,
+    "environment": {
+      "logical_cpus": 12,
+      "machine": "AMD64",
+      "os": "Windows",
+      "os_release": "10",
+      "pymupdf": "1.28.2",
+      "python": "3.11.9"
+    },
+    "external_cost_usd": 0.0,
+    "inference_seconds": 29.85397,
+    "peak_rss_bytes": 1737519104,
+    "total_seconds": 44.691389
+  },
+  "schema_version": "dsvire.full-corpus-openclip-baseline-result.v1",
+  "scope": {
+    "candidate_cases": 209,
+    "documents": 30,
+    "queries": 90,
+    "ranked_pairs": 18810,
+    "split": "development"
+  },
+  "source": {
+    "model_sha256": "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6",
+    "query_registry_sha256": "8a53a2f506218f72abeb961fa4692a8bd250cac92087a44e0b3ab1b6c620fa1c",
+    "source_manifest": [
+      {
+        "bytes": 8585103,
+        "content_sha256": "fb84858d0b12c695a12b13f0c74b962d81210247d440c7a24c0ed23dfabfdfaf",
+        "document_id": "atmel-atmega328p-7810d-2015-01"
+      },
+      {
+        "bytes": 993315,
+        "content_sha256": "0894eb9f67c052cd60593f1e57428fc91e39a11e0b9fb6288098c948022910b5",
+        "document_id": "atmel-mxt336t-rev-3-1-bx-2016-10"
+      },
+      {
+        "bytes": 1663806,
+        "content_sha256": "a2ccdb449fec94380742fe8eec851a11d9bd4142252d332b34682b4deecd7d89",
+        "document_id": "bosch-bme280-rev-1-23-2022-01"
+      },
+      {
+        "bytes": 2669088,
+        "content_sha256": "0c3dca28517322bdcfcef9be8b1dd2b872ff9df9464d0088c17ccc4a67472f3b",
+        "document_id": "bosch-bmi160-rev-1-0-2020-11"
+      },
+      {
+        "bytes": 755270,
+        "content_sha256": "ef8d376f2ec356e29172eb9e053819a0ebdcc576dba7fc9ab0505c568427920f",
+        "document_id": "diodes-ap2112-ds39724-rev2-2-2017-06"
+      },
+      {
+        "bytes": 989523,
+        "content_sha256": "a7917e6b47528c9dcab06837a49d452e582751335797db879f1cf2d17cd29adf",
+        "document_id": "espressif-esp32-series-v5-3-2026-07"
+      },
+      {
+        "bytes": 1238213,
+        "content_sha256": "a7c18ff064f5e520724d9525a14623af403a2bce203a91026bca82a6b1d38439",
+        "document_id": "microchip-lan8720a-ds00002165b-2016"
+      },
+      {
+        "bytes": 1019348,
+        "content_sha256": "63cb5f2bec44434cdeeada1790d0316c9dc06b33febb489ad87bb0e2d540496a",
+        "document_id": "microchip-mcp23017-23s17-ds20001952d-2022-06"
+      },
+      {
+        "bytes": 1019552,
+        "content_sha256": "3c6c943bc258556f964addae9210c100b8398e5a77cc9070677c1042f05d1527",
+        "document_id": "microchip-mcp2515-ds20001801k-2021"
+      },
+      {
+        "bytes": 800643,
+        "content_sha256": "c36b24e45446d8a1b7d90c0618a924cac0f117994390e60169287e6ba488c53e",
+        "document_id": "microchip-mcp2561-2-ds20005167c-2014-07"
+      },
+      {
+        "bytes": 1021574,
+        "content_sha256": "26a503d76279cc10e40cfc36e80bb87fd33d0de80093d1bdcc4dc29435b10f72",
+        "document_id": "microchip-mcp3008-ds20001295e-2022-10"
+      },
+      {
+        "bytes": 1811936,
+        "content_sha256": "8623f4eb8030104be6fa3b4db0013caca987ff2afb8def70e02212aa3d7077e9",
+        "document_id": "microchip-mcp4725-ds20002039f-2023-08"
+      },
+      {
+        "bytes": 889186,
+        "content_sha256": "75297f2a5235599368381adfb63df2652cc22d757f171f388147b2ab3d32776f",
+        "document_id": "microchip-mcp73831-ds20001984h-2020"
+      },
+      {
+        "bytes": 1470183,
+        "content_sha256": "f6d86cb064c95c47928a36f835e9377c54f3118db59edd0d80daa1df0d9d0f79",
+        "document_id": "microchip-mcp8024-ds20005228a-2013"
+      },
+      {
+        "bytes": 2537484,
+        "content_sha256": "fcb9c5c0773a2ec04e73c3f1e5248c3629d8b2b0fcecd9b38076296e1f6a58ff",
+        "document_id": "microchip-mcp9600-ds20005426j-2025"
+      },
+      {
+        "bytes": 1831079,
+        "content_sha256": "e7b6502f744c3e605a424d7b784a23baa471a41f8bc6d51f6321027b0c43972f",
+        "document_id": "microchip-mcp9808-ds20005095b-2018"
+      },
+      {
+        "bytes": 1196465,
+        "content_sha256": "7a4bb54c2f04b178fc42d2499f75314196eb377a3dcd6de335389bd77e20a3da",
+        "document_id": "microchip-pac1934-ds20005850e-2019"
+      },
+      {
+        "bytes": 338688,
+        "content_sha256": "fa24207e780cd8c4cdb9018d67eb83e53ee75578fc126bda6f59f0d84ceb211a",
+        "document_id": "nexperia-74hc595-rev-12-2024-03"
+      },
+      {
+        "bytes": 408783,
+        "content_sha256": "237d47f339cac4c3a0d56a5f0b4d3c93df71e3eb43f36ac57ea4ff38e6b2e585",
+        "document_id": "nxp-pca9685-rev-4-2015-04"
+      },
+      {
+        "bytes": 913144,
+        "content_sha256": "15873fa13e8b9e3baeb924cc5ce845eabf0e1d2671a441feaaa3c4bb56e77013",
+        "document_id": "nxp-pcf8574-rev-5-2013-05"
+      },
+      {
+        "bytes": 561772,
+        "content_sha256": "460c65458075bad2a8eebb59ce40831020b246145e95d7529cc12647d266a7f3",
+        "document_id": "onsemi-cat24c32-rev-28-2025-07"
+      },
+      {
+        "bytes": 1540171,
+        "content_sha256": "72a1aeb60abf0acae2f5c9cfecd9a9ff34fd1bbb903624625666609fde20526c",
+        "document_id": "onsemi-ncp1117-rev-31-2021-08"
+      },
+      {
+        "bytes": 5301205,
+        "content_sha256": "be56fbb75ba0ae9e26558a73c93ac3e75c2ad4e6878d3b6703de2a76d886ea8c",
+        "document_id": "raspberry-pi-rp2040-2025-02-20"
+      },
+      {
+        "bytes": 1116117,
+        "content_sha256": "73335397f3926212bcb1d64a0aa6b301af400b3adab1f67953751db49772921c",
+        "document_id": "renesas-isl1208-rev-9-01-2022-07"
+      },
+      {
+        "bytes": 2252034,
+        "content_sha256": "32fbab0ba17f394ab76fbbd8129bddad228c1c486a1693d96ea5905936e437fe",
+        "document_id": "silicon-labs-cp2102n-rev-1-5"
+      },
+      {
+        "bytes": 4150108,
+        "content_sha256": "ef646b009b0524a8c564406095632cbe1d2ebe26a399d845565241d2cfaad038",
+        "document_id": "ti-lm358-rev-ab-2024-10"
+      },
+      {
+        "bytes": 2259662,
+        "content_sha256": "dae2be1a919b0cfe2d34e120cbbda2d638204e3000b1555004c4c76cf5c1f30f",
+        "document_id": "ti-ne555-rev-k"
+      },
+      {
+        "bytes": 2200710,
+        "content_sha256": "88c98e6e51851285fbbfc17837d002b29af7cd3fe30442fa7e4612c5179985da",
+        "document_id": "ti-tps5430-rev-l-2026-04"
+      },
+      {
+        "bytes": 237004,
+        "content_sha256": "145893b5422f68cc3f2016e2dddfc33f6ee26f0d2444fe8889d0dc0388f805a1",
+        "document_id": "vishay-vo617a-rev-2-8-2025-01"
+      },
+      {
+        "bytes": 1893745,
+        "content_sha256": "7b826b808084ccd986bcc22904c00a07a508ef42fb93d079fe7150a4c4f1a63d",
+        "document_id": "wiznet-w5500-v1-1-0-2022-12"
+      }
+    ],
+    "visual_registry_sha256": "f0b249b3cf208149da4bdbbc31cc730c9434ec5d5cc4d81f38fc16dec77c64fd"
+  },
+  "system": {
+    "id": "dsvire.query-baseline.openclip-unscoped@1.0.0",
+    "sha256": "4a0666a050b355fb8b125cfaff9c2e4945f292ccff34a4917c53f929fda9032c"
+  }
+}

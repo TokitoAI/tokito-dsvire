@@ -26,6 +26,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Service load evidence | Real authenticated Linux HTTP/worker boundary: cold p95 623.6 ms, warm p95 612.0 ms, five bounded overload rejections, 166.7 MiB peak process-tree RSS, and zero scratch/partial residue; generated 12-request evidence, not capacity or MaxSim SLO proof |
 | Visual comparators / benchmark corpus | Text-layout was frozen after comparison with RapidOCR and pinned OpenCLIP; held-out evaluation accepted zero wrong figures/identities but reached 46.7% positive coverage versus the frozen 50% minimum, so the gate failed and publication remains disabled |
 | Full-corpus query baseline | The identity-assisted text/layout baseline ranks all 209 registered development candidates for each of 90 queries (18,810 pairs): nDCG@5 0.963, R@5 1.000, mAP/MRR 0.950. This is deterministic-template development evidence, not held-out accuracy. |
+| Unscoped visual baseline | Pinned OpenCLIP ranks the same 18,810 pairs from raw query text and pixels only: nDCG@5 0.141, R@5 0.189, mAP/MRR 0.152. Pinouts reach 0.342 nDCG@5; tables reach 0.021. Generic global CLIP is not the planned hybrid late-interaction system. |
 | Tokito Wave D integration | Seeded acceptance crosses authenticated Cloud ingestion, immutable generated SQLite, catalog sync, MCP streamable HTTP resolve/provenance, and Desktop place/save/reopen with exact compiler bytes. See [`examples/wave-d-acceptance.json`](examples/wave-d-acceptance.json). |
 
 ## Start here

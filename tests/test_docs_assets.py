@@ -22,6 +22,7 @@ def test_public_examples_regenerate_byte_identically(tmp_path: Path) -> None:
         "docs/assets/corpus-coverage.svg",
         "docs/assets/query-ranking-canary.svg",
         "docs/assets/full-corpus-text-development.svg",
+        "docs/assets/full-corpus-retrieval-comparison.svg",
     )
     for relative in generated:
         assert (tmp_path / relative).read_bytes() == (root / relative).read_bytes()

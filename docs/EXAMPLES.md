@@ -119,6 +119,43 @@ downloads. Every input is still checked against the public registry hash. The
 workflow uploads only compact JSON and its checksum—never PDFs, crops, or the
 raw ranking dump.
 
+## Unscoped visual-semantic development baseline
+
+![Identity-assisted versus unscoped retrieval](assets/full-corpus-retrieval-comparison.svg)
+
+The source-free
+[`full-corpus-openclip-development-2026-08-13.json`](../evaluation/results/full-corpus-openclip-development-2026-08-13.json)
+uses pinned LAION OpenCLIP ViT-B/32 to encode raw query text and rendered crop
+pixels. Its scorer accepts only those inputs; it cannot inspect document, MPN,
+package, intent, claimed identity, relevance, or adversarial labels.
+
+| Measurement | Identity-assisted text/layout | Unscoped OpenCLIP pixels |
+|---|---:|---:|
+| nDCG@5 | 0.9631 | 0.1411 |
+| R@5 | 1.0000 | 0.1889 |
+| mAP / MRR | 0.9500 / 0.9500 | 0.1524 / 0.1524 |
+| Pinout / package / table nDCG@5 | 0.9139 / 0.9754 / 1.0000 | 0.3416 / 0.0606 / 0.0210 |
+| Local Windows runtime | 2.713 s | 44.691 s |
+| Local peak RSS | 73.0 MiB | 1.62 GiB |
+
+Generic global CLIP is therefore not the Technical Bible's target architecture.
+Pinout shape transfers somewhat, while exact package rows and dense pin tables
+need the planned hybrid text gate and datasheet-specific late interaction.
+
+```bash
+python scripts/evaluate_full_corpus_openclip_baseline.py \
+  --cache-root .cache/dsvire-query-sources \
+  --model .cache/models/open_clip_model.safetensors \
+  --json-out openclip-query-result.json
+```
+
+Two complete local runs produced byte-identical 18,810-pair raw rankings. The
+manual **OpenCLIP query benchmark** reruns exact source/model hashes on private
+Linux and publishes compact JSON/checksum only. Model, PDFs, crops, and raw
+ranking stay outside Git and Actions artifacts. This is deterministic-template
+development evidence, not independent review, held-out accuracy, calibration,
+or publication authorization.
+
 ## Tokito Wave D product acceptance
 
 The checked [Wave D acceptance report](../examples/wave-d-acceptance.json) is
