@@ -21,6 +21,7 @@ def test_public_examples_regenerate_byte_identically(tmp_path: Path) -> None:
         "docs/assets/staging-restart-load.svg",
         "docs/assets/staging-soak.svg",
         "docs/assets/staging-recovery.svg",
+        "docs/assets/staging-schema-recovery.svg",
         "examples/corpus-coverage.json",
         "docs/assets/corpus-coverage.svg",
         "docs/assets/query-ranking-canary.svg",

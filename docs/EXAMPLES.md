@@ -269,6 +269,31 @@ This proves the exact-release worker-enabled staging recovery path. It does not
 prove production-data recovery or encrypted off-host replication, and it does
 not change the production worker's fail-closed credential/calibration gates.
 
+## Schema migration and rollback recovery
+
+![Tokito Cloud schema migration recovery](assets/staging-schema-recovery.svg)
+
+Merged Tokito Cloud workflow
+[`31725137581`](https://github.com/TokitoAI/tokito-ai/actions/runs/31725137581)
+created genuine schema-v3 durable state under exact v0.8.0, archived and
+verified five files, then restored a disposable copy under exact v0.9.4. Cloud
+migrated it to schema v4 in 1.439 s. An independent read-only SQLite probe
+verified `quick_check`, schema version 4, and trace-context backfill; the
+authenticated API probe then reconciled the job, Companion projection,
+generated revision, and idempotent replay in 99 ms.
+
+The untouched archive was restored a second time and independently remained
+schema v3 with no trace-context column. Exact v0.8.0 booted that copy and passed
+authenticated reconciliation in 1.618 s including startup. All disposable
+containers, volumes, archive, and state were removed before the passing artifact
+was written, and original staging remained healthy. The reviewed source-free
+record is
+[`evaluation/results/tokito-staging-schema-recovery-2026-08-13.json`](../evaluation/results/tokito-staging-schema-recovery-2026-08-13.json).
+
+This proves the current v3-to-v4 migration and rollback path on synthetic
+staging state. It does not prove production-data recovery, encrypted off-host
+replication, or compatibility with future migrations.
+
 ## Hybrid query-core capacity
 
 ![Hybrid query-core capacity](assets/hybrid-query-core-capacity.svg)

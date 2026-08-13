@@ -19,6 +19,7 @@ SERVICE_LOAD = ROOT / "evaluation/results/service-load-linux-2026-08-12.json"
 STAGING_RESTART_LOAD = ROOT / "evaluation/results/tokito-staging-restart-load-2026-08-13.json"
 STAGING_SOAK = ROOT / "evaluation/results/tokito-staging-soak-2026-08-13.json"
 STAGING_RECOVERY = ROOT / "evaluation/results/tokito-staging-recovery-2026-08-13.json"
+STAGING_SCHEMA_RECOVERY = ROOT / "evaluation/results/tokito-staging-schema-recovery-2026-08-13.json"
 VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
@@ -334,6 +335,34 @@ def _staging_recovery_svg(result: dict[str, Any]) -> str:
 """
 
 
+def _staging_schema_recovery_svg(result: dict[str, Any]) -> str:
+    source = result["source"]
+    migration = result["migration"]
+    rollback = result["rollback"]
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Tokito Cloud schema migration and rollback recovery</title>
+  <desc id="desc">Exact-release schema v3 backup, v4 migration, authenticated reconciliation, immutable archive rollback, cleanup, and timings.</desc>
+  <rect width="1200" height="620" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 29px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Schema recovery · forward migration + rollback</text>
+  <text x="64" y="105" class="sub">Exact Cloud v0.8.0 → v0.9.4 · disposable state · authenticated reconciliation</text>
+  <rect x="58" y="138" width="522" height="180" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="174" class="label">FORWARD RECOVERY</text><text x="84" y="216" class="metric">Schema v3 → v4</text>
+  <text x="84" y="255" class="row">{migration["verified_files"]} archive files verified · trace context backfilled</text>
+  <text x="84" y="291" class="mono">{migration["migration_boot_ms"]} ms boot · {migration["authenticated_probe_ms"]} ms authenticated probe</text>
+  <rect x="620" y="138" width="522" height="180" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="646" y="174" class="label">ROLLBACK SAFETY</text><text x="646" y="216" class="metric">Archive remained schema v3</text>
+  <text x="646" y="255" class="row">Exact v0.8.0 booted and reconciled restored state</text>
+  <text x="646" y="291" class="mono">{rollback["legacy_boot_and_authenticated_probe_ms"]} ms boot + authenticated probe</text>
+  <rect x="58" y="354" width="1084" height="112" rx="18" fill="#14251f" stroke="#286451"/>
+  <text x="84" y="390" class="label">AUTHENTICATED RESTORED CONTRACTS</text>
+  <text x="84" y="430" class="metric">Job · Companion · revision · idempotent replay</text>
+  <text x="64" y="510" class="row">PASS · ORIGINAL STAGING HEALTHY · ZERO ACTIVE JOBS / MISSING BLOBS / WORKER ERRORS · DISPOSABLE STATE REMOVED</text>
+  <text x="64" y="574" class="foot">Run {source["workflow_run"]} · commit {source["commit"][:8]} · aggregate source-free evidence · not production-data or off-host recovery proof</text>
+</svg>
+"""
+
+
 def _coverage_svg(result: dict[str, Any]) -> str:
     achieved = result["achieved"]
     targets = result["targets"]
@@ -529,6 +558,7 @@ def generate(output_root: Path) -> None:
     staging_restart_load = _read(STAGING_RESTART_LOAD)
     staging_soak = _read(STAGING_SOAK)
     staging_recovery = _read(STAGING_RECOVERY)
+    staging_schema_recovery = _read(STAGING_SCHEMA_RECOVERY)
     query_ranking = _read(QUERY_RANKING)
     full_corpus_text = _read(FULL_CORPUS_TEXT)
     full_corpus_openclip = _read(FULL_CORPUS_OPENCLIP)
@@ -558,6 +588,10 @@ def generate(output_root: Path) -> None:
     _write(
         output_root / "docs/assets/staging-recovery.svg",
         _staging_recovery_svg(staging_recovery),
+    )
+    _write(
+        output_root / "docs/assets/staging-schema-recovery.svg",
+        _staging_schema_recovery_svg(staging_schema_recovery),
     )
     _write(
         output_root / "examples/corpus-coverage.json",
