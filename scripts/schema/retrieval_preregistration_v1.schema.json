@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/dsvire/retrieval-preregistration-v1.json",
+  "title": "DS-ViRe retrieval benchmark pre-registration v1",
+  "type": "object",
+  "required": ["schema_version", "plan_id", "parent_issue", "tracking_issue", "sealed_before", "families", "acquisition", "annotation", "queries", "candidate_universe", "systems", "metrics", "frozen_gate", "execution_order", "invalidation", "publication_policy"],
+  "properties": {
+    "schema_version": {"const": "dsvire.retrieval-preregistration.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "parent_issue": {"type": "string", "format": "uri"},
+    "tracking_issue": {"type": "string", "format": "uri"},
+    "sealed_before": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "families": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": {"type": "object", "required": ["id", "split", "manufacturer", "category", "datasheet_identity", "selected_mpn", "selected_package", "official_source_url"], "properties": {
+        "id": {"type": "string", "minLength": 1}, "split": {"enum": ["calibration", "evaluation"]}, "manufacturer": {"type": "string", "minLength": 1}, "category": {"type": "string", "minLength": 1}, "datasheet_identity": {"type": "string", "minLength": 1}, "selected_mpn": {"type": "string", "minLength": 1}, "selected_package": {"type": "string", "minLength": 1}, "official_source_url": {"type": "string", "format": "uri", "pattern": "^https://"}
+      }, "additionalProperties": false}
+    },
+    "acquisition": {"type": "object"}, "annotation": {"type": "object"}, "queries": {"type": "object"}, "candidate_universe": {"type": "object"}, "systems": {"type": "object"},
+    "metrics": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "frozen_gate": {"type": "object", "required": ["evaluation_queries_minimum", "coverage_minimum", "crop_recall_at_5_vs_full_page_minimum_delta", "crop_recall_at_5_vs_openclip_minimum_delta", "crop_recall_at_5_vs_text_rag_minimum_delta", "verified_wrong_figure_rate_maximum", "target_gpu_hot_query_p95_ms_maximum", "crop_index_pages_per_second_per_gpu_minimum", "compressed_crop_pack_vs_full_page_ratio_maximum", "all_conditions_required"], "properties": {"evaluation_queries_minimum": {"const": 36}, "coverage_minimum": {"const": 1.0}, "crop_recall_at_5_vs_full_page_minimum_delta": {"const": -0.01}, "crop_recall_at_5_vs_openclip_minimum_delta": {"const": 0.15}, "crop_recall_at_5_vs_text_rag_minimum_delta": {"const": 0.15}, "verified_wrong_figure_rate_maximum": {"const": 0.02}, "target_gpu_hot_query_p95_ms_maximum": {"const": 800}, "crop_index_pages_per_second_per_gpu_minimum": {"const": 2.0}, "compressed_crop_pack_vs_full_page_ratio_maximum": {"const": 0.15}, "all_conditions_required": {"const": true}}, "additionalProperties": false},
+    "execution_order": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "invalidation": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "publication_policy": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

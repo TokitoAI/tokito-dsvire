@@ -1,0 +1,93 @@
+{
+  "schema_version": "dsvire.retrieval-preregistration.v1",
+  "plan_id": "dsvire-colsmol-cycle-v2@2026-08-13",
+  "parent_issue": "https://github.com/TokitoAI/tokito/issues/336",
+  "tracking_issue": "https://github.com/TokitoAI/tokito-dsvire/issues/97",
+  "sealed_before": [
+    "source_download",
+    "content_hashing",
+    "page_rendering",
+    "region_annotation",
+    "query_authoring",
+    "model_scoring"
+  ],
+  "families": [
+    {"id":"ti-tca9548a-rev-h","split":"calibration","manufacturer":"Texas Instruments","category":"i2c_switch","datasheet_identity":"TCA9548A SCPS207H, September 2024","selected_mpn":"TCA9548APWR","selected_package":"TSSOP-24","official_source_url":"https://www.ti.com/lit/ds/symlink/tca9548a.pdf"},
+    {"id":"analog-devices-adxl345-rev-g","split":"calibration","manufacturer":"Analog Devices","category":"accelerometer","datasheet_identity":"ADXL345 Rev. G","selected_mpn":"ADXL345BCCZ","selected_package":"LGA-14","official_source_url":"https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf"},
+    {"id":"nexperia-74hc138-rev-10","split":"calibration","manufacturer":"Nexperia","category":"logic_decoder","datasheet_identity":"74HC138; 74HCT138 Rev. 10","selected_mpn":"74HC138D","selected_package":"SO14","official_source_url":"https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf"},
+    {"id":"microchip-ksz8081-ds00002264","split":"calibration","manufacturer":"Microchip","category":"ethernet_phy","datasheet_identity":"KSZ8081RNA/RND DS00002264","selected_mpn":"KSZ8081RNBIA","selected_package":"QFN-32","official_source_url":"https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ8081RNA-RND-Data-Sheet-DS00002264.pdf"},
+    {"id":"st-lsm6dsox-rev-8","split":"calibration","manufacturer":"STMicroelectronics","category":"inertial_measurement_unit","datasheet_identity":"LSM6DSOX Rev. 8","selected_mpn":"LSM6DSOXTR","selected_package":"LGA-14","official_source_url":"https://www.st.com/resource/en/datasheet/lsm6dsox.pdf"},
+    {"id":"onsemi-ncp1529-rev-5","split":"calibration","manufacturer":"onsemi","category":"buck_regulator","datasheet_identity":"NCP1529/D Rev. 5","selected_mpn":"NCP1529MUTBG","selected_package":"UDFN-6","official_source_url":"https://www.onsemi.com/pdf/datasheet/ncp1529-d.pdf"},
+    {"id":"ti-dac8568-rev-c","split":"evaluation","manufacturer":"Texas Instruments","category":"digital_to_analog_converter","datasheet_identity":"DAC7568/DAC8168/DAC8568 SBAS468C","selected_mpn":"DAC8568ICPW","selected_package":"TSSOP-16","official_source_url":"https://www.ti.com/lit/ds/symlink/dac8568.pdf"},
+    {"id":"analog-devices-max31855-rev-5","split":"evaluation","manufacturer":"Analog Devices","category":"thermocouple_converter","datasheet_identity":"MAX31855 Rev. 5","selected_mpn":"MAX31855KASA+","selected_package":"SOIC-8","official_source_url":"https://www.analog.com/media/en/technical-documentation/data-sheets/MAX31855.pdf"},
+    {"id":"nexperia-74hc00-rev-10","split":"evaluation","manufacturer":"Nexperia","category":"logic_nand_gate","datasheet_identity":"74HC00; 74HCT00 Rev. 10","selected_mpn":"74HC00D","selected_package":"SO14","official_source_url":"https://assets.nexperia.com/documents/data-sheet/74HC_HCT00.pdf"},
+    {"id":"microchip-sst26vf064b-ds20005119","split":"evaluation","manufacturer":"Microchip","category":"serial_flash_memory","datasheet_identity":"SST26VF064B DS20005119","selected_mpn":"SST26VF064BEUI-104I/SM","selected_package":"SOIC-8","official_source_url":"https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/SST26VF064B-64-Mbit-Serial-Quad-IO-SQI-Flash-Memory-20005119.pdf"},
+    {"id":"st-stm32g031-rev-6","split":"evaluation","manufacturer":"STMicroelectronics","category":"microcontroller","datasheet_identity":"STM32G031x4/x6/x8 Rev. 6","selected_mpn":"STM32G031K8T6","selected_package":"LQFP-32","official_source_url":"https://www.st.com/resource/en/datasheet/stm32g031k8.pdf"},
+    {"id":"onsemi-ncv7342-rev-4","split":"evaluation","manufacturer":"onsemi","category":"can_transceiver","datasheet_identity":"NCV7342/D Rev. 4","selected_mpn":"NCV7342D12R2G","selected_package":"SOIC-8","official_source_url":"https://www.onsemi.com/pdf/datasheet/ncv7342-d.pdf"}
+  ],
+  "acquisition": {
+    "allowed_redirects": 5,
+    "maximum_pdf_bytes": 67108864,
+    "require_pdf_magic": true,
+    "require_declared_identity_in_bounded_text": true,
+    "on_unavailable_or_mismatched_source": "invalidate_family_without_replacement",
+    "post_seal_artifact": "dsvire.retrieval-cycle-source-manifest.v1 with final URL, bytes, and SHA-256"
+  },
+  "annotation": {
+    "region_types": ["pinout", "table", "package"],
+    "required_positive_regions_per_family": 3,
+    "required_hard_negative_kinds": ["wrong_intent", "wrong_package", "wrong_variant", "wrong_view"],
+    "minimum_hard_negatives_per_family": 4,
+    "review_protocol": "two-pass blinded review; author and adjudicator cannot inspect model scores",
+    "disagreements": "adjudicate before query encoding; unresolved regions are excluded and recorded"
+  },
+  "queries": {
+    "authoring": "manual natural-language prompts written after region adjudication and before model scoring",
+    "intents": ["pinout", "table", "package"],
+    "queries_per_intent_per_family": 2,
+    "minimum_total": 72,
+    "review_protocol": "second reviewer checks intent, exact identity, relevance, and hard-negative links without model scores",
+    "prohibited": ["template-only queries", "model-generated queries", "post-score edits", "labels or case IDs in query text"]
+  },
+  "candidate_universe": {
+    "crop_ranking": "every adjudicated region in the selected split for every query",
+    "full_page_baseline": "every rendered page in the selected split for every query",
+    "unannotated_figures": "not silently counted as negatives; record judgment incompleteness separately",
+    "maxsim_k": 32
+  },
+  "systems": {
+    "candidate": "pinned ColSmol crop BM25+dense/RRF+MaxSim cascade",
+    "comparators": ["same pinned ColSmol over naive full pages", "pinned unscoped OpenCLIP over crops", "unscoped BM25 text-RAG over crop text"]
+  },
+  "metrics": ["nDCG@5", "R@5", "mAP", "MRR", "coverage", "hard-negative-at-5", "wrong-figure acceptance", "query p95", "pages/s/GPU", "compressed pack bytes"],
+  "frozen_gate": {
+    "evaluation_queries_minimum": 36,
+    "coverage_minimum": 1.0,
+    "crop_recall_at_5_vs_full_page_minimum_delta": -0.01,
+    "crop_recall_at_5_vs_openclip_minimum_delta": 0.15,
+    "crop_recall_at_5_vs_text_rag_minimum_delta": 0.15,
+    "verified_wrong_figure_rate_maximum": 0.02,
+    "target_gpu_hot_query_p95_ms_maximum": 800,
+    "crop_index_pages_per_second_per_gpu_minimum": 2.0,
+    "compressed_crop_pack_vs_full_page_ratio_maximum": 0.15,
+    "all_conditions_required": true
+  },
+  "execution_order": [
+    "merge this pre-registration unchanged",
+    "acquire and hash official sources into a separate immutable manifest",
+    "annotate calibration and evaluation without model scores",
+    "author and review queries without model scores",
+    "run calibration systems and freeze any candidate policy",
+    "run evaluation systems exactly once",
+    "publish passing or failing compact evidence without retuning"
+  ],
+  "invalidation": [
+    "family/source identity mismatch or unavailable official source",
+    "family overlap with any previously consumed registry group",
+    "score access before annotation and query review are sealed",
+    "threshold, metric, comparator, split, or query mutation after this plan merges",
+    "substitution of unofficial mirror bytes",
+    "tuning on evaluation outcomes"
+  ],
+  "publication_policy": "automated catalog publication remains disabled unless this exact held-out gate passes and the separate deterministic EGVV/publication contract is satisfied"
+}

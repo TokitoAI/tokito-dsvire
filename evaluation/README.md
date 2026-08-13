@@ -1,5 +1,24 @@
 # Identity evaluation registry
 
+## Retrieval benchmark cycle v2 pre-registration
+
+`retrieval_cycle_v2_preregistration.json` seals twelve previously unconsumed
+families—six calibration and six evaluation—before any source bytes are
+downloaded, hashed, rendered, annotated, queried, or scored. It freezes the
+official source identities, balanced manufacturer strata, manual blinded query
+protocol, complete candidate universes, comparators, metrics, Technical Bible
+quality/latency/throughput/storage targets, execution order, and invalidation
+rules. The pre-registration deliberately contains no PDF hash, crop, page,
+label, threshold, or model result.
+
+After this plan merges, acquisition writes a separate immutable source manifest.
+An unavailable or identity-mismatched official source invalidates that family;
+it is never replaced from a mirror. Annotation and manual query review must be
+sealed before score access. Evaluation runs exactly once and publishes a pass
+or failure without changing this plan. Automated catalog publication remains
+disabled unless the exact held-out gate and the separate deterministic EGVV
+publication contract both pass.
+
 This directory records provenance and labels, not vendor PDF bytes. Each source
 is downloaded from the official HTTPS URL into an operator-selected cache and
 must match its reviewed SHA-256 before DS-ViRe parses it.
