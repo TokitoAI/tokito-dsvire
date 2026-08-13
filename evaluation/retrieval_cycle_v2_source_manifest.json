@@ -7,22 +7,12 @@
       "status": "invalidated"
     },
     {
-      "id": "onsemi-ncp1529-rev-5",
-      "reason": "onsemi-ncp1529-rev-5: official source request failed",
-      "status": "invalidated"
-    },
-    {
       "id": "microchip-sst26vf064b-ds20005119",
       "reason": "official source redirected away from HTTPS",
       "status": "invalidated"
-    },
-    {
-      "id": "onsemi-ncv7342-rev-4",
-      "reason": "onsemi-ncv7342-rev-4: official source request failed",
-      "status": "invalidated"
     }
   ],
-  "manifest_sha256": "8b9c5e35ab86ee1df7104b5fbfd06d7b8d15efa58623267eab6ba0d7964d964c",
+  "manifest_sha256": "35496e41518694231da1dbfffb6ec1e70a685dd47ec8604c2d3a3fa7662c4c93",
   "plan_id": "dsvire-colsmol-cycle-v2@2026-08-13",
   "plan_sha256": "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d",
   "schema_version": "dsvire.retrieval-cycle-source-manifest.v1",
@@ -90,6 +80,21 @@
       "status": "sealed"
     },
     {
+      "bytes": 619883,
+      "content_sha256": "a9130c4e92e54bfea88dcc01372df362c9f4a46538bc6b448fc54c6571dfd7b0",
+      "final_url": "https://www.onsemi.com/pdf/datasheet/ncp1529-d.pdf",
+      "id": "onsemi-ncp1529-rev-5",
+      "identity_markers": [
+        "ncp1529",
+        "ncp1529mutbg",
+        "onsemi"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.onsemi.com/pdf/datasheet/ncp1529-d.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
       "bytes": 2073780,
       "content_sha256": "25a05a678cbcaac0539975a334e00373fd314a17f02f30a5d3cb4654c96abdad",
       "final_url": "https://www.ti.com/lit/ds/symlink/dac8568.pdf",
@@ -147,6 +152,20 @@
       ],
       "redistribution": "download_only",
       "requested_url": "https://www.st.com/resource/en/datasheet/stm32g031k8.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 464780,
+      "content_sha256": "c83893b5f22a1db93b8c492eb40b2123ec2f3561cd4603041913a74d2234da88",
+      "final_url": "https://www.onsemi.com/pdf/datasheet/ncv7342-d.pdf",
+      "id": "onsemi-ncv7342-rev-4",
+      "identity_markers": [
+        "ncv7342",
+        "onsemi"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.onsemi.com/pdf/datasheet/ncv7342-d.pdf",
       "split": "evaluation",
       "status": "sealed"
     }
