@@ -31,11 +31,12 @@ The command exits `0` only when all twelve families are sealed and `2` when any
 family is explicitly invalidated. The committed manifest contains only
 provenance, final HTTPS URLs, byte counts, hashes, identity markers, and
 invalidation reasons; vendor PDFs remain ignored and local. The current
-acquisition records eight sealed sources and four fail-closed invalidations:
-Microchip's two official URLs violate the HTTPS-only redirect contract, while
-onsemi rejects automated GET requests. The frozen plan forbids mirror
-substitution, so annotation and scoring remain blocked unless those exact
-official sources become available under the registered contract.
+acquisition records ten sealed sources and two fail-closed invalidations. Both
+exact onsemi URLs became retrievable and passed the bounded PDF/identity checks.
+Microchip's two exact preregistered URLs still redirect to a non-PDF 403
+endpoint. The frozen plan forbids mirror substitution, so annotation, query
+authoring, and scoring remain blocked unless those exact official sources
+become available under the registered contract.
 
 This directory records provenance and labels, not vendor PDF bytes. Each source
 is downloaded from the official HTTPS URL into an operator-selected cache and
