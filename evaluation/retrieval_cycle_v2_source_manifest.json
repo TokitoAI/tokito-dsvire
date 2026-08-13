@@ -1,0 +1,154 @@
+{
+  "complete": false,
+  "invalidations": [
+    {
+      "id": "microchip-ksz8081-ds00002264",
+      "reason": "official source redirected away from HTTPS",
+      "status": "invalidated"
+    },
+    {
+      "id": "onsemi-ncp1529-rev-5",
+      "reason": "onsemi-ncp1529-rev-5: official source request failed",
+      "status": "invalidated"
+    },
+    {
+      "id": "microchip-sst26vf064b-ds20005119",
+      "reason": "official source redirected away from HTTPS",
+      "status": "invalidated"
+    },
+    {
+      "id": "onsemi-ncv7342-rev-4",
+      "reason": "onsemi-ncv7342-rev-4: official source request failed",
+      "status": "invalidated"
+    }
+  ],
+  "manifest_sha256": "8b9c5e35ab86ee1df7104b5fbfd06d7b8d15efa58623267eab6ba0d7964d964c",
+  "plan_id": "dsvire-colsmol-cycle-v2@2026-08-13",
+  "plan_sha256": "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d",
+  "schema_version": "dsvire.retrieval-cycle-source-manifest.v1",
+  "sources": [
+    {
+      "bytes": 2772549,
+      "content_sha256": "2137822fd7128945ea44e83f4e100a932b30964d763715eeffe217ee6080a2dc",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tca9548a.pdf",
+      "id": "ti-tca9548a-rev-h",
+      "identity_markers": [
+        "scps207h",
+        "september",
+        "tca9548a",
+        "tca9548apwr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tca9548a.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 1487158,
+      "content_sha256": "87ae2212498c35a6759d8732adee0ec9b9d8d60fa95688bc5904f1f07ceb8ff6",
+      "final_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf",
+      "id": "analog-devices-adxl345-rev-g",
+      "identity_markers": [
+        "adxl345",
+        "adxl345bccz",
+        "analog",
+        "devices"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 282535,
+      "content_sha256": "645120bc441507e9c65491c8224cf2dcf6e8b8c73019f33fd18b560b6c9298ce",
+      "final_url": "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf",
+      "id": "nexperia-74hc138-rev-10",
+      "identity_markers": [
+        "74hc138",
+        "74hc138d",
+        "74hct138",
+        "nexperia"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 8980012,
+      "content_sha256": "4c7b834fcc5ca298e0a7cbe796d9f7d2def3fc19682ee490d8b6f75ecdeb71f7",
+      "final_url": "https://www.st.com/resource/en/datasheet/lsm6dsox.pdf",
+      "id": "st-lsm6dsox-rev-8",
+      "identity_markers": [
+        "lsm6dsox",
+        "lsm6dsoxtr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.st.com/resource/en/datasheet/lsm6dsox.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2073780,
+      "content_sha256": "25a05a678cbcaac0539975a334e00373fd314a17f02f30a5d3cb4654c96abdad",
+      "final_url": "https://www.ti.com/lit/ds/symlink/dac8568.pdf",
+      "id": "ti-dac8568-rev-c",
+      "identity_markers": [
+        "dac7568",
+        "dac8168",
+        "dac8568"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/dac8568.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 575400,
+      "content_sha256": "0da8c21e66d26950f16b5dee20d09e9aff3b017d5d34156808deccd0ad6567ec",
+      "final_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX31855.pdf",
+      "id": "analog-devices-max31855-rev-5",
+      "identity_markers": [
+        "analog",
+        "devices",
+        "max31855",
+        "max31855kasa"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX31855.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 269586,
+      "content_sha256": "dd401970bc0520c2496dd2a8fb8d9c94f29585c61d5f49dab606257d6c92b22f",
+      "final_url": "https://assets.nexperia.com/documents/data-sheet/74HC_HCT00.pdf",
+      "id": "nexperia-74hc00-rev-10",
+      "identity_markers": [
+        "74hc00",
+        "74hc00d",
+        "74hct00",
+        "nexperia"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://assets.nexperia.com/documents/data-sheet/74HC_HCT00.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2882659,
+      "content_sha256": "0e25cbbf2cd173845545b61b91a9a7011724b4e5bd7b00498176129d48684e99",
+      "final_url": "https://www.st.com/resource/en/datasheet/stm32g031k8.pdf",
+      "id": "st-stm32g031-rev-6",
+      "identity_markers": [
+        "stm32g031",
+        "stm32g031x4"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.st.com/resource/en/datasheet/stm32g031k8.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/dsvire/retrieval-cycle-source-manifest-v1.json",
+  "title": "DS-ViRe retrieval cycle source manifest v1",
+  "type": "object",
+  "required": ["schema_version", "plan_id", "plan_sha256", "sources", "invalidations", "complete", "manifest_sha256"],
+  "properties": {
+    "schema_version": {"const": "dsvire.retrieval-cycle-source-manifest.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "sources": {"type": "array", "items": {"type": "object", "required": ["id", "split", "requested_url", "final_url", "bytes", "content_sha256", "identity_markers", "redistribution", "status"], "properties": {
+      "id": {"type": "string", "minLength": 1}, "split": {"enum": ["calibration", "evaluation"]}, "requested_url": {"type": "string", "pattern": "^https://"}, "final_url": {"type": "string", "pattern": "^https://"}, "bytes": {"type": "integer", "minimum": 8, "maximum": 67108864}, "content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "identity_markers": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}, "redistribution": {"const": "download_only"}, "status": {"const": "sealed"}
+    }, "additionalProperties": false}},
+    "invalidations": {"type": "array", "items": {"type": "object", "required": ["id", "reason", "status"], "properties": {"id": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1}, "status": {"const": "invalidated"}}, "additionalProperties": false}},
+    "complete": {"type": "boolean"},
+    "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}
