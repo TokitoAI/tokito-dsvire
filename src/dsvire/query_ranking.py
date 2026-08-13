@@ -388,6 +388,9 @@ def evaluate_full_corpus_rankings(
         result = _aggregate(values)
         result["judged_at_5"] = sum(row["judged_at_5"] for row in values)
         result["unjudged_at_5"] = sum(row["unjudged_at_5"] for row in values)
+        for name, value in result.items():
+            if isinstance(value, float):
+                result[name] = round(value, 12)
         return result
 
     return {

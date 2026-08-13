@@ -12,6 +12,6 @@
   <text x="74" y="316" class="row">PINOUT</text><rect x="240" y="292" width="700" height="28" rx="14" fill="#202631"/><rect x="240" y="292" width="640" height="28" rx="14" fill="#f2b84b"/><text x="974" y="315" class="mono">0.914</text><text x="74" y="394" class="row">TABLE</text><rect x="240" y="370" width="700" height="28" rx="14" fill="#202631"/><rect x="240" y="370" width="700" height="28" rx="14" fill="#16d6b3"/><text x="974" y="393" class="mono">1.000</text><text x="74" y="472" class="row">PACKAGE</text><rect x="240" y="448" width="700" height="28" rx="14" fill="#202631"/><rect x="240" y="448" width="683" height="28" rx="14" fill="#62a6ff"/><text x="974" y="471" class="mono">0.975</text>
   <rect x="58" y="540" width="1084" height="92" rx="18" fill="#121720" stroke="#293140"/>
   <text x="84" y="571" class="label">SCOPE</text><text x="84" y="606" class="metric">30 docs - 90 queries - 209 candidates</text>
-  <text x="680" y="571" class="label">AGGREGATE / OPERATIONS</text><text x="680" y="606" class="metric">0.963 nDCG@5 - 2.71 s</text>
+  <text x="680" y="571" class="label">AGGREGATE / OPERATIONS</text><text x="680" y="606" class="metric">0.963 nDCG@5 - 2.74 s</text>
   <text x="64" y="670" class="foot">18,810 scored pairs - 100% coverage - ranking sha256 f94ef564773cd9be... - zero external cost</text>
 </svg>

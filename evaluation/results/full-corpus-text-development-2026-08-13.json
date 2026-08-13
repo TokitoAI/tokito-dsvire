@@ -4,9 +4,9 @@
       "coverage": 1.0,
       "hard_negatives_at_5": 120,
       "judged_at_5": 150,
-      "map": 0.9666666666666667,
-      "mrr": 0.9666666666666667,
-      "ndcg_at_5": 0.9753953169047639,
+      "map": 0.966666666667,
+      "mrr": 0.966666666667,
+      "ndcg_at_5": 0.975395316905,
       "queries": 30,
       "queries_with_hard_negative_at_5": 30,
       "queries_with_results": 30,
@@ -17,9 +17,9 @@
       "coverage": 1.0,
       "hard_negatives_at_5": 120,
       "judged_at_5": 150,
-      "map": 0.8833333333333333,
-      "mrr": 0.8833333333333333,
-      "ndcg_at_5": 0.9138836091666734,
+      "map": 0.883333333333,
+      "mrr": 0.883333333333,
+      "ndcg_at_5": 0.913883609167,
       "queries": 30,
       "queries_with_hard_negative_at_5": 30,
       "queries_with_results": 30,
@@ -52,7 +52,7 @@
     "judged_at_5": 450,
     "map": 0.95,
     "mrr": 0.95,
-    "ndcg_at_5": 0.9630929753571456,
+    "ndcg_at_5": 0.963092975357,
     "queries": 90,
     "queries_with_hard_negative_at_5": 90,
     "queries_with_results": 90,
@@ -60,10 +60,10 @@
     "unjudged_at_5": 0
   },
   "ranking_sha256": "f94ef564773cd9bea6b9a85b16fb23d6ae058142fd1621bf2532182ce667dcad",
-  "result_sha256": "7736696b255d58f5efda043fb5047dd92c78477c339e9952aeb419bc12355dfa",
+  "result_sha256": "ce3efb4642c4d21ae5529f46fb7e08becf0a9720838cb067eb3cfa75d56983a7",
   "runtime": {
-    "candidate_extraction_mean_ms": 6.758,
-    "candidate_extraction_p95_ms": 13.65,
+    "candidate_extraction_mean_ms": 6.832,
+    "candidate_extraction_p95_ms": 14.124,
     "environment": {
       "logical_cpus": 12,
       "machine": "AMD64",
@@ -73,10 +73,10 @@
       "python": "3.11.9"
     },
     "external_cost_usd": 0.0,
-    "peak_rss_bytes": 76541952,
-    "queries_per_second": 93.899692,
-    "ranking_seconds": 0.95847,
-    "total_seconds": 2.71328
+    "peak_rss_bytes": 75137024,
+    "queries_per_second": 93.37847,
+    "ranking_seconds": 0.96382,
+    "total_seconds": 2.736772
   },
   "schema_version": "dsvire.full-corpus-text-baseline-result.v1",
   "scope": {
