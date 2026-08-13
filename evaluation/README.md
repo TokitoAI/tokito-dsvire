@@ -66,6 +66,16 @@ closed. `scripts/evaluate_query_rankings.py` reports nDCG@5, R@5, mAP, MRR,
 abstention/coverage, and hard-negative exposure. Closed judged-pool canaries are
 contract tests, not full-corpus retrieval accuracy.
 
+`results/full-corpus-text-development-2026-08-13.json` is the compact result of
+an actual identity-assisted text/layout scorer over the complete registered
+development candidate universe: 30 document families, 90 queries, 209 region
+candidates, and 18,810 ranked pairs. The scorer cannot inspect labels. The
+full-corpus contract fails closed on incomplete or malformed rankings and binds
+both registries plus scorer identity. Raw rankings and vendor PDFs remain local;
+the committed artifact contains only hashes, aggregate/by-intent metrics,
+limitations, and operational measurements. It is development evidence, not
+held-out accuracy or a publication-policy result.
+
 ## Visual-verifier calibration contract
 
 `dsvire.visual_metrics` is the model-independent policy boundary for the EGVV

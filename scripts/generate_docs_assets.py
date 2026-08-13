@@ -20,6 +20,7 @@ VISUAL_REGISTRY = ROOT / "evaluation/visual_registry.v1.json"
 COVERAGE_POLICY = ROOT / "evaluation/corpus_coverage_policy.v1.json"
 QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
 QUERY_RANKING = ROOT / "examples/query-ranking-canary.json"
+FULL_CORPUS_TEXT = ROOT / "evaluation/results/full-corpus-text-development-2026-08-13.json"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -271,11 +272,49 @@ def _query_ranking_svg(result: dict[str, Any]) -> str:
 """
 
 
+def _full_corpus_text_svg(result: dict[str, Any]) -> str:
+    metrics = result["metrics"]
+    by_type = result["by_query_type"]
+    rows = []
+    colors = {"pinout": "#f2b84b", "table": "#16d6b3", "package": "#62a6ff"}
+    for index, name in enumerate(("pinout", "table", "package")):
+        y = 292 + index * 78
+        value = float(by_type[name]["ndcg_at_5"])
+        rows.append(f'<text x="74" y="{y + 24}" class="row">{name.upper()}</text>')
+        rows.append(f'<rect x="240" y="{y}" width="700" height="28" rx="14" fill="#202631"/>')
+        rows.append(
+            f'<rect x="240" y="{y}" width="{round(700 * value)}" height="28" rx="14" fill="{colors[name]}"/>'
+        )
+        rows.append(f'<text x="974" y="{y + 23}" class="mono">{value:.3f}</text>')
+    scope = result["scope"]
+    runtime = result["runtime"]
+    ranking = result["ranking_sha256"][:16]
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe full-corpus text baseline development measurement</title>
+  <desc id="desc">Identity-assisted text and layout baseline ranked all registered development candidates for every development query.</desc>
+  <rect width="1200" height="700" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 30px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">Full registered-corpus ranking - development baseline</text>
+  <text x="64" y="105" class="sub">Identity-assisted text/layout retrieval; ground-truth labels are never read by the scorer.</text>
+  <rect x="64" y="134" width="1072" height="72" rx="16" fill="#2a1c13" stroke="#7c4a22"/>
+  <text x="88" y="165" class="row">DEVELOPMENT ONLY - DETERMINISTIC-TEMPLATE QUERIES - NOT HELD-OUT ACCURACY</text>
+  <text x="88" y="190" class="foot">Complete registered candidate universe, not every unannotated figure in each PDF.</text>
+  <text x="72" y="253" class="label">NDCG@5 BY QUERY INTENT</text>
+  {"".join(rows)}
+  <rect x="58" y="540" width="1084" height="92" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="571" class="label">SCOPE</text><text x="84" y="606" class="metric">{scope["documents"]} docs - {scope["queries"]} queries - {scope["candidate_cases"]} candidates</text>
+  <text x="680" y="571" class="label">AGGREGATE / OPERATIONS</text><text x="680" y="606" class="metric">{metrics["ndcg_at_5"]:.3f} nDCG@5 - {runtime["total_seconds"]:.2f} s</text>
+  <text x="64" y="670" class="foot">{scope["ranked_pairs"]:,} scored pairs - 100% coverage - ranking sha256 {ranking}... - zero external cost</text>
+</svg>
+"""
+
+
 def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
     service_load = _read(SERVICE_LOAD)
     query_ranking = _read(QUERY_RANKING)
+    full_corpus_text = _read(FULL_CORPUS_TEXT)
     visual_registry = load_visual_registry_data(_read(VISUAL_REGISTRY))
     coverage = audit_corpus_coverage(
         visual_registry,
@@ -301,6 +340,10 @@ def generate(output_root: Path) -> None:
     _write(
         output_root / "docs/assets/query-ranking-canary.svg",
         _query_ranking_svg(query_ranking),
+    )
+    _write(
+        output_root / "docs/assets/full-corpus-text-development.svg",
+        _full_corpus_text_svg(full_corpus_text),
     )
 
 

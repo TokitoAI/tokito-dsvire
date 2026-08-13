@@ -58,6 +58,17 @@ def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> 
     assert "artifacts/*.json" in workflow
     assert "artifacts/*.json.sha256" in workflow
     assert "retention-days: 30" in workflow
+
+
+def test_full_corpus_query_workflow_is_manual_pinned_and_source_free() -> None:
+    root = Path(__file__).parents[1]
+    workflow = (root / ".github/workflows/query-ranking-benchmark.yml").read_text(encoding="utf-8")
+    assert "workflow_dispatch:" in workflow
+    assert "contents: read" in workflow
+    assert '--download-cache "$RUNNER_TEMP/dsvire-query-sources"' in workflow
+    assert "--ranking-out" not in workflow
+    assert "artifacts/*.json" in workflow
+    assert "retention-days: 30" in workflow
     assert "actions/cache" not in workflow
     assert "*.pdf" not in workflow
 

@@ -25,6 +25,7 @@ Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, bu
 | Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
 | Service load evidence | Real authenticated Linux HTTP/worker boundary: cold p95 623.6 ms, warm p95 612.0 ms, five bounded overload rejections, 166.7 MiB peak process-tree RSS, and zero scratch/partial residue; generated 12-request evidence, not capacity or MaxSim SLO proof |
 | Visual comparators / benchmark corpus | Text-layout was frozen after comparison with RapidOCR and pinned OpenCLIP; held-out evaluation accepted zero wrong figures/identities but reached 46.7% positive coverage versus the frozen 50% minimum, so the gate failed and publication remains disabled |
+| Full-corpus query baseline | The identity-assisted text/layout baseline ranks all 209 registered development candidates for each of 90 queries (18,810 pairs): nDCG@5 0.963, R@5 1.000, mAP/MRR 0.950. This is deterministic-template development evidence, not held-out accuracy. |
 | Tokito Wave D integration | Seeded acceptance crosses authenticated Cloud ingestion, immutable generated SQLite, catalog sync, MCP streamable HTTP resolve/provenance, and Desktop place/save/reopen with exact compiler bytes. See [`examples/wave-d-acceptance.json`](examples/wave-d-acceptance.json). |
 
 ## Start here
@@ -60,6 +61,12 @@ and hard-negative exposure from digest-bound system rankings. The checked
 perfect-score canary validates metric plumbing over a closed judged pool; it is
 not a retriever benchmark or production accuracy claim. See
 [`docs/EXAMPLES.md`](docs/EXAMPLES.md#query-ranking-measurement-contract).
+
+The measured [full-corpus development result](evaluation/results/full-corpus-text-development-2026-08-13.json)
+exercises that contract with an actual scorer over every registered development
+candidate. Its query identity and intent metadata make it an identity-assisted
+baseline, not an unscoped semantic search result, and its queries are neither
+manual nor held out.
 
 The fixture runner is intentionally not presented as an upload product. The
 public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
