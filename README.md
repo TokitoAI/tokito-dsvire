@@ -2,7 +2,7 @@
 
 Figure-level search over semiconductor datasheets.
 
-Current release: **v0.4.0**. See [`CHANGELOG.md`](CHANGELOG.md).
+Current release: **v0.4.1**. See [`CHANGELOG.md`](CHANGELOG.md).
 
 Pinouts, package drawings, timing diagrams, and application circuits live in the pictures, not in OCR text. This project indexes those regions with a vision-first cascade, returns crops with page and bbox provenance, and stays small enough to query without stuffing a 400-page PDF into a model.
 
