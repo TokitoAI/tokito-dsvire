@@ -22,6 +22,7 @@ QUERY_REGISTRY = ROOT / "evaluation/query_registry.v2.json"
 QUERY_RANKING = ROOT / "examples/query-ranking-canary.json"
 FULL_CORPUS_TEXT = ROOT / "evaluation/results/full-corpus-text-development-2026-08-13.json"
 FULL_CORPUS_OPENCLIP = ROOT / "evaluation/results/full-corpus-openclip-development-2026-08-13.json"
+FULL_CORPUS_COLSMOL = ROOT / "evaluation/results/full-corpus-colsmol-development-2026-08-13.json"
 
 
 def _read(path: Path) -> dict[str, Any]:
@@ -347,6 +348,47 @@ def _retrieval_comparison_svg(text: dict[str, Any], visual: dict[str, Any]) -> s
 """
 
 
+def _colsmol_svg(result: dict[str, Any]) -> str:
+    metrics = result["metrics"]
+    gpu = result["runtime"]["target_gpu_query"]
+    cpu = result["runtime"]["independent_cpu_query"]
+    pack_mib = result["pack"]["zstd_level_10_bytes"] / (1024 * 1024)
+    bars = []
+    values = (
+        ("nDCG@5", metrics["ndcg_at_5"], "#16d6b3"),
+        ("R@5", metrics["recall_at_5"], "#62a6ff"),
+        ("mAP / MRR", metrics["map"], "#a78bfa"),
+    )
+    for index, (label, value, color) in enumerate(values):
+        y = 245 + index * 76
+        bars.extend(
+            [
+                f'<text x="70" y="{y + 23}" class="row">{label}</text>',
+                f'<rect x="250" y="{y}" width="650" height="27" rx="13" fill="#202631"/>',
+                f'<rect x="250" y="{y}" width="{round(650 * value)}" height="27" rx="13" fill="{color}"/>',
+                f'<text x="932" y="{y + 22}" class="mono">{value:.3f}</text>',
+            ]
+        )
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">DS-ViRe ColSmol full-corpus development result</title>
+  <desc id="desc">Genuine ColSmol late-interaction retrieval quality, target GPU latency, independent Linux order reproduction, and compressed pack size.</desc>
+  <rect width="1200" height="700" rx="28" fill="#090b10"/>
+  <style>.title{{font:700 34px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.sub{{font:18px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.metric{{font:700 26px Inter,Segoe UI,sans-serif;fill:#f4f7fb}}.label{{font:14px Inter,Segoe UI,sans-serif;fill:#8d96a8}}.row{{font:700 17px Inter,Segoe UI,sans-serif;fill:#c8d0dc}}.mono{{font:16px ui-monospace,Consolas,monospace;fill:#f4f7fb}}.foot{{font:14px Inter,Segoe UI,sans-serif;fill:#697386}}</style>
+  <text x="64" y="68" class="title">ColSmol-256M · genuine bounded MaxSim</text>
+  <text x="64" y="105" class="sub">30 development documents · 90 raw queries · 209 crop candidates · 18,810 ranked pairs</text>
+  <rect x="64" y="134" width="1072" height="65" rx="15" fill="#2a1c13" stroke="#7c4a22"/>
+  <text x="88" y="162" class="row">DEVELOPMENT ONLY · NOT HELD-OUT ACCURACY · PUBLICATION REMAINS DISABLED</text>
+  <text x="88" y="184" class="foot">No identity, package, intent, relevance, or adversarial labels enter the encoder.</text>
+  {"".join(bars)}
+  <rect x="58" y="500" width="1084" height="120" rx="18" fill="#121720" stroke="#293140"/>
+  <text x="84" y="532" class="label">TARGET GPU · GTX 1650</text><text x="84" y="569" class="metric">{gpu["hot_query_p95_ms"]:.1f} ms p95 · 800 ms SLO PASS</text>
+  <text x="622" y="532" class="label">INDEPENDENT LINUX CPU</text><text x="622" y="569" class="metric">{cpu["mismatched_queries"]} order mismatches · {cpu["hot_query_p95_ms"]:.1f} ms p95</text>
+  <text x="84" y="600" class="foot">Compressed private pack: {pack_mib:.1f} MiB · naive full-page ratio not measured</text>
+  <text x="64" y="666" class="foot">Pack/model/source/ranking digests bound in evaluation/results · private PDFs, crops, vectors, model bytes, and ranking dump are not published.</text>
+</svg>
+"""
+
+
 def generate(output_root: Path) -> None:
     evidence = _read(EVIDENCE)
     benchmark = _read(BENCHMARK)
@@ -354,6 +396,7 @@ def generate(output_root: Path) -> None:
     query_ranking = _read(QUERY_RANKING)
     full_corpus_text = _read(FULL_CORPUS_TEXT)
     full_corpus_openclip = _read(FULL_CORPUS_OPENCLIP)
+    full_corpus_colsmol = _read(FULL_CORPUS_COLSMOL)
     visual_registry = load_visual_registry_data(_read(VISUAL_REGISTRY))
     coverage = audit_corpus_coverage(
         visual_registry,
@@ -387,6 +430,10 @@ def generate(output_root: Path) -> None:
     _write(
         output_root / "docs/assets/full-corpus-retrieval-comparison.svg",
         _retrieval_comparison_svg(full_corpus_text, full_corpus_openclip),
+    )
+    _write(
+        output_root / "docs/assets/full-corpus-colsmol-development.svg",
+        _colsmol_svg(full_corpus_colsmol),
     )
 
 

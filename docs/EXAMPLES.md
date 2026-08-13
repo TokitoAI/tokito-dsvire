@@ -142,6 +142,56 @@ Generic global CLIP is therefore not the Technical Bible's target architecture.
 Pinout shape transfers somewhat, while exact package rows and dense pin tables
 need the planned hybrid text gate and datasheet-specific late interaction.
 
+## Genuine ColSmol late-interaction development result
+
+![ColSmol full-corpus development result](assets/full-corpus-colsmol-development.svg)
+
+The source-free
+[`full-corpus-colsmol-development-2026-08-13.json`](../evaluation/results/full-corpus-colsmol-development-2026-08-13.json)
+records the pinned ColSmol-256M cascade over the same complete 90-query,
+209-candidate universe. The encoder receives only raw query strings and crop
+pixels. BM25 and mean-pooled dense retrieval feed deterministic RRF; exact-shape
+float64 MaxSim reranks at most 32 candidates.
+
+| Measurement | Result |
+|---|---:|
+| nDCG@5 | 0.4170 |
+| R@5 | 0.5444 |
+| mAP / MRR | 0.3951 / 0.3951 |
+| Pinout / package / table nDCG@5 | 0.4269 / 0.5833 / 0.2408 |
+| Target GTX 1650 hot-query mean / p95 | 178.9 / 254.0 ms |
+| Independent Linux CPU hot-query mean / p95 | 872.8 / 1608.0 ms |
+| Independent complete-order mismatches | 0 / 90 queries |
+| Cross-platform changed top-32 MaxSim scores | 0 / 2,880 (max absolute drift 0.0) |
+| Canonical JSON / zstd level-10 pack | 433.7 / 74.8 MiB |
+
+The target GPU passes the Technical Bible's 800 ms hot-pack query SLO. The
+independent CPU runner does not, and the public result says so. The measured
+74.8 MiB compressed pack is not evidence for the Bible's `<=15%` storage gate:
+the corresponding pinned naive full-page ColQwen index has not been built, so
+the ratio is explicitly `null`.
+
+The full run took 3,339 seconds to index 209 crops. A private digest-bound pack,
+query-vector artifact, and complete ranking were transferred directly to an
+isolated Linux host; Python 3.14.4 with NumPy 2.4.6 independently recomputed all
+18,810 positions with no query-order mismatch and reproduced all 2,880 bounded
+MaxSim score observations exactly at 12 decimal places. Those private artifacts contain
+vendor- or model-derived data and are never committed or uploaded to Actions.
+Only compact metrics, environment observations, and content digests are public.
+
+```bash
+python scripts/evaluate_full_corpus_colsmol.py --device cuda \
+  --model-root .cache/colsmol-offline --cache-root .cache/dsvire-eval \
+  --offline --json-out colsmol-development.json \
+  --ranking-out colsmol-ranking.private.json \
+  --pack-out colsmol-pack.private.json \
+  --private-query-vectors-out colsmol-queries.private.json
+```
+
+The result is development evidence only. Its queries are deterministic-template
+records, not independently reviewed or held out, and it cannot authorize
+automated symbol publication.
+
 ## Hybrid query-core capacity
 
 ![Hybrid query-core capacity](assets/hybrid-query-core-capacity.svg)

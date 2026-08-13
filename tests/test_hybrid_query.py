@@ -10,6 +10,7 @@ from dsvire.hybrid_query import (
     hybrid_query,
     implementation_sha256,
     maxsim,
+    maxsim_numpy,
     route_types,
 )
 from dsvire.retrieval_pack import RetrievalPack, build_retrieval_pack, load_retrieval_pack
@@ -68,6 +69,14 @@ def test_exact_maxsim_matches_scalar_reference() -> None:
         max(sum(a * b for a, b in zip(q, d, strict=True)) for d in documents) for q in queries
     )
     assert maxsim(queries, documents, 2) == reference == 1.5
+
+
+def test_vectorized_maxsim_matches_scalar_reference() -> None:
+    queries = [[0.1, -0.2, 0.3], [0.4, 0.5, -0.6]]
+    documents = [[0.7, 0.8, 0.9], [-0.1, 0.2, 0.3], [0.5, -0.4, 0.2]]
+    assert maxsim_numpy(queries, documents, 3) == pytest.approx(
+        maxsim(queries, documents, 3), abs=1e-12
+    )
 
 
 def test_hybrid_query_routes_fuses_and_bounds_maxsim() -> None:

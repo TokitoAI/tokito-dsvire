@@ -7,8 +7,10 @@ import inspect
 import math
 import re
 from collections import Counter
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
+from importlib import import_module
+from typing import Any
 
 from .retrieval_pack import ALLOWED_REGION_TYPES, RetrievalPack
 
@@ -24,6 +26,7 @@ MAX_TOP_N = 10_000
 MAX_MAXSIM_K = 1_000
 MAX_QUERY_VECTORS = 512
 SYSTEM_ID = "dsvire.hybrid-query-core@1.0.0"
+MaxSimScorer = Callable[[Sequence[Sequence[float]], Sequence[Sequence[float]], int], float]
 
 
 class HybridQueryError(ValueError):
@@ -51,7 +54,7 @@ class HybridResult:
 def implementation_sha256() -> str:
     source = "\n".join(
         inspect.getsource(component).replace("\r\n", "\n")
-        for component in (route_types, _bm25, _rank, maxsim, hybrid_query)
+        for component in (route_types, _bm25, _rank, maxsim, maxsim_numpy, hybrid_query)
     )
     return hashlib.sha256(source.encode()).hexdigest()
 
@@ -100,6 +103,35 @@ def maxsim(
     return score
 
 
+def maxsim_numpy(
+    query_vectors: Sequence[Sequence[float]],
+    document_vectors: Sequence[Sequence[float]],
+    dimension: int,
+) -> float:
+    """Exact-shape float64 MaxSim accelerated by NumPy matrix multiplication."""
+    if not query_vectors or not document_vectors or not 1 <= dimension <= 8_192:
+        raise HybridQueryError("MaxSim vectors or dimension are invalid")
+    try:
+        numpy: Any = import_module("numpy")
+        query = numpy.asarray(query_vectors, dtype=numpy.float64)
+        document = numpy.asarray(document_vectors, dtype=numpy.float64)
+        if query.shape != (len(query_vectors), dimension) or document.shape != (
+            len(document_vectors),
+            dimension,
+        ):
+            raise HybridQueryError("MaxSim vector shape is invalid")
+        if not numpy.isfinite(query).all() or not numpy.isfinite(document).all():
+            raise HybridQueryError("MaxSim vectors contain invalid values")
+        score = float(numpy.max(query @ document.T, axis=1).sum(dtype=numpy.float64))
+    except HybridQueryError:
+        raise
+    except Exception as exc:
+        raise HybridQueryError("vectorized MaxSim failed") from exc
+    if not math.isfinite(score):
+        raise HybridQueryError("MaxSim produced a non-finite score")
+    return score
+
+
 def _bm25(
     query_terms: list[str], documents: Sequence[str], *, k1: float = 1.2, b: float = 0.75
 ) -> list[float]:
@@ -139,6 +171,7 @@ def hybrid_query(
     maxsim_k: int = 32,
     limit: int = 5,
     rrf_k: int = 60,
+    maxsim_scorer: MaxSimScorer = maxsim,
 ) -> HybridResult:
     """Run the Bible cascade core without consulting identity or relevance metadata."""
     if not isinstance(query, str) or not query.strip() or len(query.encode()) > MAX_QUERY_BYTES:
@@ -180,7 +213,9 @@ def hybrid_query(
     score_by_id = dict(zip(ids, zip(bm25_scores, dense_scores, strict=True), strict=True))
     for region_id in candidates:
         region = by_id[region_id]
-        score = maxsim(checked_multi, region.multi, pack.multi_dim)
+        score = maxsim_scorer(checked_multi, region.multi, pack.multi_dim)
+        if not math.isfinite(score):
+            raise HybridQueryError("MaxSim scorer produced a non-finite score")
         bm25_score, dense_score = score_by_id[region_id]
         rescored.append(HybridHit(region_id, score, bm25_score, dense_score, score))
     hits = tuple(sorted(rescored, key=lambda hit: (-hit.score, hit.region_id))[:limit])

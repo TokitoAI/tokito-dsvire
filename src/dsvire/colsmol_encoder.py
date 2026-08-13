@@ -13,6 +13,8 @@ from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
+from packaging.version import Version
+
 from .model_manifest import (
     ModelManifest,
     ModelManifestError,
@@ -59,7 +61,8 @@ def _require_runtime(manifest: ModelManifest) -> None:
     }
     for field, package in package_names.items():
         expected = manifest.runtime.get(field)
-        if not isinstance(expected, str) or version(package) != expected:
+        observed = Version(version(package))
+        if not isinstance(expected, str) or observed.public != Version(expected).public:
             raise ColSmolEncoderError(f"{package} runtime differs from the model manifest")
 
 
