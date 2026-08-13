@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/dsvire/hybrid-query-request-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["pack_sha256", "models", "query", "dense_vector", "multi_vectors"],
+  "properties": {
+    "pack_sha256": {"$ref": "#/$defs/sha256"},
+    "models": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dense", "multi"],
+      "properties": {
+        "dense": {"$ref": "#/$defs/model"},
+        "multi": {"$ref": "#/$defs/model"}
+      }
+    },
+    "query": {"type": "string", "minLength": 1, "maxLength": 8192},
+    "dense_vector": {"$ref": "#/$defs/vector"},
+    "multi_vectors": {
+      "type": "array", "minItems": 1, "maxItems": 512, "items": {"$ref": "#/$defs/vector"}
+    },
+    "top_n": {"type": "integer", "minimum": 1, "maximum": 10000},
+    "maxsim_k": {"type": "integer", "minimum": 1, "maximum": 1000},
+    "limit": {"type": "integer", "minimum": 1, "maximum": 1000}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "model": {
+      "type": "object", "additionalProperties": false, "required": ["id", "sha256"],
+      "properties": {"id": {"type": "string", "minLength": 1, "maxLength": 512}, "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "vector": {
+      "type": "array", "minItems": 1, "maxItems": 8192,
+      "items": {"type": "number", "minimum": -1000000, "maximum": 1000000}
+    }
+  }
+}

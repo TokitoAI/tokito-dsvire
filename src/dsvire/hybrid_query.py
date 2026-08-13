@@ -183,6 +183,11 @@ def hybrid_query(
     checked_multi = tuple(
         _checked_vector(item, pack.multi_dim, "multi_vectors") for item in multi_vectors
     )
+    if any(
+        isinstance(value, bool) or not isinstance(value, int)
+        for value in (top_n, maxsim_k, limit, rrf_k)
+    ):
+        raise HybridQueryError("retrieval bounds must be integers")
     if not 1 <= top_n <= min(MAX_TOP_N, len(pack.regions)):
         raise HybridQueryError("top_n is outside its bounded range")
     if not 1 <= maxsim_k <= min(MAX_MAXSIM_K, top_n) or not 1 <= limit <= maxsim_k:

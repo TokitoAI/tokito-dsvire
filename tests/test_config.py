@@ -15,11 +15,15 @@ def test_environment_configuration_is_strict(tmp_path: Path) -> None:
             "DSVIRE_MAX_CONCURRENT_JOBS": "3",
             "DSVIRE_JOB_TIMEOUT_SECONDS": "90",
             "DSVIRE_WORKER_CPU_SECONDS": "80",
+            "DSVIRE_MAX_CONCURRENT_QUERIES": "4",
+            "DSVIRE_QUERY_TIMEOUT_SECONDS": "12",
         }
     )
     config.validate()
     assert config.max_concurrent_jobs == 3
     assert config.job_timeout_seconds == 90
+    assert config.max_concurrent_queries == 4
+    assert config.query_timeout_seconds == 12
 
 
 def test_insecure_mode_requires_explicit_nonproduction_environment(tmp_path: Path) -> None:
@@ -73,6 +77,8 @@ def test_inconsistent_time_and_size_limits_are_rejected(tmp_path: Path) -> None:
         ("DSVIRE_ALLOW_INSECURE_DEV", "maybe"),
         ("DSVIRE_MAX_CONCURRENT_JOBS", "0"),
         ("DSVIRE_JOB_TIMEOUT_SECONDS", "nan"),
+        ("DSVIRE_MAX_QUERY_BYTES", "512"),
+        ("DSVIRE_MAX_CONCURRENT_QUERIES", "0"),
     ],
 )
 def test_invalid_environment_values_are_rejected(name: str, value: str) -> None:

@@ -74,6 +74,36 @@ The private endpoint is intended for Tokito Cloud or another trusted service,
 not direct desktop/browser exposure. Request size, page count, concurrency,
 admission wait, wall time, CPU, memory, output, and scratch space are bounded.
 
+## Query an immutable retrieval pack
+
+The online cascade reads only content-addressed packs stored at
+`$DSVIRE_DATA_DIR/retrieval-packs/<payload_sha256>.json`. The request repeats
+the exact dense and multi-vector model identities; any missing, tampered,
+symlinked, or model-incompatible pack fails closed. Query vectors must come
+from those same pinned encoders—the service never substitutes a generic or
+global-vector fallback.
+
+```bash
+curl --fail-with-body \
+  -H "Authorization: Bearer $DSVIRE_SERVICE_TOKEN" \
+  -H "Content-Type: application/json" \
+  --data-binary @query.json \
+  http://127.0.0.1:8081/v1/query
+```
+
+`query.json` contains `pack_sha256`, `models.dense`, `models.multi`, the
+natural-language `query`, `dense_vector`, and token-level `multi_vectors`.
+Optional `top_n`, `maxsim_k`, and `limit` values are bounded by the core. The
+response binds every hit to pack/source/model/content hashes, page, normalized
+box, region type, and the component scores. Query execution has separate
+admission and timeout controls (`DSVIRE_MAX_CONCURRENT_QUERIES`,
+`DSVIRE_QUERY_TIMEOUT_SECONDS`, and `DSVIRE_MAX_QUERY_BYTES`) and runs in a
+killable resource-limited subprocess.
+
+This endpoint exposes the implemented deterministic cascade. It does not make
+the encoder calibrated, pass retrieval cycle v4, or authorize generated-symbol
+publication.
+
 ## Optional ColSmol profile
 
 Model files are hash-pinned and download-only:
