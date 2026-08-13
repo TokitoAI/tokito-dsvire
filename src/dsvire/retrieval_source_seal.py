@@ -20,7 +20,10 @@ from pypdf import PdfReader
 from .retrieval_preregistration import load_retrieval_preregistration
 
 SOURCE_MANIFEST_VERSION = "dsvire.retrieval-cycle-source-manifest.v1"
-FROZEN_CYCLE_V2_SHA256 = "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d"
+FROZEN_PLAN_DIGESTS = {
+    "dsvire-colsmol-cycle-v2@2026-08-13": "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d",
+    "dsvire-colsmol-egvv-cycle-v3@2026-08-13": "2034c81f041d547249bed9e7e606d2255af0b5df32ebfda7ad025a8c917d7ccf",
+}
 _TOKEN = re.compile(r"[a-z0-9]+")
 
 
@@ -205,7 +208,7 @@ def acquire_source_manifest(
     retry_delay_seconds: float = 1,
 ) -> dict[str, Any]:
     plan = load_retrieval_preregistration(plan_value, consumed_family_ids=consumed_family_ids)
-    if plan.content_sha256 != FROZEN_CYCLE_V2_SHA256:
+    if FROZEN_PLAN_DIGESTS.get(plan.plan_id) != plan.content_sha256:
         raise SourceSealError("refusing an altered or unrecognized retrieval cycle plan")
     acquisition = plan_value["acquisition"]
     opener = open_url or _default_open(acquisition["allowed_redirects"])
