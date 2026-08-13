@@ -129,7 +129,10 @@ def _download_one(
 ) -> dict[str, Any]:
     request = urllib.request.Request(
         family["official_source_url"],
-        headers={"User-Agent": "Tokito-DSViRe-Evaluation/1.0", "Accept": "application/pdf"},
+        headers={
+            "User-Agent": "curl/8.0 Tokito-DSViRe-Evaluation/1.0",
+            "Accept": "application/pdf",
+        },
     )
     temporary: Path | None = None
     try:

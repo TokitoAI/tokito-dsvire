@@ -14,6 +14,49 @@ from dsvire.eval_download import (
 from dsvire.pipeline import MAX_PDF_BYTES
 
 
+def test_download_uses_cdn_compatible_identified_user_agent(monkeypatch, tmp_path):
+    seen = {}
+
+    class Response:
+        def __init__(self):
+            self.headers = {"content-length": "3"}
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return None
+
+        def geturl(self):
+            return "https://vendor.example/file.pdf"
+
+        def read(self, _):
+            if seen.get("read"):
+                return b""
+            seen["read"] = True
+            return b"pdf"
+
+    def open_request(request, timeout):
+        seen["agent"] = request.headers["User-agent"]
+        seen["accept"] = request.headers["Accept"]
+        return Response()
+
+    monkeypatch.setattr("urllib.request.urlopen", open_request)
+    fetch_hash_pinned_file(
+        artifact_id="fixture",
+        source_url="https://vendor.example/file.pdf",
+        content_sha256=hashlib.sha256(b"pdf").hexdigest(),
+        expected_bytes=3,
+        max_bytes=3,
+        cache_dir=tmp_path,
+        suffix=".pdf",
+        offline=False,
+    )
+    assert seen["agent"].startswith("curl/8.0 ")
+    assert "Tokito-DSViRe-Evaluation/1.0" in seen["agent"]
+    assert seen["accept"] == "application/pdf"
+
+
 def _fetch(payload: bytes, cache_dir: Path, *, offline: bool = False) -> bytes:
     return fetch_hash_pinned_pdf(
         case_id="fixture",
