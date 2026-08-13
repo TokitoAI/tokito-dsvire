@@ -5,6 +5,15 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.4.1 - 2026-08-13
+
+### Release evaluation
+
+- Refresh the three hash-pinned TI identity sources after the official PDF
+  bytes changed. The independently reviewed visual registry already pinned
+  these exact revisions; unknown bytes still fail closed and vendor PDF bytes
+  remain unredistributed.
+
 ## 0.4.0 - 2026-08-13
 
 ### PDF boundary and licensing
