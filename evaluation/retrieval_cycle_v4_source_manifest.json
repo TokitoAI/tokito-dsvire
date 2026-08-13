@@ -1,0 +1,177 @@
+{
+  "complete": true,
+  "invalidations": [],
+  "manifest_sha256": "d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v4@2026-08-13",
+  "plan_sha256": "cd7b1bd89d0e3d382eb7ea0af97107ca6931b3cd49a34964e18e4cef9dbb8acb",
+  "schema_version": "dsvire.retrieval-cycle-source-manifest.v1",
+  "sources": [
+    {
+      "bytes": 1151760,
+      "content_sha256": "c9da6620ef95f75ce94372f670a84d168e05922dd32cebfaa6517083f15ebfaf",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tmp102.pdf",
+      "id": "ti-tmp102-rev-i",
+      "identity_markers": [
+        "sbos397i",
+        "tmp102",
+        "tmp102aidrlr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tmp102.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 308416,
+      "content_sha256": "a090b5ec78996babb32d283bbb2a7136ff789e450abd8394fff9f0bf53ddcc92",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCA9548A.pdf",
+      "id": "nxp-pca9548a-rev-5-1",
+      "identity_markers": [
+        "pca9548a",
+        "pca9548apw"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCA9548A.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 1009440,
+      "content_sha256": "3e400e333f08f1b93ec99a2d52a6af2a864e88462cc892282208548d9e9f0de4",
+      "final_url": "https://www.ti.com/lit/ds/symlink/drv8833.pdf",
+      "id": "ti-drv8833-rev-f",
+      "identity_markers": [
+        "drv8833",
+        "drv8833pwpr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/drv8833.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 646895,
+      "content_sha256": "409cb5ca8b0d04bcd4df3f2db463bcf35225b339bca2c5b0ee621636e7d42c3b",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCF8523.pdf",
+      "id": "nxp-pcf8523-rev-7",
+      "identity_markers": [
+        "pcf8523",
+        "pcf8523t"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCF8523.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2348553,
+      "content_sha256": "a5cb3720275767b1af7179304805db3d04f1b342b29789a8097c718ca7dd2c9c",
+      "final_url": "https://www.ti.com/lit/ds/symlink/ads1015.pdf",
+      "id": "ti-ads1015-rev-e",
+      "identity_markers": [
+        "ads1015"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/ads1015.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 964518,
+      "content_sha256": "c9c605b99824f17c6b1c96ebb782d42fbdc614d79dc211cda45f8c9232263125",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf",
+      "id": "nxp-mma8451q-rev-10-3",
+      "identity_markers": [
+        "mma8451q",
+        "mma8451qr1"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 1680561,
+      "content_sha256": "a88ef66f3493156ff6e7da0849de0e0e1068647f2553d08c1844d4a90c5c65ef",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tps63070.pdf",
+      "id": "ti-tps63070-rev-e",
+      "identity_markers": [
+        "tps63070"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tps63070.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 209490,
+      "content_sha256": "6637cd500dda3c1c951ce29bed7fe909f11f9a3bef64b096dbb486827add9f11",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/TJA1051.pdf",
+      "id": "nxp-tja1051-rev-9",
+      "identity_markers": [
+        "tja1051",
+        "tja1051t"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/TJA1051.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2521743,
+      "content_sha256": "24f81aa8ce6c34c91adb7840019443051cbf1c07b0382de1db8f114be8f9aaf3",
+      "final_url": "https://www.ti.com/lit/ds/symlink/iso1042.pdf",
+      "id": "ti-iso1042-rev-e",
+      "identity_markers": [
+        "iso1042",
+        "iso1042dwr",
+        "sllsf09e"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/iso1042.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2316576,
+      "content_sha256": "62a143bd5f7f292dec66a30afdaa852da697cbe391c5385082e688f21dccc17e",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/FXOS8700CQ.pdf",
+      "id": "nxp-fxos8700cq-rev-7",
+      "identity_markers": [
+        "fxos8700cq",
+        "fxos8700cqr1"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/FXOS8700CQ.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 921034,
+      "content_sha256": "beb63b88795619cae54e45e3dfd68962809c458843505c3305bd36a349929f91",
+      "final_url": "https://www.ti.com/lit/ds/symlink/lm75a.pdf",
+      "id": "ti-lm75a-rev-j",
+      "identity_markers": [
+        "lm75aimx"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/lm75a.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 578257,
+      "content_sha256": "8d34149ee4a4d8d982c0c25e65f62806ba0edd5874cd0af4cd6d64db4738ada7",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/P3T1755.pdf",
+      "id": "nxp-p3t1755-rev-1-3",
+      "identity_markers": [
+        "p3t1755",
+        "p3t1755dpz"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/P3T1755.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    }
+  ]
+}
