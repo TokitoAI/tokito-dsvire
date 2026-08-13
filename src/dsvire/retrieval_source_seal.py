@@ -23,6 +23,7 @@ SOURCE_MANIFEST_VERSION = "dsvire.retrieval-cycle-source-manifest.v1"
 FROZEN_PLAN_DIGESTS = {
     "dsvire-colsmol-cycle-v2@2026-08-13": "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d",
     "dsvire-colsmol-egvv-cycle-v3@2026-08-13": "2034c81f041d547249bed9e7e606d2255af0b5df32ebfda7ad025a8c917d7ccf",
+    "dsvire-colsmol-egvv-cycle-v4@2026-08-13": "cd7b1bd89d0e3d382eb7ea0af97107ca6931b3cd49a34964e18e4cef9dbb8acb",
 }
 _TOKEN = re.compile(r"[a-z0-9]+")
 

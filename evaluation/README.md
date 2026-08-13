@@ -13,6 +13,14 @@ The frozen v4 protocol keeps the Technical Bible gates and explicit independent
 human review requirement. Agent audit can reject unsafe material but cannot
 satisfy that review requirement or authorize held-out scoring/publication.
 
+The post-merge source seal completed all twelve exact official families with
+zero invalidations. Source manifest digest
+`d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6`
+contains only URLs, byte counts, SHA-256 values, bounded identity markers, and
+split/status metadata. Vendor bytes remain local and ignored. Annotation,
+independent review, query authoring, and scoring remain disabled until their
+separate frozen stages are implemented and sealed.
+
 ## Retrieval benchmark cycle v3 pre-registration
 
 `retrieval_cycle_v3_preregistration.json` is the replacement cycle tracked by

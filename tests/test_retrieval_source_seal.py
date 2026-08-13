@@ -57,6 +57,10 @@ def _plan_v3() -> dict[str, Any]:
     return json.loads((ROOT / "evaluation/retrieval_cycle_v3_preregistration.json").read_text())
 
 
+def _plan_v4() -> dict[str, Any]:
+    return json.loads((ROOT / "evaluation/retrieval_cycle_v4_preregistration.json").read_text())
+
+
 def _consumed() -> set[str]:
     registry = json.loads((ROOT / "evaluation/visual_registry.v1.json").read_text())
     return {item["id"] for item in registry["documents"]} | {
@@ -84,6 +88,13 @@ def _valid_v3_opener(request: Any, timeout: float) -> Response:
     return Response(_pdf(family["selected_mpn"]), url)
 
 
+def _valid_v4_opener(request: Any, timeout: float) -> Response:
+    assert timeout == 60
+    url = request.full_url
+    family = next(item for item in _plan_v4()["families"] if item["official_source_url"] == url)
+    return Response(_pdf(family["selected_mpn"]), url)
+
+
 def test_cycle_v3_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> None:
     v2_ids = {family["id"] for family in _plan()["families"]}
     result = acquire_source_manifest(
@@ -96,6 +107,24 @@ def test_cycle_v3_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> 
     assert result["complete"] is True
     assert result["plan_sha256"] == (
         "2034c81f041d547249bed9e7e606d2255af0b5df32ebfda7ad025a8c917d7ccf"
+    )
+    assert len(result["sources"]) == 12
+
+
+def test_cycle_v4_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> None:
+    prior_ids = {
+        family["id"] for plan in (_plan(), _plan_v3()) for family in plan["families"]
+    }
+    result = acquire_source_manifest(
+        _plan_v4(),
+        cache_dir=tmp_path,
+        consumed_family_ids=_consumed() | prior_ids,
+        open_url=_valid_v4_opener,
+        retry_delay_seconds=0,
+    )
+    assert result["complete"] is True
+    assert result["plan_sha256"] == (
+        "cd7b1bd89d0e3d382eb7ea0af97107ca6931b3cd49a34964e18e4cef9dbb8acb"
     )
     assert len(result["sources"]) == 12
 
