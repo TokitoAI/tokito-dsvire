@@ -5,6 +5,8 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.4.0 - 2026-08-13
+
 ### PDF boundary and licensing
 
 - Replace PyMuPDF with exact pypdfium2 5.12.1 plus strict pypdf preflight,
