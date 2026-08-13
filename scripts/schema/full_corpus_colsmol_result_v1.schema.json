@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tokito.ai/schemas/dsvire/full-corpus-colsmol-result-v1.json",
+  "title": "DS-ViRe full-corpus ColSmol development result v1",
+  "type": "object",
+  "required": ["schema_version", "source", "system", "pack", "ranking_sha256", "result_sha256", "scope", "metrics", "by_query_type", "limitations", "runtime"],
+  "properties": {
+    "schema_version": {"const": "dsvire.full-corpus-colsmol-result.v1"},
+    "source": {
+      "type": "object",
+      "required": ["visual_registry_sha256", "query_registry_sha256", "model_manifest_sha256", "source_manifest"],
+      "properties": {
+        "visual_registry_sha256": {"$ref": "#/$defs/sha256"}, "query_registry_sha256": {"$ref": "#/$defs/sha256"}, "model_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "source_manifest": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["document_id", "content_sha256", "bytes"], "properties": {"document_id": {"type": "string", "minLength": 1}, "content_sha256": {"$ref": "#/$defs/sha256"}, "bytes": {"type": "integer", "minimum": 1}}, "additionalProperties": false}}
+      }, "additionalProperties": false
+    },
+    "system": {"type": "object", "required": ["id", "sha256"], "properties": {"id": {"const": "dsvire.query-baseline.colsmol-hybrid@1.1.0"}, "sha256": {"$ref": "#/$defs/sha256"}}, "additionalProperties": false},
+    "pack": {"type": "object", "required": ["payload_sha256", "canonical_json_bytes", "serialized_json_bytes", "zstd_level_10_bytes", "zstd_level_10_sha256", "naive_full_page_ratio"], "properties": {"payload_sha256": {"$ref": "#/$defs/sha256"}, "canonical_json_bytes": {"type": "integer", "minimum": 1}, "serialized_json_bytes": {"type": "integer", "minimum": 1}, "zstd_level_10_bytes": {"type": "integer", "minimum": 1}, "zstd_level_10_sha256": {"$ref": "#/$defs/sha256"}, "naive_full_page_ratio": {"type": "null"}}, "additionalProperties": false},
+    "ranking_sha256": {"$ref": "#/$defs/sha256"}, "result_sha256": {"$ref": "#/$defs/sha256"},
+    "scope": {"type": "object", "required": ["split", "documents", "queries", "candidate_cases", "ranked_pairs"], "properties": {"split": {"const": "development"}, "documents": {"const": 30}, "queries": {"const": 90}, "candidate_cases": {"const": 209}, "ranked_pairs": {"const": 18810}}, "additionalProperties": false},
+    "metrics": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"},
+    "by_query_type": {"type": "object", "required": ["pinout", "table", "package"], "properties": {"pinout": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"}, "table": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"}, "package": {"$ref": "full_corpus_text_baseline_result_v1.schema.json#/$defs/metrics"}}, "additionalProperties": false},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "runtime": {"type": "object", "required": ["indexing", "target_gpu_query", "independent_cpu_query", "external_cost_usd"], "properties": {
+      "indexing": {"type": "object", "required": ["total_seconds", "image_encode_mean_ms", "image_encode_p95_ms", "query_encode_mean_ms", "peak_process_rss_bytes"], "properties": {"total_seconds": {"type": "number", "exclusiveMinimum": 0}, "image_encode_mean_ms": {"type": "number", "minimum": 0}, "image_encode_p95_ms": {"type": "number", "minimum": 0}, "query_encode_mean_ms": {"type": "number", "minimum": 0}, "peak_process_rss_bytes": {"type": "integer", "minimum": 1}}, "additionalProperties": false},
+      "target_gpu_query": {"type": "object", "required": ["hot_query_mean_ms", "hot_query_p95_ms", "slo_ms", "slo_passed", "environment"], "properties": {"hot_query_mean_ms": {"type": "number", "minimum": 0}, "hot_query_p95_ms": {"type": "number", "minimum": 0}, "slo_ms": {"const": 800}, "slo_passed": {"type": "boolean"}, "environment": {"type": "object", "required": ["os", "python", "device", "device_memory_bytes", "compute_capability", "torch", "torchvision", "transformers", "cuda"], "properties": {"os": {"type": "string", "minLength": 1}, "python": {"type": "string", "minLength": 1}, "device": {"type": "string", "minLength": 1}, "device_memory_bytes": {"type": "integer", "minimum": 1}, "compute_capability": {"type": "string", "minLength": 1}, "torch": {"type": "string", "minLength": 1}, "torchvision": {"type": "string", "minLength": 1}, "transformers": {"type": "string", "minLength": 1}, "cuda": {"type": "string", "minLength": 1}}, "additionalProperties": false}}, "additionalProperties": false},
+      "independent_cpu_query": {"type": "object", "required": ["hot_query_mean_ms", "hot_query_p95_ms", "total_seconds", "complete_order_match", "mismatched_queries", "score_observations_sha256", "cross_platform_score_comparison", "environment"], "properties": {"hot_query_mean_ms": {"type": "number", "minimum": 0}, "hot_query_p95_ms": {"type": "number", "minimum": 0}, "total_seconds": {"type": "number", "exclusiveMinimum": 0}, "complete_order_match": {"const": true}, "mismatched_queries": {"const": 0}, "score_observations_sha256": {"$ref": "#/$defs/sha256"}, "cross_platform_score_comparison": {"type": "object", "required": ["compared_scores", "changed_scores", "maximum_absolute_difference"], "properties": {"compared_scores": {"const": 2880}, "changed_scores": {"type": "integer", "minimum": 0}, "maximum_absolute_difference": {"type": "number", "minimum": 0}}, "additionalProperties": false}, "environment": {"type": "object", "required": ["os", "os_release", "machine", "python", "numpy"], "properties": {"os": {"type": "string", "minLength": 1}, "os_release": {"type": "string", "minLength": 1}, "machine": {"type": "string", "minLength": 1}, "python": {"type": "string", "minLength": 1}, "numpy": {"type": "string", "minLength": 1}}, "additionalProperties": false}}, "additionalProperties": false},
+      "external_cost_usd": {"const": 0.0}
+    }, "additionalProperties": false}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+  "additionalProperties": false
+}

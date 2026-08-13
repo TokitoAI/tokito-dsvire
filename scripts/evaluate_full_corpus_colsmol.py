@@ -19,9 +19,10 @@ import pymupdf
 from PIL import Image
 
 from dsvire.colsmol_encoder import ColSmolEncoder
+from dsvire.colsmol_reproduction import build_query_vector_artifact
 from dsvire.corpus_coverage import load_query_registry
 from dsvire.eval_sources import resolve_registered_sources
-from dsvire.hybrid_query import hybrid_query, implementation_sha256
+from dsvire.hybrid_query import hybrid_query, implementation_sha256, maxsim_numpy
 from dsvire.model_manifest import load_model_manifest
 from dsvire.query_ranking import (
     evaluate_full_corpus_rankings,
@@ -34,7 +35,7 @@ from dsvire.visual_adapters import render_registered_crop
 from dsvire.visual_registry import load_visual_registry_data
 
 ROOT = Path(__file__).resolve().parents[1]
-SYSTEM_ID = "dsvire.query-baseline.colsmol-hybrid@1.0.0"
+SYSTEM_ID = "dsvire.query-baseline.colsmol-hybrid@1.1.0"
 
 
 def _mean(vectors: tuple[tuple[float, ...], ...]) -> list[float]:
@@ -56,7 +57,7 @@ def run(
     device: str,
     download_cache: Path | None = None,
     offline: bool = False,
-) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]]:
     visual = load_visual_registry_data(json.loads(registry_path.read_text(encoding="utf-8")))
     queries = load_query_registry(json.loads(query_path.read_text(encoding="utf-8")), visual)
     manifest = load_model_manifest(json.loads(manifest_path.read_text(encoding="utf-8")))
@@ -152,6 +153,7 @@ def run(
                 top_n=len(pack.regions),
                 maxsim_k=maxsim_k,
                 limit=maxsim_k,
+                maxsim_scorer=maxsim_numpy,
             )
             query_ms.append((time.perf_counter() - tick) * 1000)
             rescored = {hit.region_id: hit for hit in query_result.hits}
@@ -232,7 +234,22 @@ def run(
             "logical_cpus": os.cpu_count(),
         },
     }
-    return {**deterministic, "runtime": runtime}, raw, pack_raw
+    private_query_vectors = build_query_vector_artifact(
+        query_registry_sha256=queries.content_sha256,
+        visual_registry_sha256=visual.content_sha256,
+        model_id=encoder.model_id,
+        model_sha256=encoder.model_sha256,
+        dimension=encoder.dimension,
+        queries=[
+            {
+                "query_id": query.query_id,
+                "query_text": query.query_text,
+                "vectors": [list(row) for row in query_vectors[query.query_id]],
+            }
+            for query in sorted(selected_queries, key=lambda item: item.query_id)
+        ],
+    )
+    return {**deterministic, "runtime": runtime}, raw, pack_raw, private_query_vectors
 
 
 def main() -> int:
@@ -252,11 +269,16 @@ def main() -> int:
     parser.add_argument("--json-out", type=Path, required=True)
     parser.add_argument("--ranking-out", type=Path)
     parser.add_argument("--pack-out", type=Path)
+    parser.add_argument(
+        "--private-query-vectors-out",
+        type=Path,
+        help="private model-derived query vectors; never publish as a CI artifact",
+    )
     args = parser.parse_args()
     if not args.cache_root and args.download_cache is None:
         parser.error("set at least one --cache-root or --download-cache")
     try:
-        evidence, ranking, pack = run(
+        evidence, ranking, pack, private_query_vectors = run(
             args.registry,
             args.queries,
             args.manifest,
@@ -272,6 +294,7 @@ def main() -> int:
         (args.json_out, evidence),
         (args.ranking_out, ranking),
         (args.pack_out, pack),
+        (args.private_query_vectors_out, private_query_vectors),
     ):
         if path is not None:
             path.parent.mkdir(parents=True, exist_ok=True)

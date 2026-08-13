@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Any
+from unittest.mock import patch
 
 import pytest
 
@@ -8,8 +9,10 @@ from dsvire.colsmol_encoder import (
     QUERY_SENTINEL_IDS,
     ColSmolEncoderError,
     _query_text,
+    _require_runtime,
     _vectors,
 )
+from dsvire.model_manifest import ModelManifest
 
 
 class _Tensor:
@@ -54,6 +57,31 @@ def test_query_template_matches_legacy_colsmol_contract() -> None:
         *(49279 for _ in range(10)),
         198,
     ) == QUERY_SENTINEL_IDS
+
+
+def test_runtime_accepts_official_local_build_suffix() -> None:
+    manifest = ModelManifest(
+        "model",
+        "MIT",
+        (),
+        {
+            "transformers": "5.5.0",
+            "peft": "0.19.0",
+            "huggingface_hub": "1.5.0",
+            "torch": "2.13.0",
+            "torchvision": "0.28.0",
+        },
+        "a" * 64,
+    )
+    versions = {
+        "transformers": "5.5.0",
+        "peft": "0.19.0",
+        "huggingface-hub": "1.5.0",
+        "torch": "2.13.0+cu130",
+        "torchvision": "0.28.0+cu130",
+    }
+    with patch("dsvire.colsmol_encoder.version", side_effect=versions.__getitem__):
+        _require_runtime(manifest)
 
 
 @pytest.mark.parametrize(
