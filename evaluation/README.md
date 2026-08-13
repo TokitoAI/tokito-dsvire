@@ -1,5 +1,25 @@
 # Identity evaluation registry
 
+## Retrieval benchmark cycle v3 pre-registration
+
+`retrieval_cycle_v3_preregistration.json` is the replacement cycle tracked by
+TokitoAI/tokito#440 and tokito-dsvire#110. Cycle v2 remains immutable and
+unscored: two exact official sources were unavailable, and its frozen contract
+correctly forbids replacement or partial-family scoring.
+
+V3 uses twelve different, previously unconsumed and unregistered families in
+matched Texas Instruments, NXP, and Bosch calibration/evaluation strata. Before
+freezing the plan, every exact URL was checked only for HTTP 200 and
+`application/pdf`; response bodies were not retained. This availability
+preflight reduces avoidable source invalidation but does not acquire, hash,
+inspect, render, annotate, query, or score a source. Those actions remain
+strictly post-merge.
+
+The v3 protocol also makes review provenance explicit: agent audit may reject
+unsafe crops before review, but only an independently attested human review can
+satisfy the held-out acceptance contract. Publication remains disabled unless
+the exact frozen retrieval, operational, calibration, and EGVV gates all pass.
+
 ## Retrieval benchmark cycle v2 pre-registration
 
 `retrieval_cycle_v2_preregistration.json` seals twelve previously unconsumed

@@ -1,0 +1,97 @@
+{
+  "schema_version": "dsvire.retrieval-preregistration.v1",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v3@2026-08-13",
+  "parent_issue": "https://github.com/TokitoAI/tokito/issues/440",
+  "tracking_issue": "https://github.com/TokitoAI/tokito-dsvire/issues/110",
+  "sealed_before": [
+    "source_download",
+    "content_hashing",
+    "page_rendering",
+    "region_annotation",
+    "query_authoring",
+    "model_scoring"
+  ],
+  "families": [
+    {"id":"ti-tlv62569-rev-b","split":"calibration","manufacturer":"Texas Instruments","category":"buck_converter","datasheet_identity":"TLV62569 SLVSDJ5B","selected_mpn":"TLV62569PDDCR","selected_package":"SOT-23-5","official_source_url":"https://www.ti.com/lit/ds/symlink/tlv62569.pdf"},
+    {"id":"nxp-pca9555-rev-10","split":"calibration","manufacturer":"NXP Semiconductors","category":"gpio_expander","datasheet_identity":"PCA9555 Rev. 10","selected_mpn":"PCA9555PW","selected_package":"TSSOP-24","official_source_url":"https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf"},
+    {"id":"bosch-bmp390-ds002","split":"calibration","manufacturer":"Bosch Sensortec","category":"barometric_pressure_sensor","datasheet_identity":"BMP390 BST-BMP390-DS002","selected_mpn":"BMP390","selected_package":"LGA-10","official_source_url":"https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmp390-ds002.pdf"},
+    {"id":"ti-ina226-rev-b","split":"calibration","manufacturer":"Texas Instruments","category":"current_power_monitor","datasheet_identity":"INA226 SBOS547B","selected_mpn":"INA226AIDGSR","selected_package":"VSSOP-10","official_source_url":"https://www.ti.com/lit/ds/symlink/ina226.pdf"},
+    {"id":"nxp-pcf85063a-rev-7","split":"calibration","manufacturer":"NXP Semiconductors","category":"real_time_clock","datasheet_identity":"PCF85063A Rev. 7","selected_mpn":"PCF85063ATL/1","selected_package":"DFN2626-10","official_source_url":"https://www.nxp.com/docs/en/data-sheet/PCF85063A.pdf"},
+    {"id":"bosch-bma400-ds000","split":"calibration","manufacturer":"Bosch Sensortec","category":"accelerometer","datasheet_identity":"BMA400 BST-BMA400-DS000","selected_mpn":"BMA400","selected_package":"LGA-12","official_source_url":"https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bma400-ds000.pdf"},
+    {"id":"ti-tca9535-rev-e","split":"evaluation","manufacturer":"Texas Instruments","category":"i2c_io_expander","datasheet_identity":"TCA9535 SCPS201E","selected_mpn":"TCA9535PWR","selected_package":"TSSOP-24","official_source_url":"https://www.ti.com/lit/ds/symlink/tca9535.pdf"},
+    {"id":"nxp-pca9546a-rev-7","split":"evaluation","manufacturer":"NXP Semiconductors","category":"i2c_switch","datasheet_identity":"PCA9546A Rev. 7","selected_mpn":"PCA9546APW","selected_package":"TSSOP-16","official_source_url":"https://www.nxp.com/docs/en/data-sheet/PCA9546A.pdf"},
+    {"id":"bosch-bmi270-ds000","split":"evaluation","manufacturer":"Bosch Sensortec","category":"inertial_measurement_unit","datasheet_identity":"BMI270 BST-BMI270-DS000","selected_mpn":"BMI270","selected_package":"LGA-14","official_source_url":"https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi270-ds000.pdf"},
+    {"id":"ti-tps62840-rev-c","split":"evaluation","manufacturer":"Texas Instruments","category":"nanopower_buck_converter","datasheet_identity":"TPS62840 SLVSDD6C","selected_mpn":"TPS62840DLCR","selected_package":"VSON-10","official_source_url":"https://www.ti.com/lit/ds/symlink/tps62840.pdf"},
+    {"id":"nxp-mpl3115a2-rev-8","split":"evaluation","manufacturer":"NXP Semiconductors","category":"pressure_altimeter_sensor","datasheet_identity":"MPL3115A2 Rev. 8","selected_mpn":"MPL3115A2R1","selected_package":"LGA-8","official_source_url":"https://www.nxp.com/docs/en/data-sheet/MPL3115A2.pdf"},
+    {"id":"bosch-bmm150-ds001","split":"evaluation","manufacturer":"Bosch Sensortec","category":"magnetometer","datasheet_identity":"BMM150 BST-BMM150-DS001","selected_mpn":"BMM150","selected_package":"LGA-12","official_source_url":"https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmm150-ds001.pdf"}
+  ],
+  "acquisition": {
+    "availability_preflight": "all twelve exact official URLs returned HTTP 200 with application/pdf on 2026-08-13 before this plan was frozen; no response bodies were retained",
+    "allowed_redirects": 5,
+    "maximum_pdf_bytes": 67108864,
+    "require_pdf_magic": true,
+    "require_declared_identity_in_bounded_text": true,
+    "on_unavailable_or_mismatched_source": "invalidate_family_without_replacement",
+    "post_seal_artifact": "dsvire.retrieval-cycle-source-manifest.v1 with final URL, bytes, and SHA-256"
+  },
+  "annotation": {
+    "region_types": ["pinout", "table", "package"],
+    "required_positive_regions_per_family": 3,
+    "required_hard_negative_kinds": ["wrong_intent", "wrong_package", "wrong_variant", "wrong_view"],
+    "minimum_hard_negatives_per_family": 4,
+    "review_protocol": "two-pass blinded review; author and independent human adjudicator cannot inspect model scores",
+    "agent_audit_policy": "agent audit may reject unsafe crops before independent review but cannot satisfy independent-review acceptance",
+    "disagreements": "adjudicate before query encoding; unresolved regions are excluded and recorded"
+  },
+  "queries": {
+    "authoring": "manual natural-language prompts written after region adjudication and before model scoring",
+    "intents": ["pinout", "table", "package"],
+    "queries_per_intent_per_family": 2,
+    "minimum_total": 72,
+    "review_protocol": "independent human reviewer checks intent, exact identity, relevance, and hard-negative links without model scores",
+    "prohibited": ["template-only queries", "model-generated queries", "post-score edits", "labels or case IDs in query text"]
+  },
+  "candidate_universe": {
+    "crop_ranking": "every adjudicated region in the selected split for every query",
+    "full_page_baseline": "every rendered page in the selected split for every query",
+    "unannotated_figures": "not silently counted as negatives; record judgment incompleteness separately",
+    "maxsim_k": 32
+  },
+  "systems": {
+    "candidate": "pinned ColSmol crop BM25+dense/RRF+MaxSim cascade plus a separately calibrated EGVV decision layer",
+    "comparators": ["same pinned ColSmol over naive full pages", "pinned unscoped OpenCLIP over crops", "unscoped BM25 text-RAG over crop text"]
+  },
+  "metrics": ["nDCG@5", "R@5", "mAP", "MRR", "coverage", "hard-negative-at-5", "wrong-figure acceptance", "Brier score", "ECE", "query p95", "pages/s/GPU", "compressed pack bytes"],
+  "frozen_gate": {
+    "evaluation_queries_minimum": 36,
+    "coverage_minimum": 1.0,
+    "crop_recall_at_5_vs_full_page_minimum_delta": -0.01,
+    "crop_recall_at_5_vs_openclip_minimum_delta": 0.15,
+    "crop_recall_at_5_vs_text_rag_minimum_delta": 0.15,
+    "verified_wrong_figure_rate_maximum": 0.02,
+    "target_gpu_hot_query_p95_ms_maximum": 800,
+    "crop_index_pages_per_second_per_gpu_minimum": 2.0,
+    "compressed_crop_pack_vs_full_page_ratio_maximum": 0.15,
+    "all_conditions_required": true
+  },
+  "execution_order": [
+    "merge this pre-registration unchanged",
+    "acquire and hash official sources into a separate immutable manifest",
+    "annotate calibration and evaluation without model scores",
+    "obtain independent review and seal annotations before score access",
+    "author and independently review queries without model scores",
+    "run calibration systems and freeze the candidate and EGVV policy",
+    "run evaluation systems exactly once",
+    "publish passing or failing compact evidence without retuning"
+  ],
+  "invalidation": [
+    "family/source identity mismatch or unavailable official source",
+    "family overlap with any previously consumed or pre-registered cycle",
+    "score access before annotation and query review are sealed",
+    "threshold, metric, comparator, split, or query mutation after this plan merges",
+    "substitution of unofficial mirror bytes",
+    "agent audit represented as independent human review",
+    "tuning on evaluation outcomes"
+  ],
+  "publication_policy": "automated catalog publication remains disabled unless this exact held-out gate passes, an independently reviewed calibrated EGVV contract is emitted, and the deterministic publication contract passes"
+}

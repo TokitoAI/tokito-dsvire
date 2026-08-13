@@ -19,11 +19,19 @@ def _plan() -> dict[str, object]:
     return json.loads((ROOT / "evaluation/retrieval_cycle_v2_preregistration.json").read_text())
 
 
+def _plan_v3() -> dict[str, object]:
+    return json.loads((ROOT / "evaluation/retrieval_cycle_v3_preregistration.json").read_text())
+
+
 def _consumed() -> set[str]:
     registry = json.loads((ROOT / "evaluation/visual_registry.v1.json").read_text())
     return {document["id"] for document in registry["documents"]} | {
         document["document_group"] for document in registry["documents"]
     }
+
+
+def _reserved() -> set[str]:
+    return _consumed() | {family["id"] for family in _plan()["families"]}
 
 
 def test_committed_cycle_is_balanced_official_and_unconsumed() -> None:
@@ -37,6 +45,21 @@ def test_committed_cycle_is_balanced_official_and_unconsumed() -> None:
     assert plan.plan_id == "dsvire-colsmol-cycle-v2@2026-08-13"
     assert plan.content_sha256 == "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d"
     assert len(plan.family_ids) == 12
+
+
+def test_cycle_v3_is_balanced_official_and_disjoint_from_all_prior_cycles() -> None:
+    raw = _plan_v3()
+    schema = json.loads(
+        (ROOT / "scripts/schema/retrieval_preregistration_v1.schema.json").read_text()
+    )
+    jsonschema.validate(raw, schema)
+    plan = load_retrieval_preregistration(raw, consumed_family_ids=_reserved())
+    assert plan.plan_id == "dsvire-colsmol-egvv-cycle-v3@2026-08-13"
+    assert plan.content_sha256 == "2034c81f041d547249bed9e7e606d2255af0b5df32ebfda7ad025a8c917d7ccf"
+    assert len(plan.family_ids) == 12
+    assert "availability_preflight" in raw["acquisition"]
+    assert "independent human" in raw["annotation"]["review_protocol"]
+    assert "agent audit" in raw["invalidation"][-2]
 
 
 @pytest.mark.parametrize(
