@@ -1,0 +1,39 @@
+{
+  "schema_version": "dsvire.public-staging-restart-load.v1",
+  "source": {
+    "repository": "TokitoAI/tokito-ai",
+    "commit": "fd90d9c3132e4ebf302c76766d1fbcaf0c302f9f",
+    "workflow_run": 31710924242,
+    "release": "v0.9.4",
+    "artifact_schema": "tokito.staging-load.v1"
+  },
+  "workload": {
+    "source_free": true,
+    "synthetic_tenants": 4,
+    "attempted_uploads": 32,
+    "active_job_quota_per_tenant": 5,
+    "workers": 1,
+    "cloud_restarts": 1,
+    "fixture_delay_ms_per_private_call": 1000
+  },
+  "results": {
+    "admitted": 20,
+    "quota_rejected": 12,
+    "all_admitted_succeeded": true,
+    "source_blobs_released": 20,
+    "unique_deterministic_revisions": 1,
+    "idempotent_replays": 4,
+    "cross_tenant_reads_denied": 4,
+    "upload_latency_seconds": {"p50": 0.026, "p95": 0.047, "max": 0.053},
+    "completion_latency_seconds": {"p50": 30.766, "p95": 58.078, "max": 61.039},
+    "wall_seconds": 61.155,
+    "admitted_jobs_per_second": 0.327,
+    "final_active_jobs": 0,
+    "final_worker_has_error": false,
+    "final_missing_referenced_blobs": 0
+  },
+  "scope": {
+    "proves": "bounded multi-tenant Cloud admission, durable restart recovery, deterministic publication, Companion projection, tenant isolation, replay idempotency, terminal source cleanup, and clean final worker/storage health",
+    "does_not_prove": "vendor-document or provider capacity, sustained soak or availability, retrieval quality or calibration, production worker enablement, or the Technical Bible hot-pack query SLO"
+  }
+}
