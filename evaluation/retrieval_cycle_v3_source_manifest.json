@@ -1,0 +1,151 @@
+{
+  "complete": false,
+  "invalidations": [
+    {
+      "id": "bosch-bmp390-ds002",
+      "reason": "bosch-bmp390-ds002: PDF parsing failed",
+      "status": "invalidated"
+    },
+    {
+      "id": "bosch-bma400-ds000",
+      "reason": "bosch-bma400-ds000: PDF parsing failed",
+      "status": "invalidated"
+    },
+    {
+      "id": "bosch-bmm150-ds001",
+      "reason": "bosch-bmm150-ds001: PDF parsing failed",
+      "status": "invalidated"
+    }
+  ],
+  "manifest_sha256": "d2bcb966fc9a2b126eaf790e8a4bd001f664503b25641d5fdca51b6cf85ca2dd",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v3@2026-08-13",
+  "plan_sha256": "2034c81f041d547249bed9e7e606d2255af0b5df32ebfda7ad025a8c917d7ccf",
+  "schema_version": "dsvire.retrieval-cycle-source-manifest.v1",
+  "sources": [
+    {
+      "bytes": 1357133,
+      "content_sha256": "1ba6f55dfe678d06d563acd6632f1f950a497d812270806021097b55cd81d3c4",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tlv62569.pdf",
+      "id": "ti-tlv62569-rev-b",
+      "identity_markers": [
+        "tlv62569",
+        "tlv62569pddcr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tlv62569.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 264812,
+      "content_sha256": "9f4f9c0ce4c461d71e0a46858394f830c74daba72bb6616f368af78a39f44b1f",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf",
+      "id": "nxp-pca9555-rev-10",
+      "identity_markers": [
+        "pca9555",
+        "pca9555pw"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCA9555.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 1516966,
+      "content_sha256": "9e663deb2be8d76f58273dc189d6bda88124c08245e2a691c6ecf6aaa0fffac1",
+      "final_url": "https://www.ti.com/lit/ds/symlink/ina226.pdf",
+      "id": "ti-ina226-rev-b",
+      "identity_markers": [
+        "ina226"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/ina226.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 739909,
+      "content_sha256": "c1caa777a329021d764cb3d5db73434544267434ca6d05209f00c02d8f16e0ae",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCF85063A.pdf",
+      "id": "nxp-pcf85063a-rev-7",
+      "identity_markers": [
+        "pcf85063a",
+        "pcf85063atl"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCF85063A.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 3572593,
+      "content_sha256": "413a6d0c3d8f1a2e795464b5e10cb3007d9158f184d9be1b163b3a20142de1e3",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tca9535.pdf",
+      "id": "ti-tca9535-rev-e",
+      "identity_markers": [
+        "scps201e",
+        "tca9535",
+        "tca9535pwr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tca9535.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 273232,
+      "content_sha256": "eb7e9df0d25f6825bb73b54b4b27533939779ed66c9e5db7d1db7b562fa9d6fd",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCA9546A.pdf",
+      "id": "nxp-pca9546a-rev-7",
+      "identity_markers": [
+        "pca9546a",
+        "pca9546apw"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCA9546A.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2636042,
+      "content_sha256": "f68ce3c74f011a80bbe4b0279c4abe9609a71a5dcda75a951381d77112e005fb",
+      "final_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi270-ds000.pdf",
+      "id": "bosch-bmi270-ds000",
+      "identity_markers": [
+        "bmi270"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bmi270-ds000.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 3178504,
+      "content_sha256": "b715ae80beb8f08b5c4a417537c5f52e01ad0a52f3791c240146b72fec5f3214",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tps62840.pdf",
+      "id": "ti-tps62840-rev-c",
+      "identity_markers": [
+        "tps62840",
+        "tps62840dlcr"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tps62840.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 738078,
+      "content_sha256": "7760eddebc1d4a16dca6981168f76a97be5980783f1aa4bf27d35204c713bac3",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/MPL3115A2.pdf",
+      "id": "nxp-mpl3115a2-rev-8",
+      "identity_markers": [
+        "mpl3115a2",
+        "mpl3115a2r1"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/MPL3115A2.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    }
+  ]
+}

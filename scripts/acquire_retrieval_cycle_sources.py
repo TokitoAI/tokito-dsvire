@@ -10,7 +10,9 @@ ROOT = Path(__file__).parents[1]
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Seal official sources for retrieval cycle v2")
+    parser = argparse.ArgumentParser(
+        description="Seal official sources for a frozen retrieval cycle"
+    )
     parser.add_argument(
         "--plan", type=Path, default=ROOT / "evaluation/retrieval_cycle_v2_preregistration.json"
     )
@@ -22,6 +24,11 @@ def main() -> int:
     consumed = {item["id"] for item in registry["documents"]} | {
         item["document_group"] for item in registry["documents"]
     }
+    for registered in ROOT.glob("evaluation/retrieval_cycle_v*_preregistration.json"):
+        if registered.resolve() == args.plan.resolve():
+            continue
+        prior = json.loads(registered.read_text(encoding="utf-8"))
+        consumed.update(item["id"] for item in prior["families"])
     manifest = acquire_source_manifest(plan, cache_dir=args.cache, consumed_family_ids=consumed)
     write_manifest_atomic(manifest, args.out)
     print(

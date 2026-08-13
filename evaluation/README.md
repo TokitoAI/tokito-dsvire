@@ -20,6 +20,14 @@ unsafe crops before review, but only an independently attested human review can
 satisfy the held-out acceptance contract. Publication remains disabled unless
 the exact frozen retrieval, operational, calibration, and EGVV gates all pass.
 
+The first post-merge acquisition sealed nine of twelve exact sources. Three
+Bosch sources returned HTTP 200 and advertised PDF content during preflight but
+failed strict PDF parsing when their bodies were acquired. Per the immutable
+plan, all three families are invalidated without replacement and v3 cannot
+advance to annotation or scoring. This is useful fail-closed evidence: response
+headers are not source validity, and future cycles must not weaken parsing after
+observing a source outcome.
+
 ## Retrieval benchmark cycle v2 pre-registration
 
 `retrieval_cycle_v2_preregistration.json` seals twelve previously unconsumed
