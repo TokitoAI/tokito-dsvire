@@ -1,0 +1,40 @@
+{
+  "schema_version": "dsvire.public-staging-schema-recovery.v1",
+  "source": {
+    "repository": "TokitoAI/tokito-ai",
+    "commit": "7c751653f2077a3996afffd86d452ad576d759d6",
+    "workflow_run": 31725137581,
+    "legacy_release": "v0.8.0",
+    "current_release": "v0.9.4",
+    "artifact_schema": "tokito.staging-schema-recovery.v1"
+  },
+  "migration": {
+    "source_free": true,
+    "verified_files": 5,
+    "legacy_schema": 3,
+    "migrated_schema": 4,
+    "migration_boot_ms": 1439,
+    "authenticated_probe_ms": 99,
+    "trace_context_backfill_verified": true,
+    "job_verified": true,
+    "companion_projection_verified": true,
+    "generated_revision_verified": true,
+    "idempotent_replay_verified": true
+  },
+  "rollback": {
+    "legacy_archive_remained_schema_v3": true,
+    "legacy_boot_and_authenticated_probe_ms": 1618,
+    "legacy_authenticated_probe_verified": true
+  },
+  "cleanup": {
+    "disposable_state_removed": true,
+    "original_staging_ready": true,
+    "final_active_jobs": 0,
+    "final_missing_referenced_blobs": 0,
+    "final_worker_has_error": false
+  },
+  "scope": {
+    "proves": "exact-release schema-v3 backup, disposable v3-to-v4 migration, independent schema and trace-context verification, authenticated migrated-state reconciliation, immutable-archive rollback restoration, legacy authenticated reconciliation, cleanup, and original-service health",
+    "does_not_prove": "production-data recovery, encrypted off-host replication, retrieval quality, production worker enablement, or future migration compatibility"
+  }
+}
