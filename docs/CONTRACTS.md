@@ -194,7 +194,7 @@ Emitted by extractor. Consumed by compiler.
 - `reference_prefix` ∈ common set (`U`, `Q`, `D`, `R`, `C`, `L`, `Y`, `J`, `K`, `SW`, ...). Extractor picks by device family; compiler passes through.
 - `pins[*].electrical` matches the KiCad-derived enum already in `tokito_catalog::model::PinElectrical`: `input | output | bidirectional | tri_state | passive | free | unspecified | power_in | power_out | open_collector | open_emitter | no_connect`.
 - `pins[*].style` ∈ `tokito_catalog::model::PinStyle` (`line`, `inverted`, `clock`, `inverted_clock`, `input_low`, `output_low`, ...). Default `line`.
-- `pins[*].unit` is `1` unless the device has multiple functional units (per pipeline doc §6.3, multi-unit is not placeable in the hackathon slice, but the spec still admits it).
+- `pins[*].unit` is `1` unless the device has multiple functional units (per pipeline doc §6.3, multi-unit placement is not supported yet, but the spec still admits it).
 - `pins[*].confidence` ∈ `[0.0, 1.0]`. Pins with `confidence < 0.6` cause the whole spec to be abstained (compiler refuses).
 - `pins[*].evidence_region_ids` must reference regions in the source `EvidenceBundle`. Non-empty.
 - Duplicate `number` values are allowed only when tagged as intentional jumpers (surfaced through `SymbolFlags.duplicate_pin_numbers_are_jumpers`).
@@ -248,7 +248,7 @@ pub enum PublicationStatus {
 }
 ```
 
-For the hackathon slice, ingestion goes `Draft -> Validating -> Verified -> Published` in a single request when all checks pass; no human moderation loop is inserted. Failure paths route to `Quarantined` with a reason string.
+In the current ingestion path, a request goes `Draft -> Validating -> Verified -> Published` when all checks pass. Failure paths route to `Quarantined` with a reason string.
 
 ---
 

@@ -13,30 +13,15 @@ def test_public_examples_regenerate_byte_identically(tmp_path: Path) -> None:
         check=True,
     )
 
-    generated = (
-        "examples/tps5430ddar-evidence-summary.json",
-        "docs/assets/evidence-bundle-example.svg",
-        "docs/assets/multivendor-development-benchmark.svg",
-        "docs/assets/service-load-evidence.svg",
-        "docs/assets/staging-restart-load.svg",
-        "docs/assets/staging-soak.svg",
-        "docs/assets/staging-recovery.svg",
-        "docs/assets/staging-schema-recovery.svg",
-        "examples/corpus-coverage.json",
-        "docs/assets/corpus-coverage.svg",
-        "docs/assets/query-ranking-canary.svg",
-        "docs/assets/full-corpus-text-development.svg",
-        "docs/assets/full-corpus-retrieval-comparison.svg",
-        "docs/assets/full-corpus-colsmol-development.svg",
-    )
+    generated = ("docs/assets/product-workflow.svg", "docs/assets/benchmark-overview.svg")
     for relative in generated:
         assert (tmp_path / relative).read_bytes() == (root / relative).read_bytes()
 
 
-def test_public_example_fails_closed_and_names_score_semantics() -> None:
+def test_public_workflow_is_source_free_and_names_real_fixture_output() -> None:
     root = Path(__file__).parents[1]
-    text = (root / "examples/tps5430ddar-evidence-summary.json").read_text(encoding="utf-8")
+    text = (root / "docs/assets/product-workflow.svg").read_text(encoding="utf-8")
 
-    assert '"publication_eligible": false' in text
-    assert '"score_semantics": "heuristic_evidence_strength"' in text
-    assert "calibrated_probability" in text
+    assert "TPS5430DDAR" in text
+    assert "BOOT" in text and "VSENSE" in text and "VIN" in text
+    assert "Texas Instruments" not in text

@@ -1,206 +1,160 @@
-# tokito-dsvire
+# DS-ViRe
 
-Figure-level search over semiconductor datasheets.
+**Figure-level retrieval for semiconductor datasheets.**
 
-Current release: **v0.4.1**. See [`CHANGELOG.md`](CHANGELOG.md).
+DS-ViRe finds the exact pinout, pin-function table, package drawing, timing
+diagram, curve, or application circuit an engineer needs—and returns it as
+typed, hash-bound evidence instead of an ungrounded answer or an entire PDF
+page.
 
-Pinouts, package drawings, timing diagrams, and application circuits live in the pictures, not in OCR text. This project indexes those regions with a vision-first cascade, returns crops with page and bbox provenance, and stays small enough to query without stuffing a 400-page PDF into a model.
+![DS-ViRe technical hero](docs/assets/hero-background.png)
 
-**DS-ViRe** is the retrieval system and its growing open, source-free benchmark.
+## From datasheet evidence to a usable symbol
 
-![Source-free DS-ViRe evidence bundle](docs/assets/evidence-bundle-example.svg)
+![Synthetic datasheet regions becoming a deterministic Tokito symbol](docs/assets/product-workflow.svg)
 
-## Why
+The example uses a redistribution-safe synthetic datasheet page and the real
+eight-pin TPS5430 fixture contract. DS-ViRe owns retrieval and provenance;
+Tokito's extractor reads only approved crops, and deterministic Rust code owns
+symbol geometry and serialization.
 
-Text RAG on datasheets misses drawings. Full-page ColPali-style indexes work, but they are heavy and still return whole pages when you need a pin map. DS-ViRe treats **figures and tables as the retrieval unit**, uses layout detection as a compute gate, and keeps text (TOC, captions, pin names) as a cheap filter and pin lexicon.
+## Why DS-ViRe
 
-## Status
+Text-only RAG works poorly when the answer is a drawing. Page-level visual
+retrieval improves recall, but an engineer still needs the exact figure and its
+identity context. DS-ViRe narrows the unit of retrieval to figures and tables,
+then binds every result to:
 
-| Piece | State |
-|---|---|
-| Architecture spec | In [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md) |
-| Benchmark | Public source-free registry: 40 official families and 279 positive/adversarial cases across 14 manufacturer labels and 32 component categories; 30 are development, five calibration, and five reviewed evaluation families. The generated [coverage ledger](examples/corpus-coverage.json) records the honest Technical Bible gap: 40/500 documents and 90/2,000 explicit natural-language queries. |
-| Deterministic retrieval baseline | Implemented in `src/dsvire`; bounded PDF parsing, exact text-grounded identity/package abstention, figure/table scoring, and frozen evidence output |
-| Evidence contract fixture | Current v2 TPS5430 evidence metadata is schema-tested in `fixtures/evidence`; generated output is not checked into the repository |
-| Hosted service image | Implemented baseline; private `/v1/evidence/symbol` API with mandatory production bearer, bounded admission, killable PDF workers, and container readiness check |
-| Service load evidence | Real authenticated Linux HTTP/worker boundary: cold p95 623.6 ms, warm p95 612.0 ms, five bounded overload rejections, 166.7 MiB peak process-tree RSS, and zero scratch/partial residue; generated 12-request evidence, not capacity or MaxSim SLO proof |
-| Cloud restart saturation | Source-free staging run: four isolated tenants, 32 concurrent uploads, exact 20 admits/12 quota rejections, all admitted jobs recovered after an in-flight restart, p95 completion 58.078 s including lease recovery, and zero retained sources/missing blobs/worker errors; deterministic-fixture orchestration evidence, not vendor/provider capacity or soak |
-| Bounded staging soak | Four consecutive source-free restart rounds: 128 uploads, exact 80 admits/48 quota rejections, all jobs and source cleanup converged, round p95 stayed 15.403–15.529 s, and sampled Cloud use peaked at 7.07% CPU/6.11 MiB/11 PIDs; ~65.6 seconds of repeatability evidence, not long-duration availability or representative capacity |
-| Worker-enabled staging recovery | Exact Cloud v0.9.4 created and verified a five-file quiesced backup, restored it into disposable storage, and reconciled authenticated job, Companion, revision, and replay state; backup/verify/restore took 591/397/731 ms and restored boot took 1.432 s. This is staging recovery evidence, not encrypted off-host replication or production-data recovery. |
-| Schema migration recovery | Exact Cloud v0.8.0 created schema-v3 durable state; a verified five-file archive migrated under exact v0.9.4 to schema v4 with trace-context backfill and authenticated job/Companion/revision/replay reconciliation. The untouched archive then restored and reconciled again under v0.8.0. This is disposable staging migration/rollback proof, not production-data or off-host recovery. |
-| Visual comparators / benchmark corpus | Text-layout was frozen after comparison with RapidOCR and pinned OpenCLIP; held-out evaluation accepted zero wrong figures/identities but reached 46.7% positive coverage versus the frozen 50% minimum, so the gate failed and publication remains disabled |
-| Full-corpus query baseline | The identity-assisted text/layout baseline ranks all 209 registered development candidates for each of 90 queries (18,810 pairs): nDCG@5 0.963, R@5 1.000, mAP/MRR 0.950. This is deterministic-template development evidence, not held-out accuracy. |
-| Unscoped visual baseline | Pinned OpenCLIP ranks the same 18,810 pairs from raw query text and pixels only: nDCG@5 0.141, R@5 0.189, mAP/MRR 0.152. Pinouts reach 0.342 nDCG@5; tables reach 0.021. Generic global CLIP is not the planned hybrid late-interaction system. |
-| Hybrid query core | `dsvire.retrieval-pack.v1` validates content/model/provenance and real dense/multi-vector payloads. The metadata-blind core runs BM25 + dense retrieval, deterministic RRF, then exact MaxSim on a hard-capped candidate set. An exact-registry 209-region/90-query synthetic-vector capacity run records 45.39 ms p95 and 9.24 MB traced peak allocation; this is core evidence, not model accuracy. |
-| ColSmol integration | The exact MIT ColSmol-256M adapter/base revisions and every required file are frozen in `evaluation/models/colsmol-256m.v1.json`. Genuine 128-dimensional late interaction over all 18,810 development pairs reaches nDCG@5 0.417, R@5 0.544, and mAP/MRR 0.395. Vectorized MaxSim records 254 ms p95 on the 4 GB GTX 1650 target (800 ms SLO pass); independent Linux CPU reproduction has zero complete-order/2,880 score mismatches but 1.47 s p95. Publication remains disabled. |
-| Tokito Wave D integration | Seeded acceptance crosses authenticated Cloud ingestion, immutable generated SQLite, catalog sync, MCP streamable HTTP resolve/provenance, and Desktop place/save/reopen with exact compiler bytes. See [`examples/wave-d-acceptance.json`](examples/wave-d-acceptance.json). |
+- the exact datasheet hash and part identity;
+- a page and normalized bounding box;
+- a typed region and crop hash;
+- an explicit verification method and score meaning.
 
-## Start here
+Callers cannot turn heuristic similarity into publication authority. Unknown,
+ambiguous, malformed, or mismatched inputs stop at a typed boundary.
 
-- [Technical Bible](docs/TECHNICAL_BIBLE.md) — canonical architecture, evidence contract, benchmark, and SLOs.
-- [Reproducible examples](docs/EXAMPLES.md) — commands, source-free evidence screenshot, values, benchmark graph, and interpretation.
-- [Production readiness](docs/PRODUCTION_READINESS.md) — evidence ledger and honest remaining gates.
-- [Evaluation registry](evaluation/README.md) — frozen cycles, source seals, and leakage-safe human review.
-- [Contracts](docs/CONTRACTS.md) — versioned machine-facing schemas.
+## Install
 
-Regenerate the public JSON and SVG examples from committed evidence:
+Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/) 0.12.3.
 
 ```bash
-python scripts/generate_docs_assets.py
-git diff --exit-code -- examples docs/assets
+git clone https://github.com/TokitoAI/tokito-dsvire.git
+cd tokito-dsvire
+uv sync --locked --extra test
 ```
 
-Generated assets are byte-checked in CI. The script derives values from the
-committed fixture and benchmark JSON; it does not contain a second set of
-hand-maintained benchmark numbers.
-
-![Corpus coverage against Technical Bible targets](docs/assets/corpus-coverage.svg)
-
-The 279 visual annotations are not relabelled as 279 benchmark queries. A
-separate, strictly grounded query registry counts 90 deterministic-template
-development queries—three intents for each development family—and the ledger
-reports them separately from manual or independently reviewed queries. This
-keeps corpus growth measurable without overstating accuracy,
-representativeness, held-out performance, or legal approval.
-
-Query registry v2 also binds graded relevant regions and explicit adversarial
-regions. The source-free evaluator computes nDCG@5, R@5, mAP, MRR, abstention,
-and hard-negative exposure from digest-bound system rankings. The checked
-perfect-score canary validates metric plumbing over a closed judged pool; it is
-not a retriever benchmark or production accuracy claim. See
-[`docs/EXAMPLES.md`](docs/EXAMPLES.md#query-ranking-measurement-contract).
-
-The measured [full-corpus development result](evaluation/results/full-corpus-text-pdfium-development-2026-08-13.json)
-exercises that contract with an actual scorer over every registered development
-candidate. Its query identity and intent metadata make it an identity-assisted
-baseline, not an unscoped semantic search result, and its queries are neither
-manual nor held out.
-
-The fixture runner is intentionally not presented as an upload product. The
-public upload boundary belongs to Tokito Cloud at `https://api.tokito.dev`;
-DS-ViRe runs behind it on the private service network. The baseline never
-guesses manufacturer, MPN, or package and will fail closed unless the PDF text
-contains the manufacturer plus a token-bounded exact MPN associated with the
-requested package. It also requires a pinout and pin-function table. This is a
-deterministic safety gate, not calibrated visual verification.
-
-## Run and verify
+Extract evidence from a local datasheet:
 
 ```bash
-uv sync --locked --extra test
-uv run --frozen --no-sync pytest
 uv run --frozen --no-sync dsvire extract-evidence datasheet.pdf \
-  --manufacturer 'Texas Instruments' \
+  --manufacturer "Texas Instruments" \
   --mpn TPS5430DDAR \
   --package SO-PowerPAD-8 \
   --out ./artifacts
 ```
 
-Development and release environments are resolved from the committed universal
-`uv.lock`. Use uv 0.12.3 and follow
-[`docs/DEPENDENCY_LOCKS.md`](docs/DEPENDENCY_LOCKS.md) when changing a dependency;
-CI rejects stale locks and stale container exports.
+DS-ViRe never infers the requested identity from a filename. Manufacturer, MPN,
+and package are caller hypotheses that must be independently grounded in the
+document.
 
-The ColSmol indexer is an optional, mutually exclusive runtime profile because
-its verified Torch 2.13 stack differs from the OpenCLIP comparator's Torch
-line. Model bytes are download-only and never committed:
+## Use as a private service
 
 ```bash
-uv sync --locked --extra colsmol
-python scripts/acquire_model.py --manifest evaluation/models/colsmol-256m.v1.json \
-  --destination .cache/colsmol-offline
-python scripts/evaluate_full_corpus_colsmol.py --device cuda \
-  --model-root .cache/colsmol-offline --cache-root .cache/dsvire-eval \
-  --offline --json-out colsmol-development.json
+export DSVIRE_ENVIRONMENT=production
+export DSVIRE_SERVICE_TOKEN="replace-with-at-least-32-random-bytes"
+uv run --frozen --no-sync uvicorn dsvire.api:app --host 127.0.0.1 --port 8081
 ```
 
-The runner ranks the complete development universe. Exact MaxSim is limited to
-the top 32 candidates from BM25+dense RRF; the remaining candidates retain the
-deterministic fused order. This mirrors Technical Bible section 7.2 rather than
-running unbounded MaxSim over the corpus.
+Send raw `application/pdf` bytes to `POST /v1/evidence/symbol` with exact
+`manufacturer`, `mpn`, and `package` query parameters and a bearer token.
+Production refuses to start without authentication. PDF work runs in disposable
+subprocesses with bounded admission, time, memory, output, and file size.
 
-Run the same aggregate gate used by CI and tagged releases with:
+See [Usage](docs/USAGE.md) for the complete CLI, service, model, and dependency
+workflow.
+
+## Architecture
+
+```text
+PDF + exact part hypothesis
+        │
+        ▼
+strict PDF boundary ── identity and package grounding
+        │
+        ▼
+page render ── region proposals ── hybrid retrieval ── verification
+        │
+        ▼
+typed evidence pack: page + bbox + crop hash + provenance
+        │
+        ├── retrieval API / benchmark consumers
+        └── Tokito extraction → validated SymbolSpec → deterministic compiler
+```
+
+Heavy parsing and indexing stay off the interactive query path. Packs are
+content- and model-versioned; late-interaction MaxSim is bounded to a small
+candidate set. The complete design and SLO rationale are in the
+[Technical Architecture](docs/TECHNICAL_BIBLE.md).
+
+## Measured baseline
+
+![Development retrieval benchmark](docs/assets/benchmark-overview.svg)
+
+Current evidence is useful but not a production-accuracy claim:
+
+| Measurement | Result | Scope |
+|---|---:|---|
+| Corpus | 40 families, 279 regions | Source-free registry; 30 development, 5 calibration, 5 evaluation |
+| ColSmol development nDCG@5 | 0.417 | 90 template development queries over 209 candidates |
+| ColSmol development R@5 | 0.544 | Same closed development universe |
+| Target GPU MaxSim p95 | 254 ms | GTX 1650, top-32 candidate cap |
+| Held-out safety | 0 wrong figures / identities accepted | Previous frozen cycle |
+| Held-out positive coverage | 46.7% | Missed the frozen 50% floor; publication stayed disabled |
+
+The benchmark graphic and numbers are generated from committed JSON evidence.
+See [Evaluation](evaluation/README.md) for data provenance, split isolation,
+leakage controls, and exact reproduction commands.
+
+## Project status
+
+The deterministic baseline, authenticated service boundary, retrieval packs,
+hybrid query core, ColSmol adapter, reproducible builds, and Tokito integration
+contracts are implemented. Automated catalog publication remains disabled
+until a new preregistered cycle receives genuine independent human review and
+passes its frozen held-out quality gates.
+
+See [Project status](docs/STATUS.md) for supported capabilities and remaining
+gates. The [GitHub project](https://github.com/orgs/TokitoAI/projects/1) is the
+live roadmap.
+
+## Documentation
+
+- [Usage](docs/USAGE.md) — CLI, service deployment, models, and verification
+- [Technical architecture](docs/TECHNICAL_BIBLE.md) — system design, retrieval cascade, packs, and SLOs
+- [Tokito integration](docs/TOKITO_SYMBOL_PIPELINE.md) — evidence-to-symbol responsibility boundaries
+- [Contracts](docs/CONTRACTS.md) — versioned machine-facing schemas
+- [Evaluation](evaluation/README.md) — corpus, benchmark, and leakage policy
+- [Project status](docs/STATUS.md) — implemented surface and honest remaining gates
+- [Contributing](CONTRIBUTING.md) and [security policy](SECURITY.md)
+
+## Reproduce the release gate
 
 ```bash
+uv run --frozen --no-sync python scripts/generate_docs_assets.py
 uv run --frozen --no-sync python scripts/verify_release.py \
   --json-out release-verification.json
 ```
 
-With sibling `tokito`, `tokito-ai`, `tokito-catalog`, and `tokito-mcp`
-checkouts, reproduce the seeded product-level acceptance with:
-
-```bash
-python scripts/wave_d_acceptance.py
-```
-
-This command makes no model call. Its checked EGVV evidence/spec pair is the
-explicit seed; every downstream boundary is the real production path. Live
-extractor qualification remains a separate production-readiness gate.
-
-For the hosted service, build the image and send raw `application/pdf` bytes to
-`POST /v1/evidence/symbol` with the exact identity as query parameters. The
-service accepts at most 64 MiB and 2,000 pages per document. Production and
-staging refuse to start without a `DSVIRE_SERVICE_TOKEN` of at least 32 bytes;
-do not expose this private endpoint to desktop clients. CPU-heavy parsing runs
-in a disposable subprocess and admission is bounded before request bodies are
-buffered. The container entrypoint performs configuration and persistent-volume
-preflight in PID 1 before starting Uvicorn workers, so unsafe startup exits
-nonzero for orchestrators and CI.
-
-Run the hash-pinned, download-only real-PDF identity regression slice with:
-
-```bash
-python scripts/evaluate_identity.py \
-  --cache-dir .cache/dsvire-eval \
-  --json-out identity-eval.json
-```
-
-See [`evaluation/README.md`](evaluation/README.md) for provenance, split, and
-leakage rules. The seed registry is development evidence, not calibration.
-
-Local unauthenticated development must be explicit and loopback-only:
-
-```bash
-DSVIRE_ENVIRONMENT=development DSVIRE_ALLOW_INSECURE_DEV=true \
-  uvicorn dsvire.api:app --host 127.0.0.1 --port 8081
-```
-
-Production controls can be tuned per API process with
-`DSVIRE_MAX_CONCURRENT_JOBS`, `DSVIRE_ADMISSION_TIMEOUT_SECONDS`,
-`DSVIRE_JOB_TIMEOUT_SECONDS`, `DSVIRE_WORKER_CPU_SECONDS`,
-`DSVIRE_WORKER_MEMORY_BYTES`, `DSVIRE_WORKER_FILE_BYTES`, and
-`DSVIRE_MAX_PDF_BYTES` (lower than the 64 MiB hard ceiling). Invalid or unsafe
-values fail startup.
-
-## Docs
-
-- [Technical bible](docs/TECHNICAL_BIBLE.md): problem, related work, architecture, stack, SLOs, benchmark design
-- [Production-readiness audit](docs/PRODUCTION_READINESS.md): evidence, findings, priorities, and remaining gates
-- [Dependency locks](docs/DEPENDENCY_LOCKS.md): frozen install and intentional update procedure
-
-## Layout
-
-```text
-src/dsvire/ # deterministic baseline, CLI, and hosted service
-fixtures/    # contract/evidence fixture metadata (no redistributed PDFs)
-scripts/     # fixture builder, vertical-slice runner, and verifier
-docs/        # specification
-```
-
-## Related work
-
-Starts from ColPali / ColQwen, ViDoRe, DocLayout-YOLO, and datasheet layout taxonomies (DocEDA / EDocNet). Closest gap: open **figure-grounded** retrieval for electronics datasheets, not another text extractor or schematic-to-netlist tool.
+The release verifier checks dependency locks, strict typing, lint and format,
+tests, generated documentation assets, hostile-PDF/resource behavior, runtime
+licenses, package construction, and known vulnerabilities.
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
-Manufacturer PDFs are not redistributed. Benchmark releases will ship hashes, URLs, and annotation files.
+Manufacturer PDFs and model weights are download-only and are never
+redistributed by this repository. Public examples use synthetic artwork or
+source-free hashes, geometry, annotations, and aggregate results.
 
-## Citation
-
-See [CITATION.cff](CITATION.cff).
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). Open an issue before large design changes; the bible is the contract until code lands.
+If you use DS-ViRe in research, see [CITATION.cff](CITATION.cff).
