@@ -88,6 +88,134 @@ numbers can be traced to an exact protocol.
 - Holdout evaluation is a release-gated operation and is not represented by the
   development table above.
 
+## Cycle v4 human authoring handoff
+
+Cycle v4 stops at a score-free packet until two different GitHub humans finish
+the authoring and review boundary below. Agents may validate files and operate
+the tooling, but must not write or rewrite query text, choose regions, create
+either attestation, approve the submission, or inspect model rankings. The
+current packet identity is:
+
+```text
+DSVIRE_SOURCE_MANIFEST_SHA256=d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6
+DSVIRE_AUTHORING_PACKET_SHA256=021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68
+```
+
+### 1. Reproduce the score-free review material
+
+Use a private scratch directory outside Git. Acquire only the official sources
+named by the frozen plan, then reproduce the page renders and packet. The
+source cache and rendered pages are `download_only` review material and must
+not be committed.
+
+```sh
+python scripts/acquire_retrieval_cycle_sources.py \
+  --plan evaluation/retrieval_cycle_v4_preregistration.json \
+  --cache "$DSVIRE_V4_WORK/sources" \
+  --out "$DSVIRE_V4_WORK/source-manifest.json"
+
+python scripts/prepare_retrieval_authoring.py prepare \
+  --plan evaluation/retrieval_cycle_v4_preregistration.json \
+  --manifest evaluation/retrieval_cycle_v4_source_manifest.json \
+  --source-dir "$DSVIRE_V4_WORK/sources" \
+  --packet-out "$DSVIRE_V4_WORK/packet.json" \
+  --template-out "$DSVIRE_V4_WORK/submission.json" \
+  --pages-out "$DSVIRE_V4_WORK/pages"
+
+python scripts/prepare_retrieval_authoring.py validate-packet \
+  --packet "$DSVIRE_V4_WORK/packet.json"
+```
+
+The acquisition command must report `complete: true`, 12 sources, zero
+invalidations, and the source-manifest identity above. The last command must
+print the packet identity above. Stop on any changed source, redirect, render,
+digest, invalidation, or document count; do not substitute a mirror, family, or
+PDF revision.
+
+### 2. Human A authors the submission
+
+Starting from `evaluation/retrieval_cycle_v4_authoring_submission.template.json`,
+Human A reviews only the reproduced pages and score-free packet. They complete
+all 12 documents with exactly:
+
+- three positive regions: one each for `pinout`, `table`, and `package`;
+- all four hard-negative kinds: `wrong_intent`, `wrong_package`,
+  `wrong_variant`, and `wrong_view`;
+- six natural queries: two per intent, with explicit relevant and hard-negative
+  region links; and
+- `author: github:<their-login>` plus an honest attestation containing both
+  `human-authored` and `no model`.
+
+The schema and semantic validator reject missing strata, invalid boxes/pages,
+duplicate or label-bearing query text, incorrect relevance links, and any
+packet mismatch. Finalize to a new file; never edit the digest by hand:
+
+```sh
+python scripts/prepare_retrieval_authoring.py finalize-submission \
+  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
+  --submission "$DSVIRE_V4_WORK/submission.json" \
+  --out "$DSVIRE_V4_WORK/submission.final.json"
+```
+
+Human A opens a PR containing the finalized source-free submission and adds a
+GitHub PR review whose body contains these exact lines:
+
+```text
+DSVIRE_AUTHORING_SUBMISSION_SHA256=<digest printed by finalize-submission>
+HUMAN_AUTHORED_NO_MODEL=TRUE
+```
+
+The review must be authored by the same login declared in the submission. A
+plain issue/PR comment is not sufficient: the seal binds the immutable GitHub
+review URL and its exact `submitted_at` timestamp.
+
+### 3. Human B independently reviews
+
+Human B must be a different GitHub login. Without inspecting rankings or model
+scores, they check every region, box, intent, view, query, and relevance link
+against the reproduced pages. If anything changes, Human A must re-finalize and
+re-attest the new submission digest before review resumes.
+
+Human B submits an **APPROVED GitHub PR review** containing these exact lines:
+
+```text
+DSVIRE_AUTHORING_PACKET_SHA256=021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68
+DSVIRE_AUTHORING_SUBMISSION_SHA256=<finalized submission digest>
+DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE
+```
+
+### 4. Bind GitHub provenance and seal
+
+Create a review record matching
+`scripts/schema/retrieval_authoring_review_v1.schema.json`. Populate the author
+and reviewer URLs with their `#pullrequestreview-<id>` URLs, and copy each
+review object's exact `submitted_at` value into `author_attested_at` or
+`reviewed_at`. Set `reviewer` to `github:<Human-B-login>`. Do not hand-type an
+approximate timestamp.
+
+Export `GITHUB_TOKEN` from the operator's secret store with permission to read
+the PR reviews; never paste it into a review, commit, or command-line argument.
+Then create and validate the seal:
+
+```sh
+python scripts/prepare_retrieval_authoring.py seal \
+  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
+  --submission "$DSVIRE_V4_WORK/submission.final.json" \
+  --review "$DSVIRE_V4_WORK/review.json" \
+  --out "$DSVIRE_V4_WORK/seal.json"
+
+python scripts/prepare_retrieval_authoring.py validate-seal \
+  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
+  --submission "$DSVIRE_V4_WORK/submission.final.json" \
+  --seal "$DSVIRE_V4_WORK/seal.json"
+```
+
+The seal command fetches both GitHub review objects and fails closed unless the
+logins, states, URLs, timestamps, packet/submission digests, and marker lines
+all match and the humans are distinct. Only a committed seal that passes this
+validation authorizes score access. It does not imply the frozen calibration
+or held-out evaluation passed, and it does not enable publication.
+
 ## Visual-verifier calibration
 
 The optional visual verifier is calibrated separately from retrieval. Its
