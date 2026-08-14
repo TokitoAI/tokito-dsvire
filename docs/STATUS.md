@@ -42,7 +42,11 @@ human reviewer before calibration or evaluation scores may be accessed.
 - integrate only the resulting passing evidence-gated visual policy;
 - expand representative legal corpus coverage and manual queries;
 - prove the 99.5% query-API availability target over a representative duration
-  and workload; the current short staging and production canaries do not do so;
+  and workload. An authenticated one-minute semantic canary is live against a
+  digest-addressed, source-free synthetic pack and validates the exact response
+  schema, pack/content provenance, and expected top region. Its preregistered
+  seven-day evidence window is still collecting; initial deployment samples do
+  not establish the SLO;
 - perform a decrypt/restore drill from the independent replica with the
   operator-held age identity.
 
@@ -52,6 +56,13 @@ development datasheets from TI, Microchip, and Diodes. All three completed in
 released their source bytes, and left ready workers with zero active jobs,
 missing blobs, or worker errors. This proves the live provider and fail-closed
 boundary, not retrieval quality, cycle-v4 evaluation, or the availability SLO.
+
+The separate query-availability canary has no publication capability and uses
+no vendor document bytes. Prometheus records bounded outcome classes and
+latency, alerts on semantic failure and sample-gated SLO burn, and the evidence
+exporter refuses windows below 99% scheduled-probe coverage. This measures the
+authenticated query service boundary only; it cannot substitute for cycle-v4
+retrieval-quality evaluation.
 
 The detailed work and ownership live on the
 [Tokito project board](https://github.com/orgs/TokitoAI/projects/1). Raw,
