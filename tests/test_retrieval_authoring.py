@@ -208,6 +208,26 @@ def test_committed_packet_is_schema_valid_source_free_and_bound() -> None:
     assert sum(len(document["pages"]) for document in packet["documents"]) == 587
 
 
+def test_cycle_v4_human_handoff_runbook_binds_current_packet_and_review_markers() -> None:
+    runbook = (ROOT / "evaluation/README.md").read_text(encoding="utf-8")
+    packet = json.loads(
+        (ROOT / "evaluation/retrieval_cycle_v4_authoring_packet.json").read_text(encoding="utf-8")
+    )
+    required = (
+        f"DSVIRE_SOURCE_MANIFEST_SHA256={packet['source_manifest_sha256']}",
+        f"DSVIRE_AUTHORING_PACKET_SHA256={packet['packet_sha256']}",
+        "HUMAN_AUTHORED_NO_MODEL=TRUE",
+        "DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE",
+        "finalize-submission",
+        "validate-seal",
+        "#pullrequestreview-<id>",
+        "must be a different GitHub login",
+        "does not enable publication",
+    )
+    for text in required:
+        assert text in runbook
+
+
 def test_all_authoring_schemas_are_valid() -> None:
     for path in sorted((ROOT / "scripts/schema").glob("retrieval_authoring_*.schema.json")):
         schema = json.loads(path.read_text(encoding="utf-8"))
