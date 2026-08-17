@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import UUID, uuid4
@@ -16,6 +17,7 @@ class FakeDatabase:
         self.tenant = uuid4()
         self.job = uuid4()
         self.submissions = []
+        self.result = {}
 
     async def authenticate(self, token: str) -> UUID | None:
         return self.tenant if token == "dsv_live_valid" else None
@@ -33,7 +35,7 @@ class FakeDatabase:
             "attempt": 1,
             "max_attempts": 5,
             "cancel_requested": False,
-            "result": {},
+            "result": self.result,
             "error_code": None,
         }
 
@@ -90,3 +92,21 @@ def test_job_and_replayable_sse_are_tenant_scoped(tmp_path: Path) -> None:
     assert status.json()["state"] == "succeeded"
     assert events.status_code == 200
     assert "id: 7\nevent: succeeded\ndata: {}" in events.text
+
+
+def test_bundle_download_is_tenant_scoped_and_integrity_checked(tmp_path: Path) -> None:
+    client, database = _client(tmp_path)
+    store = client.app.state.object_store
+    reference = asyncio.run(
+        store.put_immutable(
+            str(database.tenant), "bundle", b"PK\x03\x04bundle", "zip", "application/zip"
+        )
+    )
+    database.result = {"bundle": reference.__dict__}
+    response = client.get(
+        f"/v1/platform/jobs/{database.job}/bundle",
+        headers={"authorization": "Bearer dsv_live_valid"},
+    )
+    assert response.status_code == 200
+    assert response.content == b"PK\x03\x04bundle"
+    assert response.headers["etag"] == f'"{reference.sha256}"'

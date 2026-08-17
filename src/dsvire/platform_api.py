@@ -12,9 +12,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, RedirectResponse, Response, StreamingResponse
 
-from .object_store import ObjectStore
+from .object_store import LocalObjectStore, ObjectRef, ObjectStore
 from .platform_db import JobConflict, JobNotFound, PlatformDatabase
 
 platform_router = APIRouter(prefix="/v1/platform")
@@ -108,6 +108,55 @@ async def get_job(
         return _public_job(await request.app.state.platform_db.get_job(tenant_id, job_id))
     except JobNotFound as exc:
         raise HTTPException(status_code=404, detail="job not found") from exc
+
+
+def _bundle_ref(job: dict[str, Any]) -> ObjectRef:
+    result = job.get("result")
+    bundle = result.get("bundle") if isinstance(result, dict) else None
+    if not isinstance(bundle, dict):
+        raise HTTPException(status_code=409, detail="bundle is not available")
+    try:
+        key = bundle["key"]
+        sha256 = bundle["sha256"]
+        size = bundle["size"]
+        content_type = bundle["content_type"]
+        if not isinstance(key, str) or not isinstance(sha256, str):
+            raise TypeError
+        if not isinstance(size, int) or not isinstance(content_type, str):
+            raise TypeError
+        return ObjectRef(key=key, sha256=sha256, size=size, content_type=content_type)
+    except (KeyError, TypeError) as exc:
+        raise HTTPException(status_code=500, detail="invalid stored bundle reference") from exc
+
+
+@platform_router.get("/jobs/{job_id}/bundle")
+async def download_bundle(
+    request: Request, job_id: UUID, authorization: str | None = Header(default=None)
+) -> Response:
+    tenant_id = await _principal(request, authorization)
+    database: PlatformDatabase = request.app.state.platform_db
+    try:
+        job = await database.get_job(tenant_id, job_id)
+    except JobNotFound as exc:
+        raise HTTPException(status_code=404, detail="job not found") from exc
+    if job.get("state") != "succeeded":
+        raise HTTPException(status_code=409, detail="job has not succeeded")
+    reference = _bundle_ref(job)
+    objects: ObjectStore = request.app.state.object_store
+    if not isinstance(objects, LocalObjectStore):
+        location = await objects.presign_get(reference, expires_seconds=300)
+        return RedirectResponse(location, status_code=307)
+    payload = await objects.read_verified(reference)
+    return StreamingResponse(
+        iter((payload,)),
+        media_type="application/zip",
+        headers={
+            "Content-Disposition": f'attachment; filename="dsvire-{job_id}.zip"',
+            "Content-Length": str(len(payload)),
+            "ETag": f'"{reference.sha256}"',
+            "Cache-Control": "private, no-store",
+        },
+    )
 
 
 @platform_router.delete("/jobs/{job_id}", status_code=202)

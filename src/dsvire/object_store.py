@@ -167,6 +167,10 @@ class S3ObjectStore:
     async def presign_get(self, ref: ObjectRef, expires_seconds: int) -> str:
         if expires_seconds < 1 or expires_seconds > 3600:
             raise ValueError("download expiry must be in 1..=3600 seconds")
+        head = await asyncio.to_thread(self.client.head_object, Bucket=self.bucket, Key=ref.key)
+        metadata = head.get("Metadata", {})
+        if head.get("ContentLength") != ref.size or metadata.get("sha256") != ref.sha256:
+            raise ObjectIntegrityError("object metadata does not match immutable reference")
         return await asyncio.to_thread(
             self.client.generate_presigned_url,
             "get_object",
