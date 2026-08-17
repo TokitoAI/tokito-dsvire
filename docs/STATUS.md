@@ -1,7 +1,7 @@
 # Project status
 
 DS-ViRe is an actively developed research and production-engineering project.
-The current release is **v0.5.0**.
+The current release is **v0.6.3**.
 
 ## Implemented
 
@@ -16,11 +16,21 @@ The current release is **v0.5.0**.
 - BM25, dense, RRF, and bounded late-interaction MaxSim query core;
 - authenticated, bounded hybrid query API over digest-addressed, model-bound
   retrieval packs with killable execution and provenance-rich results;
+- tenant-scoped asynchronous PDF jobs with idempotent submission, PostgreSQL
+  leases and replayable events, cancellation, bounded retry, and true SSE
+  reconnect from the durable event log;
+- immutable PDF, evidence, crop, and deterministic ZIP-bundle storage through
+  local or authenticated S3-compatible object-store adapters;
+- Redis-compatible wake-up/fan-out and Qdrant derived-index adapters whose loss
+  does not replace PostgreSQL or immutable object storage as authority;
 - pinned ColSmol-256M integration and reproducibility evidence;
 - immutable dependency/model/source contracts, container build evidence,
   runtime license policy, and hostile-PDF regression gates;
 - Tokito Cloud upload/job integration and deterministic evidence-to-symbol
-  contracts.
+  contracts;
+- a deployed private v0.6.3 API/worker data plane using PostgreSQL, SeaweedFS,
+  Qdrant, and Valkey, plus a PostgreSQL catalog control plane in Tokito Cloud
+  and integrity-checked immutable SQLite pack delivery to MCP;
 - production worker operation with an owner-authorized Anthropic credential,
   fail-closed provider-backed canaries, encrypted integrity-verified off-host
   recovery points, independent retention, and 24-hour RPO alerting.
@@ -41,14 +51,16 @@ human reviewer before calibration or evaluation scores may be accessed.
 - pass a newly preregistered, independently reviewed calibrated visual cycle;
 - integrate only the resulting passing evidence-gated visual policy;
 - expand representative legal corpus coverage and manual queries;
-- implement the approved standalone service boundary: Postgres catalog control
-  plane, object-backed private artifacts, rebuildable Qdrant indexes,
-  Redis-compatible ephemeral cache/realtime acceleration, and verified
-  immutable SQLite publication packs;
-- ship and verify contract-equivalent CLI/API/MCP/web/self-hosted upload,
-  evidence review, deterministic bundle download, and explicit optional catalog
-  contribution flows. The planned `dsvire.tokito.dev` boundary is not currently
-  a shipped public standalone service;
+- finish the standalone product beyond the shipped durable upload/job/SSE/
+  evidence-bundle slice: symbol draft generation, review/correction,
+  validation, explicit catalog contribution, the dedicated MCP surface, and a
+  contract-equivalent self-hosted operator workflow;
+- ship the authenticated hosted web flow and provision `dsvire.tokito.dev`.
+  The private production data plane is live, but the public hostname currently
+  has no DNS record and must not be presented as a public service;
+- install model-bound hybrid packs and prove Qdrant rebuild/reconciliation and
+  cache-loss behavior under the production retrieval path. Production
+  currently has no hybrid-query pack, so calibrated queries fail closed;
 - prove the 99.5% query-API availability target over a representative duration
   and workload. An authenticated one-minute semantic canary is live against a
   digest-addressed, source-free synthetic pack and validates the exact response

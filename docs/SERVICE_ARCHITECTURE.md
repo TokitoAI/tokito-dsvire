@@ -1,7 +1,7 @@
 # Standalone service and catalog architecture
 
-**Status:** target product architecture  
-**Updated:** 2026-08-17
+**Status:** partially implemented production architecture
+**Updated:** 2026-08-18
 
 This document defines the deployable product around DS-ViRe's retrieval core.
 It separates trained models, durable workflow state, symbol publication, and
@@ -31,7 +31,22 @@ versioned retrieval service backed by trained adapters and explicit stores.
 
 `dsvire.tokito.dev` is the planned hosted product boundary. It is not a claim
 that the public endpoint is currently deployed. The current private production
-worker remains behind Tokito Cloud until the standalone release gates pass.
+data plane runs v0.6.3 with separate API and worker processes. Its shipped HTTP
+slice covers tenant authentication, durable upload/jobs, cancellation,
+PostgreSQL-backed event replay with SSE fan-out, and verified bundle download.
+The hosted web, dedicated MCP, symbol review/correction, and explicit catalog
+contribution surfaces remain release work.
+
+### 1.1 Current production implementation
+
+The current single-host production profile uses PostgreSQL 18.4 for durable
+job and event state, SeaweedFS for S3-compatible immutable objects, Qdrant for
+derived retrieval state, and Valkey for disposable wake-up and event fan-out.
+Tokito Cloud v0.10.4 owns generated-symbol revisions in PostgreSQL; MCP v0.1.8
+consumes authenticated control-plane snapshots and promotes only a verified
+immutable SQLite last-known-good pack. Production has no calibrated hybrid
+retrieval pack installed, so that path remains fail-closed. The public
+`dsvire.tokito.dev` hostname is not provisioned.
 
 ---
 

@@ -648,16 +648,18 @@ not these checkboxes, owns work status and sequencing.
 - [ ] Annotation schema + first gold query set
 - [ ] ColQwen2 crop index + Qdrant MaxSim
 - [ ] LGPC vs full-page Col* baselines on DS-ViRe v0.1
-- [ ] Query API + MCP tools
-- [ ] Versioned Tokito symbol evidence-bundle contract
-- [ ] End-to-end generated-symbol vertical slice through the Tokito catalog
-- [ ] Postgres catalog control plane with immutable official/generated revisions
-- [ ] Transactional publication into verified immutable SQLite catalog packs
-- [ ] Private object-storage lifecycle for PDFs, crops, evidence, symbols, and ZIPs
-- [ ] Redis-compatible cache/realtime plane with proven cache-loss recovery
-- [ ] Standalone CLI/API/MCP/web upload, review, and deterministic bundle flow
+- [x] Authenticated, bounded hybrid query API
+- [ ] Dedicated DS-ViRe MCP evidence/generation tools
+- [x] Versioned Tokito symbol evidence-bundle contract
+- [x] Deterministic generated-symbol staging slice through the Tokito catalog
+- [x] Postgres generated-revision authority and authenticated snapshot API
+- [ ] Unified official/generated moderation, outbox, and publication lifecycle
+- [x] Private object storage for PDFs, evidence, crops, and ZIP bundles
+- [x] Redis-compatible wake-up/SSE fan-out with PostgreSQL replay authority
+- [x] Standalone durable upload/job/cancel/SSE/bundle HTTP slice
+- [ ] Hosted review/correction and explicit contribution flow
 - [ ] Contract-equivalent self-hosted deployment profile
-- [ ] SLO dashboards
+- [x] SLO dashboards
 
 ### Later
 
