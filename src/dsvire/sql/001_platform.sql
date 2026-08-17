@@ -27,8 +27,29 @@ CREATE TABLE IF NOT EXISTS dsvire_document (
     UNIQUE (tenant_id, sha256)
 );
 
-CREATE TYPE dsvire_job_state AS ENUM
-    ('queued', 'running', 'succeeded', 'failed', 'cancelled');
+DO $$
+BEGIN
+    CREATE TYPE dsvire_job_state AS ENUM
+        ('queued', 'running', 'succeeded', 'failed', 'cancelled');
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END
+$$;
+
+DO $$
+DECLARE
+    labels text[];
+BEGIN
+    SELECT array_agg(e.enumlabel ORDER BY e.enumsortorder)
+      INTO labels
+      FROM pg_enum e
+      JOIN pg_type t ON t.oid = e.enumtypid
+     WHERE t.typname = 'dsvire_job_state';
+    IF labels IS DISTINCT FROM ARRAY['queued', 'running', 'succeeded', 'failed', 'cancelled'] THEN
+        RAISE EXCEPTION 'dsvire_job_state has unexpected labels: %', labels;
+    END IF;
+END
+$$;
 
 CREATE TABLE IF NOT EXISTS dsvire_job (
     job_id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
