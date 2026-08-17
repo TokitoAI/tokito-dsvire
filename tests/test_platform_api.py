@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import UUID, uuid4
@@ -110,3 +111,37 @@ def test_bundle_download_is_tenant_scoped_and_integrity_checked(tmp_path: Path) 
     assert response.status_code == 200
     assert response.content == b"PK\x03\x04bundle"
     assert response.headers["etag"] == f'"{reference.sha256}"'
+
+
+class RemoteLikeStore:
+    def __init__(self, payload: bytes) -> None:
+        self.payload = payload
+
+    async def read_verified(self, _reference):
+        return self.payload
+
+    async def presign_get(self, _reference, _expires_seconds):
+        raise AssertionError("platform downloads must not expose a private object-store URL")
+
+
+def test_bundle_download_proxies_remote_storage_without_private_redirect(tmp_path: Path) -> None:
+    client, database = _client(tmp_path)
+    payload = b"PK\x03\x04remote-bundle"
+    digest = hashlib.sha256(payload).hexdigest()
+    database.result = {
+        "bundle": {
+            "key": f"tenants/{database.tenant}/bundle/{digest[:2]}/{digest}.zip",
+            "sha256": digest,
+            "size": len(payload),
+            "content_type": "application/zip",
+        }
+    }
+    client.app.state.object_store = RemoteLikeStore(payload)
+    response = client.get(
+        f"/v1/platform/jobs/{database.job}/bundle",
+        headers={"authorization": "Bearer dsv_live_valid"},
+        follow_redirects=False,
+    )
+    assert response.status_code == 200
+    assert response.content == payload
+    assert "location" not in response.headers
