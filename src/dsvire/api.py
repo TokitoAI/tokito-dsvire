@@ -197,7 +197,10 @@ def create_app(config: ServiceConfig | None = None) -> FastAPI:
         application.state.admission = asyncio.Semaphore(active.max_concurrent_jobs)
         application.state.query_admission = asyncio.Semaphore(active.max_concurrent_queries)
         platform_enabled = os.environ.get("DSVIRE_PLATFORM_ENABLED", "").casefold() in {
-            "1", "true", "yes", "on"
+            "1",
+            "true",
+            "yes",
+            "on",
         }
         platform_db = None
         redis_events = None

@@ -23,13 +23,17 @@ _IDEMPOTENCY = re.compile(r"^[\x21-\x7e]{8,200}$")
 
 async def _principal(request: Request, authorization: str | None) -> UUID:
     if authorization is None or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="unauthorized", headers={"WWW-Authenticate": "Bearer"})
+        raise HTTPException(
+            status_code=401, detail="unauthorized", headers={"WWW-Authenticate": "Bearer"}
+        )
     database: PlatformDatabase | None = getattr(request.app.state, "platform_db", None)
     if database is None:
         raise HTTPException(status_code=503, detail="platform unavailable")
     tenant_id = await database.authenticate(authorization.removeprefix("Bearer "))
     if tenant_id is None:
-        raise HTTPException(status_code=401, detail="unauthorized", headers={"WWW-Authenticate": "Bearer"})
+        raise HTTPException(
+            status_code=401, detail="unauthorized", headers={"WWW-Authenticate": "Bearer"}
+        )
     return tenant_id
 
 

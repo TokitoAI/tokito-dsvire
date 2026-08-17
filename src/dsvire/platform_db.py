@@ -80,14 +80,17 @@ class PlatformDatabase:
 
     async def ensure_tenant(self, slug: str) -> UUID:
         async with self.pool.acquire() as connection:
-            return cast(UUID, await connection.fetchval(
-                """
+            return cast(
+                UUID,
+                await connection.fetchval(
+                    """
                 INSERT INTO dsvire_tenant(slug) VALUES($1)
                 ON CONFLICT (slug) DO UPDATE SET slug = EXCLUDED.slug
                 RETURNING tenant_id
                 """,
-                slug,
-            ))
+                    slug,
+                ),
+            )
 
     async def issue_api_key(self, tenant_id: UUID, label: str) -> str:
         """Issue a bearer once; only its SHA-256 digest is persisted."""
@@ -107,14 +110,17 @@ class PlatformDatabase:
             return None
         digest = hashlib.sha256(token.encode()).hexdigest()
         async with self.pool.acquire() as connection:
-            return cast(UUID | None, await connection.fetchval(
-                """
+            return cast(
+                UUID | None,
+                await connection.fetchval(
+                    """
                 UPDATE dsvire_api_key SET last_used_at=clock_timestamp()
                 WHERE token_sha256=$1 AND revoked_at IS NULL
                 RETURNING tenant_id
                 """,
-                digest,
-            ))
+                    digest,
+                ),
+            )
 
     async def submit(
         self,
@@ -365,15 +371,17 @@ class PlatformDatabase:
 
     async def acknowledge_outbox(self, owner: str, outbox_id: int) -> bool:
         async with self.pool.acquire() as connection:
-            status = str(await connection.execute(
-                """
+            status = str(
+                await connection.execute(
+                    """
                 UPDATE dsvire_outbox SET published_at=clock_timestamp(),
                     lock_owner=NULL,lock_expires_at=NULL
                 WHERE outbox_id=$1 AND lock_owner=$2 AND published_at IS NULL
                 """,
-                outbox_id,
-                owner,
-            ))
+                    outbox_id,
+                    owner,
+                )
+            )
         return status == "UPDATE 1"
 
     @staticmethod

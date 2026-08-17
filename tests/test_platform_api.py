@@ -75,9 +75,7 @@ def test_submit_is_authenticated_bounded_and_idempotent(tmp_path: Path) -> None:
         "created": True,
         "state": "queued",
     }
-    assert database.submissions[0]["document"].key.startswith(
-        f"tenants/{database.tenant}/pdf/"
-    )
+    assert database.submissions[0]["document"].key.startswith(f"tenants/{database.tenant}/pdf/")
 
 
 def test_job_and_replayable_sse_are_tenant_scoped(tmp_path: Path) -> None:

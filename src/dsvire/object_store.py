@@ -64,7 +64,9 @@ class LocalObjectStore:
         self, tenant_id: str, kind: str, payload: bytes, suffix: str, content_type: str
     ) -> ObjectRef:
         digest = hashlib.sha256(payload).hexdigest()
-        ref = ObjectRef(object_key(tenant_id, kind, digest, suffix), digest, len(payload), content_type)
+        ref = ObjectRef(
+            object_key(tenant_id, kind, digest, suffix), digest, len(payload), content_type
+        )
         path = self._path(ref.key)
         await asyncio.to_thread(self._write_atomic, path, payload)
         return ref
@@ -126,7 +128,9 @@ class S3ObjectStore:
         self, tenant_id: str, kind: str, payload: bytes, suffix: str, content_type: str
     ) -> ObjectRef:
         digest = hashlib.sha256(payload).hexdigest()
-        ref = ObjectRef(object_key(tenant_id, kind, digest, suffix), digest, len(payload), content_type)
+        ref = ObjectRef(
+            object_key(tenant_id, kind, digest, suffix), digest, len(payload), content_type
+        )
 
         def upload() -> None:
             self.client.put_object(

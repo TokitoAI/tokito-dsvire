@@ -39,7 +39,11 @@ def build_bundle(files: Mapping[str, bytes], metadata: Mapping[str, object]) -> 
         "schema_version": "dsvire.bundle.v1",
         "metadata": dict(metadata),
         "files": [
-            {"path": name, "bytes": len(clean[name]), "sha256": hashlib.sha256(clean[name]).hexdigest()}
+            {
+                "path": name,
+                "bytes": len(clean[name]),
+                "sha256": hashlib.sha256(clean[name]).hexdigest(),
+            }
             for name in sorted(clean)
         ],
     }

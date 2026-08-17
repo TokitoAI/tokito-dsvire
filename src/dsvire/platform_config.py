@@ -104,5 +104,8 @@ class PlatformConfig:
                 raise ConfigurationError(
                     "object-store credentials are required unless DSVIRE_LOCAL_OBJECT_DIR is set"
                 )
-            if self.object_endpoint and urlparse(self.object_endpoint).scheme not in {"http", "https"}:
+            if self.object_endpoint and urlparse(self.object_endpoint).scheme not in {
+                "http",
+                "https",
+            }:
                 raise ConfigurationError("DSVIRE_OBJECT_ENDPOINT must be an HTTP(S) URL")

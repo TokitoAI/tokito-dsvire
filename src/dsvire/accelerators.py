@@ -112,7 +112,9 @@ class QdrantIndex:
             await self.client.create_collection(
                 collection_name=name,
                 vectors_config={
-                    "dense": models.VectorParams(size=pack.dense_dim, distance=models.Distance.COSINE),
+                    "dense": models.VectorParams(
+                        size=pack.dense_dim, distance=models.Distance.COSINE
+                    ),
                     "multi": models.VectorParams(
                         size=pack.multi_dim,
                         distance=models.Distance.COSINE,
@@ -136,7 +138,10 @@ class QdrantIndex:
         points = [
             models.PointStruct(
                 id=str(uuid5(NAMESPACE_URL, f"{tenant_id}:{pack.pack_sha256}:{region.id}")),
-                vector={"dense": list(region.dense), "multi": [list(item) for item in region.multi]},
+                vector={
+                    "dense": list(region.dense),
+                    "multi": [list(item) for item in region.multi],
+                },
                 payload={
                     "tenant_id": tenant_id,
                     "pack_sha256": pack.pack_sha256,
@@ -169,7 +174,9 @@ class QdrantIndex:
             using="dense",
             query_filter=models.Filter(
                 must=[
-                    models.FieldCondition(key="tenant_id", match=models.MatchValue(value=tenant_id)),
+                    models.FieldCondition(
+                        key="tenant_id", match=models.MatchValue(value=tenant_id)
+                    ),
                     models.FieldCondition(
                         key="pack_sha256", match=models.MatchValue(value=pack.pack_sha256)
                     ),

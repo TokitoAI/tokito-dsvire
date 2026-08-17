@@ -9,9 +9,7 @@ from dsvire.object_store import LocalObjectStore, ObjectIntegrityError, ObjectRe
 
 def test_object_key_is_tenant_scoped_and_content_addressed() -> None:
     digest = "a" * 64
-    assert object_key("tenant_1", "pdf", digest, "pdf") == (
-        f"tenants/tenant_1/pdf/aa/{digest}.pdf"
-    )
+    assert object_key("tenant_1", "pdf", digest, "pdf") == (f"tenants/tenant_1/pdf/aa/{digest}.pdf")
     with pytest.raises(ValueError):
         object_key("../escape", "pdf", digest, "pdf")
 

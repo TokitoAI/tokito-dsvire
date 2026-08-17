@@ -106,9 +106,7 @@ async def process_lease(
     except RetrievalError:
         await database.finish(lease.job_id, owner, error_code="invalid_or_unsupported_pdf")
     except WorkerTimeout:
-        await database.finish(
-            lease.job_id, owner, error_code="worker_timeout", retryable=True
-        )
+        await database.finish(lease.job_id, owner, error_code="worker_timeout", retryable=True)
     except (WorkerError, OSError):
         logger.exception("DS-ViRe lease failed", extra={"job_id": str(lease.job_id)})
         await database.finish(lease.job_id, owner, error_code="worker_failed", retryable=True)
