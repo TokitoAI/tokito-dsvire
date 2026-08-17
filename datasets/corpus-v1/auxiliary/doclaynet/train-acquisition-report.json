@@ -1,0 +1,37 @@
+{
+  "annotation_category_ids": {
+    "1": 473,
+    "10": 15511,
+    "11": 64,
+    "2": 61,
+    "4": 1719,
+    "5": 1938,
+    "6": 1403,
+    "7": 1366,
+    "8": 5491,
+    "9": 1803
+  },
+  "dataset": "docling-project/DocLayNet-v1.1",
+  "digest_match": true,
+  "doc_categories": {
+    "financial_reports": 2393
+  },
+  "expected_sha256": "f0e668f5aa5b0ecda49236413a6da1e9172846ec0178584533eb349ec6d0fdce",
+  "expected_train_shards": 29,
+  "license": "CDLA-Permissive-1.0",
+  "limitations": [
+    "present shard contains financial_reports only",
+    "not semiconductor datasheet domain data",
+    "must not be used for DS-ViRe calibration or evaluation",
+    "28 remaining training shards are not present"
+  ],
+  "role": "generic_layout_pretraining_only",
+  "row_groups": 3,
+  "rows": 2393,
+  "schema_version": "dsvire.auxiliary-acquisition-report.v1",
+  "upstream_revision": "5e89392376049f4d589ea339ed64468310ed5c3f",
+  "verified_at": "2026-08-17T10:48:13.662577Z",
+  "verified_bytes": 1129099675,
+  "verified_sha256": "f0e668f5aa5b0ecda49236413a6da1e9172846ec0178584533eb349ec6d0fdce",
+  "verified_train_shards": 1
+}

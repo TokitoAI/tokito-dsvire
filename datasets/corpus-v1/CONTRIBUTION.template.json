@@ -1,0 +1,32 @@
+{
+  "schema_version": "dsvire.corpus-contribution.v1",
+  "source": {
+    "source_url": "https://manufacturer.example/path/datasheet.pdf",
+    "final_url": "https://manufacturer.example/path/datasheet.pdf",
+    "retrieved_at": "YYYY-MM-DDTHH:MM:SSZ",
+    "manufacturer": "Manufacturer",
+    "terms_url": "https://manufacturer.example/terms",
+    "permitted_use": "Describe the reviewed permission; do not write 'public URL'"
+  },
+  "document": {
+    "content_sha256": "64 lowercase hexadecimal characters",
+    "bytes": 1,
+    "page_count": 1,
+    "category": "one reviewed corpus category",
+    "symbols": ["EXACT_PART_OR_FAMILY"],
+    "label_tier": "layout_only_weak_identity"
+  },
+  "validation": {
+    "pdf_magic": true,
+    "structurally_readable": true,
+    "encrypted": false,
+    "sealed_url_overlap": false,
+    "sealed_hash_overlap": false,
+    "sealed_family_overlap": false,
+    "family_cluster_reviewed": false
+  },
+  "annotation": {
+    "contributor": "GitHub handle",
+    "notes": "Evidence supporting identity, category, and any proposed annotations"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "reviewed_at": "2026-08-17T10:48:13.663590Z",
+  "schema_version": "dsvire.source-review.v1",
+  "sources": [
+    {
+      "decision": "accepted_local_research_training_candidate",
+      "name": "Tokito/KiCad-derived catalog official manufacturer URLs",
+      "rights": "vendor-specific; PDF bytes non-redistributable; commercial/model-publication terms review pending",
+      "scope": "635 vendor PDFs after validation and held-out leakage audit",
+      "url": "local catalog plus per-record official URLs"
+    },
+    {
+      "decision": "accepted_auxiliary_partial",
+      "name": "DocLayNet v1.1",
+      "reason": "human layout boxes and page images; generic pretraining only",
+      "rights": "CDLA-Permissive-1.0; attribution and license retained",
+      "scope": "1 of 29 training shards; 2393 annotated pages",
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1"
+    },
+    {
+      "decision": "rejected",
+      "name": "Kaggle Electronic Component Recognizer",
+      "reason": "bench photographs for component classification, not datasheet pages or document layout; no useful DS-ViRe target",
+      "url": "https://www.kaggle.com/datasets/mdfaisalahmed025/electronic-component-recognizer"
+    },
+    {
+      "decision": "rejected",
+      "name": "Kaggle Electronic Parts Dataset",
+      "reason": "component photographs rather than semiconductor datasheet documents; dataset license not established for this corpus",
+      "url": "https://www.kaggle.com/datasets/olavomendes/elec-dataset"
+    },
+    {
+      "decision": "pending_unavailable",
+      "name": "EDocNet electronic-device document dataset",
+      "reason": "paper describes a highly relevant 21-class private dataset but no authoritative public data download or dataset license was found",
+      "url": "https://arxiv.org/abs/2502.16541"
+    },
+    {
+      "decision": "rejected_for_current_corpus",
+      "name": "E-Manual Corpus / EMQAP",
+      "reason": "consumer-device manuals are broader than semiconductor datasheets; authoritative downloadable corpus terms were not established",
+      "url": "https://aclanthology.org/2021.findings-emnlp.392/"
+    }
+  ]
+}
