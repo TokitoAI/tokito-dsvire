@@ -5,6 +5,13 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.6.2 - 2026-08-17
+
+### PostgreSQL JSON boundary hotfix
+
+- Decode JSON and JSONB columns into structured Python values on every pooled
+  connection while preserving canonical JSON encoding for writes.
+
 ## 0.6.1 - 2026-08-17
 
 ### Platform migration hotfix

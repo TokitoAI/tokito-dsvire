@@ -47,6 +47,23 @@ def _json(value: object) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
+def _encode_json(value: object) -> str:
+    # Existing queries pass canonical JSON strings; callers may also pass
+    # structured values once the pool codec is active.
+    return value if isinstance(value, str) else _json(value)
+
+
+async def _configure_connection(connection: asyncpg.Connection) -> None:
+    for type_name in ("json", "jsonb"):
+        await connection.set_type_codec(
+            type_name,
+            schema="pg_catalog",
+            encoder=_encode_json,
+            decoder=json.loads,
+            format="text",
+        )
+
+
 class PlatformDatabase:
     def __init__(self, pool: asyncpg.Pool) -> None:
         self.pool = pool
@@ -59,6 +76,7 @@ class PlatformDatabase:
             max_size=maximum,
             command_timeout=30,
             server_settings={"application_name": "tokito-dsvire"},
+            init=_configure_connection,
         )
         if pool is None:  # pragma: no cover - asyncpg only permits this for custom setup callbacks
             raise RuntimeError("asyncpg did not create a connection pool")
