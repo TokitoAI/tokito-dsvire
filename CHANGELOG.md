@@ -5,6 +5,14 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.6.3 - 2026-08-17
+
+### Bundle delivery hotfix
+
+- Proxy authenticated, integrity-verified bundle downloads through the API so
+  private object-store hostnames and credentials never escape to clients.
+- Reject bundles above the bounded API download ceiling before reading them.
+
 ## 0.6.2 - 2026-08-17
 
 ### PostgreSQL JSON boundary hotfix

@@ -12,13 +12,14 @@ from uuid import UUID
 
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse, RedirectResponse, Response, StreamingResponse
+from fastapi.responses import JSONResponse, Response, StreamingResponse
 
-from .object_store import LocalObjectStore, ObjectRef, ObjectStore
+from .object_store import ObjectRef, ObjectStore
 from .platform_db import JobConflict, JobNotFound, PlatformDatabase
 
 platform_router = APIRouter(prefix="/v1/platform")
 _IDEMPOTENCY = re.compile(r"^[\x21-\x7e]{8,200}$")
+_MAX_BUNDLE_DOWNLOAD_BYTES = 128 * 1024 * 1024
 
 
 async def _principal(request: Request, authorization: str | None) -> UUID:
@@ -143,9 +144,8 @@ async def download_bundle(
         raise HTTPException(status_code=409, detail="job has not succeeded")
     reference = _bundle_ref(job)
     objects: ObjectStore = request.app.state.object_store
-    if not isinstance(objects, LocalObjectStore):
-        location = await objects.presign_get(reference, expires_seconds=300)
-        return RedirectResponse(location, status_code=307)
+    if reference.size > _MAX_BUNDLE_DOWNLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="bundle exceeds API download limit")
     payload = await objects.read_verified(reference)
     return StreamingResponse(
         iter((payload,)),
