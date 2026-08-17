@@ -106,8 +106,9 @@ Postgres owns durable workflow and catalog state; object storage owns source and
 artifact bytes; Qdrant owns rebuildable retrieval indexes; Redis-compatible
 infrastructure is ephemeral acceleration; verified immutable SQLite packs
 remain the catalog delivery and rollback format. See the
-[Standalone Service Architecture](docs/SERVICE_ARCHITECTURE.md). The private
-data plane is deployed; `dsvire.tokito.dev` is not yet a public endpoint.
+[Standalone Service Architecture](docs/SERVICE_ARCHITECTURE.md). The data plane
+and authenticated HTTP API are live at `dsvire.tokito.dev`; the hosted review
+application, dedicated MCP surface, and self-hosted product profile remain open.
 
 ## Measured baseline
 

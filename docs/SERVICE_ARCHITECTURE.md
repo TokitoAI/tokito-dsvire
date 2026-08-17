@@ -29,9 +29,9 @@ versioned retrieval service backed by trained adapters and explicit stores.
 | Tokito Cloud/Desktop | Per-design upload, realtime progress, resolve, place, save, and reopen | Existing Tokito identity and project/design scope |
 | Self-hosted stack | Contract-equivalent local or organizational deployment | Deployment owner |
 
-`dsvire.tokito.dev` is the planned hosted product boundary. It is not a claim
-that the public endpoint is currently deployed. The current private production
-data plane runs v0.6.3 with separate API and worker processes. Its shipped HTTP
+`dsvire.tokito.dev` is the hosted service boundary. Its DNS, TLS, Cloudflare
+ingress, health, and readiness routes are live against the v0.6.3 production
+data plane with separate API and worker processes. Its shipped authenticated HTTP
 slice covers tenant authentication, durable upload/jobs, cancellation,
 PostgreSQL-backed event replay with SSE fan-out, and verified bundle download.
 The hosted web, dedicated MCP, symbol review/correction, and explicit catalog
@@ -45,8 +45,8 @@ derived retrieval state, and Valkey for disposable wake-up and event fan-out.
 Tokito Cloud v0.10.4 owns generated-symbol revisions in PostgreSQL; MCP v0.1.8
 consumes authenticated control-plane snapshots and promotes only a verified
 immutable SQLite last-known-good pack. Production has no calibrated hybrid
-retrieval pack installed, so that path remains fail-closed. The public
-`dsvire.tokito.dev` hostname is not provisioned.
+retrieval pack installed, so that path remains fail-closed. A live API hostname
+does not imply that the hosted browser review product is complete.
 
 ---
 
