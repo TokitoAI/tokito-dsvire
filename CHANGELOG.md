@@ -5,6 +5,13 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.6.1 - 2026-08-17
+
+### Platform migration hotfix
+
+- Make the PostgreSQL job-state enum migration replay-safe so independently
+  starting API and worker processes can both migrate an existing schema.
+
 ## 0.6.0 - 2026-08-17
 
 ### Durable platform runtime
