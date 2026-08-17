@@ -55,9 +55,10 @@ human reviewer before calibration or evaluation scores may be accessed.
   evidence-bundle slice: symbol draft generation, review/correction,
   validation, explicit catalog contribution, the dedicated MCP surface, and a
   contract-equivalent self-hosted operator workflow;
-- ship the authenticated hosted web flow and provision `dsvire.tokito.dev`.
-  The private production data plane is live, but the public hostname currently
-  has no DNS record and must not be presented as a public service;
+- ship the authenticated hosted web review flow. DNS, TLS, and Cloudflare
+  ingress for `dsvire.tokito.dev` are live and externally health-checked, but
+  the hostname currently exposes the authenticated HTTP API—not a completed
+  browser review product;
 - install model-bound hybrid packs and prove Qdrant rebuild/reconciliation and
   cache-loss behavior under the production retrieval path. Production
   currently has no hybrid-query pack, so calibrated queries fail closed;

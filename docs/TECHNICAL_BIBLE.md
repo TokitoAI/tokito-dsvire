@@ -252,9 +252,10 @@ contract, generation rules, publication lifecycle, and ecosystem boundaries.
 
 DS-ViRe is independently deployable as a CLI, authenticated HTTP service, MCP
 surface, hosted web application, and self-hosted stack. Tokito remains a
-first-class client, not a privileged implementation fork. The planned hosted
-product boundary is `dsvire.tokito.dev`; it is not considered live until its
-release, tenancy, abuse, retention, and recovery gates pass.
+first-class client, not a privileged implementation fork. The hosted service
+boundary is `dsvire.tokito.dev`; its authenticated HTTP API is live, while the
+browser review product and the full release, tenancy, abuse, retention, and
+recovery gates remain incomplete.
 
 The production data plane has deliberately separate owners:
 
