@@ -489,7 +489,9 @@ No production release tag if DS-ViRe regresses more than 2 nDCG points or p95 mi
 
 ### 9.1 Corpus
 
-- v1: ~500 datasheets, stratified (MCU, PMIC, RF, sensor, connector, discrete), multiple vendors.
+- v1 acquisition registry: 635 verified manufacturer datasheets / 25,324 pages,
+  stratified across 10 coarse categories and 23 manufacturers. Public manifests,
+  digests, weak-label tiers, and limitations live under `datasets/corpus-v1/`.
 - Mix born-digital and scanned.
 - **Do not redistribute PDFs.** Ship URLs, SHA256, page counts, annotation JSON, download script.
 
@@ -540,6 +542,7 @@ tokito-dsvire/
   CONTRIBUTING.md
   docs/TECHNICAL_BIBLE.md
   docs/TOKITO_SYMBOL_PIPELINE.md
+  datasets/         # training manifests, source review, labels, annotations
   packages/          # upcoming
   configs/
   scripts/
@@ -599,7 +602,7 @@ and maintain a parser vulnerability-update process. See
 
 ### Near term
 
-- [ ] Corpus download + SHA registry (100 then 500 PDFs)
+- [x] Corpus download + SHA registry (635 PDFs; bytes private, manifests public)
 - [ ] Layout to crop pipeline + pack schema v0
 - [ ] SigLIP + BM25 end-to-end smoke path
 - [ ] Annotation schema + first gold query set
@@ -672,5 +675,6 @@ and maintain a parser vulnerability-update process. See
 | 0.3 | 2026-08-08 | Tokito symbol product integration (§4.6); provenance/publication rules (§13.9–10); roadmap items for evidence-bundle contract and end-to-end generated-symbol slice; sample JSON `bbox_norm` naming |
 | 0.4 | 2026-08-11 | Fail-closed hosted authentication, bounded admission, isolated PDF workers, resource limits, and atomic evidence-pack publication (§11.1) |
 | 0.5 | 2026-08-12 | Corrected implementation status and linked deterministic public evidence/benchmark examples; no architecture or SLO change |
+| 0.6 | 2026-08-17 | Bound the 635-document corpus-v1 acquisition registry, public metadata layout, and private-byte rights boundary (§9.1, §10, §12) |
 
 Update this file in the same PR as architecture or SLO changes.

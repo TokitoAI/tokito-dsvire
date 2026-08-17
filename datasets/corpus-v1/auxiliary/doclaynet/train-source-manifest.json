@@ -1,0 +1,244 @@
+{
+  "dataset": "docling-project/DocLayNet-v1.1",
+  "files": [
+    {
+      "last_commit": "1a762069cb050de032f20ec93783b4009e648fdf",
+      "lfs_sha256": "f0e668f5aa5b0ecda49236413a6da1e9172846ec0178584533eb349ec6d0fdce",
+      "path": "data/train-00000-of-00029-8b4e0831de777e83.parquet",
+      "size": 1129099675,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00000-of-00029-8b4e0831de777e83.parquet?download=true",
+      "xet_hash": "c48f92a831effaf0fdf2c4ca77bb3c6996c637619f382fbed34fff62a06857b8"
+    },
+    {
+      "last_commit": "74549dea5a19db16e6e33aac2a68d1f1cb9980d3",
+      "lfs_sha256": "ae94983dc59a6e1547165f82bb56e1d094cdc3c35c77174874ffee64ec0d5111",
+      "path": "data/train-00001-of-00029-d8ed8f026d2b915d.parquet",
+      "size": 1116465402,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00001-of-00029-d8ed8f026d2b915d.parquet?download=true",
+      "xet_hash": "a157f88b9df8de2850b20e549da324519b59ae09cc6e717c2ef3272a5a1a8c7a"
+    },
+    {
+      "last_commit": "2262fc807858946c61400a563ccd205021b2fc65",
+      "lfs_sha256": "de2156030dca68a0be577859c5868b0cc93cd72a6107776746635384c97940d8",
+      "path": "data/train-00002-of-00029-9871133122d7f4d6.parquet",
+      "size": 1148552898,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00002-of-00029-9871133122d7f4d6.parquet?download=true",
+      "xet_hash": "b266e13cf1e50ecae32b3daadcbde6dc737070dd7ae55756a5ba908105298875"
+    },
+    {
+      "last_commit": "a8d7e34c0b4290cd81ba93c64f2c27e89b2a5fb6",
+      "lfs_sha256": "d6a4aa1c52dda94fa41dbe49e3ac20ff63713e4093d82db9c1c028dc1ff9698c",
+      "path": "data/train-00003-of-00029-dde74dfbce4ea8b7.parquet",
+      "size": 1116650778,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00003-of-00029-dde74dfbce4ea8b7.parquet?download=true",
+      "xet_hash": "d709356fc7934866e46e5cbd6ead19642bf0ed06d57fb087b351a465d912fd68"
+    },
+    {
+      "last_commit": "aae37c4cb36bc01a229c06e59383c61b403fdd26",
+      "lfs_sha256": "033b986a1f738e9b61bea95e30d66ad9e40c2978b6a28a0ecb7f9b70a6c47f01",
+      "path": "data/train-00004-of-00029-af2bbf54a5a016c8.parquet",
+      "size": 1062923730,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00004-of-00029-af2bbf54a5a016c8.parquet?download=true",
+      "xet_hash": "dead09019066aa84d5c48673cd4434513fdbf8ae5a2aa44a22ce7a5998cbdcc5"
+    },
+    {
+      "last_commit": "51d4c967531ff26518569ebbf705d4d62b800f82",
+      "lfs_sha256": "04a2b39ec9b7570d1622f446f7009a52e8897e144bbec557a1e7fb57c0e887be",
+      "path": "data/train-00005-of-00029-cbdcc6ff0b55a7dc.parquet",
+      "size": 1055952846,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00005-of-00029-cbdcc6ff0b55a7dc.parquet?download=true",
+      "xet_hash": "2f18ad4caaa9ec23bc900faa50174e0f230c241077c5e7160c5a35f4e4c68fd7"
+    },
+    {
+      "last_commit": "90faf3fe132879caca99a537237ba19765cd26e3",
+      "lfs_sha256": "919bcbc1a5311292fd875fc4ecde6c12b5cc5bd9d83aaf1f66279f3847f3367c",
+      "path": "data/train-00006-of-00029-7f1b7d8e4c18fbd7.parquet",
+      "size": 1058348068,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00006-of-00029-7f1b7d8e4c18fbd7.parquet?download=true",
+      "xet_hash": "a3e4d3b416bbe880b4644a15ed52fc3621533434f1c53c0d7687616e536530a5"
+    },
+    {
+      "last_commit": "dc1cc2b28d229166de08b36624d0445a06afbad2",
+      "lfs_sha256": "12f2ad961565eb62371a65cf529c9b4009c35b85d8d5737839e2198857aba508",
+      "path": "data/train-00007-of-00029-b66a5e122a1c9d95.parquet",
+      "size": 1074562993,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00007-of-00029-b66a5e122a1c9d95.parquet?download=true",
+      "xet_hash": "ad97ee4fce35bfebc5103bbf79c60780778e882be77a4cfbfdf8cd566f6578ca"
+    },
+    {
+      "last_commit": "b079c966286cc86c779cbcea04baab0277080771",
+      "lfs_sha256": "5fcced44ad96b74fc25f9693ea5a672bab747cf383d9c48d44bb1c5e2d76608a",
+      "path": "data/train-00008-of-00029-7d6b032c388628f8.parquet",
+      "size": 650710858,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00008-of-00029-7d6b032c388628f8.parquet?download=true",
+      "xet_hash": "b09ec4cc1d238ae1280e8c3922b948ebb528e61c079713f4313d9d962c5741bc"
+    },
+    {
+      "last_commit": "e29728cde7a43b734772244eed4eeb57756c79bb",
+      "lfs_sha256": "4ca6084ae3dc600de200faa7f3016f4c8c6eafedd6c6deec0b282bb4e5ab8b1b",
+      "path": "data/train-00009-of-00029-61c4eb9051a045c6.parquet",
+      "size": 642038396,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00009-of-00029-61c4eb9051a045c6.parquet?download=true",
+      "xet_hash": "dd457738eba0775d301d04fb8a6156f79041f20694f1a9ca6c389349651701a8"
+    },
+    {
+      "last_commit": "09db67cb91b3be4e179b0a5c0efe6aadb77c6bb2",
+      "lfs_sha256": "3c927a98d38a61ad87783f0210d71c917e0675a4f6ddd671abc26aa2ee38d441",
+      "path": "data/train-00010-of-00029-1e3d57ef6c5531f3.parquet",
+      "size": 730604898,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00010-of-00029-1e3d57ef6c5531f3.parquet?download=true",
+      "xet_hash": "d4c52924f25991f04724d6cbdb5ac966afbaf298a81e535af1986b8010009791"
+    },
+    {
+      "last_commit": "0e43bf7b332ec19501fdc2e147ade6bfcf1fd7de",
+      "lfs_sha256": "089634a14eb7b5c632334d68fde228800c7f24c7b51d4bad35340a36f544b11f",
+      "path": "data/train-00011-of-00029-c4863ccea7199406.parquet",
+      "size": 882147881,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00011-of-00029-c4863ccea7199406.parquet?download=true",
+      "xet_hash": "679372d10bccc881732d47f6c988afebd91f1a85189345054b82b39b9a4cebbe"
+    },
+    {
+      "last_commit": "d404ed0a1f0d27b1dd00d2f278a48ae90bf83c97",
+      "lfs_sha256": "41040794c7cb1fcb8cc15e7b820c229da41a8fac75ed2417e0a04e925cc5e4cc",
+      "path": "data/train-00012-of-00029-25582a47dab6a522.parquet",
+      "size": 1298865582,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00012-of-00029-25582a47dab6a522.parquet?download=true",
+      "xet_hash": "142a84b692b001eadefb9194edce33ce955c885b862aa9afdfc49ba468a3b190"
+    },
+    {
+      "last_commit": "37aafb97b4e1d68ac2264ef4d7ca4f7c73e95e16",
+      "lfs_sha256": "01b8685111f1825b4a7913bee490392fdfca8cd93decf407b900532bc2ce2cd0",
+      "path": "data/train-00013-of-00029-20be9130372b4a0c.parquet",
+      "size": 908894811,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00013-of-00029-20be9130372b4a0c.parquet?download=true",
+      "xet_hash": "5a44f8ce1b5af345d965121dad909ecd9ad09dc89271d4c10faa45338e2adf11"
+    },
+    {
+      "last_commit": "96ceaada54cbe0bf3ff7817ad7f98b2469a85882",
+      "lfs_sha256": "5db850ec723bb323e95b134c844204e2a447d03c5fa653a63d03783a4f68bbdd",
+      "path": "data/train-00014-of-00029-cda5fbe22a743703.parquet",
+      "size": 813906300,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00014-of-00029-cda5fbe22a743703.parquet?download=true",
+      "xet_hash": "e9bbd1673ccc30dbec8d795e707db07822a3ccaf836ac377522f0f4374188d39"
+    },
+    {
+      "last_commit": "7c1dfe7a9898f17c5eab8e073748291d619a32c5",
+      "lfs_sha256": "26921c2cba48c03d47f6ec9a40df522d5b35862b2fdadc8c2cd1c40d30a397fb",
+      "path": "data/train-00015-of-00029-966eaf01933c6d12.parquet",
+      "size": 1235957883,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00015-of-00029-966eaf01933c6d12.parquet?download=true",
+      "xet_hash": "e4178dc22be43f8cf889891383238a802086114028a37492ef733a09f77d294e"
+    },
+    {
+      "last_commit": "c1273e4f7c734a6db6b93e9c720966415f15a64b",
+      "lfs_sha256": "db419f059a5f2aba7bd5476b96c72fdb82dac1a6c387dbea90ccd28676b2f1ba",
+      "path": "data/train-00016-of-00029-0c35ff47f343634f.parquet",
+      "size": 1253160009,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00016-of-00029-0c35ff47f343634f.parquet?download=true",
+      "xet_hash": "f68bdcccbe5a4f4d8a78fb129aedadc41c560f1a067c1273321c50373e008dd9"
+    },
+    {
+      "last_commit": "1d00bc250e49a5bd91032c13f810d95296146d54",
+      "lfs_sha256": "c8a2402d4eacf57c4dfe16afe53cc82578072acc06c9e31bc3faa5ec3326a6b9",
+      "path": "data/train-00017-of-00029-8e7535de037d9a51.parquet",
+      "size": 1031271134,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00017-of-00029-8e7535de037d9a51.parquet?download=true",
+      "xet_hash": "95420f87e73da8f1c44ae7ed3b8f4a70ff5eacd9da5a26bb2d53d0680a276103"
+    },
+    {
+      "last_commit": "6f9505b14b0dde976daf0bfb2bf28e9020a8d192",
+      "lfs_sha256": "b4e87607960fc331e1570c841e2cd46243e34f06429268a16dd9f0d839af14e7",
+      "path": "data/train-00018-of-00029-72b481562d5a422f.parquet",
+      "size": 926241118,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00018-of-00029-72b481562d5a422f.parquet?download=true",
+      "xet_hash": "bc51e89f7302ea5eeb0ae700e154e102ad77cd9c440ee219dbf818ffdb1784a6"
+    },
+    {
+      "last_commit": "c19e1207a1ba6fd74b635299ffeb917bab470f53",
+      "lfs_sha256": "77aaa0d4f696c5484b62ab9cae0964ed35ac6b8fd5c5c642aaac8d5af7466071",
+      "path": "data/train-00019-of-00029-062d1730e7ca97b3.parquet",
+      "size": 818403567,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00019-of-00029-062d1730e7ca97b3.parquet?download=true",
+      "xet_hash": "37da8704c904125b5864cca473f3f83addf640ebb48de6ef6ad8db77fc044855"
+    },
+    {
+      "last_commit": "412190d5398d5cd3c1ecb4fc7558419e9277613e",
+      "lfs_sha256": "84b544ff1c118736175f4e6eb34b237f53d8ed4b68d66293a105b8feac792daa",
+      "path": "data/train-00020-of-00029-b17aaf28c0f06db8.parquet",
+      "size": 816223477,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00020-of-00029-b17aaf28c0f06db8.parquet?download=true",
+      "xet_hash": "7ef44f80161abb00df69b4b9584760b30f6198061da0be09c6be05406bc34f69"
+    },
+    {
+      "last_commit": "ae8b88188235eb3f4d418c1c6ff67a07b2399d75",
+      "lfs_sha256": "5384df111913165173f203a91852ab84e5246b879100fa3453acd8a84e9a68e9",
+      "path": "data/train-00021-of-00029-835ff35bc30f4fe1.parquet",
+      "size": 821805223,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00021-of-00029-835ff35bc30f4fe1.parquet?download=true",
+      "xet_hash": "02474ac7a39c49b5ae0eabab0e1967e9a6d3908831a87d3873f6222adb0ab238"
+    },
+    {
+      "last_commit": "cf5c6971ef79c391a0546505f3c2bc89b1c313b4",
+      "lfs_sha256": "aa35485861762831db772aeee49c80a98831b3a1d54228f6638a9f9f66d22470",
+      "path": "data/train-00022-of-00029-c6c69fd868ee1ce2.parquet",
+      "size": 820056182,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00022-of-00029-c6c69fd868ee1ce2.parquet?download=true",
+      "xet_hash": "af6f1a3f2271c1d0ab15bdbcc78daaad3ff3127245b0fd9db739f5c0591ae8c9"
+    },
+    {
+      "last_commit": "64b22e1ddc1b66b9397a9279804e06eed295dda2",
+      "lfs_sha256": "f39ee929387c4b9036c801c95ad837efc5077748118f0fbc2a5eef23586f36f3",
+      "path": "data/train-00023-of-00029-c475d4d48006b478.parquet",
+      "size": 804622938,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00023-of-00029-c475d4d48006b478.parquet?download=true",
+      "xet_hash": "d84e3207f71dc040d366b18e2b2dc2b5bb428a11b8ca6f38e4f15e55f2ab10f1"
+    },
+    {
+      "last_commit": "f0c1ddd00ec0034aca24e6da991636f895c7519e",
+      "lfs_sha256": "59ccaef9caf4e433121c7df72b16fc8f4a1ff305f9451b7a9d71c05359ffc816",
+      "path": "data/train-00024-of-00029-2fbfdde82c497627.parquet",
+      "size": 799329644,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00024-of-00029-2fbfdde82c497627.parquet?download=true",
+      "xet_hash": "d132f309fc665d4329a852abbf01c8e66a1aa53d9d71f693aa7b8aba655ac71e"
+    },
+    {
+      "last_commit": "bca5fb166aad546de533a5960c3b438e6c585f04",
+      "lfs_sha256": "5cf207755eac5a6d5540956aa6340d82618b4bc2f595f60bfe20a490365bdf7a",
+      "path": "data/train-00025-of-00029-a8d1a9e93d07a7d2.parquet",
+      "size": 940207493,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00025-of-00029-a8d1a9e93d07a7d2.parquet?download=true",
+      "xet_hash": "164e67cf783272983775a0ca1acd1ca8405cb2b3c82d184dba0c79229e359d3e"
+    },
+    {
+      "last_commit": "28ec1a5d242cc4d6f2571ba46e0abf7789d766a1",
+      "lfs_sha256": "e67c2dbe33a0ca25df240ef041f1b05d495758e0885e5a8b86eaf27d44f4030e",
+      "path": "data/train-00026-of-00029-956752dcacaa38ac.parquet",
+      "size": 749890808,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00026-of-00029-956752dcacaa38ac.parquet?download=true",
+      "xet_hash": "de9cac686622ad6c1666f83e0f67c8245fecfeba2fda887e0a4de18e031686a2"
+    },
+    {
+      "last_commit": "fcc8aa83a9d6db5bbd1aebfdafdb86cf6aa683fe",
+      "lfs_sha256": "64ba9fe215872e30fdb31807236cb50fe4853e4a3f2ec99f1dcd6a8035c288a3",
+      "path": "data/train-00027-of-00029-9c7ab7bd2f998475.parquet",
+      "size": 844027032,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00027-of-00029-9c7ab7bd2f998475.parquet?download=true",
+      "xet_hash": "a65ccafca77d14519a7b67ffbe7ed999e41951e553aecc945e473df9ebfcd140"
+    },
+    {
+      "last_commit": "4fc255b8e1805774d71edd509b251e36a5708355",
+      "lfs_sha256": "ced4bf4bcc467deab10f922310f646576a65a7591d1503e3545a93dd38ba2ba4",
+      "path": "data/train-00028-of-00029-06b5905f9ad0beb6.parquet",
+      "size": 871618356,
+      "url": "https://huggingface.co/datasets/docling-project/DocLayNet-v1.1/resolve/main/data/train-00028-of-00029-06b5905f9ad0beb6.parquet?download=true",
+      "xet_hash": "56ec33fe26e9c1bcf81d8f6d2a314ca38ab1bb90e4a1db8638bb16c4ddc10c2a"
+    }
+  ],
+  "license": "CDLA-Permissive-1.0",
+  "repository_revision": "5e89392376049f4d589ea339ed64468310ed5c3f",
+  "requested_alias": "ds4sd/DocLayNet-v1.1",
+  "resolution": "mutable main download URL; every file is bound to upstream LFS SHA-256, Xet hash, size, and last commit",
+  "role": "auxiliary_layout_pretraining_only",
+  "schema_version": "dsvire.auxiliary-source-manifest.v1",
+  "upstream": "DS4SD/DocLayNet"
+}

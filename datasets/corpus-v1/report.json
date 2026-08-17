@@ -1,0 +1,112 @@
+{
+  "accepted_unique_documents": 635,
+  "attempted_count": 1500,
+  "auxiliary": {
+    "doclaynet_bytes": 1129099675,
+    "doclaynet_expected_train_shards": 29,
+    "doclaynet_license": "CDLA-Permissive-1.0",
+    "doclaynet_pages": 2393,
+    "doclaynet_sha256": "f0e668f5aa5b0ecda49236413a6da1e9172846ec0178584533eb349ec6d0fdce",
+    "doclaynet_source_manifest_sha256": "5a97b56923312dd23a9ae27276126567afc5808cb2600e0d62e781c2b4f368b3",
+    "doclaynet_verified_shards": 1,
+    "role": "generic_layout_pretraining_only"
+  },
+  "candidate_count": 1800,
+  "catalog_sha256": "c1b6b1ed481e97f2a761468b8d76448a27d845ddbb1edf517683c1102fce38a1",
+  "catalog_sqlite": "local immutable Tokito catalog; machine path intentionally omitted",
+  "category_counts": {
+    "analog_mixed_signal": 69,
+    "connector": 2,
+    "discrete": 130,
+    "interface_logic": 109,
+    "memory": 29,
+    "microcontroller_fpga": 60,
+    "other": 41,
+    "power_management": 78,
+    "rf": 48,
+    "sensor": 69
+  },
+  "corpus_manifest_sha256": "9a08b1298e89cf088aed8fa902cc5e093130c66bcd551e89003a4ea7c81c69cb",
+  "created_at": "2026-08-17T10:21:26.187127Z",
+  "family_fingerprint_audit": {
+    "documents_attempted": 635,
+    "documents_fingerprinted": 635,
+    "documents_with_no_text": 1,
+    "errors": [],
+    "exact_normalized_text_duplicate_groups": [],
+    "family_cluster_count": 635,
+    "largest_family_cluster": 1,
+    "multi_document_family_clusters": 0
+  },
+  "fingerprint_manifest_sha256": "e96bce697176927da1bb031d9acc29ed8b51814fae6fedc5540cadb75a482f6c",
+  "integrity_audit": {
+    "audited_at": "2026-08-17T10:50:22.581950Z",
+    "errors": [],
+    "manifest_records": 635,
+    "removed_after_family_overlap_audit": 2,
+    "removed_after_redirect_overlap_audit": 1,
+    "sealed_family_marker_overlap": 0,
+    "sealed_hash_overlap": 0,
+    "sealed_url_overlap": 0,
+    "stored_bytes": 736296404,
+    "stored_unique_hashes": 635
+  },
+  "label_tier_counts": {
+    "catalog_identity_supported": 457,
+    "layout_only_weak_identity": 178
+  },
+  "manufacturer_counts": {
+    "Abracon": 4,
+    "Allegro MicroSystems": 31,
+    "Bourns": 2,
+    "Broadcom": 3,
+    "Diodes Incorporated": 39,
+    "ISSI": 2,
+    "Infineon": 67,
+    "MACOM": 9,
+    "MEAN WELL": 2,
+    "Microchip Technology": 18,
+    "NXP Semiconductors": 103,
+    "Nexperia": 50,
+    "ROHM": 4,
+    "Silicon Labs": 18,
+    "Skyworks": 3,
+    "TRACO Power": 20,
+    "Texas Instruments": 107,
+    "Vishay": 49,
+    "Winbond": 3,
+    "Würth Elektronik": 8,
+    "ams OSRAM": 2,
+    "onsemi": 81,
+    "u-blox": 10
+  },
+  "quarantine_reasons": {
+    "ConnectionError": 112,
+    "HTTPError": 238,
+    "ReadTimeout": 221,
+    "SSLError": 11,
+    "ValueError": 274,
+    "duplicate_content_sha256": 6,
+    "sealed_family_overlap_audit": 2,
+    "sealed_final_url_overlap_audit": 1
+  },
+  "quarantined_attempts": 865,
+  "rights_policy": {
+    "held_out_policy": "all URLs and hashes found under tokito-dsvire/evaluation were excluded before acquisition",
+    "published_artifacts": "manifests, hashes, statistics, and original annotations only",
+    "vendor_pdfs": "local research only; PDF bytes are not redistributable; source terms require review before model publication or commercial training"
+  },
+  "root": "external content-addressed corpus root; PDF bytes are not published",
+  "schema_version": "dsvire.local-corpus-report.v1",
+  "sealed_excluded_hash_count": 72,
+  "sealed_excluded_url_count": 72,
+  "sha256sums_sha256": "d31b5eb990097ab7fa5e37ba28d763d62ca9cbbffe6ee1131d129562330fa1ed",
+  "source_review_sha256": "1f9a39982e8dbe2089f36e3bac7c6116515fb0fdcc8c8fd126d935392ebc3b8c",
+  "split_counts": {
+    "training_candidate": 635
+  },
+  "total_pages": 25324,
+  "total_pdf_bytes": 736296404,
+  "usable_page_records": 27717,
+  "usable_total_bytes": 1865396079
+}

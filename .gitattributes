@@ -5,3 +5,6 @@
 *.toml text eol=lf
 *.yaml text eol=lf
 *.yml text eol=lf
+
+# Corpus integrity ledgers are hashed as canonical LF bytes on every platform.
+datasets/corpus-v1/** text eol=lf

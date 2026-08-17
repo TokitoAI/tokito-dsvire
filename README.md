@@ -116,6 +116,12 @@ The benchmark graphic and numbers are generated from committed JSON evidence.
 See [Evaluation](evaluation/README.md) for data provenance, split isolation,
 leakage controls, and exact reproduction commands.
 
+The separate training-corpus registry now contains 635 verified manufacturer
+datasheets (25,324 pages) plus 2,393 licensed DocLayNet auxiliary pages. Its
+public metadata, hashes, weak-label tiers, source review, and contribution
+workflow live under [`datasets/corpus-v1`](datasets/corpus-v1/). These training
+candidates are not mixed into the frozen benchmark splits.
+
 ## Project status
 
 The deterministic baseline, authenticated service boundary, retrieval packs,
@@ -135,6 +141,7 @@ live roadmap.
 - [Tokito integration](docs/TOKITO_SYMBOL_PIPELINE.md) — evidence-to-symbol responsibility boundaries
 - [Contracts](docs/CONTRACTS.md) — versioned machine-facing schemas
 - [Evaluation](evaluation/README.md) — corpus, benchmark, and leakage policy
+- [Training datasets](datasets/README.md) — provenance manifests, data card, and contribution workflow
 - [Project status](docs/STATUS.md) — implemented surface and honest remaining gates
 - [Contributing](CONTRIBUTING.md) and [security policy](SECURITY.md)
 
