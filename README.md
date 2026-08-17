@@ -97,15 +97,17 @@ content- and model-versioned; late-interaction MaxSim is bounded to a small
 candidate set. The complete design and SLO rationale are in the
 [Technical Architecture](docs/TECHNICAL_BIBLE.md).
 
-The target product is independently usable through a CLI, authenticated HTTP
-API, MCP tools, a hosted upload/review/download flow, and a contract-equivalent
-self-hosted stack. Tokito is a first-class client, not the only execution path.
+The standalone runtime already provides authenticated, tenant-scoped durable
+PDF jobs, cancellation, replayable SSE progress, and integrity-verified bundle
+downloads. The remaining product target adds symbol review/correction, the
+dedicated MCP and hosted web surfaces, and a contract-equivalent self-hosted
+operator workflow. Tokito is a first-class client, not the only execution path.
 Postgres owns durable workflow and catalog state; object storage owns source and
 artifact bytes; Qdrant owns rebuildable retrieval indexes; Redis-compatible
 infrastructure is ephemeral acceleration; verified immutable SQLite packs
 remain the catalog delivery and rollback format. See the
-[Standalone Service Architecture](docs/SERVICE_ARCHITECTURE.md). These are
-target boundaries, not a claim that the hosted standalone surface has shipped.
+[Standalone Service Architecture](docs/SERVICE_ARCHITECTURE.md). The private
+data plane is deployed; `dsvire.tokito.dev` is not yet a public endpoint.
 
 ## Measured baseline
 
