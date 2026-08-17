@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import hmac
 import logging
+import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
@@ -41,10 +42,19 @@ def health() -> dict[str, str]:
 
 
 @router.get("/v1/ready")
-def ready(request: Request) -> dict[str, str]:
+async def ready(request: Request) -> dict[str, str]:
     # Startup validation and creation of the admission controller are the readiness gate.
     if not hasattr(request.app.state, "admission"):
         raise HTTPException(status_code=503, detail="not ready")
+    database = getattr(request.app.state, "platform_db", None)
+    qdrant = getattr(request.app.state, "qdrant", None)
+    if database is not None and qdrant is not None:
+        try:
+            await database.ping()
+            await qdrant.ping()
+        except Exception as exc:
+            logger.warning("platform dependency readiness failed", exc_info=exc)
+            raise HTTPException(status_code=503, detail="platform dependencies not ready") from exc
     return {"status": "ready", "service": "tokito-dsvire", "version": __version__}
 
 
@@ -186,7 +196,61 @@ def create_app(config: ServiceConfig | None = None) -> FastAPI:
         application.state.config = active
         application.state.admission = asyncio.Semaphore(active.max_concurrent_jobs)
         application.state.query_admission = asyncio.Semaphore(active.max_concurrent_queries)
-        yield
+        platform_enabled = os.environ.get("DSVIRE_PLATFORM_ENABLED", "").casefold() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+        platform_db = None
+        redis_events = None
+        qdrant = None
+        outbox_stop = asyncio.Event()
+        outbox_task = None
+        try:
+            if platform_enabled:
+                from .accelerators import QdrantIndex, RedisEvents, dispatch_outbox
+                from .object_store import LocalObjectStore, S3ObjectStore
+                from .platform_config import PlatformConfig
+                from .platform_db import PlatformDatabase
+
+                platform = PlatformConfig.from_env()
+                platform_db = await PlatformDatabase.connect(platform.database_url)
+                await platform_db.migrate()
+                await platform_db.ping()
+                application.state.platform_config = platform
+                application.state.platform_db = platform_db
+                application.state.object_store = (
+                    LocalObjectStore(platform.local_object_dir)
+                    if platform.local_object_dir is not None
+                    else S3ObjectStore(
+                        bucket=platform.object_bucket,
+                        region=platform.object_region,
+                        access_key=platform.object_access_key,
+                        secret_key=platform.object_secret_key,
+                        endpoint=platform.object_endpoint,
+                    )
+                )
+                redis_events = RedisEvents(platform.redis_url)
+                qdrant = QdrantIndex(platform.qdrant_url, platform.qdrant_api_key)
+                await qdrant.ping()
+                application.state.redis_events = redis_events
+                application.state.qdrant = qdrant
+                outbox_task = asyncio.create_task(
+                    dispatch_outbox(platform_db, redis_events, outbox_stop),
+                    name="dsvire-outbox",
+                )
+            yield
+        finally:
+            outbox_stop.set()
+            if outbox_task is not None:
+                await outbox_task
+            if redis_events is not None:
+                await redis_events.close()
+            if qdrant is not None:
+                await qdrant.close()
+            if platform_db is not None:
+                await platform_db.close()
 
     application = FastAPI(
         title="Tokito DS-ViRe",
@@ -196,6 +260,9 @@ def create_app(config: ServiceConfig | None = None) -> FastAPI:
         lifespan=lifespan,
     )
     application.include_router(router)
+    from .platform_api import platform_router
+
+    application.include_router(platform_router)
     return application
 
 

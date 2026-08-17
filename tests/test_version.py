@@ -11,4 +11,4 @@ def test_runtime_and_package_versions_match() -> None:
         (Path(__file__).resolve().parents[1] / "pyproject.toml").read_text(encoding="utf-8")
     )
     assert dsvire.__version__ == pyproject["project"]["version"]
-    assert dsvire.__version__ == "0.5.0"
+    assert dsvire.__version__ == "0.6.0"

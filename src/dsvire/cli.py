@@ -3,10 +3,25 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 from pathlib import Path
 
 from .pipeline import MAX_PDF_BYTES, DatasheetIdentity, RetrievalError, retrieve_symbol_evidence
+
+
+async def _platform_init(slug: str, label: str) -> str:
+    from .platform_config import PlatformConfig
+    from .platform_db import PlatformDatabase
+
+    config = PlatformConfig.from_env()
+    database = await PlatformDatabase.connect(config.database_url, maximum=2)
+    try:
+        await database.migrate()
+        tenant_id = await database.ensure_tenant(slug)
+        return await database.issue_api_key(tenant_id, label)
+    finally:
+        await database.close()
 
 
 def _read_pdf(path: Path) -> bytes:
@@ -27,7 +42,17 @@ def main() -> int:
     evidence.add_argument("--package", required=True)
     evidence.add_argument("--source-url")
     evidence.add_argument("--out", type=Path, required=True)
+    platform_init = commands.add_parser(
+        "platform-init", help="migrate the platform DB and issue a tenant API key"
+    )
+    platform_init.add_argument("--tenant", required=True)
+    platform_init.add_argument("--label", default="initial")
     args = parser.parse_args()
+
+    if args.command == "platform-init":
+        token = asyncio.run(_platform_init(args.tenant, args.label))
+        print(token)
+        return 0
 
     try:
         bundle = retrieve_symbol_evidence(

@@ -77,6 +77,8 @@ def active_lock_inventory(path: Path = DEFAULT_LOCK) -> dict[str, str]:
         active = True
         if marker == "sys_platform == 'win32'":
             active = sys.platform == "win32"
+        elif marker == "python_full_version < '3.11.3'":
+            active = sys.version_info < (3, 11, 3)
         elif marker == (
             "platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' "
             "and sys_platform != 'win32'"
@@ -169,6 +171,13 @@ def _metadata_license(distribution: metadata.Distribution) -> str:
         return str(expression).strip()
     raw = str(distribution.metadata["License"] or "").strip()
     aliases = {
+        "3-Clause BSD License": "BSD-3-Clause",
+        "Apache License 2.0": "Apache-2.0",
+        "Apache-2.0": "Apache-2.0",
+        "Dual License": "Apache-2.0 OR BSD-3-Clause",
+        "MPL-2.0": "MPL-2.0",
+        "PSF": "PSF-2.0",
+        "The MIT License (MIT)": "MIT",
         "MIT License": "MIT",
         "MIT": "MIT",
         "BSD-3-Clause": "BSD-3-Clause",
@@ -180,6 +189,8 @@ def _metadata_license(distribution: metadata.Distribution) -> str:
     if raw in aliases:
         return aliases[raw]
     classifiers = distribution.metadata.get_all("Classifier", [])
+    if "License :: OSI Approved :: MIT License" in classifiers:
+        return "MIT"
     if "License :: OSI Approved :: BSD License" in classifiers:
         return "BSD-3-Clause"
     if "License :: OSI Approved :: Apache Software License" in classifiers and "MIT" in raw:

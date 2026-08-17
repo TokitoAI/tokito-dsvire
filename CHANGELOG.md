@@ -5,6 +5,21 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+## 0.6.0 - 2026-08-17
+
+### Durable platform runtime
+
+- Add tenant-scoped asynchronous PDF jobs with idempotent submission,
+  PostgreSQL leasing and event replay, cancellation, bounded retry, and
+  replayable server-sent events.
+- Store PDFs and deterministic result bundles under immutable SHA-256 object
+  keys using local or authenticated S3-compatible storage, with verified reads
+  and short-lived downloads.
+- Add Valkey wake-up/fan-out and Qdrant derived-index adapters while retaining
+  PostgreSQL and object storage as the recoverable authorities.
+- Add an operator bootstrap command for schema migration, tenant creation, and
+  one-time API-key issuance.
+
 ## 0.5.0 - 2026-08-14
 
 ### Hybrid query service
