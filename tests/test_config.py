@@ -84,3 +84,15 @@ def test_inconsistent_time_and_size_limits_are_rejected(tmp_path: Path) -> None:
 def test_invalid_environment_values_are_rejected(name: str, value: str) -> None:
     with pytest.raises(ConfigurationError):
         ServiceConfig.from_env({name: value})
+
+
+def test_service_token_can_be_loaded_from_secret_file(tmp_path: Path) -> None:
+    secret = tmp_path / "service-token"
+    secret.write_text("s" * 40 + "\n", encoding="utf-8")
+    config = ServiceConfig.from_env(
+        {
+            "DSVIRE_DATA_DIR": str(tmp_path / "data"),
+            "DSVIRE_SERVICE_TOKEN_FILE": str(secret),
+        }
+    )
+    assert config.service_token == "s" * 40

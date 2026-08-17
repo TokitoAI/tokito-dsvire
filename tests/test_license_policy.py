@@ -39,7 +39,7 @@ def test_exact_runtime_inventory_is_fully_dispositioned() -> None:
     locked = lock_inventory()
     policy = load_policy(today=dt.date(2026, 8, 12))
     assert set(locked) == {package.name for package in policy.packages}
-    assert len(locked) == 24
+    assert len(locked) == 46
     report = audit(today=dt.date(2026, 8, 12))
     assert report["ok"] is True
     assert report["release_ready"] is True

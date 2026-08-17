@@ -9,15 +9,22 @@ description = "Figure-level evidence retrieval for semiconductor datasheets"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 dependencies = [
+  "asyncpg>=0.31,<1",
+  "boto3>=1.43,<2",
   "fastapi>=0.116,<1",
   "filelock>=3.20,<4",
   "pillow>=11.3,<13",
   "pypdf>=6.0,<7",
   "pypdfium2==5.12.1",
+  "qdrant-client>=1.18,<2",
+  "redis>=8.0,<9",
   "uvicorn[standard]>=0.35,<1",
 ]
 
 [project.optional-dependencies]
+mcp = [
+  "mcp>=1.28,<2",
+]
 visual = [
   "numpy>=2.0,<2.5",
   "onnxruntime>=1.27,<2",
@@ -56,6 +63,7 @@ conflicts = [[{ extra = "colsmol" }, { extra = "openclip" }]]
 
 [project.scripts]
 dsvire = "dsvire.cli:main"
+dsvire-worker = "dsvire.platform_worker:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dsvire"]
@@ -78,5 +86,5 @@ warn_unreachable = true
 pretty = true
 show_error_codes = true
 [[tool.mypy.overrides]]
-module = ["open_clip", "torch", "pypdfium2"]
+module = ["asyncpg", "boto3", "botocore.*", "open_clip", "torch", "pypdfium2"]
 ignore_missing_imports = true

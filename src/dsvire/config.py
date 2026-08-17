@@ -16,6 +16,19 @@ class ConfigurationError(RuntimeError):
     """The service configuration is unsafe or internally inconsistent."""
 
 
+def _secret(env: Mapping[str, str], name: str) -> str:
+    direct = env.get(name, "").strip()
+    file_name = env.get(f"{name}_FILE", "").strip()
+    if direct and file_name:
+        raise ConfigurationError(f"set only one of {name} and {name}_FILE")
+    if not file_name:
+        return direct
+    try:
+        return Path(file_name).read_text("utf-8").strip()
+    except OSError as exc:
+        raise ConfigurationError(f"cannot read {name}_FILE") from exc
+
+
 def _bool(env: Mapping[str, str], name: str, default: bool = False) -> bool:
     raw = env.get(name)
     if raw is None:
@@ -76,7 +89,7 @@ class ServiceConfig:
         values = os.environ if env is None else env
         return cls(
             data_dir=Path(values.get("DSVIRE_DATA_DIR", "/data/dsvire")),
-            service_token=values.get("DSVIRE_SERVICE_TOKEN", "").strip(),
+            service_token=_secret(values, "DSVIRE_SERVICE_TOKEN"),
             environment=values.get("DSVIRE_ENVIRONMENT", "production").strip().casefold(),
             allow_insecure_dev=_bool(values, "DSVIRE_ALLOW_INSECURE_DEV"),
             max_pdf_bytes=_int(
