@@ -1,7 +1,7 @@
 # Tokito datasheet-to-symbol product pipeline
 
 **Status:** product architecture contract  
-**Updated:** 2026-08-13
+**Updated:** 2026-08-17
 
 This document defines how DS-ViRe evidence becomes a native, cataloged Tokito
 symbol. The first production milestone is deliberately narrow, not a throwaway
@@ -267,29 +267,54 @@ off the allowed electrical grid during compilation or serialization.
 
 ### 8.1 Current state
 
-`tokito-mcp` currently serves a read-only `symbols.sqlite` artifact. The offline
-packer is the only writer and builds the catalog from the upstream CERN symbol
-tree. Tokito Desktop consumes the hosted MCP face and keeps only an ephemeral
-resolved-symbol cache.
+`tokito-mcp` serves a read-only official `symbols.sqlite` artifact built from a
+pinned upstream KiCad symbol tree. Tokito Cloud writes generated revisions to
+its separate `generated.sqlite`; the MCP runtime validates published revisions
+into a separate immutable generated catalog pack, atomically swaps complete
+packs, and retains the last-known-good pack on refresh failure. Both served
+catalogs are query-only. Tokito Desktop consumes the hosted MCP face, keeps only
+an ephemeral resolved-symbol cache, and embeds the exact resolved symbol source
+inside each saved schematic.
+
+This is a valid single-host publication boundary, not the target collaborative
+control plane. The current production catalog has no published generated
+revision, and automated DS-ViRe publication remains disabled until its frozen
+quality gates pass.
 
 ### 8.2 Product target
 
-The hosted catalog resolves two sources through one contract:
+The hosted catalog resolves two provenance-preserving sources through one read
+contract:
 
 ```text
-immutable official pack
-       +
-versioned generated-symbol store
-       |
-unified search / exact lookup / resolve / compatibility
-       |
-tokito-mcp
+official import revisions ─┐
+                           ├─> Postgres catalog control plane
+generated symbol revisions ┘              |
+                                transactional publication
+                                           |
+                              verified immutable SQLite pack
+                                           |
+                     MCP / offline clients / release rollback
 ```
 
-Generated symbols must not require a full container rebuild for every accepted
-submission. The exact mutable store is an implementation decision, but it must
-support transactions, immutable revisions, provenance lookup, rollback,
-moderation state, and deterministic promotion into release artifacts.
+Postgres is the authoritative writer-side database for part and catalog
+identity, immutable revisions, provenance, validation attempts, moderation,
+publication/supersession, policy, audit, and a transactional outbox. Official
+and generated revisions share schemas and read behavior while retaining exact
+source and license provenance. Large canonical `.tokito_sym` artifacts,
+reports, source PDFs, and evidence remain content-addressed in object storage;
+Postgres stores their hashes and bounded references.
+
+Generated symbols do not require a full container rebuild for every accepted
+submission. A publication worker consumes committed outbox events, builds a
+complete digest-addressed SQLite candidate, verifies schema/content/manifest
+integrity, and atomically promotes it. `tokito-mcp` hot-reloads only complete
+packs and keeps the last-known-good revision on failure. Neither DS-ViRe nor MCP
+receives direct catalog-writer credentials.
+
+Migration from `symbols.sqlite` plus writer-side `generated.sqlite` must import
+exact revisions and hashes, dual-build/read-compare packs, and prove rollback,
+backup/restore, and schema migration before writer authority moves.
 
 ### 8.3 Publication lifecycle
 
@@ -315,6 +340,16 @@ not an unauthenticated public MCP tool. The service enforces authorization,
 idempotency keys, payload limits, content hashes, audit events, rate limits,
 malware-safe source handling, and explicit publication policy.
 
+### 8.5 Cache and realtime boundary
+
+A Redis-compatible service may accelerate bounded search responses, rate
+limits, idempotency checks, cache-stampede locks, worker wake-ups, progress, and
+SSE fan-out/replay. It is never the only copy of a job, permission, revision,
+evidence record, audit event, or publication decision. Durable job/lease state
+and the publication outbox remain in Postgres. Cache keys bind tenant, model,
+index, policy, and catalog versions; complete cache loss must be recoverable by
+reconciliation without semantic data loss.
+
 ---
 
 ## 9. MCP and Desktop behavior
@@ -336,6 +371,22 @@ Desktop receives the same resolved-symbol wire shape, converts it through the
 existing `convert_symbol` path, links the placed instance to `part_id` and
 `library_id`, and embeds the exact `.tokito_sym` revision in the schematic.
 
+### 9.1 Standalone product behavior
+
+DS-ViRe also exposes contract-equivalent CLI, authenticated HTTP, MCP, hosted
+web, and self-hosted surfaces. A private user can upload a permitted datasheet,
+follow a durable asynchronous job, inspect or correct an evidence-backed draft,
+and download a deterministic bundle without publishing to Tokito's catalog.
+
+The bundle contains the canonical `.tokito_sym`, supported interchange output,
+part/package metadata, validation report, exact datasheet citations, evidence
+hashes or permitted crops, and a machine-readable provenance manifest. Public
+catalog contribution is a separate explicit authenticated action. Uploads,
+evidence, drafts, indexes, and bundles are private by default and tenant-scoped.
+
+See [`SERVICE_ARCHITECTURE.md`](SERVICE_ARCHITECTURE.md) for service topology,
+store ownership, cache semantics, deployment profiles, and migration gates.
+
 ---
 
 ## 10. Product completion gates
@@ -352,6 +403,10 @@ The first vertical slice is complete only when an unsupported datasheet can:
 8. Place, wire, save, reopen, and render in Tokito Desktop.
 9. Embed the exact definition into the schematic.
 10. Audit every pin back to exact datasheet evidence.
+11. Produce the same deterministic private bundle through CLI/API/web and the
+    Tokito client path.
+12. Survive API, worker, Redis, and host restart without losing authoritative
+    job, evidence, or publication state.
 
 Scale work then expands corpus coverage, model quality, queue throughput,
 moderation operations, multi-unit placement, robustness, and benchmark depth.
