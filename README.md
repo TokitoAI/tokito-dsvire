@@ -97,6 +97,16 @@ content- and model-versioned; late-interaction MaxSim is bounded to a small
 candidate set. The complete design and SLO rationale are in the
 [Technical Architecture](docs/TECHNICAL_BIBLE.md).
 
+The target product is independently usable through a CLI, authenticated HTTP
+API, MCP tools, a hosted upload/review/download flow, and a contract-equivalent
+self-hosted stack. Tokito is a first-class client, not the only execution path.
+Postgres owns durable workflow and catalog state; object storage owns source and
+artifact bytes; Qdrant owns rebuildable retrieval indexes; Redis-compatible
+infrastructure is ephemeral acceleration; verified immutable SQLite packs
+remain the catalog delivery and rollback format. See the
+[Standalone Service Architecture](docs/SERVICE_ARCHITECTURE.md). These are
+target boundaries, not a claim that the hosted standalone surface has shipped.
+
 ## Measured baseline
 
 ![Development retrieval benchmark](docs/assets/benchmark-overview.svg)
@@ -138,6 +148,7 @@ live roadmap.
 
 - [Usage](docs/USAGE.md) — CLI, service deployment, models, and verification
 - [Technical architecture](docs/TECHNICAL_BIBLE.md) — system design, retrieval cascade, packs, and SLOs
+- [Standalone service architecture](docs/SERVICE_ARCHITECTURE.md) — product surfaces, store ownership, publication, caching, tenancy, and deployment
 - [Tokito integration](docs/TOKITO_SYMBOL_PIPELINE.md) — evidence-to-symbol responsibility boundaries
 - [Contracts](docs/CONTRACTS.md) — versioned machine-facing schemas
 - [Evaluation](evaluation/README.md) — corpus, benchmark, and leakage policy

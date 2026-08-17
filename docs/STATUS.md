@@ -41,6 +41,14 @@ human reviewer before calibration or evaluation scores may be accessed.
 - pass a newly preregistered, independently reviewed calibrated visual cycle;
 - integrate only the resulting passing evidence-gated visual policy;
 - expand representative legal corpus coverage and manual queries;
+- implement the approved standalone service boundary: Postgres catalog control
+  plane, object-backed private artifacts, rebuildable Qdrant indexes,
+  Redis-compatible ephemeral cache/realtime acceleration, and verified
+  immutable SQLite publication packs;
+- ship and verify contract-equivalent CLI/API/MCP/web/self-hosted upload,
+  evidence review, deterministic bundle download, and explicit optional catalog
+  contribution flows. The planned `dsvire.tokito.dev` boundary is not currently
+  a shipped public standalone service;
 - prove the 99.5% query-API availability target over a representative duration
   and workload. An authenticated one-minute semantic canary is live against a
   digest-addressed, source-free synthetic pack and validates the exact response

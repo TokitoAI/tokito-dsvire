@@ -1,7 +1,7 @@
 # DS-ViRe technical bible
 
 **Status:** canonical architecture plus implemented deterministic baseline; calibrated EGVV and the full benchmark remain in progress
-**Updated:** 2026-08-12
+**Updated:** 2026-08-17
 **DS-ViRe:** Datasheet Visual Retrieval
 
 Canonical public specification for figure-level, vision-first retrieval over semiconductor datasheets.
@@ -15,8 +15,10 @@ Canonical public specification for figure-level, vision-first retrieval over sem
 | Is OCR-free visual document retrieval real? | Yes. ColPali, ColQwen, DSE, VisRAG, ViDoRe (2024-2026). |
 | Is "run ColPali on PDFs" the contribution? | No. That is baseline engineering. |
 | What is this project? | **Figure/region-level** retrieval for **electronics datasheets**, with an EDA figure ontology, layout-gated cascade, pin/electrical consistency, and an open benchmark. |
+| Is DS-ViRe a foundation model? | No. It is a multimodal retrieval system that fine-tunes/distills domain components from pinned pretrained backbones. |
+| What ships? | A CLI/service/runtime plus a versioned bundle of layout, routing, retrieval, compression, verifier, and calibration artifacts. |
 | Buildable today? | Yes: layout detect + crop ColQwen + hybrid text gate + Qdrant MaxSim. |
-| Deployment shape | Heavy indexing offline. Clients query thin packs or a query API. |
+| Deployment shape | Heavy indexing offline. Clients use CLI/API/MCP/web/Tokito surfaces over thin packs or the query service. |
 
 ---
 
@@ -205,9 +207,12 @@ flowchart LR
 |---|---|---|
 | `dsvire-index` | this repo | Ingest, layout, embed, pack build |
 | `dsvire-query` | this repo | Cascade + verify API |
+| DS-ViRe product API / CLI / MCP | this repo | Versioned upload, job, evidence, generation, validation, and download contracts |
+| Catalog control plane | Tokito services | Authoritative identity, immutable revisions, validation, moderation, publication, and audit |
+| Catalog pack builder | `tokito-mcp` / catalog worker | Project published revisions into verified immutable SQLite packs |
 | Vector store | Qdrant (prod) / pgvector (dev) | Multi-vector + payloads |
 | Object store | S3-compatible or local | Crops and packs |
-| MCP tools | this repo (planned) | Agent-facing search |
+| Redis-compatible cache | deployment infrastructure | Ephemeral cache, rate limits, wake-ups, and SSE fan-out; never durable truth |
 
 Packages (planned): `core`, `index`, `query`, `bench`, `pack`.
 
@@ -243,6 +248,35 @@ silently become an unauthenticated write path. See
 [`TOKITO_SYMBOL_PIPELINE.md`](TOKITO_SYMBOL_PIPELINE.md) for the product
 contract, generation rules, publication lifecycle, and ecosystem boundaries.
 
+### 4.7 Standalone product and storage boundary
+
+DS-ViRe is independently deployable as a CLI, authenticated HTTP service, MCP
+surface, hosted web application, and self-hosted stack. Tokito remains a
+first-class client, not a privileged implementation fork. The planned hosted
+product boundary is `dsvire.tokito.dev`; it is not considered live until its
+release, tenancy, abuse, retention, and recovery gates pass.
+
+The production data plane has deliberately separate owners:
+
+| Store | Authority |
+|---|---|
+| Postgres | Durable jobs/leases/idempotency, tenants/projects, part/catalog identity, immutable symbol revisions, moderation, publication, policy, audit, and outbox |
+| Object storage | PDFs, crops, evidence/model packs, canonical symbol artifacts, reports, and downloadable bundles |
+| Qdrant | Rebuildable, model- and pack-bound retrieval indexes |
+| Redis-compatible cache | Ephemeral hot results, rate limits, coordination, wake-ups, progress, and bounded SSE replay |
+| SQLite catalog packs | Immutable published read snapshots for MCP, rollback, offline use, and distribution |
+
+DS-ViRe submits evidence-backed candidates through an authenticated catalog
+ingestion API. It never writes catalog tables. The deterministic compiler emits
+an immutable draft; catalog policy or review explicitly promotes it. Redis loss
+may make the system slower or shorten live replay, but must not lose a job,
+permission, revision, evidence record, or publication decision. Qdrant is also
+derived state and must be rebuildable from model-bound immutable packs.
+
+The complete topology, data ownership, cache-key contract, hosted/self-hosted
+profiles, migration sequence, and completion gates are defined in
+[`SERVICE_ARCHITECTURE.md`](SERVICE_ARCHITECTURE.md).
+
 ---
 
 ## 5. Tech stack
@@ -255,8 +289,10 @@ contract, generation rules, publication lifecycle, and ecosystem boundaries.
 | Query API | Rust (Axum) or FastAPI | Thin wrapper over vector DB |
 | Pack format | `.dsvire` (tar+zstd) + JSON manifest | Portable offline packs |
 | Vector DB | Qdrant | Multi-vector MaxSim, binary quant |
-| Metadata | Postgres | Jobs, MPN registry, eval labels |
-| Queue | NATS or Redis streams | Index jobs |
+| Durable control plane | Postgres | Jobs/leases, idempotency, tenancy, identities, revisions, publication, audit, outbox |
+| Blob/artifact storage | S3-compatible object storage | PDFs, crops, packs, models, symbols, reports, ZIPs |
+| Ephemeral acceleration | Redis-compatible service | Cache, rate limits, wake-ups, progress, SSE fan-out/replay; not job truth |
+| Catalog distribution | Immutable SQLite packs | Fast MCP/offline reads, atomic promotion, rollback |
 | Observability | OpenTelemetry + Prometheus | SLOs |
 
 ### 5.2 Models
@@ -600,6 +636,10 @@ and maintain a parser vulnerability-update process. See
 
 ## 12. Roadmap (public)
 
+The live standalone-product scope is tracked by
+[Tokito roadmap #488](https://github.com/TokitoAI/tokito/issues/488); the board,
+not these checkboxes, owns work status and sequencing.
+
 ### Near term
 
 - [x] Corpus download + SHA registry (635 PDFs; bytes private, manifests public)
@@ -611,12 +651,18 @@ and maintain a parser vulnerability-update process. See
 - [ ] Query API + MCP tools
 - [ ] Versioned Tokito symbol evidence-bundle contract
 - [ ] End-to-end generated-symbol vertical slice through the Tokito catalog
+- [ ] Postgres catalog control plane with immutable official/generated revisions
+- [ ] Transactional publication into verified immutable SQLite catalog packs
+- [ ] Private object-storage lifecycle for PDFs, crops, evidence, symbols, and ZIPs
+- [ ] Redis-compatible cache/realtime plane with proven cache-loss recovery
+- [ ] Standalone CLI/API/MCP/web upload, review, and deterministic bundle flow
+- [ ] Contract-equivalent self-hosted deployment profile
 - [ ] SLO dashboards
 
 ### Later
 
 - EFTRI type router, Light-merge + binary quant Pareto, EGVV, robustness suite
-- Larger corpus, offline pack sync for desktop clients
+- Larger corpus, offline pack/catalog sync for desktop clients
 - Optional schematic-to-datasheet cross-modal retrieval
 - Pin-locus subset and public leaderboard
 
@@ -634,6 +680,8 @@ and maintain a parser vulnerability-update process. See
 8. Agents get evidence contracts, not raw PDF dumps.
 9. Generated pins retain exact datasheet page, region, bbox, and content-hash provenance.
 10. No model directly publishes symbol geometry or catalog records; deterministic compilers and publication gates own those transitions.
+11. Postgres owns durable workflow/publication truth; object storage owns bytes; Qdrant and caches are rebuildable derived state.
+12. Cache loss must not lose jobs, permissions, evidence, revisions, or publication decisions.
 
 ---
 
