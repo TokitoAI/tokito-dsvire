@@ -204,3 +204,72 @@ def test_hybrid_query_body_is_bounded(tmp_path: Path) -> None:
             headers={"content-type": "application/json", "authorization": f"Bearer {TOKEN}"},
         )
     assert response.status_code == 413
+
+
+def test_symbol_studio_page_is_public(tmp_path: Path) -> None:
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        response = client.get("/")
+    assert response.status_code == 200
+    assert "text/html" in response.headers["content-type"]
+    assert "Compile symbol" in response.text
+
+
+def test_compile_symbol_requires_bearer(tmp_path: Path) -> None:
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        response = client.post(
+            "/v1/symbols",
+            files={"pdf": ("part.pdf", b"%PDF-fake", "application/pdf")},
+        )
+    assert response.status_code == 401
+
+
+def test_compile_symbol_runs_isolated_worker(monkeypatch, tmp_path: Path) -> None:
+    async def fake_run(body, hint, data_dir, *, timeout_seconds, limits):
+        assert body == b"%PDF-fake"
+        assert hint.mpn == "A-1"
+        return {
+            "schema_version": "dsvire.symbol-result.v1",
+            "identity": {"manufacturer": "Acme", "mpn": "A-1", "package": "SOIC-8"},
+            "layout_policy_version": "dsvire.box-layout@1.0.0",
+            "spec": {"schema_version": "tokito.symbol-spec.v1"},
+            "pins": [{"number": "1", "name": "VIN", "side": "top"}],
+            "citations": [],
+            "svg": "<svg></svg>",
+            "evidence": {"secret": True},
+        }
+
+    monkeypatch.setattr(api, "run_symbol_job", fake_run)
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        response = client.post(
+            "/v1/symbols",
+            files={"pdf": ("part.pdf", b"%PDF-fake", "application/pdf")},
+            data={"manufacturer": "Acme", "mpn": "A-1", "package": "SOIC-8"},
+            headers={"authorization": f"Bearer {TOKEN}"},
+        )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["schema_version"] == "dsvire.symbol-result.v1"
+    assert "evidence" not in body
+
+
+def test_compile_symbol_ambiguous_identity(monkeypatch, tmp_path: Path) -> None:
+    from dsvire.pipeline import DatasheetIdentity, IdentityAmbiguous
+
+    async def fake_run(*args, **kwargs):
+        raise IdentityAmbiguous(
+            (
+                DatasheetIdentity("Acme", "A-1", "SOIC-8"),
+                DatasheetIdentity("Acme", "A-2", "TSSOP-8"),
+            )
+        )
+
+    monkeypatch.setattr(api, "run_symbol_job", fake_run)
+    with TestClient(api.create_app(_config(tmp_path))) as client:
+        response = client.post(
+            "/v1/symbols",
+            files={"pdf": ("part.pdf", b"%PDF-fake", "application/pdf")},
+            headers={"authorization": f"Bearer {TOKEN}"},
+        )
+    assert response.status_code == 409
+    assert response.json()["code"] == "ambiguous_identity"
+    assert len(response.json()["candidates"]) == 2

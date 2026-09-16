@@ -140,8 +140,9 @@ candidates are not mixed into the frozen benchmark splits.
 The deterministic baseline, authenticated service boundary, retrieval packs,
 hybrid query core, ColSmol adapter, reproducible builds, and Tokito integration
 contracts are implemented. Automated catalog publication remains disabled
-until a new preregistered cycle receives genuine independent human review and
-passes its frozen held-out quality gates.
+until cycle v5 receives genuine independent human review and passes its frozen
+held-out quality gates. Cycle v4 stays frozen; do not substitute a mirror for
+MMA8451Q.
 
 See [Project status](docs/STATUS.md) for supported capabilities and remaining
 gates. The [GitHub project](https://github.com/orgs/TokitoAI/projects/1) is the

@@ -208,6 +208,23 @@ def test_committed_packet_is_schema_valid_source_free_and_bound() -> None:
     assert sum(len(document["pages"]) for document in packet["documents"]) == 587
 
 
+def test_committed_cycle_v5_packet_is_schema_valid_source_free_and_excludes_mma8451q() -> None:
+    packet = json.loads(
+        (ROOT / "evaluation/retrieval_cycle_v5_authoring_packet.json").read_text(encoding="utf-8")
+    )
+    schema = json.loads(
+        (ROOT / "scripts/schema/retrieval_authoring_packet_v1.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    jsonschema.Draft202012Validator(schema).validate(packet)
+    assert load_authoring_packet(packet) == packet
+    assert packet["plan_id"] == "dsvire-colsmol-egvv-cycle-v5@2026-09-17"
+    ids = {document["id"] for document in packet["documents"]}
+    assert "nxp-mma8451q-rev-10-3" not in ids
+    assert "nxp-fxls8974cf" in ids
+
+
 def test_cycle_v4_human_handoff_runbook_binds_current_packet_and_review_markers() -> None:
     runbook = (ROOT / "evaluation/README.md").read_text(encoding="utf-8")
     packet = json.loads(

@@ -88,10 +88,21 @@ def _valid_v3_opener(request: Any, timeout: float) -> Response:
     return Response(_pdf(family["selected_mpn"]), url)
 
 
+def _plan_v5() -> dict[str, Any]:
+    return json.loads((ROOT / "evaluation/retrieval_cycle_v5_preregistration.json").read_text())
+
+
 def _valid_v4_opener(request: Any, timeout: float) -> Response:
     assert timeout == 60
     url = request.full_url
     family = next(item for item in _plan_v4()["families"] if item["official_source_url"] == url)
+    return Response(_pdf(family["selected_mpn"]), url)
+
+
+def _valid_v5_opener(request: Any, timeout: float) -> Response:
+    assert timeout == 60
+    url = request.full_url
+    family = next(item for item in _plan_v5()["families"] if item["official_source_url"] == url)
     return Response(_pdf(family["selected_mpn"]), url)
 
 
@@ -127,7 +138,22 @@ def test_cycle_v4_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> 
     assert len(result["sources"]) == 12
 
 
-def test_cycle_acquisition_is_deterministic_atomic_and_download_only(tmp_path: Path) -> None:
+def test_cycle_v5_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> None:
+    prior_ids = {
+        family["id"] for plan in (_plan(), _plan_v3(), _plan_v4()) for family in plan["families"]
+    }
+    result = acquire_source_manifest(
+        _plan_v5(),
+        cache_dir=tmp_path,
+        consumed_family_ids=_consumed() | prior_ids,
+        open_url=_valid_v5_opener,
+        retry_delay_seconds=0,
+    )
+    assert result["complete"] is True
+    assert result["plan_sha256"] == (
+        "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9"
+    )
+    assert len(result["sources"]) == 12
     first = acquire_source_manifest(
         _one_family_plan(),
         cache_dir=tmp_path / "cache",

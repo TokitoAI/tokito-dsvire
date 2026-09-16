@@ -1,0 +1,169 @@
+{
+  "complete": true,
+  "invalidations": [],
+  "manifest_sha256": "aa8d7e1fa855df0014f0731b24e5f4ea2f6bebef5c4d78fb1685ad3f816fc74c",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v5@2026-09-17",
+  "plan_sha256": "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9",
+  "schema_version": "dsvire.retrieval-cycle-source-manifest.v1",
+  "sources": [
+    {
+      "bytes": 3731441,
+      "content_sha256": "3c8a0a906dc305bccc4eb5f83f27a9df7d8db441ee304e204650f5e7b43c4e56",
+      "final_url": "https://www.ti.com/lit/ds/symlink/bq24075.pdf",
+      "id": "ti-bq24075",
+      "identity_markers": [
+        "bq24075",
+        "slus810"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/bq24075.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 499461,
+      "content_sha256": "fcc5a3c0acdca85d4e542553b50fe0bca17075c27721edd6e22a894252a9a0e5",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCA9538.pdf",
+      "id": "nxp-pca9538",
+      "identity_markers": [
+        "pca9538"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCA9538.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 8130784,
+      "content_sha256": "18e67fa48b2a3c2e0a3d21abae8600e8cd864fe62f1b4c0d23d3fffe86a44dc4",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tlv9062.pdf",
+      "id": "ti-tlv9062",
+      "identity_markers": [
+        "sbos839",
+        "tlv9062"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tlv9062.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 353428,
+      "content_sha256": "65a502b18c2f52f77f4bf2a93c860698ab73b996e47b652c9022021173ff9543",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/TJA1057.pdf",
+      "id": "nxp-tja1057",
+      "identity_markers": [
+        "tja1057"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/TJA1057.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 3420900,
+      "content_sha256": "9a852f7bcc4104df0676d7ee3e4918429c3db2cbd79a5338aca0a1d34471e400",
+      "final_url": "https://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "id": "ti-txb0104",
+      "identity_markers": [
+        "txb0104"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/txb0104.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 1588126,
+      "content_sha256": "ec744130e65d9b1431a4d2bd56e3cddc421b8cb80653a66a7b956b9b1a7d3a51",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/FXLS8974CF.pdf",
+      "id": "nxp-fxls8974cf",
+      "identity_markers": [
+        "fxls8974cf"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/FXLS8974CF.pdf",
+      "split": "calibration",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2392725,
+      "content_sha256": "633b1f2cabdafa2e52900aea3cea14877b2f20639551305420ddd7ee62b28d89",
+      "final_url": "https://www.ti.com/lit/ds/symlink/tps61023.pdf",
+      "id": "ti-tps61023",
+      "identity_markers": [
+        "tps61023"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/tps61023.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 122695,
+      "content_sha256": "f0f9734d1857478cf8c757aed9e329ae3a0f973ba09801e573a83dedea2f584b",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCA9517.pdf",
+      "id": "nxp-pca9517",
+      "identity_markers": [
+        "pca9517"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCA9517.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 2011820,
+      "content_sha256": "c5ab343a1319884d6e0446b854b9836b4e04e66f929a53397ccf5fc844eae5c0",
+      "final_url": "https://www.ti.com/lit/ds/symlink/am26c31.pdf",
+      "id": "ti-am26c31",
+      "identity_markers": [
+        "am26c31",
+        "slls103"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/am26c31.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 470323,
+      "content_sha256": "1d9884f077b1bf00c26783c7c7a6d13f97281bba2e6cca392b3f47c729322eae",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/NTS0304E.pdf",
+      "id": "nxp-nts0304e",
+      "identity_markers": [
+        "nts0304e"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/NTS0304E.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 1439908,
+      "content_sha256": "5da24ada598efdc462207a289f3732c142cc796be0f701c9626f37325cc593b4",
+      "final_url": "https://www.ti.com/lit/ds/symlink/sn65hvd3082e.pdf",
+      "id": "ti-sn65hvd3082e",
+      "identity_markers": [
+        "sn65hvd3082e"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.ti.com/lit/ds/symlink/sn65hvd3082e.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    },
+    {
+      "bytes": 203536,
+      "content_sha256": "26a04d381d5909f3dff8f7264073150c65e1c11de7e10ffb0222476c1ce3abc8",
+      "final_url": "https://www.nxp.com/docs/en/data-sheet/PCA9536.pdf",
+      "id": "nxp-pca9536",
+      "identity_markers": [
+        "pca9536"
+      ],
+      "redistribution": "download_only",
+      "requested_url": "https://www.nxp.com/docs/en/data-sheet/PCA9536.pdf",
+      "split": "evaluation",
+      "status": "sealed"
+    }
+  ]
+}

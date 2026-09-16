@@ -5,6 +5,14 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+### Production training-ready visual stack (no local training)
+
+- Refuse credentialed, loopback, and non-public literal URLs on hash-pinned downloads; corpus materialization must stay on official manufacturer hosts after redirects.
+- Register retrieval cycle v5 with 12 live official PDFs after MMA8451Q 404'd; v4 stays frozen without in-place substitution. The accelerometer family is NXP FXLS8974CF.
+- Add provenance-controlled training-corpus admission with official-host, quarantine, fingerprint, and sealed-holdout leakage checks. Hash-based train/dev splits are rejected.
+- Implement DHPR routing, DSFF XObject/CTM association, DocLayout-YOLO/MinerU detector contracts, region-corpus construction, EFTRI top-2 routing, and CPPT side channels.
+- Bind smoke vs 24 GB-class training runs with atomic checkpoints, leakage rejection, SigLIP-MRL/MaxSim/Light-merge math, EGVV calibrate-then-eval-once, Qdrant pack rebuild identities, and Bible §8 ablation gates with no waiver path.
+
 ## 0.6.3 - 2026-08-17
 
 ### Bundle delivery hotfix

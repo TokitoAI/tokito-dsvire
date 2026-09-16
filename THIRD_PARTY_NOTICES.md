@@ -37,6 +37,7 @@ This inventory is not legal advice and does not replace upstream license texts.
 | `pypdfium2` | `5.12.1` | `Apache-2.0 OR BSD-3-Clause` | `allowed` |
 | `python-dateutil` | `2.9.0.post0` | `Apache-2.0 OR BSD-3-Clause` | `allowed` |
 | `python-dotenv` | `1.2.2` | `BSD-3-Clause` | `allowed` |
+| `python-multipart` | `0.0.32` | `Apache-2.0` | `allowed` |
 | `pywin32` | `312` | `PSF-2.0` | `allowed` |
 | `pyyaml` | `6.0.3` | `MIT` | `allowed` |
 | `qdrant-client` | `1.19.0` | `Apache-2.0` | `allowed` |

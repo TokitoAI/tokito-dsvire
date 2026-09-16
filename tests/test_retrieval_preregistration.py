@@ -70,6 +70,14 @@ def test_cycle_v3_is_balanced_official_and_disjoint_from_all_prior_cycles() -> N
     assert "agent audit" in raw["invalidation"][-2]
 
 
+def _plan_v5() -> dict[str, object]:
+    return json.loads((ROOT / "evaluation/retrieval_cycle_v5_preregistration.json").read_text())
+
+
+def _reserved_through_v4() -> set[str]:
+    return _reserved_through_v3() | {family["id"] for family in _plan_v4()["families"]}
+
+
 def test_cycle_v4_is_body_eligible_and_disjoint_from_every_prior_cycle() -> None:
     raw = _plan_v4()
     schema = json.loads(
@@ -83,6 +91,23 @@ def test_cycle_v4_is_body_eligible_and_disjoint_from_every_prior_cycle() -> None
     preflight = raw["acquisition"]["availability_preflight"]
     assert "strict PDF parsing" in preflight and "immediately deleted" in preflight
     assert "independent human" in raw["annotation"]["review_protocol"]
+
+
+def test_cycle_v5_replaces_unavailable_mma8451q_without_mutating_v4() -> None:
+    raw = _plan_v5()
+    schema = json.loads(
+        (ROOT / "scripts/schema/retrieval_preregistration_v1.schema.json").read_text()
+    )
+    jsonschema.validate(raw, schema)
+    plan = load_retrieval_preregistration(raw, consumed_family_ids=_reserved_through_v4())
+    assert plan.plan_id == "dsvire-colsmol-egvv-cycle-v5@2026-09-17"
+    assert plan.content_sha256 == "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9"
+    assert len(plan.family_ids) == 12
+    urls = {family["official_source_url"] for family in raw["families"]}
+    assert "https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf" not in urls
+    assert "https://www.nxp.com/docs/en/data-sheet/FXLS8974CF.pdf" in urls
+    v4_ids = {family["id"] for family in _plan_v4()["families"]}
+    assert set(plan.family_ids).isdisjoint(v4_ids)
 
 
 @pytest.mark.parametrize(

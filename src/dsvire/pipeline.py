@@ -61,6 +61,27 @@ PIN_TABLE_TERMS = (
     "signal name",
 )
 TABLE_HEADER_TERMS = ("description", "function", "type", "name", "pin")
+PACKAGE_TOKEN = re.compile(
+    r"(?i)\b("
+    r"s[ou](?:ic)?-?powerpad-?\d+"
+    r"|soic-?\d+"
+    r"|tssop-?\d+"
+    r"|ssop-?\d+"
+    r"|msop-?\d+"
+    r"|qfn-?\d+"
+    r"|lqfp-?\d+"
+    r"|tqfp-?\d+"
+    r"|dfn-?\d+"
+    r"|vson-?\d+"
+    r"|wson-?\d+"
+    r"|bga-?\d+"
+    r"|sot-?\d+"
+    r"|dip-?\d+"
+    r"|to-\d+"
+    r"|so-powerpad-\d+"
+    r"|[a-z]{2,12}-\d{1,4}(?:-[a-z0-9]+)?"
+    r")\b"
+)
 PIN_TOKEN = re.compile(
     r"(?<![A-Z0-9_])(?:"
     r"[A-Z]{1,6}[0-9]{1,3}|[0-9]{1,3}|"
@@ -91,6 +112,34 @@ class DatasheetIdentity:
                 raise RetrievalError(f"{name} is required; DS-ViRe never guesses part identity")
             if len(value.encode("utf-8")) > limit:
                 raise RetrievalError(f"{name} exceeds {limit} UTF-8 bytes")
+
+
+class IdentityAmbiguous(RetrievalError):
+    """More than one grounded part identity is present; the caller must choose."""
+
+    def __init__(self, candidates: tuple[DatasheetIdentity, ...]) -> None:
+        self.candidates = candidates
+        super().__init__(f"ambiguous part identity: {len(candidates)} candidates")
+
+
+@dataclasses.dataclass(frozen=True)
+class IdentityHint:
+    manufacturer: str = ""
+    mpn: str = ""
+    package: str = ""
+    source_url: str | None = None
+
+    def complete(self) -> DatasheetIdentity | None:
+        manufacturer, mpn, package = (
+            self.manufacturer.strip(),
+            self.mpn.strip(),
+            self.package.strip(),
+        )
+        if manufacturer and mpn and package:
+            identity = DatasheetIdentity(manufacturer, mpn, package, self.source_url)
+            identity.validate()
+            return identity
+        return None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -354,6 +403,118 @@ def _identity_package_candidate(document: Any, identity: DatasheetIdentity) -> C
     if not associations:
         raise RetrievalError("requested package is not associated with the exact MPN in PDF text")
     return max(associations, key=lambda candidate: candidate.score)
+
+
+def _looks_like_mpn(token: str) -> bool:
+    compact = unicodedata.normalize("NFKC", token).strip("()[]{},;:")
+    if len(compact) < 2 or len(compact) > 40:
+        return False
+    if PACKAGE_TOKEN.fullmatch(compact):
+        return False
+    return any(character.isalpha() for character in compact) and any(
+        character.isdigit() for character in compact
+    )
+
+
+def _hint_matches(identity: DatasheetIdentity, hint: IdentityHint | None) -> bool:
+    if hint is None:
+        return True
+    manufacturer_ok = (not hint.manufacturer.strip()) or _contains_phrase(
+        identity.manufacturer, hint.manufacturer
+    )
+    mpn_ok = (not hint.mpn.strip()) or _normalise_mpn(identity.mpn) == _normalise_mpn(hint.mpn)
+    package_ok = (not hint.package.strip()) or _contains_ordered_tokens(
+        identity.package, hint.package
+    )
+    return manufacturer_ok and mpn_ok and package_ok
+
+
+def discover_part_identities(
+    pdf_bytes: bytes, hint: IdentityHint | None = None
+) -> tuple[DatasheetIdentity, ...]:
+    """Return grounded manufacturer/MPN/package triples found in PDF text."""
+    if len(pdf_bytes) < 8 or len(pdf_bytes) > MAX_PDF_BYTES:
+        raise RetrievalError(f"PDF size outside 8..={MAX_PDF_BYTES} bytes")
+    if not pdf_bytes.startswith(b"%PDF-"):
+        raise RetrievalError("input is not a PDF (missing %PDF header)")
+    try:
+        document = PdfDocument(pdf_bytes)
+    except PdfBackendError as exc:
+        raise RetrievalError(str(exc)) from exc
+    found: dict[tuple[str, str, str], DatasheetIdentity] = {}
+    try:
+        if document.page_count < 1 or document.page_count > MAX_PAGES:
+            raise RetrievalError(f"PDF page count {document.page_count} outside 1..={MAX_PAGES}")
+        for page_index in range(document.page_count):
+            with document.load_page(page_index) as page:
+                raw_text = page.text()
+                if len(raw_text) > MAX_TEXT_CHARS_PER_PAGE:
+                    raise RetrievalError("page text exceeds safety limit")
+                lines = [line.strip() for line in raw_text.splitlines() if line.strip()]
+                for line in lines:
+                    tokens = line.split()
+                    for index, token in enumerate(tokens):
+                        if not _looks_like_mpn(token):
+                            continue
+                        remainder = " ".join(tokens[index + 1 :])
+                        package_match = PACKAGE_TOKEN.search(remainder)
+                        if package_match is None:
+                            continue
+                        manufacturer = " ".join(tokens[:index]).strip()
+                        if not manufacturer or any(
+                            character.isdigit() for character in manufacturer
+                        ):
+                            continue
+                        identity = DatasheetIdentity(
+                            manufacturer,
+                            unicodedata.normalize("NFKC", token).strip("()[]{},;:"),
+                            package_match.group(1),
+                            hint.source_url if hint is not None else None,
+                        )
+                        if not _contains_phrase(raw_text, identity.manufacturer):
+                            continue
+                        if not _hint_matches(identity, hint):
+                            continue
+                        key = (
+                            _normalise_phrase(identity.manufacturer),
+                            _normalise_mpn(identity.mpn),
+                            _normalise_phrase(identity.package),
+                        )
+                        found[key] = identity
+    finally:
+        document.close()
+    return tuple(found.values())
+
+
+def resolve_identity(pdf_bytes: bytes, hint: IdentityHint | None = None) -> DatasheetIdentity:
+    """Return the unique grounded identity, or fail closed / ask the caller to pick."""
+    complete = hint.complete() if hint is not None else None
+    if complete is not None:
+        return complete
+    candidates = discover_part_identities(pdf_bytes, hint)
+    if not candidates:
+        raise RetrievalError(
+            "no unique manufacturer, MPN, and package could be grounded in PDF text"
+        )
+    if len(candidates) > 1:
+        raise IdentityAmbiguous(candidates)
+    return candidates[0]
+
+
+def load_verified_region_candidates(pdf_bytes: bytes) -> dict[str, Candidate]:
+    """Return verified pinout and table candidates for an already-accepted PDF."""
+    if len(pdf_bytes) < 8 or len(pdf_bytes) > MAX_PDF_BYTES:
+        raise RetrievalError(f"PDF size outside 8..={MAX_PDF_BYTES} bytes")
+    if not pdf_bytes.startswith(b"%PDF-"):
+        raise RetrievalError("input is not a PDF (missing %PDF header)")
+    try:
+        document = PdfDocument(pdf_bytes)
+    except PdfBackendError as exc:
+        raise RetrievalError(str(exc)) from exc
+    try:
+        return _best_candidates(document)
+    finally:
+        document.close()
 
 
 def _bbox_norm(candidate: Candidate, page: Any) -> list[float]:

@@ -11,6 +11,11 @@ Do not open public issues for undisclosed security problems.
 - Treat OCR text, captions, and PDF-derived strings as untrusted input.
 - Do not commit credentials, signed datasheet URLs, or private packs.
 - Manufacturer PDFs may be copyrighted; do not publish redistributed corpora.
+- Training and evaluation downloads must be HTTPS, hash-pinned, and public.
+  Private, loopback, link-local, and credentialed URLs are refused. Corpus
+  fetches must remain on official manufacturer hosts after redirects.
+- Detector weights are verified by size and SHA-256 at load; they are never
+  downloaded as a side effect of detection.
 
 ## Hosted-service boundary
 

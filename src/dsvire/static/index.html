@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DS-ViRe symbol studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #e7ebe4;
+      --ink: #1c1914;
+      --muted: #5d584f;
+      --rule: #c5c1b7;
+      --panel: #f4f1ea;
+      --copper: #8c4a1f;
+      --focus: #1c1914;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.45 "IBM Plex Sans", ui-sans-serif, sans-serif;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(28,25,20,.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(28,25,20,.045) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    main {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(260px, 34%) 1fr;
+      min-height: 100vh;
+    }
+    aside {
+      padding: 28px 24px 40px;
+      border-right: 1px solid var(--rule);
+      background: rgba(244, 241, 234, .92);
+    }
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+      max-width: 18ch;
+    }
+    .lede { color: var(--muted); margin: 0 0 28px; max-width: 36ch; }
+    label { display: block; font-size: 0.92rem; margin: 0 0 6px; }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--ink);
+      background: transparent;
+      padding: 8px 0;
+      font: inherit;
+      margin-bottom: 16px;
+    }
+    input:focus { outline: 2px solid var(--focus); outline-offset: 3px; }
+    .file {
+      border: 1px dashed var(--ink);
+      padding: 16px;
+      margin: 8px 0 20px;
+    }
+    .file input { width: 100%; }
+    button {
+      appearance: none;
+      border: 0;
+      background: var(--ink);
+      color: var(--panel);
+      font: 600 1rem/1 "IBM Plex Sans", sans-serif;
+      padding: 12px 16px;
+      cursor: pointer;
+    }
+    button:hover { background: var(--copper); }
+    button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+    button:disabled { opacity: 0.45; cursor: wait; }
+    .status { min-height: 1.4em; margin-top: 14px; color: var(--muted); }
+    .status.error { color: var(--copper); }
+    .picks { list-style: none; padding: 0; margin: 16px 0 0; }
+    .picks button {
+      width: 100%;
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    section {
+      padding: 24px;
+      display: grid;
+      grid-template-rows: minmax(240px, 1fr) minmax(180px, 42%);
+      gap: 16px;
+    }
+    .board {
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+    }
+    .board svg { max-width: 100%; height: auto; }
+    .empty { color: var(--muted); padding: 24px; text-align: center; max-width: 28ch; }
+    .json-wrap {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .toolbar { display: flex; gap: 12px; margin-bottom: 8px; }
+    .toolbar a, .toolbar button {
+      background: transparent;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 4px 0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    pre {
+      margin: 0;
+      flex: 1;
+      overflow: auto;
+      background: #1c1914;
+      color: #f4f1ea;
+      padding: 16px;
+      font: 12.5px/1.45 "IBM Plex Mono", ui-monospace, monospace;
+    }
+    @media (max-width: 840px) {
+      main { grid-template-columns: 1fr; }
+      aside { border-right: 0; border-bottom: 1px solid var(--rule); }
+      section { grid-template-rows: auto auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <aside>
+      <h1>Datasheet in. Symbol out.</h1>
+      <p class="lede">Upload a PDF. DS-ViRe grounds the part, reads the pin table, and draws a schematic symbol you can copy as JSON.</p>
+      <form id="form">
+        <label for="pdf">Datasheet PDF</label>
+        <div class="file">
+          <input id="pdf" name="pdf" type="file" accept="application/pdf" required>
+        </div>
+        <label for="manufacturer">Manufacturer (optional)</label>
+        <input id="manufacturer" name="manufacturer" type="text" autocomplete="off">
+        <label for="mpn">MPN (optional)</label>
+        <input id="mpn" name="mpn" type="text" autocomplete="off">
+        <label for="package">Package (optional)</label>
+        <input id="package" name="package" type="text" autocomplete="off">
+        <label for="token">Service token (production only)</label>
+        <input id="token" name="token" type="password" autocomplete="off">
+        <button type="submit" id="compile">Compile symbol</button>
+      </form>
+      <p class="status" id="status" role="status"></p>
+      <ul class="picks" id="picks" hidden></ul>
+    </aside>
+    <section>
+      <div class="board" id="board" aria-live="polite">
+        <p class="empty">The compiled symbol appears here. Crops stay in the JSON as citations, not as the drawing.</p>
+      </div>
+      <div class="json-wrap">
+        <div class="toolbar">
+          <button type="button" id="copy-json">Copy JSON</button>
+          <a id="download-json" hidden>Download JSON</a>
+          <a id="download-svg" hidden>Download SVG</a>
+        </div>
+        <pre id="json" tabindex="0">{}</pre>
+      </div>
+    </section>
+  </main>
+  <script>
+    const form = document.getElementById("form");
+    const statusEl = document.getElementById("status");
+    const picks = document.getElementById("picks");
+    const board = document.getElementById("board");
+    const jsonEl = document.getElementById("json");
+    const compileBtn = document.getElementById("compile");
+    const downloadJson = document.getElementById("download-json");
+    const downloadSvg = document.getElementById("download-svg");
+    let lastObjectUrls = [];
+
+    function revoke() {
+      lastObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+      lastObjectUrls = [];
+    }
+
+    function setStatus(text, isError) {
+      statusEl.textContent = text;
+      statusEl.classList.toggle("error", Boolean(isError));
+    }
+
+    function headers() {
+      const token = document.getElementById("token").value.trim();
+      const headers = {};
+      if (token) headers.Authorization = "Bearer " + token;
+      return headers;
+    }
+
+    function showResult(data) {
+      picks.hidden = true;
+      picks.innerHTML = "";
+      board.innerHTML = data.svg || "";
+      const printable = { ...data };
+      jsonEl.textContent = JSON.stringify(printable, null, 2);
+      revoke();
+      const jsonBlob = new Blob([jsonEl.textContent], { type: "application/json" });
+      const svgBlob = new Blob([data.svg], { type: "image/svg+xml" });
+      downloadJson.href = URL.createObjectURL(jsonBlob);
+      downloadSvg.href = URL.createObjectURL(svgBlob);
+      lastObjectUrls.push(downloadJson.href, downloadSvg.href);
+      downloadJson.download = (data.identity?.mpn || "symbol") + ".json";
+      downloadSvg.download = (data.identity?.mpn || "symbol") + ".svg";
+      downloadJson.hidden = false;
+      downloadSvg.hidden = false;
+      setStatus("Compiled " + data.pins.length + " pins for " + data.identity.mpn + ".");
+    }
+
+    function showCandidates(candidates) {
+      picks.innerHTML = "";
+      picks.hidden = false;
+      candidates.forEach((item) => {
+        const li = document.createElement("li");
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = item.manufacturer + " " + item.mpn + " " + item.package;
+        button.addEventListener("click", () => {
+          document.getElementById("manufacturer").value = item.manufacturer;
+          document.getElementById("mpn").value = item.mpn;
+          document.getElementById("package").value = item.package;
+          form.requestSubmit();
+        });
+        li.appendChild(button);
+        picks.appendChild(li);
+      });
+      setStatus("This datasheet names more than one part. Pick one.");
+    }
+
+    async function compile() {
+      const file = document.getElementById("pdf").files[0];
+      if (!file) {
+        setStatus("Choose a PDF first.", true);
+        return;
+      }
+      const body = new FormData();
+      body.append("pdf", file, file.name);
+      body.append("manufacturer", document.getElementById("manufacturer").value);
+      body.append("mpn", document.getElementById("mpn").value);
+      body.append("package", document.getElementById("package").value);
+      compileBtn.disabled = true;
+      setStatus("Reading the datasheet…");
+      try {
+        const response = await fetch("/v1/symbols", { method: "POST", headers: headers(), body });
+        const data = await response.json();
+        if (response.status === 409 && data.code === "ambiguous_identity") {
+          showCandidates(data.candidates || []);
+          return;
+        }
+        if (!response.ok) {
+          const detail = typeof data.detail === "string" ? data.detail : "Compile failed.";
+          setStatus(detail, true);
+          return;
+        }
+        showResult(data);
+      } catch (error) {
+        setStatus("The local service did not respond.", true);
+      } finally {
+        compileBtn.disabled = false;
+      }
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      compile();
+    });
+    document.getElementById("copy-json").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(jsonEl.textContent);
+      setStatus("JSON copied.");
+    });
+  </script>
+</body>
+</html>
