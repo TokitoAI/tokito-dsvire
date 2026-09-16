@@ -14,8 +14,8 @@ help:
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
 .PHONY: install-dev
-install-dev:  ## Install the service and test dependencies.
-	$(PIP) install -e '.[test]'
+install-dev:  ## Install the service and test extras with the pinned uv lock.
+	uv sync --locked --extra test
 
 .PHONY: build-fixtures
 build-fixtures:  ## Regenerate every evidence fixture (crops + hashes).
