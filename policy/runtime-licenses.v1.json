@@ -31,7 +31,7 @@
     {"name":"protobuf","version":"7.35.1","license":"BSD-3-Clause","status":"allowed"},
     {"name":"pydantic","version":"2.13.4","license":"MIT","status":"allowed"},
     {"name":"pydantic-core","version":"2.46.4","license":"MIT","status":"allowed"},
-    {"name":"pypdf","version":"6.15.0","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"pypdf","version":"6.19.0","license":"BSD-3-Clause","status":"allowed"},
     {
       "name":"pypdfium2",
       "version":"5.12.1",

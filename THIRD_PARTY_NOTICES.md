@@ -33,7 +33,7 @@ This inventory is not legal advice and does not replace upstream license texts.
 | `protobuf` | `7.35.1` | `BSD-3-Clause` | `allowed` |
 | `pydantic` | `2.13.4` | `MIT` | `allowed` |
 | `pydantic-core` | `2.46.4` | `MIT` | `allowed` |
-| `pypdf` | `6.15.0` | `BSD-3-Clause` | `allowed` |
+| `pypdf` | `6.19.0` | `BSD-3-Clause` | `allowed` |
 | `pypdfium2` | `5.12.1` | `Apache-2.0 OR BSD-3-Clause` | `allowed` |
 | `python-dateutil` | `2.9.0.post0` | `Apache-2.0 OR BSD-3-Clause` | `allowed` |
 | `python-dotenv` | `1.2.2` | `BSD-3-Clause` | `allowed` |
