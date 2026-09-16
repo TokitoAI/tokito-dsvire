@@ -88,13 +88,45 @@ numbers can be traced to an exact protocol.
 - Holdout evaluation is a release-gated operation and is not represented by the
   development table above.
 
-## Cycle v4 human authoring handoff
+## Cycle v5 human authoring handoff
 
-Cycle v4 stops at a score-free packet until two different GitHub humans finish
+Cycle v4 is frozen and incomplete: the official MMA8451Q URL is unavailable
+and that family cannot be replaced in-place. Cycle v5 is the live 12-family
+plan. It does not include MMA8451Q; the accelerometer slot is NXP FXLS8974CF.
+
+Cycle v5 stops at a score-free packet until two different GitHub humans finish
 the authoring and review boundary below. Agents may validate files and operate
 the tooling, but must not write or rewrite query text, choose regions, create
 either attestation, approve the submission, or inspect model rankings. The
 current packet identity is:
+
+```text
+DSVIRE_SOURCE_MANIFEST_SHA256=aa8d7e1fa855df0014f0731b24e5f4ea2f6bebef5c4d78fb1685ad3f816fc74c
+DSVIRE_AUTHORING_PACKET_SHA256=adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65
+```
+
+```sh
+python scripts/acquire_retrieval_cycle_sources.py \
+  --plan evaluation/retrieval_cycle_v5_preregistration.json \
+  --cache "$DSVIRE_V5_WORK/sources" \
+  --out "$DSVIRE_V5_WORK/source-manifest.json"
+
+python scripts/prepare_retrieval_authoring.py prepare \
+  --plan evaluation/retrieval_cycle_v5_preregistration.json \
+  --manifest evaluation/retrieval_cycle_v5_source_manifest.json \
+  --source-dir "$DSVIRE_V5_WORK/sources" \
+  --packet-out "$DSVIRE_V5_WORK/packet.json" \
+  --template-out "$DSVIRE_V5_WORK/submission.json" \
+  --pages-out "$DSVIRE_V5_WORK/pages"
+```
+
+Human A starts from `evaluation/retrieval_cycle_v5_authoring_submission.template.json`.
+Independent review markers are the same as cycle v4, using the v5 packet digest
+above.
+
+## Cycle v4 human authoring handoff
+
+Cycle v4 remains frozen for audit. Do not substitute a mirror for MMA8451Q.
 
 ```text
 DSVIRE_SOURCE_MANIFEST_SHA256=d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6

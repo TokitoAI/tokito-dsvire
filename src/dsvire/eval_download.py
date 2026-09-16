@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import hashlib
+import ipaddress
 import math
 import re
 import tempfile
 import time
 import urllib.request
+from collections.abc import Callable
 from pathlib import Path
+from urllib.parse import urlparse
 
 from .pipeline import MAX_PDF_BYTES
 
@@ -19,6 +22,27 @@ class EvaluationDownloadError(ValueError):
 
 _SHA256 = re.compile(r"[0-9a-f]{64}")
 _USER_AGENT = "curl/8.0 Tokito-DSViRe-Evaluation/1.0"
+_BLOCKED_HOST_SUFFIXES = (".localhost", ".local", ".internal", ".lan")
+_BLOCKED_HOSTS = {"localhost", "metadata.google.internal"}
+
+
+def assert_public_https_url(url: str, *, context: str) -> str:
+    """Refuse credentialed, non-HTTPS, or non-public literal download targets."""
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or not parsed.hostname:
+        raise EvaluationDownloadError(f"{context}: source URL must use HTTPS")
+    if parsed.username or parsed.password:
+        raise EvaluationDownloadError(f"{context}: download URL must not contain credentials")
+    host = parsed.hostname.casefold().rstrip(".")
+    if host in _BLOCKED_HOSTS or host.endswith(_BLOCKED_HOST_SUFFIXES):
+        raise EvaluationDownloadError(f"{context}: refusing a non-public download host")
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return url
+    if not address.is_global:
+        raise EvaluationDownloadError(f"{context}: refusing a non-public download address")
+    return url
 
 
 def fetch_hash_pinned_file(
@@ -33,12 +57,12 @@ def fetch_hash_pinned_file(
     offline: bool,
     attempts: int = 3,
     retry_delay_seconds: float = 1.0,
+    allow_final_url: Callable[[str], bool] | None = None,
 ) -> Path:
     """Fetch one immutable artifact without ever accepting unverified bytes."""
     if not artifact_id.strip():
         raise EvaluationDownloadError("evaluation artifact ID must be non-empty")
-    if not source_url.startswith("https://"):
-        raise EvaluationDownloadError(f"{artifact_id}: source URL must use HTTPS")
+    assert_public_https_url(source_url, context=artifact_id)
     if _SHA256.fullmatch(content_sha256) is None:
         raise EvaluationDownloadError(f"{artifact_id}: expected hash must be lowercase SHA-256")
     if expected_bytes is not None and (
@@ -97,9 +121,11 @@ def fetch_hash_pinned_file(
         temporary: Path | None = None
         try:
             with urllib.request.urlopen(request, timeout=60) as response:
-                if not response.geturl().startswith("https://"):
+                final_url = response.geturl()
+                assert_public_https_url(final_url, context=artifact_id)
+                if allow_final_url is not None and not allow_final_url(final_url):
                     raise EvaluationDownloadError(
-                        f"{artifact_id}: download redirected away from HTTPS"
+                        f"{artifact_id}: download redirected off the allowed host set"
                     )
                 declared = response.headers.get("content-length")
                 if declared is not None:

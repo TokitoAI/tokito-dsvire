@@ -1,0 +1,3411 @@
+{
+  "documents": [
+    {
+      "datasheet_identity": "BQ24075 SLUS810",
+      "id": "ti-bq24075",
+      "manufacturer": "Texas Instruments",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "d083e928a3344ac6f7e9707fcab64dae0286671f456c9b86af09a1879103de7b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "f0744476ba1a79a8bf5116a356fd3dba5f5d51123d389f9c2939809e258e66aa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "72bdefb64b538049a1af842e8e2136a8988bfddd202900e0fc8532b11be711f8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "c62ee3da12ba03b130afe99c39540a967e73484669dbd11d6cefb7ecd2b7f259",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "dda65e61dd20ae6567aac4b04a7c5c34aef27f9e556f84fc3b136a9f1c405781",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "f20be7727b974e4229203abbe19a55c4fc44a3a006e7e74f9fa583dd162c9cbd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "8b95e7488cc9b91234a61683435cc3e378ad5e22fa54d2be1f1ec76807a0dc2e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "6c16f2e4d782a7a5c751b38550c2fe1e36dafabb69b74c65c6ac4c4efaef3fef",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "b1acccb2ab00096329ac359e79e4127bd579154bd20e648711df87491fa2192a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "fcbf1bf9b2e0352224f3dd160f345d2715daa6d8f3314fd422133e4ca3222ffb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "d870a32c17178b30ee5b26822271758578472a3bdc94166243e4fa33166568d6",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "215e91126cdb3a9e07ac6112a8ffdb0183d3ad52df3d03733472426135744fd8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "c29d2def66e6d79d7dcb99c53b5d9874800d66083670a64cf235fed9117cd761",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "7c31addc00667b3bbf1d68b472729cf5dcfdb3ad5997f816987b8faf4a6bf067",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "45df318dee2e42c74f7834dbd0da4c0d94a1e652177996856730717227d74adb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "26b89c31d5a24fd1695f1da0d23d0024e4c344450ed80cc139c04803df80caf4",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "7bf4bd0d4b2b13db65ff0d2fe162a834c4b796e5076a8958f4fd238d435b67b9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 18,
+          "render_sha256": "3c8cb23beffa5cb74f063db4938b2f00d1e191b1624b16f76da11e16bed412ed",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 19,
+          "render_sha256": "21efc385811cb618646da3886c497a57bb2511ce3f909439bc54f53cf028fef7",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 20,
+          "render_sha256": "4bd88f357270b836725aa0700381dbe581e6c87a9df6069f8aec6f93700d5827",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 21,
+          "render_sha256": "f231ab68d46b44995cc3500ae3705b12036baf7c4a2a7bd112f287e87d92cb4c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 22,
+          "render_sha256": "c067087f09fd8c94996aae35eec210a811eee2df733546b6ef36755459f07a18",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 23,
+          "render_sha256": "8d56ae6a80d9560e280d3a62e99b2d4cf0486f5c5b29d0aa9903e9a308845c75",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 24,
+          "render_sha256": "ebca1f137d04a870a76d8b0430841a4f73dd4cd5ed7bad67345298e5b0687bac",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 25,
+          "render_sha256": "38c0e23d5440011967745db576b9661f9aef2f139e205360e2a663e4afb62d04",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 26,
+          "render_sha256": "362d7e845ef059af39629b11e49a13feba40ea676262ca93185e65d96e45e97f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 27,
+          "render_sha256": "6829a20df3c11149bc52f2ab4009c99c531520fb0193a63f9f7fb0ff00a81566",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 28,
+          "render_sha256": "ae2c0dccdf28ca92bdac204d5cc7c89b8b6ba62c024f409c70d9161f99e5b30a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 29,
+          "render_sha256": "8de735f1bcc85da006f7d226c36ca3bc719a5726491c2e62f683cdd6c0c13a01",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 30,
+          "render_sha256": "001a38f2c6a543baf689dc6be260094b4723bb14359daaf647ff898584e6ae7a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 31,
+          "render_sha256": "5209e3c56664fc7fdca7e65cbbd09f1377a5ae8c7056649ece65662aaa022157",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 32,
+          "render_sha256": "3ec5d1514477e5dcf3bab8c7ba446d2dbca4703e3a41b1d6eb55826e5356dff4",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 33,
+          "render_sha256": "c5164755826e5310c4953e3b387d230a42a531513f6458869ebeec848a67d8cb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 34,
+          "render_sha256": "aa8e27e041d3b74f6bef9ad3caf01e8a501e13407410ad28f24bc357478b16e8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 35,
+          "render_sha256": "f0ab2991352f22bd4e14f69719e38502429a648eed34c07b577390afa5f11c66",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 36,
+          "render_sha256": "2366717521707b14dca745eefefec579f6f20fb36002c89ad7ccae7d1e1bad08",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 37,
+          "render_sha256": "0e3f0a1f57b5cad86d3307fc7aa205ba1369ec0ca24ddaa6b122c366c3302235",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 38,
+          "render_sha256": "76f6eb6f20afda843d6c3c5b5bed4dd4b18d7a29a6fe85f5032a254980e3d781",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 39,
+          "render_sha256": "25631d059baef21aa2355b53c53588fbac0fe163d44c3701227a7d1a78321bf4",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 40,
+          "render_sha256": "1325b893b84bd5a9577db3ce22ad2e6664f7ee9ca2f11494cf6c586dcac52230",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 41,
+          "render_sha256": "0edb523be33f7dbf26dbebcd721321519a786a530cb248133508bca0f28d4021",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 42,
+          "render_sha256": "33fc2d77e68daafe4f2f14008e7cd1febefce5a567ab1c26d3acbfadbee8bcfd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 43,
+          "render_sha256": "25d4376b47b378a8f0573566d3d68ef1d49be71e6d3237a076eee0b4586614b7",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 595.275,
+          "page": 44,
+          "render_sha256": "339d22b44e229ad4cbc430da03de4c5c0eb5d7b9a9ed3518e6ebc236665920e6",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 45,
+          "render_sha256": "7cfa81ebf4abecde8f43f5a9393e9938f981303f19bbef14950658d3d23fd04f",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 46,
+          "render_sha256": "092b1f662c906ca1e901362d4d3ce7f540eff8c3baa9f82daec5b7a98f5a057d",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 792.283,
+          "page": 47,
+          "render_sha256": "cc2d73d830f451dd02e730adc0b058ca14299985358b9c18774f8be4d1f5e3a1",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 48,
+          "render_sha256": "3ca27d63f76a2072cfd5440cef49ade4571427c2b568749aa5c2f1fde000bf60",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.0,
+          "page": 49,
+          "render_sha256": "bd1be6e976150bf3a8a3d98af821eef78e5aed2949d42213c8193d0ec9831e62",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 50,
+          "render_sha256": "2eaeaac13f54e360a5e85ea8c70c6fbca4bca89344a20a2b0c083de99447676f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 51,
+          "render_sha256": "a769c7b4140b80e068e1b8eb2f61a37e414575e3d8204e2ed500b1027b994e19",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 52,
+          "render_sha256": "787408ab3f177ae2c3556bcb3cacd09a905f62d3feeb4d3b3d5c2fd7eebe4015",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 53,
+          "render_sha256": "20b612d5b3441ef95002c67aa374b2fdaefeb9815db63e386bb5b382199960e3",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "BQ24075",
+      "selected_package": "QFN-16",
+      "source_sha256": "3c8a0a906dc305bccc4eb5f83f27a9df7d8db441ee304e204650f5e7b43c4e56"
+    },
+    {
+      "datasheet_identity": "PCA9538",
+      "id": "nxp-pca9538",
+      "manufacturer": "NXP Semiconductors",
+      "pages": [
+        {
+          "height_points": 841.889,
+          "page": 1,
+          "render_sha256": "b5ea1918bab2fc74f92c193343053c75b80e71a81997e8e3d56331113e154b8a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 2,
+          "render_sha256": "beb9636ef4362635dd954bbfcc605c2a04f35c73039d6f880ee72bb09151f81a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 3,
+          "render_sha256": "fe148c9ed936c464eba113e11586ff99eae9c5d2bd4e3fb0f3f01cc01b9d4691",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 4,
+          "render_sha256": "f5b9f5bc431d0d6d77f4e90777fea29d6cc85d70c127afedbc1e3178d3f71a08",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 5,
+          "render_sha256": "59c2be3f53a28537847ec11ead5f1ef8b13a5ea494030bc7617b3a7d76be6eb5",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 6,
+          "render_sha256": "4185ceea22cc814415f9d75fbbcf2e0dd3498fcb61f6fbd2ce147c44725db1ff",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 7,
+          "render_sha256": "2d15a516abe1ebd669e00c490403f664f02ac40d7afdb3e9fea60d24612164b1",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 8,
+          "render_sha256": "0fa0418cb9290f95d8d494554129ceb2819f8bf5df465807982ff0ce39f876d4",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 9,
+          "render_sha256": "a89a0e9f472ff5664aa832c78444d867ad98a096714313fce18a15742a6cad96",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 10,
+          "render_sha256": "6001fd88029f1602263aaf120ff397d4674c2d9f597d264efa3e8544c1622684",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 11,
+          "render_sha256": "cc9f0db8bb40077927695fc8e7f8835bd4e4d2938ea5f8c56b0671cd5106e76d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 12,
+          "render_sha256": "66f43f3fba1d01a0c24acde0b545b93bf9a760dfc2475f4b8cd734c0baf4f4b6",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 13,
+          "render_sha256": "7cb04f6cabf50a4976ef30363849df27260e3d63d8ea9e5e1efa33f0ed3654f3",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 14,
+          "render_sha256": "d5cce36dfcef63ac53743a6a1a0228cf0878e0835d68465b1819c99d45d2c238",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 15,
+          "render_sha256": "5b3c6280d2ba6a1b8cb427627b162893fd6742a9913462a08feb029a0a0b06d0",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 16,
+          "render_sha256": "3ee4bf2c401ea784ef72e7c80afe9a156c32d9d9d7e2000c15650b393f3a4bd9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 17,
+          "render_sha256": "7f0b2d05cbf08ae4bede0d1a7efd1244a0f808d5ba69ea60e377181f5ef7a548",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 18,
+          "render_sha256": "b600ab6984c2748ea8f3c29006a63e27e7359135babc309fc8732a7efd512289",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 19,
+          "render_sha256": "58523752868ccf627a44c6e593c23d924539c96b52dcba76aa0f50148c4d7dc0",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 20,
+          "render_sha256": "77a7e5c870eae4beb58a2a9ca7344c753abd0a3d2fadacf377793a537c4a0452",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 21,
+          "render_sha256": "fd3508f15a90fea44d72e9b63863ace333240475ee52dd921e66c17f4a8b0984",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 22,
+          "render_sha256": "b29bf1be04cd76a365369f79ecb98d154b5aad49fa221b679b01d60f081225e4",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 23,
+          "render_sha256": "8ef71bec917639a1d62f76e8d8b5d68fdba1770b8ba22edbd8c790083eb3f570",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 24,
+          "render_sha256": "1be2e79225c5e518cef883fcc4c6f8ffa36cd7ec43c3a3c99f46d0fd9e21caa8",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 25,
+          "render_sha256": "c375a5f48191634ace609bb60e041b372b40b038509ddb104cb704c38a1f4e4b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 26,
+          "render_sha256": "1247be99db448834523e4a3c0ad7f952fe3d7b8f30ca12a024b3c06e7c24d9be",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 27,
+          "render_sha256": "0941561a286019c0bbf2e784fdc9e4520d15048af6d343b3827dc8a83ad3b018",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 28,
+          "render_sha256": "36b186b9d3517648c88900a379ebae1d9c31ab98975a6b78c2e4800cb73b32de",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 29,
+          "render_sha256": "f740e1e7ab8d3b75cb47b4538534703a4ad997da48296a58b3370b031860064a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 30,
+          "render_sha256": "0a7835b6379e8818a6489c7351b454654b9fc125bb38ef823f1cf65fcd01e686",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 31,
+          "render_sha256": "69dfda88fd6c7560fcb4419aec8b359a645db99f6c321780484eb50e3ccca2aa",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 32,
+          "render_sha256": "69953f5562c28bcfb6a73946e26d5938e936cf48c27e8b32de6815d2d98bf409",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 33,
+          "render_sha256": "774428fe0b397a64f8d1a780d8285c7a734f14cacc41442754a771535c9c6375",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 34,
+          "render_sha256": "f0cffd861c6088929dd85a27affe72e2747226225992f4fe0e3239d930388578",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 35,
+          "render_sha256": "09a9648fa8f141b0c4d887879804ef852a560279e4397cd45fa8994ced03845d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 36,
+          "render_sha256": "b38da7c3fd99080a1e9946e0f96b07e097169238505edd00e6744ec9f1d8b2a6",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 37,
+          "render_sha256": "ad8c91e479f3eaed68e19d58914e5e2f000776ec7566873cc5c776a5998d3c70",
+          "width_points": 595.275
+        }
+      ],
+      "selected_mpn": "PCA9538",
+      "selected_package": "TSSOP-16",
+      "source_sha256": "fcc5a3c0acdca85d4e542553b50fe0bca17075c27721edd6e22a894252a9a0e5"
+    },
+    {
+      "datasheet_identity": "TLV9062 SBOS839",
+      "id": "ti-tlv9062",
+      "manufacturer": "Texas Instruments",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "a373a5f11bc5d88f464e1cc245b8f24c85f501db52fb8aecc55f322d50bd02ba",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "02e45691c1a39e46d343173453854670ad94b0a0cb1035f65bb2b933ffa2d1a4",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "f9412ccf5ea551e352839d73e9c74aab86cc33845e593de56e943e7db1901b2e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "9a0245e8b9768fcddafe76b5b40fac5db652ea5d24e12f5931905802dcf648e6",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "f807e5ba1fab8f8e377cf7af56329a3616f47f3ce9cb4c9c12207057ad6a1b1d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "054c0e57c7cb7b022e07259cae20667da0c08ca975049f25070922ec9444783a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "3903aaf320c9ed6f18c074393cedb390ffe4983831e98986bdc28ee67adf282b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "839b784c577139fe35c249dd4d949b92d77a536f8c6a47ae040f2e9797ee74bb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "a3a7deb84d88098fcd7adb31c879f2e74505d01c81f83d9974bcce8137e3fdb5",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "eb232aace6f34e4d6676b43234145955e12eaa1bf8be064523ec3bad6ce2e026",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "1f9824913bc0718f2379063490e5d8f8dab6079149d5dac3afdb7cf8708a0294",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "c81e61665b56755e4989651ae659adf683ee451c0d7ee9b36e0c5bd8930f728d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "819817362a59835b809c9e06c74c937a24966758fb297294ea5587b4c106e661",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "32c8650399208faacb514afcf4bf61a34ac984c9979563b45767862769affabe",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "84345bfedb438ea15ea90396223d360f5090d464941114295433229bb6020c2a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "98ae27ffd08c6459ed43e6fff211bd41bc8e014d9083c47576bf3130e39ad9a3",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "58b4c2604f646ad57dc514efa00209ec06e7bfd5367205f0a6da22d8f19c06fe",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 18,
+          "render_sha256": "beacd41d0ccc09c3b141a6f9b58720efb1498cf901f6fd1913fab328f34c905f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 19,
+          "render_sha256": "f5ecadc05ffbaeaa8f7c755c162e896ab45154ce6d35e874683edb13230e8cc7",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 20,
+          "render_sha256": "73af05bc2eb9df0fb1aa0738d119ba4f342d31c52963f0d8b4558f2286164283",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 21,
+          "render_sha256": "02cf43231c56cda98c047930ae544eaec12fb177546d19bf00b4c7d8d281404a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 22,
+          "render_sha256": "01d0318e6b183629e83d96654b4dd37cdec8e2a96f2f47e3b771f94c475772fd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 23,
+          "render_sha256": "64f825cfb8545944beaffa16fd109fae6df6bd84843872ef3cc2a08fd5330c64",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 24,
+          "render_sha256": "7c905bf9f6cc411633c858d90f13f8cb242da0dbeb48076fd4dcdccd0be6706c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 25,
+          "render_sha256": "d4f4efe6eb3201325caa2e6f6411b881594d790488d89a693e1e66755b602ed0",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 26,
+          "render_sha256": "50b6ed54ff3ad9623d45a92587a72d5370a28c49ea7c259c9757f349a5f2799e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 27,
+          "render_sha256": "961aa50d12c3498d386055705d4fb8fbb2cb4966e692aaac2dc2529ea74427ec",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 28,
+          "render_sha256": "51057afec01519fcc18f6828cd5b81eba730e7b26772e8b699d1a54672e6bd0d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 29,
+          "render_sha256": "7a1e06346e5f0defaa0968b98d48a96ea09d768a6b57da9a841d2c712edf01e3",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 30,
+          "render_sha256": "eebd86b39756da86f0a9ed87dc66402a3b76049562ce3795cdf95d9ab476aee1",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 31,
+          "render_sha256": "6d72b53a8b30f7b3c72abdbc59a6af9c5857e32e95d2117b6e8f915a338854cb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 32,
+          "render_sha256": "38f94973a28143024c9da7e617124508827bfd95dbec1e7ee540941481c0494e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 33,
+          "render_sha256": "3fa8efb2655ac988049a055c955f98629f9661334cde37f80d70f8e4e2e0606d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 34,
+          "render_sha256": "819a1cef2fe78f746dc741e32c72c235ebe9c823c4635ab97cd0f34bf7e6d298",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 35,
+          "render_sha256": "81712d43973def3d88e11981e5e834805b8fdcb92ee8686a1093a66c342cfa3c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 595.275,
+          "page": 36,
+          "render_sha256": "503d98f1a4fb8f92b06c0a19b411cad03b0e64b20b2c40277eb90b3bba39d807",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 37,
+          "render_sha256": "4428c91ce9a87233a6cb02a4cb0bbd6761462e0e2d6acd143ce25a8bc0dd0ac8",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 38,
+          "render_sha256": "8fbff3aad14f4c9526e94192253c2ee55d58635d9cc2d45ccdb4c8fdff4ab737",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 792.283,
+          "page": 39,
+          "render_sha256": "1729f7b44a01f593c809609ebc3f82ab21d5fe102b0d14d8e79fcb36fd6d2b60",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 40,
+          "render_sha256": "b72715d61437e7a175977df841c1d31d3f70f6f1f2910e2213e5c04eb31d31c3",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 41,
+          "render_sha256": "c52a2addfd71d1da2f2ce725c03647cdf746ab7277da19a6c91873b15897dac1",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 42,
+          "render_sha256": "5e391c7c6652b068aa4dfeb798d32efcfaad9f3c21aa1d9834c8b86ca07497e3",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.0,
+          "page": 43,
+          "render_sha256": "45cbafad92f70f8c02bb0f786a1296eebccf1b48598bf49de0b26f8f79cb13f8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 44,
+          "render_sha256": "1c2d6d51397f73cc2649b2afdc0a03f2c326173ab1f00a30bcf7c35e03a4a617",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 45,
+          "render_sha256": "17ab35b554816925c6bdb721cff62570b74211d01b3c125b936d3d0017385a01",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 46,
+          "render_sha256": "6b006f07041eacc0952acaae8740b55d0cb5623895309473a6475d7e9dc8c63c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 47,
+          "render_sha256": "df19117b4383342c9ef0271ad2ec26f0ab3b4bd34f99af3877eff189646faef8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 48,
+          "render_sha256": "3d4b4c396d5c5758b884f4167ca020a8803b9ad16d88be8c9a912da515dcb756",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 49,
+          "render_sha256": "34ab47a44bd5716f752a9dfc4aead077c51106c5c398837820260e41cd7ad22d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 50,
+          "render_sha256": "f1736eba18eb5a56ceacc23fca6af8480fef46075b21782f39333a3383fa7dbb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 51,
+          "render_sha256": "98ae68ce779914fb028a3c5a022590d264fef89e183792fab1d26c8d4daf6241",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 52,
+          "render_sha256": "83a560af94047d707f53d89e8b2f7094e25d21ac684d1bbece207fb183e103fa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 53,
+          "render_sha256": "7cd4cb1bed00462bd3225af1c2446f517b9e497f80206549eb1bd9d3fbcf247e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 54,
+          "render_sha256": "66f83ae06a30838beca466b9593c14df0d632e04c639a222c37ac4cb41792208",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 55,
+          "render_sha256": "c916b0fe489deb4d3ca34c44480c797cbeb29c1e4d323b8b11824956ce7fe38c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 56,
+          "render_sha256": "4f6b005b262f0e25db787d6e78f9b938fb2100c28fd6b0a21b1eec93ce332a7f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 57,
+          "render_sha256": "5e02cbd8003707ff4bc670c6c296295228f18f12e023f9f1508d3387ba921fb3",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 58,
+          "render_sha256": "a93382d311cb84cfaea4e9414fac5c49873df3e4719fefd3b22d590ca0e4413a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 59,
+          "render_sha256": "52baac246f317e99e58d80b3498d4acd64019373f240f2db3b9ad890ce82d1cf",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 60,
+          "render_sha256": "283c99f36f57d3be442a025ae1f961aeae697a6689eb5499ad55c2abbce96e8d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 61,
+          "render_sha256": "253a31c594128e6727b20ee5cb04c99c06ad5669fde6bdefde50411fa44f0756",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 62,
+          "render_sha256": "cb1e4c1c3c60b9b610cfb34f109c1354541c1b5d18eca692aab433214ae1545e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 63,
+          "render_sha256": "a39c3f1e07632ce6341aa966eb5f28d3295a4388859619ad1798f58a864af309",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 64,
+          "render_sha256": "49f9ee41142d2f96a513d5afe2d48d04f5f4a5411c23f972e6d1a968f0dac6a1",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 65,
+          "render_sha256": "0b728c081b71eee5a656586c37340abadd537b1224a8ea87047d670cf9826739",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 66,
+          "render_sha256": "4d2388fd2ec4ab6817a7938592ecafa889275cf1c43232b8a6a52f8620c0534c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 67,
+          "render_sha256": "fa4cc544162c42f2b43bd6982b9521a8d35f53d4d422ff745ff731124fde456c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 68,
+          "render_sha256": "ec7dbcac0da73a649f0290c2b691e7c460a9fbab5957402bcda75cff9e6c3f40",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 69,
+          "render_sha256": "064740ebb9a235886bc29cb8ad12182b126ea6d27c7cec8e1a982448e1f94290",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 70,
+          "render_sha256": "2d3f0ba7220fe04455abfb8a22a15b2df017de8530d60ee430841b5005762fec",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 71,
+          "render_sha256": "df55d84c00c0a9a936f7221adfead44950489ad72a0b637f13652ccd5ea25946",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 72,
+          "render_sha256": "50f181f2e2fc2d7ec2d6aad348e022ddbb7de07b735f42c774caa298b2931c46",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 73,
+          "render_sha256": "2959d94379f680e25377f2be8b8a703d833fb522de6160139e7d743a1b7c0091",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 74,
+          "render_sha256": "1e6a40f11119242d954713a2cd505d0501516ec3cacffda74f9d8f2aedf02887",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 75,
+          "render_sha256": "bb7c1b06d8d7165da3f7965681b67d8fed5134c5a91eea6e0927bfcf8bb58fca",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 76,
+          "render_sha256": "a62486d322614f292ef0a01c6705d3bf612a221e8b51a0fb4f8d8b6daa15d687",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 77,
+          "render_sha256": "3e75756e320c9c688e7709569d9d4250f5855e049d47e473af87b7d31e684097",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 78,
+          "render_sha256": "3f721025f89eab811d13953352ded01f175a59d2b7d0c20946a55b1382af8be9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 79,
+          "render_sha256": "064ee8ccfa2f5ca08dc4dfd116fe33f0a397913b108121fff87aa6365c1e30da",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 80,
+          "render_sha256": "a0a824f2ff90f86731698a262d37768c6373a459b16aa28e568b272804744f20",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 81,
+          "render_sha256": "1990aed0ec5ee68ed0a1443dcd07692b4fb883635a1f5a4cd986a041aef6efb0",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 82,
+          "render_sha256": "712020c68925de63c9ece640697b4f1effd9866fb0131815af500dfd40d91945",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 83,
+          "render_sha256": "6621b1af6df5241ef50dbfb875719a95bcde908f3b353a1779288aa7c9d52049",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 84,
+          "render_sha256": "f4b1d9551f6b741d3952219cf1b057c2a0550cf9cf6cd81e20cc51845a96e149",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 85,
+          "render_sha256": "b3f74a0b3266c56e6972c365799c7c6a999e0d53d5cec0c6094585cae064fc70",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 86,
+          "render_sha256": "2e9a2dfd210c38b76177156c3f73b8d97e220536a27a01a830fadb0a52a901f9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 87,
+          "render_sha256": "eb1ceca7ce6554ac996f07483ebda8b0d16d37edf5391d6214c1c088f9ecd08a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 88,
+          "render_sha256": "074e310b15eebe4aefaae54db77795e4c9ba89275388cde295ffae4491855bb6",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 89,
+          "render_sha256": "45efccaff86d47a6facf337cc21b64f9fe0b4aa1f9b75c015e206fd5823ee4a2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 90,
+          "render_sha256": "d280e50d1402440abc2aabbd82acf165b87ce22982c358a9c863f330e28deada",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 91,
+          "render_sha256": "c86e2c8451801461ec96428b236777544ec01d68c6b9c7cd1f339be39026f7ba",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 92,
+          "render_sha256": "803fa43b46f9dc42a31f309d76b033d5499796ee20a3af32aa354fc5fc8ce53b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 93,
+          "render_sha256": "6de6dcf8e0dd659f1f82f1d7bd87be65424ef2cb2c100df7a01d261e90bf9270",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 94,
+          "render_sha256": "276c17ef363c5a820a6ae6ea9a3d835fc0cd64177eddeec939fb432bb1d48d57",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 95,
+          "render_sha256": "1d1e6ce8f309824fc30702c00cb78b29f9cd2bb7906e72b609a5071f34615c7d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 96,
+          "render_sha256": "176487865e6d6a0755352562448a33991b20de0509d1aa2782e92efd4c14ab34",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 97,
+          "render_sha256": "90ff5727ecb87bb72526722caded5041d2984e7986338c0e2fc280584b098358",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 98,
+          "render_sha256": "b2facf94a0a8f8c7609f00da8f9a4e7eb673963aa3a1c0e37aa7498ba74f649f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 99,
+          "render_sha256": "20b612d5b3441ef95002c67aa374b2fdaefeb9815db63e386bb5b382199960e3",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "TLV9062",
+      "selected_package": "VSSOP-8",
+      "source_sha256": "18e67fa48b2a3c2e0a3d21abae8600e8cd864fe62f1b4c0d23d3fffe86a44dc4"
+    },
+    {
+      "datasheet_identity": "TJA1057",
+      "id": "nxp-tja1057",
+      "manufacturer": "NXP Semiconductors",
+      "pages": [
+        {
+          "height_points": 841.889,
+          "page": 1,
+          "render_sha256": "3060af8820059eba5678651e2a5d09949469893a1b6f5d7159257e495c3fe817",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 2,
+          "render_sha256": "7bc6eb6045bf9ce20f477990be66eb0e93ffc9f050d3c25c3280a06c0343bba5",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 3,
+          "render_sha256": "678ded682ba3c5d6243a5713abf88b31ceb2a1a9ea14b31e86144f3f2340c823",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 4,
+          "render_sha256": "e8ffafb11e676d22a682753728496a5d816718bc4c87cb70de2cd9665f1733bf",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 5,
+          "render_sha256": "a8c47efae87903e23f94c53b56f905739a6829b8a5f4eed7b2369287c21110a9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 6,
+          "render_sha256": "a9d06b8d3be1f42f9f3cbed667fc5fe7f35a99d01f9bdaaa78c275a8f0dfec59",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 7,
+          "render_sha256": "35a0df345a6964ce6cb1e228668207032723836d51cf0ec004b931ed46afc2f7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 8,
+          "render_sha256": "7b2908cad5406f7635295f9526ed5ecaf2abfe29781789f8f3e3cfed24dd72c9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 9,
+          "render_sha256": "fd670e9738b96d8b53410e0455ea8ccc0790cebb933f9e17a17f23d0777e70ce",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 10,
+          "render_sha256": "987bd92cce1d2c473cb670dbd58186bf0c7843928c410da8c642906d2bfd9d2d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 11,
+          "render_sha256": "29aea3d13befb2e8dd3c34cc979e8104cfd9fb88398473f1cc1342541a9453ae",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 12,
+          "render_sha256": "25d35bcd62871f099acb86a7305c7a87aa6c2db2cd8afe2e2c4a4f5be9edbad8",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 13,
+          "render_sha256": "58ec9458028ac169b4e36270c15cfbab9e4040a6a15a6324782fba4d70ad0b06",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 14,
+          "render_sha256": "c2f49a9c8a6a3b875c1d55fb07d1423fa7aa23ee43121b1926c8ccae1aed0254",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 15,
+          "render_sha256": "217f24a8c936745ff9259ac8fdca5a0d6afedd1c7d9100c22d008e04da81f2e3",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 16,
+          "render_sha256": "b21f1a578d463ab6226b19ac231ad5c8d0e6b293368261ac7cb5df93c56e8d39",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 17,
+          "render_sha256": "e47a0c8c5e323621133f666d24277a6cd857a8be806d20fc189b521844f47458",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 18,
+          "render_sha256": "d725673d368de6425d9b8aae6c3da398a39e03ae081b8b954648ec826b240b27",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 19,
+          "render_sha256": "eea87f2850ceeeb3d068f82592285106fb91bbe817fd31f1be5c642d9971b851",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 20,
+          "render_sha256": "847c2bcf793e17a8c609f75e8f25a14b5fbc9120f2fb026e74a589d8a3a0295c",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 21,
+          "render_sha256": "3e88be2adf9e5c66170a018262298531dcf2124b1f743d4acee6d38b7aaa199e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 22,
+          "render_sha256": "344fa331bcc0d49dcd45880f0ecca186abef72c52a8779b40fb6c4ada4b58fa2",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 23,
+          "render_sha256": "723fb1e41057428edee234b057b3a2dc2044bb1a52da3f8b43d1f24b6231f5b7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 24,
+          "render_sha256": "deb98d8319ad5bc2ab9841e20cab447258a9683a2a190702cb3ba04bc7721f77",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 25,
+          "render_sha256": "cd1fe056f6ee961496a1e56e7527ff799940d9d834f14cdeddd3b436d65b0873",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 26,
+          "render_sha256": "981f49c20699849c208bfbeb58f0a31cfc3c0435c9ad0ee058910beff2497457",
+          "width_points": 595.275
+        }
+      ],
+      "selected_mpn": "TJA1057",
+      "selected_package": "SOIC-8",
+      "source_sha256": "65a502b18c2f52f77f4bf2a93c860698ab73b996e47b652c9022021173ff9543"
+    },
+    {
+      "datasheet_identity": "TXB0104 SCEM129",
+      "id": "ti-txb0104",
+      "manufacturer": "Texas Instruments",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "ffbfa1754099746246331addd79d4bd4ff4cae898f02a11559635c74f3abedb2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "8e680ec2873a71c5a6c21402c20607d6ec40330a6b7022ed2f7c15a15a1c57fd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "ef998b162bb7ccfc959ba2fc053570ce512122aa33c487fdaea75999b946ee2c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "91cad148eff768ccef0d891a0f1613bee6a3375a175c83801cadbc3ba08be2f1",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "6c131168fcc4d463bc420ef9600dd3079412c93f7991a64afd8071b1be55d46b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "d49db4d610c85ce59db7ff1af6aa0f076a0ea259a91989ef6f6316fbcade2ab3",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "0178f787c3e62df84816df825912bfd8f7999e2828bcb194b5c788246cd75d22",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "7cb473ba12efba0db280f053db10da1258a0202cff74797ab2a9721f7ef3f5be",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "13fe9f5a9226beb25f7c7247b378d82a35e945204a6c8b17dbcecd7ac100c6fa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "41c636a00e8ea3de1fa99a08e3ecc6cd4bbd8cfb6de6cf9cf45c902bc3001fdc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "73348fd1560ad713dbb27b82a745a80d249feb9aaa3e5480d51ced96e452bbf7",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "c4b291eaf08e0eec7777fba92fcfbae97ccd225d0614a0eaa7bc3b1f4b5d8477",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "2922d95757d33026d1a9f7a5d9d78ebdcf2a83c9d31d26bcf93383a7a0d1aa3c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "2491e18174d2d4be2983c729a01041b51fa5a0656a4d37ffac5ffcf6b6b36bee",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "d6d741cc910f64a5ff5f09737208cce652af2d903efa140da55b90f774397f4d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "1b9236d14e683891f694188b1addf687a4fbde70902273dd2c2ea5e6ee669630",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "273cdb6b1421a7375f0382d2792da8991d13f86bcea1bccea9c0aa6a8c4db682",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 18,
+          "render_sha256": "6c94c0b652d0814c2616ffd05ccf4186b48d09fbf5aa6d16e83795581a756e82",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 19,
+          "render_sha256": "e19a0e508fca46a75a82d8a27559600a09ae7620880c445966e0a581085a55f9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 20,
+          "render_sha256": "d3d331e7c4ab394e62a282a1cdfa3e4d1afc178bf1dfa7f8e8217f34a923f370",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 21,
+          "render_sha256": "a2b84c07dc3f8b64f4f3d051f915a70261335307212b753fb7a1e764bd16e723",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 22,
+          "render_sha256": "a7eed5ff52238ab8154d077be6d3f2f78ed0419237a4482658352151c7152afa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 23,
+          "render_sha256": "fa84d32572313604eec50f0fcca75322d0213523514d44ed3c3cd9b8bef459aa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 24,
+          "render_sha256": "7d90145f71004ead9394ad2d0bfc019359fa3c795c11880f9654628122bb52f0",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 25,
+          "render_sha256": "948139f433294813b15cd6e4379eed697253a236aa5ebbf72a8e25c7c6829e41",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 26,
+          "render_sha256": "7b459919946bb29b4c318d82bc2195118db1ada19fe7cf73f4300d15745e8275",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 27,
+          "render_sha256": "9012643fe1dce25683deb51b239a2209c8e81286bb74488ad76dc4b60813d4cd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 28,
+          "render_sha256": "8eb24e2b04bedba30eef2f1d9d7676a7f262a1913fe9c86fc66c0645a5c094d8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 595.275,
+          "page": 29,
+          "render_sha256": "749563828902569d8882f3c9d5179b996424cce989bc66f72e5d3b7cb2e169c6",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 30,
+          "render_sha256": "77c9125ce9eb543ace0a9c2a10cdb8099625bf07dc4e9df56399b6e196f7e333",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 792.283,
+          "page": 31,
+          "render_sha256": "bd4dc00530022d8d520139a63ede511b45e5a974bd3cf51bb52637d78ebc7715",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 32,
+          "render_sha256": "1c4bf93ee0819a0075e87ee674c4bd59fc2e8fffeb4752154c23e9fbfc81134f",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 33,
+          "render_sha256": "1c005938ac402b53b0831d3b96cc4ac78ec043457964bde819c615783de654c1",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.0,
+          "page": 34,
+          "render_sha256": "4ad8ff6f639a9f6af8fbc23f7ceaf782bcccf2f98edd51dc4643ee70daa3700d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 35,
+          "render_sha256": "d8df51d3949ed279a971d9708870a5bca752cdf332f269c0afc7561732aa4dfb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 36,
+          "render_sha256": "886ec5a38991edbe41746699d3d1c7f2364aa43178c34c58da7c833782a5624b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 37,
+          "render_sha256": "4a3348e1076be54ce8e5ac2a16e7b24343e4c1f2097d87eb4c103d87f28a0932",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 38,
+          "render_sha256": "439dccf2f55c3a60080fcf381a14617b8924e12734abb0a9e3b0b4de83abb10a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 39,
+          "render_sha256": "45cbafad92f70f8c02bb0f786a1296eebccf1b48598bf49de0b26f8f79cb13f8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 40,
+          "render_sha256": "1c2d6d51397f73cc2649b2afdc0a03f2c326173ab1f00a30bcf7c35e03a4a617",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 41,
+          "render_sha256": "17ab35b554816925c6bdb721cff62570b74211d01b3c125b936d3d0017385a01",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 42,
+          "render_sha256": "026edefab6d9eb560ec54e00384edefd74c58d96530007aace5bba921d2cccb7",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 43,
+          "render_sha256": "4fc497cd16e794d9a7e8ec30a35be9d2399b73c0b417e294c6045c92c66e103a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 44,
+          "render_sha256": "c9aff934bbfe462def086fdebc8bada18ce2e3b918c4c712c6e545602b9d1ccc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 45,
+          "render_sha256": "f2a1ca4a9fc839501ae51ec054686301cd74dc4f47a1f32be14db291cbce25aa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 46,
+          "render_sha256": "330b40fc1b8078256df9763356d8d80d8b39048471f2acaf583bf26da82a8219",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 47,
+          "render_sha256": "49c06fe828727171b83a6b14b601d084dbde3fd54ac628f9f5d306d124488b38",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 48,
+          "render_sha256": "02fedfb9a7595c06bb46425cc7729d9e19321e23f943e4a38a23bb274709afbb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 49,
+          "render_sha256": "5f019f91729c586b7689981747c4f57fe9063914637ee985bb8302f5933c89ad",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 50,
+          "render_sha256": "62bdafdabf31afc5cbc486cc56b42fedac783f88d36593e280c3707370f0da90",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 51,
+          "render_sha256": "08170f3aa6ba51efea9621ee2d623f730c9be2b21ee64131397cb96190b8534a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 52,
+          "render_sha256": "45efccaff86d47a6facf337cc21b64f9fe0b4aa1f9b75c015e206fd5823ee4a2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 53,
+          "render_sha256": "d280e50d1402440abc2aabbd82acf165b87ce22982c358a9c863f330e28deada",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 54,
+          "render_sha256": "c86e2c8451801461ec96428b236777544ec01d68c6b9c7cd1f339be39026f7ba",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 55,
+          "render_sha256": "20b612d5b3441ef95002c67aa374b2fdaefeb9815db63e386bb5b382199960e3",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "TXB0104",
+      "selected_package": "TSSOP-14",
+      "source_sha256": "9a852f7bcc4104df0676d7ee3e4918429c3db2cbd79a5338aca0a1d34471e400"
+    },
+    {
+      "datasheet_identity": "FXLS8974CF",
+      "id": "nxp-fxls8974cf",
+      "manufacturer": "NXP Semiconductors",
+      "pages": [
+        {
+          "height_points": 841.889,
+          "page": 1,
+          "render_sha256": "bd277c1d35aaa56d0c01d9320189aa90f5e80a5263a8bb7b7d3a21806bd57caa",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 2,
+          "render_sha256": "d9120e402eee8029096f34be59b2250aaea9d777047653ba2ce2c6d730fe131b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 3,
+          "render_sha256": "a5f13fea2934de8803d841fc78817e6b3e2b49fe1f238a03563e00b9ac52516b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 4,
+          "render_sha256": "10e96036106c289198991af5348a597aee79632b2ecb51bcdb3c5965096011da",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 5,
+          "render_sha256": "fc2753344b7a890a69e80de9d737cf397d43d56acdbbacb6bb84d4027c32d08d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 6,
+          "render_sha256": "02cb7f693583c1fea12154c377bb5378350b5d0db2cb1e9b8c1a6bbeec22ce52",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 7,
+          "render_sha256": "7f94251dea366983d14fbf3b4c981cd4b524bdb4796b86d124f6f34300cc80f7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 8,
+          "render_sha256": "8356308c591e0c7100af5331d52fc6e5ca9a730ef875f03345a4f1882091549a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 9,
+          "render_sha256": "b2e10ec925a6fd1a0061afe4e5564b5522cc247a10b903d115a103684d24f10a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 10,
+          "render_sha256": "2770ab96892932736b4b999514e5638bc87078de92f6aba285a393992b969862",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 11,
+          "render_sha256": "d6af8aabac80fad7a280872863555c7d94e393b31a7a3186e8162c0c4ca2f8f0",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 12,
+          "render_sha256": "9d41e2b7635f15b9ff099c9e35eab5a7b8097638e8f3421412920d5c34017e88",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 13,
+          "render_sha256": "1fb970ccc8e82ca6ed75a59db1067e8f2f0857adddd5bc5d75ee469e7ef03626",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 14,
+          "render_sha256": "de1887f75e85bb68fcdf8959fee1bdecee069e06b054d86421c956cd7a8a98f4",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 15,
+          "render_sha256": "3cc352f9b4ebebcec1f707786d625d1e0cf1cbb8d6f15ecc263e715d5eb41ad9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 16,
+          "render_sha256": "857d0c0b98893b8d06db6c109aa1adf5b52d3ce06593e73b29ce6670582a9b21",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 17,
+          "render_sha256": "0c882d584f18642461443bfa12fdabbe0cb608b679c050e1091d72849da55a0a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 18,
+          "render_sha256": "c6bdeb4bcbca9c6e464e05671b15532e0348ee4fac8d5ec1ac4c405d468ec5f3",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 19,
+          "render_sha256": "dbc8a224fc7564ce768fe7961b2d096acac402ed60bf79b7bca4f59d44db0dc0",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 20,
+          "render_sha256": "6c8e5e17ad791271ef612396003cf352373577fbb7cb91ffd510a5b9185ffd85",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 21,
+          "render_sha256": "93d9404862c4fa64bed8460f7562dd3299afb7b97f6685ea7fa7bce147db917a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 22,
+          "render_sha256": "449d4ddf87038131f9d151bf46e6aca9a4b1893262130595f92f0305befa5715",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 23,
+          "render_sha256": "c404b1a2c0ac6213db16eeeeaae723c69f695aca3ff5d6377adf8c3fe0476a71",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 24,
+          "render_sha256": "8a282fa7f54a486b0242c7547b45170fd667b7ceaf64dfccf86213df4de7b8a6",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 25,
+          "render_sha256": "7dd28ce4e6c67db4d0634f4c0dd1cb33649232f516724b74d6032977043493e7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 26,
+          "render_sha256": "ab3ae5ba20b6734fb155bd9d676e4b8a601ec1e35fcd7ffc73c2c000525eb3cb",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 27,
+          "render_sha256": "aeb079fac29f67d0b7c8836b7c865e0c6baa188cab330082a049a47a5fb7df18",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 28,
+          "render_sha256": "87f7462416d08f7005d117c041f2dc5a28a813f0210d204600ac7fb46735f054",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 29,
+          "render_sha256": "4c8bb5851717bc2eb2c7f01a86481e77877a16f12ff8ae2eb31dca4200d24625",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 30,
+          "render_sha256": "3549ec99e1de5f1f33776fed5626e78e100bce7c328fb363f5f99b6cf1970e54",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 31,
+          "render_sha256": "78b174d13733e1f866d2c60f263b316fe4d36bcbf357c144cb785e45da68c45e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 32,
+          "render_sha256": "53ef6a5525b76506e990ab50240064ab1ef0d8f929b3d65f63743cdfef7406dc",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 33,
+          "render_sha256": "7f72b20d5f1297915f8937ae8b85887d0d6909088fe6881644785eda675e34e8",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 34,
+          "render_sha256": "60284d38fbc6a0cd790c69e545bda120b30f1380109b918d1a9ead72080ca47b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 35,
+          "render_sha256": "367df706aa2d36dca4c59b1c2dd7b6a39072f40c94fcc3f3028c1e88c2cc63bb",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 36,
+          "render_sha256": "baded20662366338e64e85c6ae4c67c9d820e514698135faec690f3dd92212ae",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 37,
+          "render_sha256": "fcc942fac0ee5fae53804ca1062a58f38ef4b1abbca9bc37ea224868fd559873",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 38,
+          "render_sha256": "52ea1c235b8cdc53ce011bc9ac49b7c33ea27b95797e7a5530cec62595049b5e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 39,
+          "render_sha256": "3b301e137bbd5d3ab6b3d414db33159ef47491d3ed72d941a0ddc5dfe063654d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 40,
+          "render_sha256": "13d7be0c21b63fd1c0fa4d6b0c74e7706c142d2772219be3f6e9834d8ad54826",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 41,
+          "render_sha256": "bd5853b31a2d488ad7a483459c273dd0a7a9774e9301a8e872a142d92323285a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 42,
+          "render_sha256": "6aceea8cb73279d6b2e371fd48f8c792e8eeecdc85b9a08c93c706b8291e984e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 43,
+          "render_sha256": "8194625c0fece3424f9dcdebc68ea22b5196db31af6b46cf63e560171b535b0f",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 44,
+          "render_sha256": "da5bd231b4481afc9324e93875976028211328db18d6b061e387f7b60414853d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 45,
+          "render_sha256": "598fe562bb566136352b8bcad089e893fa83988992023b8c4244c625b788e7ef",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 46,
+          "render_sha256": "7679093e67ba55396a41cb0998547a7264ac38e5e12573114b03bcf3428bec16",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 47,
+          "render_sha256": "f0ea28b7dc453aba2c48a963e1d7f98411eaecf6480538f5cb5e257fc50892e4",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 48,
+          "render_sha256": "4b46f30d86c454d9bc3b146968b692a633c8061ba966612dc4a55fe6ea1adb5f",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 49,
+          "render_sha256": "30f5d65284bff6ddb14d405d3e06194d6b8b0337a216c57065ce3b8ecfae10a5",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 50,
+          "render_sha256": "2cc7fbaabccb0fc35b855a9e1ac41d4dda97ef43ba94277f1efee3740b36f791",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 51,
+          "render_sha256": "c89fcc20618c8b1fe7fe835fbf21282fbb6ef8ebfce9b2959245d2e8e817e3aa",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 52,
+          "render_sha256": "5845c33f72b75f83a6f6961a785a6c29b0e1a3b6dc2656aa1ec6f7604bd41b32",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 53,
+          "render_sha256": "11ffe310f79b5b01752fb68f23d37d432aa0a75fc7c872e928de7eaea8f8de8e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 54,
+          "render_sha256": "35afb027849c9079ee435907dd00e1ebcb2991227390bb97b3101ab402c14382",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 55,
+          "render_sha256": "2bc97c9feda204322d758efe15939f550975c7d9457f15476cbb8b629cf74a60",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 56,
+          "render_sha256": "46505bf87a7c342a3b4eaf6887edefb40aca11eadf8c65e87c716e078d99f7ca",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 57,
+          "render_sha256": "3339d231ed28e163f730991f081bf8b1beff2aac0ed5ff3d132455fb7bf1e5f9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 58,
+          "render_sha256": "e932803a3234dde6b0c7cba96a7f7427204800f03fa58b75394df81c0293331a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 59,
+          "render_sha256": "4cc08e146531aa5acb73178ab6b7f07646f7b1eb5130a235307e3601957cc2fd",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 60,
+          "render_sha256": "b191823d0671980afe1068a52fa28a2a443bf0267378289fa5f9c5a41a36de8f",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 61,
+          "render_sha256": "e1586c7faae066563f2beed92046c385ca8865a1df3ac976921df200f236f1e9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 62,
+          "render_sha256": "685897c7a6ebc70e4da6f2047a070ceeae56a09b8d9f3aebb51f5b90e6d573a3",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 63,
+          "render_sha256": "88d6233aa7a07fb9e601d6fdcaab26ac35f318eeb8620c6ae8a57433e048915e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 64,
+          "render_sha256": "2104e4a621d8d6603bfd09d0a5cf476d91cd0cbe6fddb0281ad5898a05c62b6a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 65,
+          "render_sha256": "cf6d732b370addc6607e82666d4ddc507d1eecc90968820cf0688fd4a4aedcd7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 66,
+          "render_sha256": "3054cb6492027afa6e52b7cddc5e8183dd18fc6e3201655ef381275e84ebdc23",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 67,
+          "render_sha256": "955bfdfaa827f96228f301761683a749d82446945f4ef2c06b5d7bfa98ba691b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 68,
+          "render_sha256": "a3ba2a0103091dcabcb81b38852df54ce48f70d28c7545fd654321e1b8fa24bc",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 69,
+          "render_sha256": "b913059a1d1b650f8a277398253a6a714e128b0f61eabcd0e9c1b426913b580f",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 70,
+          "render_sha256": "b76a6a09d2e807345c3d55b4f93f4e448d8414a7b786def853a89bfc15ee5d4b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 71,
+          "render_sha256": "c0ed90e633a9f279741f6dd8e064f7430ab22eab89fd0a55a7f90e1772bec3a2",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 72,
+          "render_sha256": "8b70fc1f1e6a3a272ea306e68ed38079b7fed2710c4853878e8fda70927c642d",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 73,
+          "render_sha256": "3c967e27534cd4b741ff34c2ea971126a26d7724a9792413f594d32dd67e67c2",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 74,
+          "render_sha256": "c0d6ef0d313d3e04090db37e46e5ee8bd4b16308c3b1e45e74f0554490a20742",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 75,
+          "render_sha256": "f4a2ae48ccb151f64e60d6d325556d7950259a2c35048602ee9e857e88d1d3d8",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 76,
+          "render_sha256": "69ac3ddce7952bebc19cfc2939081b2f5e1d8ae3b1a60700087481c99f8fd03b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 77,
+          "render_sha256": "791bcc8ecfc8e952071481774f85fac03a17d9b96688bdfe53e4f575280d8352",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 78,
+          "render_sha256": "f8d3cc61c3295aed8355ce3063a9bea3a36f99c39c967d417c36d3415b6e7267",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 79,
+          "render_sha256": "d50632ed8a4f4dd8b7951af93046473c74aa25fdbede598d4b7921b35483458c",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 80,
+          "render_sha256": "34f921b1407c951f12a22e836f9846a6cf32ee15de85e2c89c5119487f7e3f5e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 81,
+          "render_sha256": "6db8f355c0e5fa97ecab878248c4eff3f8b8d87fe11b0b004c255f1d7bf31c84",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 82,
+          "render_sha256": "95713900c98303e8b16d4a90e2ac5e985e46ebdf431eb55afad7f2e8c8ee4352",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 83,
+          "render_sha256": "46472b011b836b88eaa55a7645bef2a5fcab145168ee67efbb9ef5b4cb432358",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 84,
+          "render_sha256": "d2ba53c6a158bb30f6080e0625b11161380ea7fbf82790068fe48382402bc736",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 85,
+          "render_sha256": "f001b00d6ae2aa44f33b1e99c3f1c0103f025959d4b50ef0e57d57c3508f168e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 86,
+          "render_sha256": "94640c00611d4b3d001c2be6550772956faa8a79fe3e381e0c07b6c1678171ee",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 87,
+          "render_sha256": "44aa9271b5f2b6724d7cce00785cbca75d12449894d814d2ab010175335e5931",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 88,
+          "render_sha256": "9ff051856dee7e13e704bfefb1829236372a3f997d3294a3cb3f1dab2ba820f7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 89,
+          "render_sha256": "18a9e4564cfa2dbd8aae846741342e3b2505bd25a3269116461b212750479c30",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 90,
+          "render_sha256": "71ecc5cf4614334038a1cffb35ff9983ca1bc3685bae72fc02b05777478750c6",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 91,
+          "render_sha256": "00261a61296b007a3e0047936a039337e6981e77a476eaab636dc859a1b6972e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 92,
+          "render_sha256": "f3344b880e337c5b8d2c8d2062ff6f9f37974418a0dc009fe43766fef16c41bf",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 93,
+          "render_sha256": "d95d374cf02c9bc19061cb6c71ebf8263d0a0abaa84fbe58f9ef476281e8c03b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 94,
+          "render_sha256": "1083b24e05e5a7e95a179daa6509b91c6a9f5c0f08a5352c2b581e069ebef7d7",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 95,
+          "render_sha256": "6e2d6fac35276819e2b7a6e1a88eb6d113ebca8d360135c1186bdcd4d51b3a07",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 96,
+          "render_sha256": "73f3fa00b8b36e2f6aecebf31ac6b5f89421fc6795db97480902830cba3ac384",
+          "width_points": 595.275
+        }
+      ],
+      "selected_mpn": "FXLS8974CF",
+      "selected_package": "QFN-12",
+      "source_sha256": "ec744130e65d9b1431a4d2bd56e3cddc421b8cb80653a66a7b956b9b1a7d3a51"
+    },
+    {
+      "datasheet_identity": "TPS61023 SLVSFR5",
+      "id": "ti-tps61023",
+      "manufacturer": "Texas Instruments",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "184de12cdd96257bcc7acfc7a3faf5a55d49a82185284c67935314ffcd91ab4e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "b726ca079f86d6aff9938fcf87b7179cf21369ae6b802047efb5175837449d12",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "ba8f6eb4e7571b9f2f5f369a6e5aac3c0114c1c11baa494e6db39a0e70498496",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "f3225410bf62db5b72a56e711aa360b5e1ca8fe0a4763453ddcbce5e9203847e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "2ba454d41d83bfc3f56d6bbd27321714c52870493ccac126e55a86538400dc10",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "baacd71a4e14a23b4107f7aade891f9848b27c62bd31c6603f082c7fbacefdfe",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "9ad63e63b6cf3cd5cfc34bfb3c0b0e815a456068064725be2bc80fa24966da87",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "97276e24b0cb1ee617cf2e7301c4c88b3d30866d55d4d37e7b87b154998814fe",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "b470b0d3bfd7620a384ccdc1cc2f4b20b2d6144ddd5706f25634d66910f0fc41",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "e6bd180b63c504d192bd17ff90f706810f97580adbbbb24d1ca25a26c5d3cc85",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "411bb3d9e109f538691e5513535363ca41f20359ebe8b68d743e8e5cf1753950",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "f33ccd5b8914701c1ce2573ff9a48ddf4a05a79629bc997c6b70fbc32db56d39",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "d48800e96415c84d6842ebda9b07e80a4e9bf2f91ba53ca54dd312f85664d2a9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "b8f68a2e98a31de0bd16b733991d5ff16db10ce218b177ddca3442026a26683d",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "9ba706875853b32496b8b7f1e97f10cc2979a417c91bc58d32f4909ff9ae7be6",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "248f073de845c2d30bbdaf7bc27b8dc8eefe76a5ef74c67fe58259ae40ffba9a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "9a71b568edfc084c58cd49e1f57aa48aabe0dc0c573164834027de986fa13990",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 18,
+          "render_sha256": "4379dda8bec9c02fbbe6b0f98cf74fb7d5b24871f5f4443517db096400dafae9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 19,
+          "render_sha256": "89c125709d9ed70a49121188cfc7791f2d0e743a3e973c07d38ff76df9458f38",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 20,
+          "render_sha256": "8459f1284e47c78bc0863d938630d0bb2c9b18438d229535dd1a6cb76c6a6d93",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 612.0,
+          "page": 21,
+          "render_sha256": "5f73d70d7cccac84a86dc57e4b816595d59325b9810bb31510673efb32320fe3",
+          "width_points": 792.0
+        },
+        {
+          "height_points": 612.0,
+          "page": 22,
+          "render_sha256": "689f70e619845d4c8d72676062f19d7507a2f78287ed011630fb85a86f0de21c",
+          "width_points": 792.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 23,
+          "render_sha256": "9fe68d73bcd26dfdeac0d26f668efa93d12b6e794aef896664026d23608cb39b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 24,
+          "render_sha256": "aea9a396b2e2dd484709c4b2cb9678e57079fd0a094622d90d20f89ed00fa61b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 25,
+          "render_sha256": "521fc040318d79ad702cbb9c21123b622af45bbdf0d650e505925f0736423b1a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 26,
+          "render_sha256": "dc827b34726f88991698f4ad9b41fca800282872b9e7d772a3b84ca9389d4446",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 27,
+          "render_sha256": "0228546883dd2125102eb9ce99321d749dcbe5ffd4ffadee71e753a862db84fc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 28,
+          "render_sha256": "20b612d5b3441ef95002c67aa374b2fdaefeb9815db63e386bb5b382199960e3",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "TPS61023",
+      "selected_package": "SOT-563",
+      "source_sha256": "633b1f2cabdafa2e52900aea3cea14877b2f20639551305420ddd7ee62b28d89"
+    },
+    {
+      "datasheet_identity": "PCA9517",
+      "id": "nxp-pca9517",
+      "manufacturer": "NXP Semiconductors",
+      "pages": [
+        {
+          "height_points": 842.0,
+          "page": 1,
+          "render_sha256": "a438c07a526639a956db17eb4d740f651d84be474f1037a4d8532d169558bdb8",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 2,
+          "render_sha256": "be4e7fdd2b08c48314a5299d2a75a98dfbe5835d217b1faaeb1c9bef721e9d96",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 3,
+          "render_sha256": "fb51a2fe4c7749efeefec7f795b827149619caa78ba7779f71c1ea51f50b00e2",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 4,
+          "render_sha256": "0446b5de28aa69c799cbc086e403c350621e096986c34a99cb488df63471a9eb",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 5,
+          "render_sha256": "312d66d4925c25f5b086d96ecac4ad86169d2103a594a369d55c2a85a31dab2a",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 6,
+          "render_sha256": "37a8727fbb01a18ed21ee0388d24552452dfd574bc09cc1479739413e241de78",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 7,
+          "render_sha256": "f952850db7d4848bda294bd2a6a55de92e604a5d33637ae50bc5cea7efc489a5",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 8,
+          "render_sha256": "504e3a65a71b5332c5429ef63175ac33bdf29c64b84872bfd40c930858b5bc25",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 9,
+          "render_sha256": "1d56e90b6758c66c94b60b54527d4a60fc8ec2240137ac7b5b8af376c4a14f90",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 10,
+          "render_sha256": "9dff02d8447fda94b492ec3fec86ca2b27db05f73ab79501547f60dc7f4609d9",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 11,
+          "render_sha256": "c653f365f6b8df63abb8201274bf8364cbfd4084e84194991f9bef3f5220a856",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 12,
+          "render_sha256": "4dc16dbf9c54e5923c893501d78f970795660118ecbc749173f19f8493e344ee",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 13,
+          "render_sha256": "d384af7604bc9bc479e8d57cfd0b16d0547a32bdea93bb0cbb7b5ef3700fc54e",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 14,
+          "render_sha256": "3257925bec7ed484a9bf0675af7b187406cf189783d878a69200c8ba184cd3ff",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 15,
+          "render_sha256": "0cd8577238f67f0a67fb03eae9d63b2df1582f2f22700af88df975180cc353a9",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 16,
+          "render_sha256": "e52376d5bbd60a4945206def17355fb7bc5e4dc1c1f081f49ddfb6e77c8e5c34",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 17,
+          "render_sha256": "8ae1766992ea0b3e4ad3625d4e16e9c560233c26d6486f8e57cad427e6cc84cf",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 18,
+          "render_sha256": "eace084c0b8f5e352ef924105a1523379065ae89619a2948e344559f69a99d2a",
+          "width_points": 595.0
+        },
+        {
+          "height_points": 842.0,
+          "page": 19,
+          "render_sha256": "973a4bb5959bdf9c355f604b369c40e1f38aff36682971cf6e2722a53f1f52da",
+          "width_points": 595.0
+        }
+      ],
+      "selected_mpn": "PCA9517",
+      "selected_package": "TSSOP-8",
+      "source_sha256": "f0f9734d1857478cf8c757aed9e329ae3a0f973ba09801e573a83dedea2f584b"
+    },
+    {
+      "datasheet_identity": "AM26C31 SLLS103",
+      "id": "ti-am26c31",
+      "manufacturer": "Texas Instruments",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "54f13905099dad949fc2a19bd4fd0d3976d30fb3a1ef9e1fbf3e144208fb78a4",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "2fbdbf5f556dd77bdeb1b6b74cd5bdf6c5b18a4146558c871e41297f0c0fe1f2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "493293f0c46b53a52233ef9f6bc103a6f6023ad29c24da8d3e1960e986fa2407",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "524df136571304e1c983e606e46b48cae8ac66df2d72554f693142446d38df72",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "03dd6f3a22b4aa81da29a1ef429a705aa8348024bf963a0b5f78e03a266702d9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "02295850e6813db2186de4c959c549187aeb8dcb3884e3bade8de031ca4c52f5",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "91cc9c87fa6552e5427610acc031163b31b00a797f0d13ebbd57cb3fc2adf3ec",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "6acf733980e25c674f35a83229b726d0d18f6f16ceef6a35d88970197ceb71b9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "a8bd429af892c8fc3e673b49ca1a90a79895199d76229dccbdaba9d7dcc5eb70",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "3a0709487d62b0c34fe883f8c63c60cf1ef9034f51f1cbb2a94aaa15f5671dfb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "2f2963ea5507adb96f817f65f63cc375482fdcee90cd27ba66bcfe4c6990f2d2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "37700d06a665591a8db5222417ed947a3c319a5f1c3d556cce583c092ccf6a05",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "0d10d4b3072211d269e7a59180bae1c8d10346490a81b746d7d03d79df13f734",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "952a9e5a46936145f3c739b003979bf0e56119d0598cef387517de89e4736abc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "6076380407cb20b6dce8c78cbf7a011edb567e4aa087c40ba8e81fa5de088607",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "48008dab1efb40677186f8f6b2d475fee4ac6ead37cf2b2c9ec3466fe7abc96e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "4d1bde6e126a5fdaf28c733cba791657354a3dd503841646d84196f7ae4bded5",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 595.275,
+          "page": 18,
+          "render_sha256": "a2d0809508abd5b1184ba322083f65961751a159bcbdcee149873e6602125ffc",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 19,
+          "render_sha256": "7d6845cfb8ed9a69419961d0157a960b7030338bd9f47c788d2ab700fc78f135",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 20,
+          "render_sha256": "c08971fc1a9fb04333377a0064716101439dbd03a5cf2bc3fbbb2c5ea8270c6c",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 21,
+          "render_sha256": "f0439172f086da4ac49cd6f65380f959338591cb4994710b63e628ee6d6d0269",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 792.283,
+          "page": 22,
+          "render_sha256": "64e44b78e9d085afd29d17054bdcc6c6ef59b59a160b39cfc52500fb27e7c5e1",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 23,
+          "render_sha256": "0500531f617fc4f70db8c466f641a78c9158df945f6caa6ef989f7248a2096c4",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 24,
+          "render_sha256": "97fc16e73e566d5b98b082c2747e43e9f9e695fb74ebaa94a337b52576fb2e26",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.0,
+          "page": 25,
+          "render_sha256": "4cad76c00c45d68e1a978564a78550f083bd3dd195c6e1a67517e2a675943a92",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 26,
+          "render_sha256": "5989b2c98e84b1fe9a91d3d93bbc4331f37527d4da0c5e13fc3b5bc63427fa1c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 27,
+          "render_sha256": "d3e1d08909cbac9ae061023f3bb5e995236b0701a4f40154976eb2e5e26e36fa",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 28,
+          "render_sha256": "0908208f0679a9fd4de7ea34ffcb6f48e3cebad072311624a7c80f2d0e241dfd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 29,
+          "render_sha256": "f732f8721650959eb8806cce20c452451f43619c5f008bf575ae622a2adc767a",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 30,
+          "render_sha256": "1ef8a6a867a17ef73f3c4a5200d804ca2a2b5bfbfa76febf874338ded6125771",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 31,
+          "render_sha256": "8aaa78f0ca0ff623ff962bebc7e06e63258f0979d80b4a6c678b2c3676ef9c3b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 32,
+          "render_sha256": "31393258bfe34239a8eb2630cebe9ef2f809a0a99132a48a72546f73d201565e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 33,
+          "render_sha256": "104070e7eac2e44ca99f263b55bc564028d3a64b7004132483e39f8a83863efb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 34,
+          "render_sha256": "75c91ef7cc2e650a79fe836c72201875c8c3cc3e2a98827897a697858146ac96",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 35,
+          "render_sha256": "00a93e8a7bf073bd89a503ab8477bb3b985831ae6da5c621c370887bf364c4f8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 36,
+          "render_sha256": "820f6a7d1b788dc50830eb656893ad102d8119e3f32b975a492c350cdb262120",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 37,
+          "render_sha256": "f33e8f17ca1762e53dded1f2c563afa778a55d01ab74ed34a322f56158097ce8",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 38,
+          "render_sha256": "73a011c4a605eb920bf10aa0e259702d00df71b1186216deb212a8841327ce20",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 39,
+          "render_sha256": "20b612d5b3441ef95002c67aa374b2fdaefeb9815db63e386bb5b382199960e3",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "AM26C31",
+      "selected_package": "SOIC-16",
+      "source_sha256": "c5ab343a1319884d6e0446b854b9836b4e04e66f929a53397ccf5fc844eae5c0"
+    },
+    {
+      "datasheet_identity": "NTS0304E",
+      "id": "nxp-nts0304e",
+      "manufacturer": "NXP Semiconductors",
+      "pages": [
+        {
+          "height_points": 841.889,
+          "page": 1,
+          "render_sha256": "ce7a4156e4e903f1eeb60d199a61707b36aed625b354bc73553e42d4ce5cb981",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 2,
+          "render_sha256": "dae7c627807d74ff8c77641e6689df0e046f14186878c86c5660702a897ffd33",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 3,
+          "render_sha256": "0cd03a3167ad773b4105d628e7b044432e7e82b6a7cf55976015217c8488fd0e",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 4,
+          "render_sha256": "00db1509cf53137dde158bc14af69f085d2a9b78b62401aafcafcf191b5c74b0",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 5,
+          "render_sha256": "0a0f158135918d4fd6427fa733a5b2fb4cc3250b8ee108fe8457b26ee17e9da9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 6,
+          "render_sha256": "681c6f31a65a0760b45fa2e7d5ada7f154910b27bd0869c01cb7ccea5a6b50ce",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 7,
+          "render_sha256": "0d6e452dcefe5981f0c730c8a62b29ddd91318c82a6569219e8f2652331cc0cf",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 8,
+          "render_sha256": "55595329ac72912abe8343051d44d1fab8a746b71d8952ee4927cae5561abe72",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 9,
+          "render_sha256": "9ad388811960d0d63a37f7ed8c8ddd24b0987a8e379eff105459fc877995d724",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 10,
+          "render_sha256": "d4a9c49be5b97ccb7c8ed98ba9851bd8d3875c6f930e25b8155e1f6ce6eb0d96",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 11,
+          "render_sha256": "db39cfac52f3358ffe659005f3c577cd959e411e6bd8e08dbb8143653a487927",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 12,
+          "render_sha256": "1a92a01895de4ca73489960abd2c06c53563e45140ed402b21b0d634a4184a5b",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 13,
+          "render_sha256": "d5892c6d2027931a14e8c97b8dbb89e91391753cb6a9c18fe41fe3d8cef10cca",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 14,
+          "render_sha256": "3a75b81982776943b7a3d89af5ebca2b10050e114b4d19cfd2e3e57ff2bd0084",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 15,
+          "render_sha256": "97224ce8f0ae5aeb179c51b62ca7c3f7aa4f3c07ca6123355439e926d59f5137",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 16,
+          "render_sha256": "b776519b99e91f84f2cbef3c4ebcdd95db3df4797a5db44d48cfe2d7d6f5f6a4",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 17,
+          "render_sha256": "de28627764ca91cd49dfc0263464847eb7dea39bd23b289335ec2b270b850553",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 18,
+          "render_sha256": "e5040983b31acc56d0f59c5bc41c0dd0c59b311a543754f7558fe0cb03bd29bf",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 19,
+          "render_sha256": "a50e258dba89dc8450041318e821a7e28c4578c5b7b86426a99b8a91dd8ca747",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 20,
+          "render_sha256": "45812564eb137001e8a617c276d0cd3d046693a5023c1b57555dc52f989a03b0",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 21,
+          "render_sha256": "9dfc2760efa390a5fd3e78f443310a4b39314ac0e7a0ba911e9b25d5d637a173",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 22,
+          "render_sha256": "a37bc9676f92092e80e9765830c10f0f9ccbad9e67553cb8e9889f47befba9c9",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 23,
+          "render_sha256": "f7dbea915c44ae4fa48f8f7425835c4ea61daa02f79c13dfe92b8816a50e1232",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 24,
+          "render_sha256": "4383a5c42f9d9caa61ae2829dd15496e41266b9132c4113981f6b7ae6f0c68c5",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 25,
+          "render_sha256": "a204cdbfa65532497b0ee02402bfb4d00f73edf788461baef824efcce4aa8f3a",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 26,
+          "render_sha256": "db2f9485627c3920468ec61a750700a81c494e2312a6b5242e1ddd8c99a954a6",
+          "width_points": 595.275
+        },
+        {
+          "height_points": 841.889,
+          "page": 27,
+          "render_sha256": "b65ddb1b9df72758d11e1e140c0a18b8c34264a01de4f6c853ba0cc9dbe60f41",
+          "width_points": 595.275
+        }
+      ],
+      "selected_mpn": "NTS0304E",
+      "selected_package": "TSSOP-14",
+      "source_sha256": "1d9884f077b1bf00c26783c7c7a6d13f97281bba2e6cca392b3f47c729322eae"
+    },
+    {
+      "datasheet_identity": "SN65HVD3082E SLLS539",
+      "id": "ti-sn65hvd3082e",
+      "manufacturer": "Texas Instruments",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "f515741bd79b2b2b0b5579893d8d3385eea137ae2429383e8473c8a4cfdac4cc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "08f8ae878f04771f304e98b625ca243139fea8d5b1fc8e579eda0ba0f72fa1ab",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "0dfff0b7bb40e837975e0bca9a34a1d85543f8a137ea5c49523b0527b828df80",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "ea172e7583cc1b2f733f43232b7600788fd20d93238b33f7d8d770fb0eefbd1b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "969cf083ac2ea0d4466d72ffacea306a7620acb00b17126385bf8159b091c12e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "3c7eeb8f9f4be75548bfb990d354b2a9da9f87138a7382f7fb0fee3fd19700d4",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "5e45f320ecbfe1f7eef23a1866bd75b52150c9ac9ef4c214d2393194072b427c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "c9828e87192167c66291e605c1351d0ffd52e0aa6d7ae9f2862479f61871f849",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "86aed250a122abbf1e3d250e3e50698008d8fb24bacb5f8d9fa14edfab018fb2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "8c6d121846a387b61ae7dea5dbf8af749b3cfa4bf467b1e0f4e018d92e221239",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "7c9d5fa5cd4c51edb505e4006bf12abf2dd9668b2f6c41e6a6a1a3d66835fe52",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "f17e6fd8d95dd2489f45bfd413d92240229e6329729d91ccb70d09c6fd644985",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "c61c2b2b1843b6b1cd397e621f24e920e6abb83e3c67d8b798ae0d8cd9feba13",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "d269f8060996456ff63eeb5f72b46d8857c86bbe36e0ad69ec1df053fbd85348",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "b0fd407cd85a47d0d76669778c99926ebafe9267085d2d3729794b30b3e2cccc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "25741d4c0a51523404a3121191ead2a853d61aa5ead3d63d924bdcec3453d6be",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "740372d1806780db9984080a97ae293adebb64d8b17b8f6e1dd161fcb01ac9cc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 18,
+          "render_sha256": "028b6c46c28e4639de5f7c2d33af93b997c9e2109a7c6c21a6629ce3f01a3dee",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 19,
+          "render_sha256": "f977a3ad335f9d786876cbc85600f98ec09160ff9ccad9328a830f48448e1d00",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 20,
+          "render_sha256": "7fac05d999ce3dabd03808d263bdc1c6ff3b92687332e4222cd9b9c497be222f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 21,
+          "render_sha256": "f2ee096465cac44178b22156f99fd0b3f81dce357a9e20d85da50b4b19d8259b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 22,
+          "render_sha256": "081f88016fc9a15b8c938345edd7cdc367afa614e1788d9c0e74c52bada03237",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 23,
+          "render_sha256": "e93cd6e8fb390d0cdc33195eeafcc039a0939c212ce52ec5e6ec1bce6bfb8b21",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 24,
+          "render_sha256": "952af915fc3cb3d5094e8e6424b979943b7580a476db657c2a518bdc385370e5",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 25,
+          "render_sha256": "5818333e91e6e276744052607eb02655c60080d6225e63839ef22d1661f5774f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 26,
+          "render_sha256": "d0239c200a628726bd5622d82069e1c588d2e7bee46ead9b21e644d002c4e0ed",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 595.275,
+          "page": 27,
+          "render_sha256": "70015009273710395fe5895ec154b6f486b1e0176eb43af04cfa2ab02856f59d",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 595.275,
+          "page": 28,
+          "render_sha256": "2b57859161a36309102fe5b549be7d04617271e43a10b4368c290fdcd20c7832",
+          "width_points": 841.889
+        },
+        {
+          "height_points": 792.283,
+          "page": 29,
+          "render_sha256": "fd6b83bf35fa09cb996fa275d41f103ce4313b66553b4e09813fb4a266a5487f",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 30,
+          "render_sha256": "b01370488f40235daa699a31b3d201d5051ed1e222637566f59275a20bbe3f2f",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.283,
+          "page": 31,
+          "render_sha256": "f4b713ccaa891b491a0079ac403ad2e7d9feb94f2eee258664fb0dc014b96764",
+          "width_points": 611.716
+        },
+        {
+          "height_points": 792.0,
+          "page": 32,
+          "render_sha256": "a4d8e2ee7abcb25846876521a05f0f4914bfd6f8c930a37185b2c7b49bb0845f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 33,
+          "render_sha256": "4d2388fd2ec4ab6817a7938592ecafa889275cf1c43232b8a6a52f8620c0534c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 34,
+          "render_sha256": "fa4cc544162c42f2b43bd6982b9521a8d35f53d4d422ff745ff731124fde456c",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 35,
+          "render_sha256": "ec7dbcac0da73a649f0290c2b691e7c460a9fbab5957402bcda75cff9e6c3f40",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 36,
+          "render_sha256": "6af35acb63d00b87dd0177d1a204ea39b1963cc86e57e57c06b27b94802d1ebc",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 37,
+          "render_sha256": "bb7c1b06d8d7165da3f7965681b67d8fed5134c5a91eea6e0927bfcf8bb58fca",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 38,
+          "render_sha256": "a62486d322614f292ef0a01c6705d3bf612a221e8b51a0fb4f8d8b6daa15d687",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 39,
+          "render_sha256": "3e75756e320c9c688e7709569d9d4250f5855e049d47e473af87b7d31e684097",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 40,
+          "render_sha256": "20b612d5b3441ef95002c67aa374b2fdaefeb9815db63e386bb5b382199960e3",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "SN65HVD3082E",
+      "selected_package": "SOIC-8",
+      "source_sha256": "5da24ada598efdc462207a289f3732c142cc796be0f701c9626f37325cc593b4"
+    },
+    {
+      "datasheet_identity": "PCA9536",
+      "id": "nxp-pca9536",
+      "manufacturer": "NXP Semiconductors",
+      "pages": [
+        {
+          "height_points": 792.0,
+          "page": 1,
+          "render_sha256": "e91f18d0bf37e574dd3ec3e08cb06b43cafcc7cd14451b5106cb24c747096553",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 2,
+          "render_sha256": "ae5242ed45d589e64bf975eaf7d6560726f8bd111e92c44814a777949ad82d1b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 3,
+          "render_sha256": "658270507190359aee6411d297ae36790ff0e44468bdd9f2eadeddacf5ce21bb",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 4,
+          "render_sha256": "7d94d44b610a1ffef9bb73f20553de04396c34d6d182bc84bade2a5ff30fc3e5",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 5,
+          "render_sha256": "78718e366f0e6aa39b93928bbd33c26f4a40bca477477f40014e72572bc12b20",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 6,
+          "render_sha256": "d25b28eb6c7b5a67c70358e0c171d7cc8e4f888dadf635d72f1215d32fbaa854",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 7,
+          "render_sha256": "0bf2df2ca62b5cf56fb6531a4df6d49702411777c4a7de692684169a0dd6e153",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 8,
+          "render_sha256": "30bab4333d608d5f3add87967bc9451724741a36c280520f5c79873819792572",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 9,
+          "render_sha256": "540846b813d8cc6aed4f09fc7a0f542d299a24f8273edc77980882392d037ac2",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 10,
+          "render_sha256": "8a7e662b4c7d1da6de4dbd4962959177a7cc14627013f9f2b55df390cd9d8f0e",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 11,
+          "render_sha256": "cf9fa598cf765d032e807620c59d33b27709c4c30ebee31c0357810c37e82112",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 12,
+          "render_sha256": "eb3f41de23fa4efc782d166b3ee376ca796dcd5c0a7179a9def9112b3eb78890",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 13,
+          "render_sha256": "28e6553814d6aaec3c54a8cfa828600bb6b0164416be4604fbcba30577ea210b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 14,
+          "render_sha256": "756a8b32e56a449a9dbb5a5c0d5c862888400dd0fdb3a9ed884222d76cb4e4f9",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 15,
+          "render_sha256": "ab4e25440ef86b4c741da0657898da27b5f3d4bd9505d9d2a0f689efc5e070db",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 16,
+          "render_sha256": "8d22ceb2d37ca336d06407a986e5379c52ed2a237af304dbb4bc6c6b85a2bdc1",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 17,
+          "render_sha256": "b84949e27ac20009bae5fa891989fd59dbe3295357ea3db082893c0273781255",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 18,
+          "render_sha256": "b8950e795a66bb239a938493efc01eb01bdf28e76de0b1d66b9596eb938b3a4b",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 19,
+          "render_sha256": "0c3674ecf2df86467f923d501887ab1c2d3c4085f9670a60f61af4f02e10c62f",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 20,
+          "render_sha256": "9a1a6b3f9a890c0a4f67cda897483a2095d9b3b470e5e95b1ae175445b96d540",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 21,
+          "render_sha256": "1de6b8e4ddc2771ceed366b4fb2fdd7a0735d2882ef269a34366ee95ab819fbd",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 22,
+          "render_sha256": "8972a482abbdf0c4cac3ac85dbfe756945d0dd2779dff22ddf295e800a16af76",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 23,
+          "render_sha256": "ee95723ed434b0de57f76fe814ddbe67170ac6e70b5545c2d7ad8c6733a5d771",
+          "width_points": 612.0
+        },
+        {
+          "height_points": 792.0,
+          "page": 24,
+          "render_sha256": "d69e51225798c162213cf67c8394bdbb8878cd3d6d3b6573ab5ab1ba98617ded",
+          "width_points": 612.0
+        }
+      ],
+      "selected_mpn": "PCA9536",
+      "selected_package": "SOIC-8",
+      "source_sha256": "26a04d381d5909f3dff8f7264073150c65e1c11de7e10ffb0222476c1ce3abc8"
+    }
+  ],
+  "packet_sha256": "adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v5@2026-09-17",
+  "plan_sha256": "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9",
+  "renderer": "pdfium-5.12.1",
+  "requirements": {
+    "annotation_review": "distinct independent human, blinded to all model scores",
+    "hard_negative_kinds": [
+      "wrong_intent",
+      "wrong_package",
+      "wrong_variant",
+      "wrong_view"
+    ],
+    "manual_queries_per_intent_per_document": 2,
+    "minimum_hard_negatives_per_document": 4,
+    "positive_region_types": [
+      "pinout",
+      "table",
+      "package"
+    ],
+    "prohibited": [
+      "model-generated queries",
+      "template-only queries",
+      "labels or case IDs in query text",
+      "score access before final seal"
+    ],
+    "query_review": "distinct independent human, blinded to all model scores"
+  },
+  "schema_version": "dsvire.retrieval-authoring-packet.v1",
+  "source_manifest_sha256": "aa8d7e1fa855df0014f0731b24e5f4ea2f6bebef5c4d78fb1685ad3f816fc74c"
+}

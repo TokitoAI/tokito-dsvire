@@ -7,7 +7,20 @@ import asyncio
 import json
 from pathlib import Path
 
-from .pipeline import MAX_PDF_BYTES, DatasheetIdentity, RetrievalError, retrieve_symbol_evidence
+from .ablation_gates import AblationGateError
+from .cycle_execution import CycleExecutionError
+from .pipeline import (
+    MAX_PDF_BYTES,
+    DatasheetIdentity,
+    IdentityAmbiguous,
+    IdentityHint,
+    RetrievalError,
+    retrieve_symbol_evidence,
+)
+from .symbol_compile import compile_symbol, public_candidates, write_symbol_bundle
+from .training_cli import add_training_commands, run_training_command
+from .training_corpus import TrainingCorpusError
+from .training_runtime import TrainingRunError
 
 
 async def _platform_init(slug: str, label: str) -> str:
@@ -42,16 +55,71 @@ def main() -> int:
     evidence.add_argument("--package", required=True)
     evidence.add_argument("--source-url")
     evidence.add_argument("--out", type=Path, required=True)
+    compile_cmd = commands.add_parser(
+        "compile-symbol", help="compile a schematic SVG and JSON from a datasheet PDF"
+    )
+    compile_cmd.add_argument("pdf", type=Path)
+    compile_cmd.add_argument("--manufacturer", default="")
+    compile_cmd.add_argument("--mpn", default="")
+    compile_cmd.add_argument("--package", default="")
+    compile_cmd.add_argument("--source-url")
+    compile_cmd.add_argument("--out", type=Path, required=True)
     platform_init = commands.add_parser(
         "platform-init", help="migrate the platform DB and issue a tenant API key"
     )
     platform_init.add_argument("--tenant", required=True)
     platform_init.add_argument("--label", default="initial")
+    add_training_commands(commands)
     args = parser.parse_args()
+
+    if args.command in {
+        "cycle-v4-status",
+        "cycle-v5-status",
+        "corpus-audit",
+        "training-bind",
+        "ablation-gates",
+    }:
+        try:
+            return run_training_command(args)
+        except (
+            CycleExecutionError,
+            TrainingCorpusError,
+            TrainingRunError,
+            AblationGateError,
+            OSError,
+            json.JSONDecodeError,
+        ) as exc:
+            parser.error(str(exc))
 
     if args.command == "platform-init":
         token = asyncio.run(_platform_init(args.tenant, args.label))
         print(token)
+        return 0
+
+    if args.command == "compile-symbol":
+        try:
+            result = compile_symbol(
+                _read_pdf(args.pdf),
+                args.out,
+                IdentityHint(args.manufacturer, args.mpn, args.package, args.source_url),
+            )
+        except IdentityAmbiguous as exc:
+            print(
+                json.dumps(
+                    {"code": "ambiguous_identity", "candidates": public_candidates(exc)},
+                    indent=2,
+                )
+            )
+            return 2
+        except (OSError, RetrievalError) as exc:
+            parser.error(str(exc))
+        write_symbol_bundle(result, args.out)
+        print(
+            json.dumps(
+                {key: value for key, value in result.items() if key != "evidence"},
+                indent=2,
+            )
+        )
         return 0
 
     try:

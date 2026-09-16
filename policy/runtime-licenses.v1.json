@@ -31,7 +31,7 @@
     {"name":"protobuf","version":"7.35.1","license":"BSD-3-Clause","status":"allowed"},
     {"name":"pydantic","version":"2.13.4","license":"MIT","status":"allowed"},
     {"name":"pydantic-core","version":"2.46.4","license":"MIT","status":"allowed"},
-    {"name":"pypdf","version":"6.15.0","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"pypdf","version":"6.19.0","license":"BSD-3-Clause","status":"allowed"},
     {
       "name":"pypdfium2",
       "version":"5.12.1",
@@ -47,6 +47,7 @@
     },
     {"name":"python-dateutil","version":"2.9.0.post0","license":"Apache-2.0 OR BSD-3-Clause","status":"allowed"},
     {"name":"python-dotenv","version":"1.2.2","license":"BSD-3-Clause","status":"allowed"},
+    {"name":"python-multipart","version":"0.0.32","license":"Apache-2.0","status":"allowed"},
     {"name":"pywin32","version":"312","license":"PSF-2.0","status":"allowed"},
     {"name":"pyyaml","version":"6.0.3","license":"MIT","status":"allowed"},
     {"name":"qdrant-client","version":"1.19.0","license":"Apache-2.0","status":"allowed"},

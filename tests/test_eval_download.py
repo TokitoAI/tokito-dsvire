@@ -150,7 +150,7 @@ def test_redirect_away_from_https_is_rejected(
         lambda *_args, **_kwargs: _Response(payload, url="http://unsafe.invalid/fixture.pdf"),
     )
 
-    with pytest.raises(EvaluationDownloadError, match="redirected away from HTTPS"):
+    with pytest.raises(EvaluationDownloadError, match="must use HTTPS"):
         _fetch(payload, tmp_path)
     assert list(tmp_path.iterdir()) == []
 
@@ -269,3 +269,29 @@ def test_exact_size_artifact_rejects_declared_size_mismatch(
             offline=False,
         )
     assert list(tmp_path.iterdir()) == []
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "http://www.ti.com/lit/ds/symlink/x.pdf",
+        "https://127.0.0.1/x.pdf",
+        "https://10.0.0.8/x.pdf",
+        "https://192.168.1.9/x.pdf",
+        "https://169.254.169.254/latest/meta-data",
+        "https://localhost/x.pdf",
+        "https://user:pass@www.ti.com/lit/ds/symlink/x.pdf",
+    ],
+)
+def test_non_public_or_credentialed_downloads_fail_closed(url: str, tmp_path: Path) -> None:
+    with pytest.raises(EvaluationDownloadError, match=r"HTTPS|non-public|credentials"):
+        fetch_hash_pinned_file(
+            artifact_id="fixture",
+            source_url=url,
+            content_sha256=hashlib.sha256(b"pdf").hexdigest(),
+            expected_bytes=3,
+            max_bytes=3,
+            cache_dir=tmp_path,
+            suffix=".pdf",
+            offline=False,
+        )

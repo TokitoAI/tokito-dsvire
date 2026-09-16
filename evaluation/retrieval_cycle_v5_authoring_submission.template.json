@@ -1,0 +1,69 @@
+{
+  "author": "github:REPLACE_WITH_HUMAN_AUTHOR",
+  "documents": [
+    {
+      "id": "ti-bq24075",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-pca9538",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-tlv9062",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-tja1057",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-txb0104",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-fxls8974cf",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-tps61023",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-pca9517",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-am26c31",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-nts0304e",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "ti-sn65hvd3082e",
+      "queries": [],
+      "regions": []
+    },
+    {
+      "id": "nxp-pca9536",
+      "queries": [],
+      "regions": []
+    }
+  ],
+  "manual_query_attestation": "REPLACE_WITH_EXPLICIT_HUMAN_ATTESTATION",
+  "packet_sha256": "adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65",
+  "schema_version": "dsvire.retrieval-authoring-submission.v1",
+  "submission_sha256": "RECOMPUTED_BY_SEAL_COMMAND"
+}

@@ -1,12 +1,15 @@
 # Contributing
 
-Thanks for interest in tokito-dsvire.
+Thanks for interest in tokito-dsvire. Please follow the
+[Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Before you write code
 
 1. Read [`docs/TECHNICAL_BIBLE.md`](docs/TECHNICAL_BIBLE.md). That doc is the contract.
 2. Open an issue for design changes (new index units, model swaps, pack format breaks).
 3. Check the project board and open an issue before substantial design changes.
+4. Do not mutate frozen retrieval-cycle files (`evaluation/retrieval_cycle_v2_*`
+   through `v4_*`). Cycle v5 is the live plan; query text is human-only.
 
 ## PRs
 

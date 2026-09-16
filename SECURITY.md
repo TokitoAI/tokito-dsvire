@@ -11,6 +11,15 @@ Do not open public issues for undisclosed security problems.
 - Treat OCR text, captions, and PDF-derived strings as untrusted input.
 - Do not commit credentials, signed datasheet URLs, or private packs.
 - Manufacturer PDFs may be copyrighted; do not publish redistributed corpora.
+- Training and evaluation downloads must be HTTPS, hash-pinned, and public.
+  Private, loopback, link-local, and credentialed URLs are refused. Corpus
+  fetches must remain on official manufacturer hosts after redirects.
+- Detector weights are verified by size and SHA-256 at load; they are never
+  downloaded as a side effect of detection.
+- The ColSmol extra stays pinned to `transformers==5.5.0` / `accelerate==1.14.0`
+  to match the hash-bound adapter. CI currently ignores PYSEC-2026-3929 and
+  PYSEC-2026-3804 on that extra only. Do not use that extra for untrusted
+  model hubs or production training.
 
 ## Hosted-service boundary
 

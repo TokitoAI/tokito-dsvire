@@ -8,16 +8,28 @@ import logging
 import os
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
+from typing import Annotated, Any
 
-from fastapi import APIRouter, FastAPI, Header, HTTPException, Query, Request
-from fastapi.responses import JSONResponse
+from fastapi import (
+    APIRouter,
+    FastAPI,
+    File,
+    Form,
+    Header,
+    HTTPException,
+    Query,
+    Request,
+    UploadFile,
+)
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from . import __version__
 from .config import ServiceConfig
-from .pipeline import DatasheetIdentity, RetrievalError
+from .pipeline import DatasheetIdentity, IdentityAmbiguous, IdentityHint, RetrievalError
 from .query_worker import QueryRejected, run_query_job
 from .trace import TraceContext
-from .worker import WorkerError, WorkerLimits, WorkerTimeout, run_pdf_job
+from .worker import WorkerError, WorkerLimits, WorkerTimeout, run_pdf_job, run_symbol_job
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
@@ -39,6 +51,15 @@ def _authorize(authorization: str | None, config: ServiceConfig) -> None:
 @router.get("/v1/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "service": "tokito-dsvire", "version": __version__}
+
+
+def _page_html() -> str:
+    return (Path(__file__).resolve().parent / "static" / "index.html").read_text(encoding="utf-8")
+
+
+@router.get("/", response_class=HTMLResponse)
+def symbol_studio() -> HTMLResponse:
+    return HTMLResponse(_page_html())
 
 
 @router.get("/v1/ready")
@@ -184,6 +205,80 @@ async def query_regions(
             },
         )
         return JSONResponse(result, headers={"traceparent": trace.child().header()})
+    finally:
+        admission.release()
+
+
+def _public_symbol(result: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in result.items() if key != "evidence"}
+
+
+@router.post("/v1/symbols")
+async def compile_uploaded_symbol(
+    request: Request,
+    pdf: Annotated[UploadFile, File()],
+    manufacturer: Annotated[str, Form()] = "",
+    mpn: Annotated[str, Form()] = "",
+    package: Annotated[str, Form()] = "",
+    source_url: Annotated[str | None, Form()] = None,
+    authorization: str | None = Header(default=None),
+    traceparent: str | None = Header(default=None),
+) -> JSONResponse:
+    config: ServiceConfig = request.app.state.config
+    _authorize(authorization, config)
+    trace = TraceContext.parse(traceparent) or TraceContext.generate()
+    content_type = (pdf.content_type or "").split(";", 1)[0].strip().lower()
+    if content_type not in {"", "application/pdf", "application/octet-stream"}:
+        raise HTTPException(status_code=415, detail="content-type must be application/pdf")
+    admission: asyncio.Semaphore = request.app.state.admission
+    try:
+        await asyncio.wait_for(admission.acquire(), timeout=config.admission_timeout_seconds)
+    except TimeoutError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="PDF processing capacity is currently full",
+            headers={"Retry-After": "2"},
+        ) from exc
+    try:
+        body = await pdf.read()
+        if len(body) > config.max_pdf_bytes:
+            raise HTTPException(status_code=413, detail="PDF exceeds configured size limit")
+        try:
+            result = await run_symbol_job(
+                body,
+                IdentityHint(manufacturer or "", mpn or "", package or "", source_url),
+                config.data_dir,
+                timeout_seconds=config.job_timeout_seconds,
+                limits=WorkerLimits(
+                    cpu_seconds=config.worker_cpu_seconds,
+                    memory_bytes=config.worker_memory_bytes,
+                    file_bytes=config.worker_file_bytes,
+                ),
+            )
+        except IdentityAmbiguous as exc:
+            return JSONResponse(
+                {
+                    "schema_version": "dsvire.symbol-identity.v1",
+                    "code": "ambiguous_identity",
+                    "candidates": [
+                        {
+                            "manufacturer": item.manufacturer,
+                            "mpn": item.mpn,
+                            "package": item.package,
+                        }
+                        for item in exc.candidates
+                    ],
+                },
+                status_code=409,
+                headers={"traceparent": trace.child().header()},
+            )
+        except RetrievalError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+        except WorkerTimeout as exc:
+            raise HTTPException(status_code=504, detail="PDF processing timed out") from exc
+        except WorkerError as exc:
+            raise HTTPException(status_code=502, detail="PDF processing worker failed") from exc
+        return JSONResponse(_public_symbol(result), headers={"traceparent": trace.child().header()})
     finally:
         admission.release()
 

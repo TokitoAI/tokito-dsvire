@@ -6,20 +6,31 @@ build-backend = "hatchling.build"
 name = "tokito-dsvire"
 version = "0.6.3"
 description = "Figure-level evidence retrieval for semiconductor datasheets"
+readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
+authors = [{ name = "Tokito" }]
+keywords = ["datasheet", "retrieval", "semiconductor", "evidence", "pdf"]
 dependencies = [
   "asyncpg>=0.31,<1",
   "boto3>=1.43,<2",
   "fastapi>=0.116,<1",
   "filelock>=3.20,<4",
   "pillow>=11.3,<13",
-  "pypdf>=6.0,<7",
+  "pypdf>=6.16.1,<7",
   "pypdfium2==5.12.1",
+  "python-multipart>=0.0.20,<1",
   "qdrant-client>=1.18,<2",
   "redis>=8.0,<9",
   "uvicorn[standard]>=0.35,<1",
 ]
+
+[project.urls]
+Homepage = "https://github.com/TokitoAI/tokito-dsvire"
+Issues = "https://github.com/TokitoAI/tokito-dsvire/issues"
+Documentation = "https://github.com/TokitoAI/tokito-dsvire/blob/main/docs/USAGE.md"
+Changelog = "https://github.com/TokitoAI/tokito-dsvire/blob/main/CHANGELOG.md"
+Security = "https://github.com/TokitoAI/tokito-dsvire/security/advisories"
 
 [project.optional-dependencies]
 mcp = [
@@ -68,6 +79,9 @@ dsvire-worker = "dsvire.platform_worker:main"
 [tool.hatch.build.targets.wheel]
 packages = ["src/dsvire"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"src/dsvire/static/index.html" = "dsvire/static/index.html"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
@@ -86,5 +100,5 @@ warn_unreachable = true
 pretty = true
 show_error_codes = true
 [[tool.mypy.overrides]]
-module = ["asyncpg", "boto3", "botocore.*", "open_clip", "torch", "pypdfium2"]
+module = ["asyncpg", "boto3", "botocore.*", "open_clip", "torch", "pypdfium2", "onnxruntime"]
 ignore_missing_imports = true

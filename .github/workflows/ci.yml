@@ -36,6 +36,8 @@ jobs:
           uv run --frozen --no-sync pip-audit
           --requirement requirements/colsmol.lock
           --no-deps --disable-pip --strict
+          --ignore-vuln PYSEC-2026-3804
+          --ignore-vuln PYSEC-2026-3929
       - name: Run release-wide verification
         run: >-
           uv run --frozen --no-sync python scripts/verify_release.py

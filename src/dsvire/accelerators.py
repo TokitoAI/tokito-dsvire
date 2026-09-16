@@ -15,7 +15,7 @@ from qdrant_client import AsyncQdrantClient, models
 from redis.asyncio import Redis
 
 from .platform_db import PlatformDatabase
-from .retrieval_pack import RetrievalPack
+from .retrieval_pack import Region, RetrievalPack
 
 logger = logging.getLogger(__name__)
 _SAFE_NAME = re.compile(r"[^a-zA-Z0-9_-]")
@@ -86,6 +86,59 @@ async def dispatch_outbox(
                 await asyncio.wait_for(stop.wait(), 2)
 
 
+_TELEMETRY_FORBIDDEN = re.compile(r"(query|url|text|pdf|mpn|tenant_name|document)", re.I)
+
+
+class IndexIdentityError(ValueError):
+    """A derived Qdrant index drifted from its immutable pack or leaked content."""
+
+
+def pack_point_payload(
+    tenant_id: str,
+    pack: RetrievalPack,
+    region: Region,
+    *,
+    project_id: str,
+    renderer_id: str,
+    preprocess_id: str,
+    policy_id: str,
+) -> dict[str, object]:
+    if not tenant_id.strip() or not project_id.strip():
+        raise IndexIdentityError("tenant_id and project_id are required")
+    for identity in (renderer_id, preprocess_id, policy_id, pack.pack_sha256, pack.source_sha256):
+        if not str(identity).strip():
+            raise IndexIdentityError(
+                "pack, renderer, preprocess, and policy identities are required"
+            )
+    return {
+        "tenant_id": tenant_id,
+        "project_id": project_id,
+        "pack_sha256": pack.pack_sha256,
+        "source_sha256": pack.source_sha256,
+        "region_id": region.id,
+        "page": region.page,
+        "type": region.region_type,
+        "content_sha256": region.content_sha256,
+        "renderer_id": renderer_id,
+        "dense_model_sha256": pack.dense_model.sha256,
+        "multi_model_sha256": pack.multi_model.sha256,
+        "preprocess_id": preprocess_id,
+        "policy_id": policy_id,
+        "text_fields": dict(region.text_fields),
+    }
+
+
+def index_telemetry(event: str, counts: dict[str, int | float]) -> dict[str, int | float | str]:
+    if _TELEMETRY_FORBIDDEN.search(event):
+        raise IndexIdentityError("telemetry event names must not contain document contents")
+    for key, value in counts.items():
+        if _TELEMETRY_FORBIDDEN.search(key):
+            raise IndexIdentityError("telemetry keys must not contain tenant/source/query contents")
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise IndexIdentityError("telemetry values must be numeric counters")
+    return {"event": event, **counts}
+
+
 class QdrantIndex:
     """Indexes validated immutable packs; collection identity binds exact models."""
 
@@ -131,33 +184,106 @@ class QdrantIndex:
             await self.client.create_payload_index(
                 name, "pack_sha256", models.PayloadSchemaType.KEYWORD, wait=True
             )
+            await self.client.create_payload_index(
+                name, "source_sha256", models.PayloadSchemaType.KEYWORD, wait=True
+            )
+            await self.client.create_payload_index(
+                name, "project_id", models.PayloadSchemaType.KEYWORD, wait=True
+            )
         return name
 
-    async def index_pack(self, tenant_id: str, pack: RetrievalPack) -> int:
-        name = await self.ensure_collection(pack)
-        points = [
+    def _points(
+        self,
+        tenant_id: str,
+        pack: RetrievalPack,
+        *,
+        project_id: str,
+        renderer_id: str,
+        preprocess_id: str,
+        policy_id: str,
+    ) -> list[models.PointStruct]:
+        return [
             models.PointStruct(
                 id=str(uuid5(NAMESPACE_URL, f"{tenant_id}:{pack.pack_sha256}:{region.id}")),
                 vector={
                     "dense": list(region.dense),
                     "multi": [list(item) for item in region.multi],
                 },
-                payload={
-                    "tenant_id": tenant_id,
-                    "pack_sha256": pack.pack_sha256,
-                    "source_sha256": pack.source_sha256,
-                    "region_id": region.id,
-                    "page": region.page,
-                    "type": region.region_type,
-                    "content_sha256": region.content_sha256,
-                    "text_fields": dict(region.text_fields),
-                },
+                payload=pack_point_payload(
+                    tenant_id,
+                    pack,
+                    region,
+                    project_id=project_id,
+                    renderer_id=renderer_id,
+                    preprocess_id=preprocess_id,
+                    policy_id=policy_id,
+                ),
             )
             for region in pack.regions
         ]
+
+    async def index_pack(
+        self,
+        tenant_id: str,
+        pack: RetrievalPack,
+        *,
+        project_id: str = "default",
+        renderer_id: str = "pdfium",
+        preprocess_id: str = "dsvire.preprocess.v1",
+        policy_id: str = "unpublished",
+    ) -> int:
+        name = await self.ensure_collection(pack)
+        points = self._points(
+            tenant_id,
+            pack,
+            project_id=project_id,
+            renderer_id=renderer_id,
+            preprocess_id=preprocess_id,
+            policy_id=policy_id,
+        )
         for start in range(0, len(points), 128):
             await self.client.upsert(name, points=points[start : start + 128], wait=True)
         return len(points)
+
+    async def drop_pack(self, tenant_id: str, pack: RetrievalPack) -> None:
+        name = self.collection(pack)
+        if not await self.client.collection_exists(name):
+            return
+        await self.client.delete(
+            collection_name=name,
+            points_selector=models.FilterSelector(
+                filter=models.Filter(
+                    must=[
+                        models.FieldCondition(
+                            key="tenant_id", match=models.MatchValue(value=tenant_id)
+                        ),
+                        models.FieldCondition(
+                            key="pack_sha256", match=models.MatchValue(value=pack.pack_sha256)
+                        ),
+                    ]
+                )
+            ),
+        )
+
+    async def rebuild_pack(
+        self,
+        tenant_id: str,
+        pack: RetrievalPack,
+        *,
+        project_id: str,
+        renderer_id: str,
+        preprocess_id: str,
+        policy_id: str,
+    ) -> int:
+        await self.drop_pack(tenant_id, pack)
+        return await self.index_pack(
+            tenant_id,
+            pack,
+            project_id=project_id,
+            renderer_id=renderer_id,
+            preprocess_id=preprocess_id,
+            policy_id=policy_id,
+        )
 
     async def search_dense(
         self,
@@ -167,7 +293,7 @@ class QdrantIndex:
         limit: int = 20,
     ) -> list[models.ScoredPoint]:
         if len(vector) != pack.dense_dim:
-            raise ValueError("query vector dimension does not match pack")
+            raise IndexIdentityError("query vector dimension does not match pack")
         response = await self.client.query_points(
             self.collection(pack),
             query=list(vector),

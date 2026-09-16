@@ -6,7 +6,7 @@ Thumbs.db
 .vscode/
 *.code-workspace
 
-# Python (future)
+# Python
 __pycache__/
 *.py[cod]
 .venv/
@@ -15,11 +15,20 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.direnv/
 dist/
 build/
 *.egg-info/
 
-# Rust (future)
+# Local detector/index artifacts (hash-pinned models live in a private cache)
+*.onnx
+
+# Rust
 target/
 
 # Data / packs (never commit corpora or indexes)

@@ -74,6 +74,18 @@ The private endpoint is intended for Tokito Cloud or another trusted service,
 not direct desktop/browser exposure. Request size, page count, concurrency,
 admission wait, wall time, CPU, memory, output, and scratch space are bounded.
 
+## Compile a standalone symbol
+
+Open the local studio page at `http://127.0.0.1:8081/` while the service is
+running. Upload a datasheet PDF (manufacturer, MPN, and package are optional
+when the document names exactly one part). The response is a schematic SVG plus
+`dsvire.symbol-result.v1` JSON. Crops remain citations. `.tokito_sym` compilation
+is unchanged and still a later Tokito plug-in.
+
+```bash
+uv run --frozen --no-sync dsvire compile-symbol datasheet.pdf --out ./artifacts
+```
+
 ## Query an immutable retrieval pack
 
 The online cascade reads only content-addressed packs stored at
@@ -103,6 +115,30 @@ killable resource-limited subprocess.
 This endpoint exposes the implemented deterministic cascade. It does not make
 the encoder calibrated, pass retrieval cycle v4, or authorize generated-symbol
 publication.
+
+## Cycle v4, corpus, and training-ready commands
+
+These commands prepare production training and the visual gate. They do not
+train weights, author cycle-v4 queries, or enable publication.
+
+```bash
+uv run --frozen --no-sync dsvire cycle-v5-status
+uv run --frozen --no-sync dsvire cycle-v4-status
+uv run --frozen --no-sync dsvire cycle-v4-status \
+  --source-manifest "$DSVIRE_V4_WORK/source-manifest.json"
+uv run --frozen --no-sync dsvire corpus-audit datasets/corpus-v1/corpus.jsonl
+uv run --frozen --no-sync dsvire training-bind \
+  --run-id smoke-1 --scale smoke \
+  --corpus-sha256 <64 hex> --model-sha256 <64 hex> --runtime-sha256 <64 hex> \
+  --vram-mb 4096 --max-steps 1
+uv run --frozen --no-sync dsvire ablation-gates evaluation/results/ablation.json
+```
+
+`training-bind --scale production` requires the Technical Bible
+`index.gpu.standard` profile (>=20 GB). A 4 GB GPU is smoke-only. Cycle v5 is
+the live visual-gate plan (no MMA8451Q). Cycle v4 stays frozen and incomplete.
+Score access stays closed until Human A authors queries and Human B seals them.
+Vendor PDFs stay in a private content-addressed cache; Git holds manifests.
 
 ## Optional ColSmol profile
 

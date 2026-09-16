@@ -15,7 +15,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Protocol, cast
 
-from .pipeline import DatasheetIdentity, RetrievalError, retrieve_symbol_evidence
+from .pipeline import (
+    DatasheetIdentity,
+    IdentityAmbiguous,
+    IdentityHint,
+    RetrievalError,
+    retrieve_symbol_evidence,
+)
+from .symbol_compile import compile_symbol, public_candidates
 
 
 class WorkerError(RuntimeError):
@@ -57,6 +64,35 @@ def _write_result(path: Path, value: dict[str, Any]) -> None:
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(value), encoding="utf-8")
     os.replace(temporary, path)
+
+
+def _symbol_worker_main(
+    upload_path: Path,
+    manufacturer: str,
+    mpn: str,
+    package: str,
+    source_url: str | None,
+    output_root: Path,
+    result_path: Path,
+    limits: WorkerLimits,
+) -> None:
+    _apply_resource_limits(limits)
+    hint = IdentityHint(manufacturer, mpn, package, source_url)
+    try:
+        result = compile_symbol(upload_path.read_bytes(), output_root, hint)
+        _write_result(result_path, {"status": "ok", "result": result})
+    except IdentityAmbiguous as exc:
+        _write_result(
+            result_path,
+            {"status": "ambiguous_identity", "candidates": public_candidates(exc)},
+        )
+    except RetrievalError as exc:
+        _write_result(result_path, {"status": "retrieval_error", "detail": str(exc)})
+    except BaseException as exc:  # child must return a bounded, non-payload diagnostic
+        _write_result(
+            result_path,
+            {"status": "worker_error", "detail": f"{type(exc).__name__}: worker failed"},
+        )
 
 
 def _worker_main(
@@ -151,6 +187,83 @@ async def run_pdf_job(
         if result.get("status") != "ok" or not isinstance(result.get("bundle"), dict):
             raise WorkerError(str(result.get("detail", "PDF worker failed")))
         return cast(dict[str, Any], result["bundle"])
+    finally:
+        process_obj = locals().get("process")
+        if process_obj is not None:
+            _terminate(process_obj)
+        shutil.rmtree(job_dir, ignore_errors=True)
+
+
+async def run_symbol_job(
+    pdf_bytes: bytes,
+    hint: IdentityHint,
+    data_dir: Path,
+    *,
+    timeout_seconds: float,
+    limits: WorkerLimits,
+    worker_target: Callable[..., None] = _symbol_worker_main,
+) -> dict[str, Any]:
+    """Compile a standalone symbol inside the same killable PDF worker boundary."""
+    jobs_dir = data_dir / "jobs"
+    jobs_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+    job_dir = Path(tempfile.mkdtemp(prefix="job-", dir=jobs_dir))
+    try:
+        with suppress(OSError):
+            job_dir.chmod(0o700)
+        upload_path = job_dir / "upload.pdf"
+        result_path = job_dir / "result.json"
+        upload_path.write_bytes(pdf_bytes)
+        with suppress(OSError):
+            upload_path.chmod(0o600)
+
+        context = multiprocessing.get_context("spawn")
+        process = context.Process(
+            target=worker_target,
+            args=(
+                upload_path,
+                hint.manufacturer,
+                hint.mpn,
+                hint.package,
+                hint.source_url,
+                data_dir / "packs",
+                result_path,
+                limits,
+            ),
+            name="dsvire-symbol-worker",
+        )
+        process.start()
+        try:
+            await asyncio.wait_for(asyncio.to_thread(process.join), timeout_seconds)
+        except TimeoutError as exc:
+            _terminate(process)
+            raise WorkerTimeout(f"PDF worker exceeded {timeout_seconds:g} seconds") from exc
+        except asyncio.CancelledError:
+            _terminate(process)
+            raise
+
+        if process.exitcode != 0:
+            raise WorkerError(f"PDF worker exited with code {process.exitcode}")
+        if not result_path.is_file():
+            raise WorkerError("PDF worker exited without a result")
+        try:
+            payload = json.loads(result_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise WorkerError("PDF worker returned an invalid result") from exc
+        if payload.get("status") == "ambiguous_identity":
+            raw = payload.get("candidates")
+            if not isinstance(raw, list):
+                raise WorkerError("PDF worker returned invalid identity candidates")
+            candidates = tuple(
+                DatasheetIdentity(str(item["manufacturer"]), str(item["mpn"]), str(item["package"]))
+                for item in raw
+                if isinstance(item, dict)
+            )
+            raise IdentityAmbiguous(candidates)
+        if payload.get("status") == "retrieval_error":
+            raise RetrievalError(str(payload.get("detail", "retrieval failed")))
+        if payload.get("status") != "ok" or not isinstance(payload.get("result"), dict):
+            raise WorkerError(str(payload.get("detail", "PDF worker failed")))
+        return cast(dict[str, Any], payload["result"])
     finally:
         process_obj = locals().get("process")
         if process_obj is not None:
