@@ -172,4 +172,3 @@ def test_processor_falls_back_to_native_call() -> None:
     dedicated = Dedicated()
     assert _process_images(dedicated, ["img"]) == "images"
     assert _process_queries(dedicated, ["pinout"]) == "queries"
-

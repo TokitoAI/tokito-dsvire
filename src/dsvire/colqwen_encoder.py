@@ -213,8 +213,7 @@ class ColQwenEncoder:
             )
         )
         runtime = "\n".join(
-            f"{name}={version(name)}"
-            for name in ("transformers", "torch", "torchvision", "Pillow")
+            f"{name}={version(name)}" for name in ("transformers", "torch", "torchvision", "Pillow")
         )
         return hashlib.sha256(f"{source}\n{runtime}".encode()).hexdigest()
 
