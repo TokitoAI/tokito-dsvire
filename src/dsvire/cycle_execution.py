@@ -267,6 +267,14 @@ def inspect_cycle_v5(
                 encoding="utf-8"
             )
         )
+    if submission is None:
+        submission_path = root / "evaluation" / "retrieval_cycle_v5_authoring_submission.json"
+        if submission_path.is_file():
+            submission = json.loads(submission_path.read_text(encoding="utf-8"))
+    if seal is None:
+        seal_path = root / "evaluation" / "retrieval_cycle_v5_authoring_seal.json"
+        if seal_path.is_file():
+            seal = json.loads(seal_path.read_text(encoding="utf-8"))
     try:
         loaded_packet = load_authoring_packet(packet)
         packet_sha = str(loaded_packet["packet_sha256"])

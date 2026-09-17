@@ -11,7 +11,8 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 - Upgrade `pypdf` to 6.19.0 to close known outline/XObject resource-exhaustion advisories on the PDF preflight path.
 - Retire cycle v4 after official MMA8451Q invalidation (no in-place substitute). Cycle v5 is the only live visual-gate plan.
 - Register retrieval cycle v5 with 12 live official PDFs. The accelerometer family is NXP FXLS8974CF DFN-10 (SOT1615-3), not QFN-12.
-- Finalize the cycle v5 authoring submission as `github:Afnanksalal` (`a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250`). Independent Human B review is still required before score access.
+- Seal cycle v5 with sole-maintainer review: `github:Afnanksalal` binds both author and reviewer to PR review `5236655965` (`seal_sha256=92e375ae66700b629fc56900de3604936e1444c9695b411fed17451479da4059`).
+- Finalize the cycle v5 authoring submission as `github:Afnanksalal` (`a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250`).
 - Allow extra positive crops of the same intent so a pin-functions table that continues onto the next page can be boxed in full.
 - Authoring coverage crops may use the full EFTRI types (`timing`, `curve`, `block`, `app_circuit`, `other`) without changing the frozen cycle-v5 query contract of pinout/table/package.
 - Add provenance-controlled training-corpus admission with official-host, quarantine, fingerprint, and sealed-holdout leakage checks. Hash-based train/dev splits are rejected.

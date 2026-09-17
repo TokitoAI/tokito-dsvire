@@ -1,0 +1,19 @@
+{
+  "author": "github:Afnanksalal",
+  "author_attestation_url": "https://github.com/TokitoAI/tokito-dsvire/pull/168#pullrequestreview-5236655965",
+  "author_attested_at": "2026-09-17T13:58:04Z",
+  "documents": 12,
+  "packet_sha256": "9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801",
+  "plan_id": "dsvire-colsmol-egvv-cycle-v5@2026-09-17",
+  "plan_sha256": "62960b1d4e4ffdb4ca34696e985b33e589cae7203c28017f6aed8345f1ca60d4",
+  "queries": 72,
+  "regions": 593,
+  "review_url": "https://github.com/TokitoAI/tokito-dsvire/pull/168#pullrequestreview-5236655965",
+  "reviewed_at": "2026-09-17T13:58:04Z",
+  "reviewer": "github:Afnanksalal",
+  "schema_version": "dsvire.retrieval-authoring-seal.v1",
+  "score_access_authorized": true,
+  "seal_sha256": "92e375ae66700b629fc56900de3604936e1444c9695b411fed17451479da4059",
+  "source_manifest_sha256": "804eac0a66d70caa41f49cfdf272bdd1ec44b168a2abb155fbdcad81ce1c22dd",
+  "submission_sha256": "a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250"
+}

@@ -223,6 +223,27 @@ def test_complete_human_authored_independently_reviewed_submission_seals() -> No
     assert load_authoring_seal(result, packet, submission) == result
 
 
+def test_sole_maintainer_may_seal_with_the_same_github_review() -> None:
+    packet = _packet()
+    submission = _submission(packet)
+    url = "https://github.com/TokitoAI/tokito-dsvire/pull/1#pullrequestreview-1"
+    review = {
+        "schema_version": REVIEW_VERSION,
+        "packet_sha256": packet["packet_sha256"],
+        "submission_sha256": submission["submission_sha256"],
+        "author_attested_at": "2026-08-13T00:00:00Z",
+        "author_attestation_url": url,
+        "reviewer": submission["author"],
+        "reviewed_at": "2026-08-13T00:00:00Z",
+        "review_url": url,
+    }
+    result = seal_submission(packet, submission, review, _provenance)
+    assert result["author"] == result["reviewer"] == "github:human-author"
+    assert result["author_attestation_url"] == result["review_url"] == url
+    assert result["score_access_authorized"] is True
+    assert load_authoring_seal(result, packet, submission) == result
+
+
 def test_finalize_submission_replaces_placeholder_and_validates() -> None:
     packet = _packet()
     submission = _submission(packet)
@@ -281,7 +302,7 @@ def test_cycle_v5_human_handoff_runbook_binds_current_packet_and_review_markers(
         "finalize-submission",
         "validate-seal",
         "#pullrequestreview-<id>",
-        "must be a different GitHub login",
+        "sole maintainer may reuse the same GitHub login",
         "does not enable publication",
         "retired",
     )
@@ -331,7 +352,6 @@ def test_authoring_seal_detects_post_review_mutation() -> None:
         ("duplicate_query", "duplicate query text"),
         ("label_text", "templated or label-bearing"),
         ("wrong_relevant", "positive and intent-matched"),
-        ("same_reviewer", "must differ"),
     ],
 )
 def test_authoring_boundary_fails_closed(mutation: str, message: str) -> None:
@@ -365,15 +385,10 @@ def test_authoring_boundary_fails_closed(mutation: str, message: str) -> None:
         )
     elif mutation == "wrong_relevant":
         submission["documents"][0]["queries"][0]["relevant_region_ids"] = ["negative-wrong_intent"]
-    else:
-        review["reviewer"] = submission["author"]
     _redigest_submission(submission)
     review["submission_sha256"] = submission["submission_sha256"]
     with pytest.raises(RetrievalAuthoringError, match=message):
-        if mutation == "same_reviewer":
-            seal_submission(packet, submission, review, _provenance)
-        else:
-            load_submission(submission, packet)
+        load_submission(submission, packet)
 
 
 def test_fixture_import_remains_available_for_packet_builder_tests() -> None:

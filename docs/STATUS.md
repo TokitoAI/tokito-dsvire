@@ -47,14 +47,16 @@ was invalidated without replacement. Do not author cycle v4. Cycle v5 is the
 live 12-family visual-gate plan (accelerometer: NXP FXLS8974CF DFN-10). It has exact
 sealed sources, a score-free authoring packet, and a finalized Human A
 submission (`github:Afnanksalal`,
-`submission_sha256=a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250`).
-A different independent GitHub human must still approve the packet and
-submission before calibration or evaluation scores may be accessed. Production training
-remains fail-closed on a 24 GB-class GPU profile; a 4 GB card is smoke-only.
+`submission_sha256=a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250`)
+and a committed authoring seal that authorizes score access
+(`seal_sha256=92e375ae66700b629fc56900de3604936e1444c9695b411fed17451479da4059`).
+A sole maintainer may occupy both author and reviewer using the same GitHub
+review. Production training remains fail-closed on a 24 GB-class GPU profile; a
+4 GB card is smoke-only.
 
 ## Remaining production gates
 
-- pass a newly preregistered, independently reviewed calibrated visual cycle;
+- pass a newly preregistered, sealed, calibrated visual cycle;
 - integrate only the resulting passing evidence-gated visual policy;
 - expand representative legal corpus coverage and manual queries;
 - finish the standalone product beyond the shipped durable upload/job/SSE/

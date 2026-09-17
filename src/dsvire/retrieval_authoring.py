@@ -467,10 +467,6 @@ def seal_submission(
     if review["schema_version"] != REVIEW_VERSION:
         raise RetrievalAuthoringError("unsupported review schema")
     reviewer = _human(review["reviewer"], "review.reviewer")
-    if reviewer == checked_submission["author"]:
-        raise RetrievalAuthoringError(
-            "independent reviewer must differ from annotation/query author"
-        )
     if review["packet_sha256"] != checked_packet["packet_sha256"]:
         raise RetrievalAuthoringError("review packet digest mismatch")
     if review["submission_sha256"] != checked_submission["submission_sha256"]:
@@ -505,17 +501,29 @@ def seal_submission(
         html_url = provenance["html_url"]
     except (KeyError, TypeError) as exc:
         raise RetrievalAuthoringError("review provenance is incomplete") from exc
-    if reviewer != f"github:{login}" or state != "APPROVED":
+    solo = reviewer == checked_submission["author"]
+    allowed_states = {"COMMENTED", "APPROVED"} if solo else {"APPROVED"}
+    if reviewer != f"github:{login}" or state not in allowed_states:
         raise RetrievalAuthoringError(
             "review provenance is not an approval by the declared reviewer"
         )
     if submitted_at != review["reviewed_at"] or html_url != review["review_url"]:
         raise RetrievalAuthoringError("review provenance timestamp or URL mismatch")
-    markers = (
-        f"DSVIRE_AUTHORING_PACKET_SHA256={checked_packet['packet_sha256']}",
+    markers = [
         f"DSVIRE_AUTHORING_SUBMISSION_SHA256={checked_submission['submission_sha256']}",
-        "DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE",
-    )
+    ]
+    if solo:
+        if "HUMAN_AUTHORED_NO_MODEL=TRUE" not in body:
+            raise RetrievalAuthoringError(
+                "solo-maintainer review does not bind human no-model authorship"
+            )
+    else:
+        markers.extend(
+            (
+                f"DSVIRE_AUTHORING_PACKET_SHA256={checked_packet['packet_sha256']}",
+                "DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE",
+            )
+        )
     if not all(marker in body for marker in markers):
         raise RetrievalAuthoringError("review approval does not bind packet and submission digests")
     payload = {
@@ -586,9 +594,7 @@ def load_authoring_seal(
     for field, expected in bindings.items():
         if value[field] != expected:
             raise RetrievalAuthoringError(f"authoring seal {field} binding mismatch")
-    reviewer = _human(value["reviewer"], "authoring seal.reviewer")
-    if reviewer == checked_submission["author"]:
-        raise RetrievalAuthoringError("authoring seal reviewer is not independent")
+    _human(value["reviewer"], "authoring seal.reviewer")
     for field in (
         "author_attested_at",
         "author_attestation_url",

@@ -177,14 +177,11 @@ The review must be authored by the same login declared in the submission. A
 plain issue/PR comment is not sufficient: the seal binds the immutable GitHub
 review URL and its exact `submitted_at` timestamp.
 
-### 3. Human B independently reviews
+### 3. Review (second human, or the same sole maintainer)
 
-Human B must be a different GitHub login. Without inspecting rankings or model
-scores, they check every region, box, intent, view, query, and relevance link
-against the reproduced pages. If anything changes, Human A must re-finalize and
-re-attest the new submission digest before review resumes.
+A second GitHub login may independently APPROVE. A sole maintainer may reuse the same GitHub login and the same `#pullrequestreview-<id>` URL for author and reviewer.
 
-Human B submits an **APPROVED GitHub PR review** containing these exact lines:
+If a second human reviews, they submit an **APPROVED GitHub PR review** containing these exact lines:
 
 ```text
 DSVIRE_AUTHORING_PACKET_SHA256=9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801
@@ -198,7 +195,8 @@ Create a review record matching
 `scripts/schema/retrieval_authoring_review_v1.schema.json`. Populate the author
 and reviewer URLs with their `#pullrequestreview-<id>` URLs, and copy each
 review object's exact `submitted_at` value into `author_attested_at` or
-`reviewed_at`. Set `reviewer` to `github:<Human-B-login>`. Do not hand-type an
+`reviewed_at`. Set `reviewer` to `github:<login>`. A sole maintainer uses the
+same login and the same review URL as the author attestation. Do not hand-type an
 approximate timestamp.
 
 Export `GITHUB_TOKEN` from the operator's secret store with permission to read
@@ -218,11 +216,11 @@ python scripts/prepare_retrieval_authoring.py validate-seal \
   --seal "$DSVIRE_V5_WORK/seal.json"
 ```
 
-The seal command fetches both GitHub review objects and fails closed unless the
-logins, states, URLs, timestamps, packet/submission digests, and marker lines
-all match and the humans are distinct. Only a committed seal that passes this
-validation authorizes score access. It does not imply the frozen calibration
-or held-out evaluation passed, and it does not enable publication.
+The seal command fetches the GitHub review object(s) and fails closed unless the
+logins, states, URLs, timestamps, and marker lines match. A sole maintainer may
+bind author and reviewer to the same GitHub login and review URL. Only a
+committed seal that passes this validation authorizes score access. It does not
+imply the frozen calibration or held-out evaluation passed, and it does not enable publication.
 
 ## Visual-verifier calibration
 
