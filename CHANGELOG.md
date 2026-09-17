@@ -9,7 +9,8 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 - Refuse credentialed, loopback, and non-public literal URLs on hash-pinned downloads; corpus materialization must stay on official manufacturer hosts after redirects.
 - Upgrade `pypdf` to 6.19.0 to close known outline/XObject resource-exhaustion advisories on the PDF preflight path.
-- Register retrieval cycle v5 with 12 live official PDFs after MMA8451Q 404'd; v4 stays frozen without in-place substitution. The accelerometer family is NXP FXLS8974CF.
+- Retire cycle v4 after official MMA8451Q invalidation (no in-place substitute). Cycle v5 is the only live visual-gate plan.
+- Register retrieval cycle v5 with 12 live official PDFs. The accelerometer family is NXP FXLS8974CF.
 - Add provenance-controlled training-corpus admission with official-host, quarantine, fingerprint, and sealed-holdout leakage checks. Hash-based train/dev splits are rejected.
 - Implement DHPR routing, DSFF XObject/CTM association, DocLayout-YOLO/MinerU detector contracts, region-corpus construction, EFTRI top-2 routing, and CPPT side channels.
 - Bind smoke vs 24 GB-class training runs with atomic checkpoints, leakage rejection, SigLIP-MRL/MaxSim/Light-merge math, EGVV calibrate-then-eval-once, Qdrant pack rebuild identities, and Bible §8 ablation gates with no waiver path.

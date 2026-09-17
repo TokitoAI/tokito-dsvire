@@ -225,10 +225,10 @@ def test_committed_cycle_v5_packet_is_schema_valid_source_free_and_excludes_mma8
     assert "nxp-fxls8974cf" in ids
 
 
-def test_cycle_v4_human_handoff_runbook_binds_current_packet_and_review_markers() -> None:
+def test_cycle_v5_human_handoff_runbook_binds_current_packet_and_review_markers() -> None:
     runbook = (ROOT / "evaluation/README.md").read_text(encoding="utf-8")
     packet = json.loads(
-        (ROOT / "evaluation/retrieval_cycle_v4_authoring_packet.json").read_text(encoding="utf-8")
+        (ROOT / "evaluation/retrieval_cycle_v5_authoring_packet.json").read_text(encoding="utf-8")
     )
     required = (
         f"DSVIRE_SOURCE_MANIFEST_SHA256={packet['source_manifest_sha256']}",
@@ -240,9 +240,11 @@ def test_cycle_v4_human_handoff_runbook_binds_current_packet_and_review_markers(
         "#pullrequestreview-<id>",
         "must be a different GitHub login",
         "does not enable publication",
+        "retired",
     )
     for text in required:
         assert text in runbook
+    assert "Do not author cycle v4" in runbook
 
 
 def test_all_authoring_schemas_are_valid() -> None:

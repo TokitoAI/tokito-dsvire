@@ -116,16 +116,13 @@ This endpoint exposes the implemented deterministic cascade. It does not make
 the encoder calibrated, pass retrieval cycle v4, or authorize generated-symbol
 publication.
 
-## Cycle v4, corpus, and training-ready commands
+## Cycle v5, corpus, and training-ready commands
 
-These commands prepare production training and the visual gate. They do not
-train weights, author cycle-v4 queries, or enable publication.
+These commands prepare production training and the live visual gate. They do not
+train weights, author queries, or enable publication. Cycle v4 is retired.
 
 ```bash
 uv run --frozen --no-sync dsvire cycle-v5-status
-uv run --frozen --no-sync dsvire cycle-v4-status
-uv run --frozen --no-sync dsvire cycle-v4-status \
-  --source-manifest "$DSVIRE_V4_WORK/source-manifest.json"
 uv run --frozen --no-sync dsvire corpus-audit datasets/corpus-v1/corpus.jsonl
 uv run --frozen --no-sync dsvire training-bind \
   --run-id smoke-1 --scale smoke \
@@ -136,8 +133,8 @@ uv run --frozen --no-sync dsvire ablation-gates evaluation/results/ablation.json
 
 `training-bind --scale production` requires the Technical Bible
 `index.gpu.standard` profile (>=20 GB). A 4 GB GPU is smoke-only. Cycle v5 is
-the live visual-gate plan (no MMA8451Q). Cycle v4 stays frozen and incomplete.
-Score access stays closed until Human A authors queries and Human B seals them.
+the live visual-gate plan. Score access stays closed until Human A authors
+queries and Human B seals them.
 Vendor PDFs stay in a private content-addressed cache; Git holds manifests.
 
 ## Optional ColSmol profile

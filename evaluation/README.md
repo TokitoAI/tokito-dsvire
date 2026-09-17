@@ -90,9 +90,10 @@ numbers can be traced to an exact protocol.
 
 ## Cycle v5 human authoring handoff
 
-Cycle v4 is frozen and incomplete: the official MMA8451Q URL is unavailable
-and that family cannot be replaced in-place. Cycle v5 is the live 12-family
-plan. It does not include MMA8451Q; the accelerometer slot is NXP FXLS8974CF.
+Cycle v4 is **retired**. Do not author cycle v4. The official MMA8451Q URL is
+unavailable; that family was invalidated without replacement. Cycle v4 JSON
+stays in Git only so training cannot leak those sealed identities. Cycle v5 is
+the live 12-family plan. The accelerometer slot is NXP FXLS8974CF.
 
 Cycle v5 stops at a score-free packet until two different GitHub humans finish
 the authoring and review boundary below. Agents may validate files and operate
@@ -120,19 +121,6 @@ python scripts/prepare_retrieval_authoring.py prepare \
   --pages-out "$DSVIRE_V5_WORK/pages"
 ```
 
-Human A starts from `evaluation/retrieval_cycle_v5_authoring_submission.template.json`.
-Independent review markers are the same as cycle v4, using the v5 packet digest
-above.
-
-## Cycle v4 human authoring handoff
-
-Cycle v4 remains frozen for audit. Do not substitute a mirror for MMA8451Q.
-
-```text
-DSVIRE_SOURCE_MANIFEST_SHA256=d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6
-DSVIRE_AUTHORING_PACKET_SHA256=021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68
-```
-
 ### 1. Reproduce the score-free review material
 
 Use a private scratch directory outside Git. Acquire only the official sources
@@ -141,21 +129,8 @@ source cache and rendered pages are `download_only` review material and must
 not be committed.
 
 ```sh
-python scripts/acquire_retrieval_cycle_sources.py \
-  --plan evaluation/retrieval_cycle_v4_preregistration.json \
-  --cache "$DSVIRE_V4_WORK/sources" \
-  --out "$DSVIRE_V4_WORK/source-manifest.json"
-
-python scripts/prepare_retrieval_authoring.py prepare \
-  --plan evaluation/retrieval_cycle_v4_preregistration.json \
-  --manifest evaluation/retrieval_cycle_v4_source_manifest.json \
-  --source-dir "$DSVIRE_V4_WORK/sources" \
-  --packet-out "$DSVIRE_V4_WORK/packet.json" \
-  --template-out "$DSVIRE_V4_WORK/submission.json" \
-  --pages-out "$DSVIRE_V4_WORK/pages"
-
 python scripts/prepare_retrieval_authoring.py validate-packet \
-  --packet "$DSVIRE_V4_WORK/packet.json"
+  --packet "$DSVIRE_V5_WORK/packet.json"
 ```
 
 The acquisition command must report `complete: true`, 12 sources, zero
@@ -166,7 +141,7 @@ PDF revision.
 
 ### 2. Human A authors the submission
 
-Starting from `evaluation/retrieval_cycle_v4_authoring_submission.template.json`,
+Starting from `evaluation/retrieval_cycle_v5_authoring_submission.template.json`,
 Human A reviews only the reproduced pages and score-free packet. They complete
 all 12 documents with exactly:
 
@@ -184,9 +159,9 @@ packet mismatch. Finalize to a new file; never edit the digest by hand:
 
 ```sh
 python scripts/prepare_retrieval_authoring.py finalize-submission \
-  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
-  --submission "$DSVIRE_V4_WORK/submission.json" \
-  --out "$DSVIRE_V4_WORK/submission.final.json"
+  --packet evaluation/retrieval_cycle_v5_authoring_packet.json \
+  --submission "$DSVIRE_V5_WORK/submission.json" \
+  --out "$DSVIRE_V5_WORK/submission.final.json"
 ```
 
 Human A opens a PR containing the finalized source-free submission and adds a
@@ -211,7 +186,7 @@ re-attest the new submission digest before review resumes.
 Human B submits an **APPROVED GitHub PR review** containing these exact lines:
 
 ```text
-DSVIRE_AUTHORING_PACKET_SHA256=021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68
+DSVIRE_AUTHORING_PACKET_SHA256=adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65
 DSVIRE_AUTHORING_SUBMISSION_SHA256=<finalized submission digest>
 DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE
 ```
@@ -231,15 +206,15 @@ Then create and validate the seal:
 
 ```sh
 python scripts/prepare_retrieval_authoring.py seal \
-  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
-  --submission "$DSVIRE_V4_WORK/submission.final.json" \
-  --review "$DSVIRE_V4_WORK/review.json" \
-  --out "$DSVIRE_V4_WORK/seal.json"
+  --packet evaluation/retrieval_cycle_v5_authoring_packet.json \
+  --submission "$DSVIRE_V5_WORK/submission.final.json" \
+  --review "$DSVIRE_V5_WORK/review.json" \
+  --out "$DSVIRE_V5_WORK/seal.json"
 
 python scripts/prepare_retrieval_authoring.py validate-seal \
-  --packet evaluation/retrieval_cycle_v4_authoring_packet.json \
-  --submission "$DSVIRE_V4_WORK/submission.final.json" \
-  --seal "$DSVIRE_V4_WORK/seal.json"
+  --packet evaluation/retrieval_cycle_v5_authoring_packet.json \
+  --submission "$DSVIRE_V5_WORK/submission.final.json" \
+  --seal "$DSVIRE_V5_WORK/seal.json"
 ```
 
 The seal command fetches both GitHub review objects and fails closed unless the
