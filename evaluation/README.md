@@ -33,17 +33,18 @@ claims.
 
 ```text
 evaluation/
-├── corpus/       # registered source metadata and immutable digests
-├── crops/        # crop manifests and provenance
-├── queries/      # query definitions and relevance judgments
-├── rankings/     # complete ranked outputs per system
-├── results/      # schema-validated metric summaries
-└── splits/       # frozen development and holdout membership
+├── retrieval_cycle_v{2,3,4,5}_*.json   # frozen plans, manifests, packets
+├── visual_registry.v1.json             # source-free region registry
+├── visual_split_plan.v1.json           # frozen split membership
+├── query_registry.v2.json              # development queries
+├── identity_registry.v1.json
+├── models/                             # hash-pinned model manifests
+├── results/                            # schema-validated metric summaries
+└── reviews/                            # visual-registry review packets
 ```
 
-Generated PDFs and rendered page images remain untracked. Public evaluation
-fixtures are synthetic or redistributable; vendor datasheet pixels are not
-committed to the repository.
+Vendor datasheet pixels stay out of Git. Crop bytes are regenerated locally;
+committed JSON pins their digests. Do not edit frozen cycle v2–v4 files.
 
 ## Reproduce the development results
 
