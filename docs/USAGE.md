@@ -137,25 +137,39 @@ the live visual-gate plan. Score access stays closed until Human A authors
 queries and Human B seals them.
 Vendor PDFs stay in a private content-addressed cache; Git holds manifests.
 
-## Optional ColSmol profile
+## Live ColQwen2 profile
 
-Model files are hash-pinned and download-only:
+The live late-interaction encoder is hash-pinned ColQwen2-2B
+(`vidore/colqwen2-v1.0-hf`). Frozen cycle v5 still names ColSmol; do not rewrite
+those packet hashes. ColSmol remains an edge/historical extra.
+
+Acquire needs several gigabytes and a machine that can place a 2B Qwen2-VL
+checkpoint (about 8–12 GB GPU, or `device_map=auto` with CPU RAM spill). A
+4 GB card is not a production ColQwen eval host. Scores are never invented if
+load or inference fails.
+
+```bash
+uv sync --locked --extra colqwen
+python scripts/acquire_model.py \
+  --manifest evaluation/models/colqwen2-v1.0-hf.json \
+  --destination .cache/colqwen2-offline
+python scripts/evaluate_full_corpus_colqwen.py \
+  --device auto \
+  --model-root .cache/colqwen2-offline \
+  --cache-root .cache/dsvire-eval \
+  --offline \
+  --json-out colqwen-development.json
+```
+
+The ColQwen/ColSmol extras and the OpenCLIP extra are mutually exclusive
+because their verified Torch stacks differ.
 
 ```bash
 uv sync --locked --extra colsmol
 python scripts/acquire_model.py \
   --manifest evaluation/models/colsmol-256m.v1.json \
   --destination .cache/colsmol-offline
-python scripts/evaluate_full_corpus_colsmol.py \
-  --device cuda \
-  --model-root .cache/colsmol-offline \
-  --cache-root .cache/dsvire-eval \
-  --offline \
-  --json-out colsmol-development.json
 ```
-
-The ColSmol and OpenCLIP extras are intentionally mutually exclusive because
-their verified Torch stacks differ.
 
 ## Real-PDF regression gate
 

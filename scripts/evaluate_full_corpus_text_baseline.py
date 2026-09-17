@@ -182,7 +182,9 @@ def main() -> int:
     parser.add_argument("--cache-root", type=Path, action="append", default=[])
     parser.add_argument("--download-cache", type=Path)
     parser.add_argument("--offline", action="store_true")
-    parser.add_argument("--split", choices=["development"], default="development")
+    parser.add_argument(
+        "--split", choices=["development", "calibration", "evaluation"], default="development"
+    )
     parser.add_argument("--json-out", type=Path, required=True)
     parser.add_argument("--ranking-out", type=Path)
     args = parser.parse_args()

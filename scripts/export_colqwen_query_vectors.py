@@ -1,4 +1,4 @@
-"""Export private, digest-bound ColSmol query vectors without indexing documents."""
+"""Export private, digest-bound ColQwen2 query vectors without indexing documents."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from dsvire.colsmol_encoder import ColSmolEncoder
+from dsvire.colqwen_encoder import ColQwenEncoder
 from dsvire.colsmol_reproduction import build_query_vector_artifact
 from dsvire.corpus_coverage import load_query_registry
 from dsvire.model_manifest import load_model_manifest
@@ -22,7 +22,7 @@ def main() -> int:
     )
     parser.add_argument("--queries", type=Path, default=ROOT / "evaluation/query_registry.v2.json")
     parser.add_argument(
-        "--manifest", type=Path, default=ROOT / "evaluation/models/colsmol-256m.v1.json"
+        "--manifest", type=Path, default=ROOT / "evaluation/models/colqwen2-v1.0-hf.json"
     )
     parser.add_argument("--model-root", type=Path, required=True)
     parser.add_argument("--device", choices=("cpu", "cuda", "auto"), default="cpu")
@@ -31,7 +31,7 @@ def main() -> int:
     visual = load_visual_registry_data(json.loads(args.registry.read_text(encoding="utf-8")))
     queries = load_query_registry(json.loads(args.queries.read_text(encoding="utf-8")), visual)
     manifest = load_model_manifest(json.loads(args.manifest.read_text(encoding="utf-8")))
-    encoder = ColSmolEncoder(manifest, args.model_root, device=args.device)
+    encoder = ColQwenEncoder(manifest, args.model_root, device=args.device)
     records = []
     for query in sorted(
         (item for item in queries.queries if item.split == "development"),

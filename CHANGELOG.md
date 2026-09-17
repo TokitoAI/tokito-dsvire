@@ -5,6 +5,11 @@ All notable changes to DS-ViRe are recorded here. Releases use immutable
 
 ## Unreleased
 
+### Live ColQwen2 encoder
+
+- Pin `vidore/colqwen2-v1.0-hf` (`ddc07d2317c80f75fc742b7362ee9ad1912908f9`) as the live late-interaction retriever. Frozen cycle v5 ColSmol packet hashes are unchanged.
+- Materialize single-repository `weights` snapshots without PEFT adapter rewriting. Fail closed if ColQwen2 is missing or OOM; scores are not invented.
+
 ### Production training-ready visual stack (no local training)
 
 - Refuse credentialed, loopback, and non-public literal URLs on hash-pinned downloads; corpus materialization must stay on official manufacturer hosts after redirects.

@@ -200,39 +200,50 @@ def verify_snapshot(
             raise ModelManifestError(f"{repository.name}/{file.path} digest mismatch")
 
 
+def _copy_verified_snapshots(
+    repositories: Mapping[str, ModelRepository], snapshots: Mapping[str, Path], staging: Path
+) -> None:
+    for name, repository in repositories.items():
+        verify_snapshot(repository, snapshots[name])
+        target = staging / name
+        target.mkdir()
+        for file in repository.files:
+            shutil.copyfile(snapshots[name] / file.path, target / file.path)
+
+
 def materialize_offline_model(
     manifest: ModelManifest, snapshots: Mapping[str, Path], destination: Path
 ) -> Path:
-    """Atomically copy verified files and bind the adapter to the verified local base."""
+    """Atomically copy verified files. Adapter+base rewrites the local PEFT pointer."""
     if set(snapshots) != {repository.name for repository in manifest.repositories}:
         raise ModelManifestError("snapshot names differ from model manifest")
     if destination.exists():
         raise ModelManifestError("offline model destination already exists")
     repositories = {repository.name: repository for repository in manifest.repositories}
-    if set(repositories) != {"adapter", "base"}:
-        raise ModelManifestError("offline ColSmol materialization requires adapter and base")
-    for name, repository in repositories.items():
-        verify_snapshot(repository, snapshots[name])
+    names = set(repositories)
+    if names not in ({"adapter", "base"}, {"weights"}):
+        raise ModelManifestError(
+            "offline materialization requires adapter+base or a single weights repository"
+        )
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(
         prefix=f".{destination.name}-", dir=destination.parent
     ) as temp:
         staging = Path(temp)
-        for name, repository in repositories.items():
-            target = staging / name
-            target.mkdir()
-            for file in repository.files:
-                shutil.copyfile(snapshots[name] / file.path, target / file.path)
-        adapter_config = staging / "adapter" / "adapter_config.json"
-        try:
-            config = json.loads(adapter_config.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError) as exc:
-            raise ModelManifestError("adapter_config.json is invalid") from exc
-        if config.get("base_model_name_or_path") != repositories["base"].repository:
-            raise ModelManifestError("adapter base model pointer differs from manifest")
-        config["base_model_name_or_path"] = os.fspath((destination / "base").resolve())
-        config["revision"] = None
-        adapter_config.write_bytes(_canonical(config))
+        _copy_verified_snapshots(repositories, snapshots, staging)
+        if names == {"adapter", "base"}:
+            adapter_config = staging / "adapter" / "adapter_config.json"
+            try:
+                config = json.loads(adapter_config.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                raise ModelManifestError("adapter_config.json is invalid") from exc
+            if config.get("base_model_name_or_path") != repositories["base"].repository:
+                raise ModelManifestError("adapter base model pointer differs from manifest")
+            config["base_model_name_or_path"] = os.fspath((destination / "base").resolve())
+            config["revision"] = None
+            adapter_config.write_bytes(_canonical(config))
         os.replace(staging, destination)
-    verify_materialized_adapter_config(manifest, destination)
-    return destination / "adapter"
+    if names == {"adapter", "base"}:
+        verify_materialized_adapter_config(manifest, destination)
+        return destination / "adapter"
+    return destination / "weights"
