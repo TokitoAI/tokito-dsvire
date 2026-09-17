@@ -92,8 +92,8 @@ def test_cycle_v5_status_is_sealed_without_mma8451q() -> None:
     assert status.plan_id == CYCLE_V5_PLAN_ID
     assert status.packet_sha256 == CYCLE_V5_PACKET_SHA256
     assert status.sources_complete is True
-    assert status.stage == "awaiting_human_authoring"
-    assert status.score_access_authorized is False
+    assert status.stage == "scores_authorized"
+    assert status.score_access_authorized is True
 
 
 def test_cycle_v4_live_invalidation_is_incomplete() -> None:

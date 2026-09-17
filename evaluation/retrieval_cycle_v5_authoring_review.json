@@ -1,0 +1,10 @@
+{
+  "author_attestation_url": "https://github.com/TokitoAI/tokito-dsvire/pull/168#pullrequestreview-5236655965",
+  "author_attested_at": "2026-09-17T13:58:04Z",
+  "packet_sha256": "9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801",
+  "reviewed_at": "2026-09-17T13:58:04Z",
+  "review_url": "https://github.com/TokitoAI/tokito-dsvire/pull/168#pullrequestreview-5236655965",
+  "reviewer": "github:Afnanksalal",
+  "schema_version": "dsvire.retrieval-authoring-review.v1",
+  "submission_sha256": "a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250"
+}
