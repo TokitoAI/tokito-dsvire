@@ -143,10 +143,38 @@ The live late-interaction encoder is hash-pinned ColQwen2-2B
 (`vidore/colqwen2-v1.0-hf`). Frozen cycle v5 still names ColSmol; do not rewrite
 those packet hashes. ColSmol remains an edge/historical extra.
 
-Acquire needs several gigabytes and a machine that can place a 2B Qwen2-VL
-checkpoint (about 8–12 GB GPU, or `device_map=auto` with CPU RAM spill). A
-4 GB card is not a production ColQwen eval host. Scores are never invented if
-load or inference fails.
+Vendor PDFs and model weights are download-only. They are not in Git. `.cache/`
+is gitignored.
+
+### GPU VPS clone (cycle v5 ColQwen comparator)
+
+Needs ~8–12 GB VRAM (or `device_map=auto` with CPU RAM spill). Official PDFs
+and the 2B checkpoint are fetched by hash at runtime.
+
+```bash
+git clone https://github.com/TokitoAI/tokito-dsvire.git
+cd tokito-dsvire
+uv sync --locked --extra colqwen --extra visual
+python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu')"
+```
+
+If CUDA is false, install a CUDA wheel for the pinned Torch version without
+editing `uv.lock`, then:
+
+```bash
+python scripts/run_cycle_v5_eval.py --colqwen-device auto
+```
+
+That command:
+
+1. downloads the 12 sealed official PDFs into `.cache/cycle-v5-work/sources/`
+2. exports score registries into `.cache/cycle-v5-work/eval/`
+3. acquires `vidore/colqwen2-v1.0-hf` into `.cache/colqwen2-offline/` if missing
+4. calibrates, then evaluates once
+
+Results land in `.cache/cycle-v5-work/eval/cycle-v5-colqwen-{calibration,evaluation}.json`.
+Copy those files off the VPS. Scores are never invented on download or OOM
+failure. A 4 GB card is the wrong host.
 
 ```bash
 uv sync --locked --extra colqwen

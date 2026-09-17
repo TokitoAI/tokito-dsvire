@@ -18,14 +18,55 @@ import sys
 from pathlib import Path
 
 from dsvire.cycle_execution import assert_score_access_authorized, inspect_cycle_v5
+from dsvire.cycle_source_cache import family_ids_from_plan, materialize_sealed_cycle_pdfs
 
 ROOT = Path(__file__).resolve().parents[1]
-WORK = Path(r"D:\old\dsvire-cycle-v5-work")
+WORK = ROOT / ".cache" / "cycle-v5-work"
+COLQWEN_MANIFEST = ROOT / "evaluation/models/colqwen2-v1.0-hf.json"
+COLQWEN_OFFLINE = ROOT / ".cache" / "colqwen2-offline"
+SOURCE_MANIFEST = ROOT / "evaluation/retrieval_cycle_v5_source_manifest.json"
+PLAN = ROOT / "evaluation/retrieval_cycle_v5_preregistration.json"
 
 
 def _run(command: list[str]) -> None:
     print("+", " ".join(command), flush=True)
     subprocess.run(command, check=True, cwd=ROOT)
+
+
+def _run_colqwen(
+    python: str,
+    *,
+    registry: Path,
+    queries: Path,
+    model_root: Path,
+    cache_root: Path,
+    device: str,
+    results: Path,
+) -> None:
+    for split in ("calibration", "evaluation"):
+        _run(
+            [
+                python,
+                "scripts/evaluate_full_corpus_colqwen.py",
+                "--registry",
+                str(registry),
+                "--queries",
+                str(queries),
+                "--model-root",
+                str(model_root),
+                "--cache-root",
+                str(cache_root),
+                "--offline",
+                "--device",
+                device,
+                "--split",
+                split,
+                "--json-out",
+                str(results / f"cycle-v5-colqwen-{split}.json"),
+                "--ranking-out",
+                str(results / f"cycle-v5-colqwen-{split}-rankings.json"),
+            ]
+        )
 
 
 def _detected_vram_mb() -> int | None:
@@ -68,6 +109,11 @@ def main() -> int:
         default="auto",
         help="kept for the historical ColSmol comparator",
     )
+    parser.add_argument(
+        "--no-acquire-model",
+        action="store_true",
+        help="fail closed if ColQwen2 is not already materialized",
+    )
     args = parser.parse_args()
     status = inspect_cycle_v5()
     assert_score_access_authorized(status)
@@ -77,6 +123,15 @@ def main() -> int:
     pdf_cache = work / "eval-pdf-cache"
     pdf_cache.mkdir(parents=True, exist_ok=True)
     cache_root = work / "sources"
+    cache_root.mkdir(parents=True, exist_ok=True)
+    plan = json.loads(PLAN.read_text(encoding="utf-8"))
+    source_manifest = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
+    materialize_sealed_cycle_pdfs(
+        source_manifest,
+        cache_root,
+        expected_family_ids=family_ids_from_plan(plan),
+        offline=False,
+    )
     for path in cache_root.rglob("*.pdf"):
         with path.open("rb") as source:
             digest = hashlib.file_digest(source, "sha256").hexdigest()
@@ -84,10 +139,21 @@ def main() -> int:
         if not destination.exists():
             destination.write_bytes(path.read_bytes())
     python = sys.executable
-    _run([python, "scripts/export_cycle_v5_eval_artifacts.py"])
-    registry = ROOT / "evaluation/retrieval_cycle_v5_visual_registry.json"
-    queries = ROOT / "evaluation/retrieval_cycle_v5_query_registry.json"
-    split_plan = ROOT / "evaluation/retrieval_cycle_v5_visual_split_plan.json"
+    _run(
+        [
+            python,
+            "scripts/export_cycle_v5_eval_artifacts.py",
+            "--visual-out",
+            str(results / "visual_registry.json"),
+            "--queries-out",
+            str(results / "query_registry.json"),
+            "--split-plan-out",
+            str(results / "visual_split_plan.json"),
+        ]
+    )
+    registry = results / "visual_registry.json"
+    queries = results / "query_registry.json"
+    split_plan = results / "visual_split_plan.json"
     for split in ("calibration", "evaluation"):
         _run(
             [
@@ -154,9 +220,8 @@ def main() -> int:
     vram = _detected_vram_mb()
     colqwen_root = args.colqwen_model_root
     if colqwen_root is None:
-        candidate = ROOT / ".cache" / "colqwen2-offline"
-        if (candidate / "weights" / "model.safetensors").is_file():
-            colqwen_root = candidate
+        colqwen_root = COLQWEN_OFFLINE
+    weights = colqwen_root / "weights" / "model.safetensors"
     if args.skip_colqwen:
         blocked = {
             "schema_version": "dsvire.cycle-v5-colqwen-block.v1",
@@ -172,7 +237,17 @@ def main() -> int:
             newline="\n",
         )
         print(json.dumps(blocked, indent=2, sort_keys=True))
-    elif colqwen_root is None or not (colqwen_root / "weights" / "model.safetensors").is_file():
+    elif weights.is_file():
+        _run_colqwen(
+            python,
+            registry=registry,
+            queries=queries,
+            model_root=colqwen_root,
+            cache_root=cache_root,
+            device=args.colqwen_device,
+            results=results,
+        )
+    elif args.no_acquire_model or colqwen_root.exists():
         blocked = {
             "schema_version": "dsvire.cycle-v5-colqwen-block.v1",
             "candidate": "pinned ColQwen2-2B crop BM25+dense/RRF+MaxSim",
@@ -192,30 +267,25 @@ def main() -> int:
         )
         print(json.dumps(blocked, indent=2, sort_keys=True))
     else:
-        for split in ("calibration", "evaluation"):
-            _run(
-                [
-                    python,
-                    "scripts/evaluate_full_corpus_colqwen.py",
-                    "--registry",
-                    str(registry),
-                    "--queries",
-                    str(queries),
-                    "--model-root",
-                    str(colqwen_root),
-                    "--cache-root",
-                    str(cache_root),
-                    "--offline",
-                    "--device",
-                    args.colqwen_device,
-                    "--split",
-                    split,
-                    "--json-out",
-                    str(results / f"cycle-v5-colqwen-{split}.json"),
-                    "--ranking-out",
-                    str(results / f"cycle-v5-colqwen-{split}-rankings.json"),
-                ]
-            )
+        _run(
+            [
+                python,
+                "scripts/acquire_model.py",
+                "--manifest",
+                str(COLQWEN_MANIFEST),
+                "--destination",
+                str(colqwen_root),
+            ]
+        )
+        _run_colqwen(
+            python,
+            registry=registry,
+            queries=queries,
+            model_root=colqwen_root,
+            cache_root=cache_root,
+            device=args.colqwen_device,
+            results=results,
+        )
     if not args.also_colsmol:
         return 0
     model_root = args.colsmol_model_root
