@@ -26,8 +26,9 @@ The current development cycle uses one candidate universe for every system:
 
 The lexical baseline benefits from exact part-number, pin-label, and table-text
 overlap. OpenCLIP and ColSmol measure visual-semantic retrieval on the same
-crops and judgments. These are development results, not held-out production
-claims.
+crops and judgments. The live encoder is now hash-pinned ColQwen2-2B; ColSmol
+numbers above remain the historical development snapshot. These are not
+held-out production claims.
 
 ## Artifact layout
 

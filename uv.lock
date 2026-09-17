@@ -8,10 +8,16 @@ resolution-markers = [
     "python_full_version == '3.12.*'",
     "python_full_version < '3.12'",
 ]
-conflicts = [[
-    { package = "tokito-dsvire", extra = "colsmol" },
-    { package = "tokito-dsvire", extra = "openclip" },
-]]
+conflicts = [
+    [
+        { package = "tokito-dsvire", extra = "colqwen" },
+        { package = "tokito-dsvire", extra = "openclip" },
+    ],
+    [
+        { package = "tokito-dsvire", extra = "colsmol" },
+        { package = "tokito-dsvire", extra = "openclip" },
+    ],
+]
 
 [[package]]
 name = "accelerate"
@@ -2882,6 +2888,12 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+colqwen = [
+    { name = "huggingface-hub" },
+    { name = "torch" },
+    { name = "torchvision" },
+    { name = "transformers" },
+]
 colsmol = [
     { name = "huggingface-hub" },
     { name = "peft" },
@@ -2927,6 +2939,7 @@ requires-dist = [
     { name = "filelock", specifier = ">=3.20,<4" },
     { name = "hatchling", marker = "extra == 'test'", specifier = ">=1.27,<2" },
     { name = "httpx", marker = "extra == 'test'", specifier = ">=0.28,<1" },
+    { name = "huggingface-hub", marker = "extra == 'colqwen'", specifier = "==1.5.0" },
     { name = "huggingface-hub", marker = "extra == 'colsmol'", specifier = "==1.5.0" },
     { name = "jsonschema", marker = "extra == 'test'", specifier = ">=4.23,<5" },
     { name = "mcp", marker = "extra == 'mcp'", specifier = ">=1.28,<2" },
@@ -2948,16 +2961,19 @@ requires-dist = [
     { name = "ruff", marker = "extra == 'test'", specifier = ">=0.12,<1" },
     { name = "safetensors", marker = "extra == 'openclip'", specifier = ">=0.6,<1" },
     { name = "setuptools", marker = "extra == 'test'", specifier = ">=83,<84" },
+    { name = "torch", marker = "extra == 'colqwen'", specifier = "==2.13.0" },
     { name = "torch", marker = "extra == 'colsmol'", specifier = "==2.13.0" },
     { name = "torch", marker = "extra == 'openclip'", specifier = ">=2.9,<3" },
+    { name = "torchvision", marker = "extra == 'colqwen'", specifier = "==0.28.0" },
     { name = "torchvision", marker = "extra == 'colsmol'", specifier = "==0.28.0" },
     { name = "torchvision", marker = "extra == 'openclip'", specifier = ">=0.24,<1" },
+    { name = "transformers", marker = "extra == 'colqwen'", specifier = "==5.5.0" },
     { name = "transformers", marker = "extra == 'colsmol'", specifier = "==5.5.0" },
     { name = "types-jsonschema", marker = "extra == 'test'", specifier = ">=4.23,<5" },
     { name = "types-psutil", marker = "extra == 'test'", specifier = ">=7.2,<8" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.35,<1" },
 ]
-provides-extras = ["mcp", "visual", "openclip", "test", "colsmol"]
+provides-extras = ["mcp", "visual", "openclip", "test", "colsmol", "colqwen"]
 
 [[package]]
 name = "tomli"

@@ -303,7 +303,7 @@ profiles, migration sequence, and completion gates are defined in
 | Layout | DocLayout-YOLO | MinerU layout |
 | Type head | Fine-tune on EDocNet / DS-ViRe labels | Zero-shot VLM |
 | Cheap dense | SigLIP / MRL bi-encoder on crop+caption | CLIP |
-| Late interaction | ColQwen2-2B (`vidore/colqwen2-v1.0`) | ColQwen2.5; ColSmol for edge |
+| Late interaction | ColQwen2-2B (`vidore/colqwen2-v1.0-hf`) | ColQwen2.5; ColSmol for edge |
 | Compression | Light-ColPali merge + Qdrant binary + rescore | MUVERA FDE stage |
 | Captions | Constrained VLM schema | Skip if budget tight |
 | Verifier | Small VLM structured JSON | Caption cross-encoder |
