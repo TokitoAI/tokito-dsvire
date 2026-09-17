@@ -13,7 +13,11 @@ concurrency:
 
 jobs:
   benchmark:
-    runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]
+    # GitHub-hosted, like ci.yml in this repository. The `tokito-vps` self-hosted
+    # runner this used to name is being decommissioned; nothing here needed it.
+    # ci.yml already runs `uv sync --locked --extra test --extra visual` on
+    # ubuntu-latest and passes, so the heavy extra is known to work here.
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
