@@ -2253,7 +2253,7 @@
         }
       ],
       "selected_mpn": "FXLS8974CF",
-      "selected_package": "QFN-12",
+      "selected_package": "DFN-10",
       "source_sha256": "ec744130e65d9b1431a4d2bd56e3cddc421b8cb80653a66a7b956b9b1a7d3a51"
     },
     {
@@ -3379,9 +3379,9 @@
       "source_sha256": "26a04d381d5909f3dff8f7264073150c65e1c11de7e10ffb0222476c1ce3abc8"
     }
   ],
-  "packet_sha256": "adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65",
+  "packet_sha256": "9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801",
   "plan_id": "dsvire-colsmol-egvv-cycle-v5@2026-09-17",
-  "plan_sha256": "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9",
+  "plan_sha256": "62960b1d4e4ffdb4ca34696e985b33e589cae7203c28017f6aed8345f1ca60d4",
   "renderer": "pdfium-5.12.1",
   "requirements": {
     "annotation_review": "distinct independent human, blinded to all model scores",
@@ -3407,5 +3407,5 @@
     "query_review": "distinct independent human, blinded to all model scores"
   },
   "schema_version": "dsvire.retrieval-authoring-packet.v1",
-  "source_manifest_sha256": "aa8d7e1fa855df0014f0731b24e5f4ea2f6bebef5c4d78fb1685ad3f816fc74c"
+  "source_manifest_sha256": "804eac0a66d70caa41f49cfdf272bdd1ec44b168a2abb155fbdcad81ce1c22dd"
 }

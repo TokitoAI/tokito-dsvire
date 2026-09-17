@@ -24,7 +24,7 @@ FROZEN_PLAN_DIGESTS = {
     "dsvire-colsmol-cycle-v2@2026-08-13": "6acc99d5621fcd3f73efdc801b7fc7754ac244d600e94b106e6c62712116698d",
     "dsvire-colsmol-egvv-cycle-v3@2026-08-13": "2034c81f041d547249bed9e7e606d2255af0b5df32ebfda7ad025a8c917d7ccf",
     "dsvire-colsmol-egvv-cycle-v4@2026-08-13": "cd7b1bd89d0e3d382eb7ea0af97107ca6931b3cd49a34964e18e4cef9dbb8acb",
-    "dsvire-colsmol-egvv-cycle-v5@2026-09-17": "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9",
+    "dsvire-colsmol-egvv-cycle-v5@2026-09-17": "62960b1d4e4ffdb4ca34696e985b33e589cae7203c28017f6aed8345f1ca60d4",
 }
 _TOKEN = re.compile(r"[a-z0-9]+")
 

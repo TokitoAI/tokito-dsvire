@@ -169,6 +169,49 @@ def _redigest_submission(submission: dict[str, object]) -> None:
     )
 
 
+def test_coverage_intents_can_label_timing_and_curves() -> None:
+    packet = _packet()
+    submission = _submission(packet)
+    submission["documents"][0]["regions"].append(
+        {
+            "id": "positive-timing",
+            "kind": "positive",
+            "intent": "timing",
+            "page": 1,
+            "bbox_norm": [0.1, 0.55, 0.45, 0.9],
+            "view": "unknown",
+            "note": "Human-inspected switching-characteristics timing sheet.",
+        }
+    )
+    _redigest_submission(submission)
+    loaded = load_submission(submission, packet)
+    assert loaded["documents"][0]["regions"][-1]["intent"] == "timing"
+
+
+def test_continued_positive_table_regions_are_allowed() -> None:
+    packet = _packet()
+    submission = _submission(packet)
+    first = submission["documents"][0]
+    first["regions"].append(
+        {
+            "id": "positive-table-continued",
+            "kind": "positive",
+            "intent": "table",
+            "page": 1,
+            "bbox_norm": [0.1, 0.45, 0.4, 0.9],
+            "view": "not_applicable",
+            "note": "Human-inspected continuation of the pin-functions table.",
+        }
+    )
+    for query in first["queries"]:
+        if query["intent"] == "table":
+            query["relevant_region_ids"] = ["positive-table", "positive-table-continued"]
+    _redigest_submission(submission)
+    assert load_submission(submission, packet)["documents"][0]["regions"][-1]["id"] == (
+        "positive-table-continued"
+    )
+
+
 def test_complete_human_authored_independently_reviewed_submission_seals() -> None:
     packet = _packet()
     submission = _submission(packet)

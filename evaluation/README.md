@@ -93,7 +93,7 @@ numbers can be traced to an exact protocol.
 Cycle v4 is **retired**. Do not author cycle v4. The official MMA8451Q URL is
 unavailable; that family was invalidated without replacement. Cycle v4 JSON
 stays in Git only so training cannot leak those sealed identities. Cycle v5 is
-the live 12-family plan. The accelerometer slot is NXP FXLS8974CF.
+the live 12-family plan. The accelerometer slot is NXP FXLS8974CF DFN-10 (SOT1615-3).
 
 Cycle v5 stops at a score-free packet until two different GitHub humans finish
 the authoring and review boundary below. Agents may validate files and operate
@@ -102,8 +102,8 @@ either attestation, approve the submission, or inspect model rankings. The
 current packet identity is:
 
 ```text
-DSVIRE_SOURCE_MANIFEST_SHA256=aa8d7e1fa855df0014f0731b24e5f4ea2f6bebef5c4d78fb1685ad3f816fc74c
-DSVIRE_AUTHORING_PACKET_SHA256=adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65
+DSVIRE_SOURCE_MANIFEST_SHA256=804eac0a66d70caa41f49cfdf272bdd1ec44b168a2abb155fbdcad81ce1c22dd
+DSVIRE_AUTHORING_PACKET_SHA256=9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801
 ```
 
 ```sh
@@ -168,7 +168,7 @@ Human A opens a PR containing the finalized source-free submission and adds a
 GitHub PR review whose body contains these exact lines:
 
 ```text
-DSVIRE_AUTHORING_SUBMISSION_SHA256=<digest printed by finalize-submission>
+DSVIRE_AUTHORING_SUBMISSION_SHA256=a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250
 HUMAN_AUTHORED_NO_MODEL=TRUE
 ```
 
@@ -186,8 +186,8 @@ re-attest the new submission digest before review resumes.
 Human B submits an **APPROVED GitHub PR review** containing these exact lines:
 
 ```text
-DSVIRE_AUTHORING_PACKET_SHA256=adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65
-DSVIRE_AUTHORING_SUBMISSION_SHA256=<finalized submission digest>
+DSVIRE_AUTHORING_PACKET_SHA256=9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801
+DSVIRE_AUTHORING_SUBMISSION_SHA256=a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250
 DSVIRE_INDEPENDENT_HUMAN_REVIEW=TRUE
 ```
 

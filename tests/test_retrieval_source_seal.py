@@ -151,7 +151,7 @@ def test_cycle_v5_is_an_explicit_frozen_acquisition_boundary(tmp_path: Path) -> 
     )
     assert result["complete"] is True
     assert result["plan_sha256"] == (
-        "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9"
+        "62960b1d4e4ffdb4ca34696e985b33e589cae7203c28017f6aed8345f1ca60d4"
     )
     assert len(result["sources"]) == 12
     first = acquire_source_manifest(
