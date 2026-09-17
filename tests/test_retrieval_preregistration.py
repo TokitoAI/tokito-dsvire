@@ -101,7 +101,7 @@ def test_cycle_v5_replaces_unavailable_mma8451q_without_mutating_v4() -> None:
     jsonschema.validate(raw, schema)
     plan = load_retrieval_preregistration(raw, consumed_family_ids=_reserved_through_v4())
     assert plan.plan_id == "dsvire-colsmol-egvv-cycle-v5@2026-09-17"
-    assert plan.content_sha256 == "cc7e4d4435e8ed1704917b09902cfd57cf9eabc184bff24da8b36883972d6fc9"
+    assert plan.content_sha256 == "62960b1d4e4ffdb4ca34696e985b33e589cae7203c28017f6aed8345f1ca60d4"
     assert len(plan.family_ids) == 12
     urls = {family["official_source_url"] for family in raw["families"]}
     assert "https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf" not in urls

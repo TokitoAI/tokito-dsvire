@@ -169,6 +169,49 @@ def _redigest_submission(submission: dict[str, object]) -> None:
     )
 
 
+def test_coverage_intents_can_label_timing_and_curves() -> None:
+    packet = _packet()
+    submission = _submission(packet)
+    submission["documents"][0]["regions"].append(
+        {
+            "id": "positive-timing",
+            "kind": "positive",
+            "intent": "timing",
+            "page": 1,
+            "bbox_norm": [0.1, 0.55, 0.45, 0.9],
+            "view": "unknown",
+            "note": "Human-inspected switching-characteristics timing sheet.",
+        }
+    )
+    _redigest_submission(submission)
+    loaded = load_submission(submission, packet)
+    assert loaded["documents"][0]["regions"][-1]["intent"] == "timing"
+
+
+def test_continued_positive_table_regions_are_allowed() -> None:
+    packet = _packet()
+    submission = _submission(packet)
+    first = submission["documents"][0]
+    first["regions"].append(
+        {
+            "id": "positive-table-continued",
+            "kind": "positive",
+            "intent": "table",
+            "page": 1,
+            "bbox_norm": [0.1, 0.45, 0.4, 0.9],
+            "view": "not_applicable",
+            "note": "Human-inspected continuation of the pin-functions table.",
+        }
+    )
+    for query in first["queries"]:
+        if query["intent"] == "table":
+            query["relevant_region_ids"] = ["positive-table", "positive-table-continued"]
+    _redigest_submission(submission)
+    assert load_submission(submission, packet)["documents"][0]["regions"][-1]["id"] == (
+        "positive-table-continued"
+    )
+
+
 def test_complete_human_authored_independently_reviewed_submission_seals() -> None:
     packet = _packet()
     submission = _submission(packet)
@@ -225,10 +268,10 @@ def test_committed_cycle_v5_packet_is_schema_valid_source_free_and_excludes_mma8
     assert "nxp-fxls8974cf" in ids
 
 
-def test_cycle_v4_human_handoff_runbook_binds_current_packet_and_review_markers() -> None:
+def test_cycle_v5_human_handoff_runbook_binds_current_packet_and_review_markers() -> None:
     runbook = (ROOT / "evaluation/README.md").read_text(encoding="utf-8")
     packet = json.loads(
-        (ROOT / "evaluation/retrieval_cycle_v4_authoring_packet.json").read_text(encoding="utf-8")
+        (ROOT / "evaluation/retrieval_cycle_v5_authoring_packet.json").read_text(encoding="utf-8")
     )
     required = (
         f"DSVIRE_SOURCE_MANIFEST_SHA256={packet['source_manifest_sha256']}",
@@ -240,9 +283,11 @@ def test_cycle_v4_human_handoff_runbook_binds_current_packet_and_review_markers(
         "#pullrequestreview-<id>",
         "must be a different GitHub login",
         "does not enable publication",
+        "retired",
     )
     for text in required:
         assert text in runbook
+    assert "Do not author cycle v4" in runbook
 
 
 def test_all_authoring_schemas_are_valid() -> None:

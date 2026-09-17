@@ -29,7 +29,7 @@
               "properties": {
                 "id": {"type": "string", "minLength": 1},
                 "kind": {"enum": ["positive", "wrong_intent", "wrong_package", "wrong_variant", "wrong_view"]},
-                "intent": {"enum": ["pinout", "table", "package"]},
+                "intent": {"enum": ["pinout", "package", "timing", "curve", "block", "app_circuit", "table", "other"]},
                 "page": {"type": "integer", "minimum": 1},
                 "bbox_norm": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0, "maximum": 1}},
                 "view": {"enum": ["top", "bottom", "not_applicable", "unknown"]},

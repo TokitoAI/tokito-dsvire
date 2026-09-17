@@ -75,12 +75,14 @@ def test_sealed_holdout_includes_cycle_v4_and_rejects_overlap() -> None:
     )
 
 
-def test_cycle_v4_status_blocks_scoring_without_human_seal() -> None:
+def test_cycle_v4_status_is_retired_without_mma8451q() -> None:
     status = inspect_cycle_v4()
     assert status.plan_id == CYCLE_V4_PLAN_ID
     assert status.packet_sha256 == CYCLE_V4_PACKET_SHA256
     assert status.score_access_authorized is False
-    assert status.stage == "awaiting_human_authoring"
+    assert status.sources_complete is False
+    assert status.stage == "sources_incomplete"
+    assert "nxp-mma8451q-rev-10-3" in status.invalidations
     with pytest.raises(CycleExecutionError, match="score access is forbidden"):
         assert_score_access_authorized(status)
 

@@ -1,7 +1,13 @@
 {
-  "complete": true,
-  "invalidations": [],
-  "manifest_sha256": "d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6",
+  "complete": false,
+  "invalidations": [
+    {
+      "id": "nxp-mma8451q-rev-10-3",
+      "reason": "official HTTPS URL is unavailable; family invalidated without replacement",
+      "status": "invalidated"
+    }
+  ],
+  "manifest_sha256": "90d4b2019d284627ef50dded91159b9d4639187d4a39e9346280345292a9fefc",
   "plan_id": "dsvire-colsmol-egvv-cycle-v4@2026-08-13",
   "plan_sha256": "cd7b1bd89d0e3d382eb7ea0af97107ca6931b3cd49a34964e18e4cef9dbb8acb",
   "schema_version": "dsvire.retrieval-cycle-source-manifest.v1",
@@ -73,20 +79,6 @@
       ],
       "redistribution": "download_only",
       "requested_url": "https://www.ti.com/lit/ds/symlink/ads1015.pdf",
-      "split": "calibration",
-      "status": "sealed"
-    },
-    {
-      "bytes": 964518,
-      "content_sha256": "c9c605b99824f17c6b1c96ebb782d42fbdc614d79dc211cda45f8c9232263125",
-      "final_url": "https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf",
-      "id": "nxp-mma8451q-rev-10-3",
-      "identity_markers": [
-        "mma8451q",
-        "mma8451qr1"
-      ],
-      "redistribution": "download_only",
-      "requested_url": "https://www.nxp.com/docs/en/data-sheet/MMA8451Q.pdf",
       "split": "calibration",
       "status": "sealed"
     },

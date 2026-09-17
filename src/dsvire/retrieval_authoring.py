@@ -17,6 +17,16 @@ SUBMISSION_VERSION = "dsvire.retrieval-authoring-submission.v1"
 REVIEW_VERSION = "dsvire.retrieval-authoring-review.v1"
 SEAL_VERSION = "dsvire.retrieval-authoring-seal.v1"
 REGION_TYPES = ("pinout", "table", "package")
+COVERAGE_INTENTS = (
+    "pinout",
+    "package",
+    "timing",
+    "curve",
+    "block",
+    "app_circuit",
+    "table",
+    "other",
+)
 NEGATIVE_KINDS = ("wrong_intent", "wrong_package", "wrong_variant", "wrong_view")
 _SHA256 = re.compile(r"[0-9a-f]{64}")
 _HUMAN = re.compile(r"github:[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})")
@@ -321,7 +331,6 @@ def load_submission(value: Any, packet: Mapping[str, Any]) -> dict[str, Any]:
         region_kinds: dict[str, str] = {}
         region_intents: dict[str, str] = {}
         positives: set[str] = set()
-        positive_count = 0
         negatives: set[str] = set()
         for region in regions:
             if not isinstance(region, Mapping):
@@ -337,11 +346,10 @@ def load_submission(value: Any, packet: Mapping[str, Any]) -> dict[str, Any]:
             region_ids.add(region_id)
             kind = _text(region["kind"], f"{document_id}.{region_id}.kind")
             intent = _text(region["intent"], f"{document_id}.{region_id}.intent")
-            if intent not in REGION_TYPES:
+            if intent not in COVERAGE_INTENTS:
                 raise RetrievalAuthoringError(f"{document_id}: invalid region intent")
             if kind == "positive":
                 positives.add(intent)
-                positive_count += 1
             elif kind in NEGATIVE_KINDS:
                 negatives.add(kind)
             else:
@@ -364,10 +372,8 @@ def load_submission(value: Any, packet: Mapping[str, Any]) -> dict[str, Any]:
             _text(region["note"], f"{document_id}.{region_id}.note")
             if region["view"] not in {"top", "bottom", "not_applicable", "unknown"}:
                 raise RetrievalAuthoringError(f"{document_id}: invalid region view")
-        if positives != set(REGION_TYPES) or positive_count != 3:
-            raise RetrievalAuthoringError(
-                f"{document_id}: exactly all three positive intents required"
-            )
+        if not set(REGION_TYPES) <= positives:
+            raise RetrievalAuthoringError(f"{document_id}: all three positive intents required")
         if negatives != set(NEGATIVE_KINDS):
             raise RetrievalAuthoringError(f"{document_id}: all four hard-negative kinds required")
         queries = document["queries"]

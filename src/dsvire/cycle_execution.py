@@ -17,11 +17,11 @@ from .retrieval_source_seal import FROZEN_PLAN_DIGESTS, SourceSealError, validat
 
 ROOT = Path(__file__).resolve().parents[2]
 CYCLE_V4_PLAN_ID = "dsvire-colsmol-egvv-cycle-v4@2026-08-13"
-CYCLE_V4_SOURCE_MANIFEST_SHA256 = "d6398ed9ea4ea5da7f8b726e030d2f77c94979705856c235d3aca8f8973fb9c6"
+CYCLE_V4_SOURCE_MANIFEST_SHA256 = "90d4b2019d284627ef50dded91159b9d4639187d4a39e9346280345292a9fefc"
 CYCLE_V4_PACKET_SHA256 = "021118687daf969490ee0f5b6289de4549e42bb76fe63d0038fe96c28ba5cb68"
 CYCLE_V5_PLAN_ID = "dsvire-colsmol-egvv-cycle-v5@2026-09-17"
-CYCLE_V5_SOURCE_MANIFEST_SHA256 = "aa8d7e1fa855df0014f0731b24e5f4ea2f6bebef5c4d78fb1685ad3f816fc74c"
-CYCLE_V5_PACKET_SHA256 = "adc10af069a817fdfb06f0b8c5bfb1bf1c32ca71fe995c421fc848adda4b9f65"
+CYCLE_V5_SOURCE_MANIFEST_SHA256 = "804eac0a66d70caa41f49cfdf272bdd1ec44b168a2abb155fbdcad81ce1c22dd"
+CYCLE_V5_PACKET_SHA256 = "9387cb64cfa3d4625443b356bbbc4a2281ff2eccf6a2aeac3466a3a7dc0d3801"
 Stage = Literal[
     "preregistered",
     "sources_incomplete",
@@ -124,8 +124,12 @@ def inspect_cycle_v4(
             "invalidations"
         )
         manifest_sha = str(source_manifest["manifest_sha256"])
-        if sources_complete and manifest_sha != CYCLE_V4_SOURCE_MANIFEST_SHA256:
-            raise CycleExecutionError("live source manifest digest drifted from the frozen cycle")
+        if sources_complete:
+            raise CycleExecutionError(
+                "cycle v4 is retired; official MMA8451Q source was invalidated without replacement"
+            )
+        if manifest_sha != CYCLE_V4_SOURCE_MANIFEST_SHA256:
+            raise CycleExecutionError("live source manifest digest drifted from the retired cycle")
     except (SourceSealError, CycleExecutionError, KeyError, TypeError) as exc:
         blockers.append(str(exc))
         sources_complete = False
@@ -162,7 +166,7 @@ def inspect_cycle_v4(
     stage: Stage
     if not sources_complete:
         stage = "sources_incomplete"
-        blockers.append("acquire the exact official PDFs before authoring or scoring")
+        blockers.append("cycle v4 is retired; the live visual gate is cycle v5")
     elif submission is None and seal is None:
         stage = "awaiting_human_authoring"
         blockers.append("Human A must author regions and natural queries; agents must not")

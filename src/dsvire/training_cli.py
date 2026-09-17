@@ -16,7 +16,7 @@ from .training_runtime import PRODUCTION_PROFILE, bind_run
 
 def add_training_commands(commands: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     cycle = commands.add_parser(
-        "cycle-v4-status", help="inspect frozen cycle v4; never authors queries or scores"
+        "cycle-v4-status", help="inspect retired cycle v4; live visual gate is cycle v5"
     )
     cycle.add_argument("--source-manifest", type=Path)
     cycle.add_argument("--seal", type=Path)

@@ -42,13 +42,15 @@ cycle accepted no wrong figure or wrong identity but reached 46.7% positive
 coverage against a preregistered 50% minimum. The threshold was not changed
 after seeing evaluation results.
 
-Cycle v4 is frozen and incomplete (official MMA8451Q source 404). Cycle v5 is
-the live 12-family visual-gate plan (accelerometer: NXP FXLS8974CF). It has
-exact sealed sources and a score-free authoring packet. It still requires
-genuinely human-authored natural queries and a different independent human
-reviewer before calibration or evaluation scores may be accessed. Production
-training remains fail-closed on a 24 GB-class GPU profile; a 4 GB card is
-smoke-only.
+Cycle v4 is retired: the official MMA8451Q URL is unavailable and that family
+was invalidated without replacement. Do not author cycle v4. Cycle v5 is the
+live 12-family visual-gate plan (accelerometer: NXP FXLS8974CF DFN-10). It has exact
+sealed sources, a score-free authoring packet, and a finalized Human A
+submission (`github:Afnanksalal`,
+`submission_sha256=a20f626698569b1a82de78d397839bd4bba21eedcbc2736c32567721f0d31250`).
+A different independent GitHub human must still approve the packet and
+submission before calibration or evaluation scores may be accessed. Production training
+remains fail-closed on a 24 GB-class GPU profile; a 4 GB card is smoke-only.
 
 ## Remaining production gates
 
