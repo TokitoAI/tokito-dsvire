@@ -8,16 +8,13 @@ resolution-markers = [
     "python_full_version == '3.12.*'",
     "python_full_version < '3.12'",
 ]
-conflicts = [
-    [
-        { package = "tokito-dsvire", extra = "colqwen" },
-        { package = "tokito-dsvire", extra = "openclip" },
-    ],
-    [
-        { package = "tokito-dsvire", extra = "colsmol" },
-        { package = "tokito-dsvire", extra = "openclip" },
-    ],
-]
+conflicts = [[
+    { package = "tokito-dsvire", extra = "colsmol" },
+    { package = "tokito-dsvire", extra = "openclip" },
+], [
+    { package = "tokito-dsvire", extra = "colqwen" },
+    { package = "tokito-dsvire", extra = "openclip" },
+]]
 
 [[package]]
 name = "accelerate"
@@ -67,7 +64,7 @@ version = "4.14.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/61/cc/a381afa6efea9f496eff839d4a6a1aed3bfafc7b3ab4b0d1b243a12573dd/anyio-4.14.2.tar.gz", hash = "sha256:cfa139f3ed1a23ee8f88a145ddb5ac7605b8bbfd8592baacd7ce3d8bb4313c7f", size = 260176, upload-time = "2026-07-12T20:29:07.082Z" }
 wheels = [
@@ -182,7 +179,7 @@ name = "build"
 version = "1.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "os_name == 'nt' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "colorama", marker = "os_name == 'nt' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
     { name = "packaging" },
     { name = "pyproject-hooks" },
 ]
@@ -223,7 +220,7 @@ name = "cffi"
 version = "2.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz", hash = "sha256:dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be", size = 530807, upload-time = "2026-08-03T21:21:18.939Z" }
 wheels = [
@@ -395,7 +392,7 @@ name = "click"
 version = "8.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/76/d4/81420972a676e8ffea40450d8c8c92943e7218a78fe9b64359836cc9876b/click-8.4.2.tar.gz", hash = "sha256:9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6", size = 338000, upload-time = "2026-06-24T17:45:15.148Z" }
 wheels = [
@@ -416,7 +413,7 @@ name = "colorlog"
 version = "6.12.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/8c/55/ba79756cb90c8d69d599d57785398ac87bba7b19c80e87f4e8a562197c93/colorlog-6.12.0.tar.gz", hash = "sha256:2a7924c1dadf18b22a0eb8b06d1c7b01d5341707ec1641eb6fcc4fde0c3e8e5f", size = 18151, upload-time = "2026-07-23T13:40:40.71Z" }
 wheels = [
@@ -428,7 +425,7 @@ name = "cryptography"
 version = "50.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi", marker = "platform_python_implementation != 'PyPy' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "cffi", marker = "platform_python_implementation != 'PyPy' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/de/41/6cbdcf9142d00fe82836fbb51e503e58088575cf7a0fe1dbff6695bf0840/cryptography-50.0.0.tar.gz", hash = "sha256:eeac2acb5a20ed25e0ad6d1df9891a520b78b404266b6d11778f25d5d691a6c9", size = 880201, upload-time = "2026-07-31T14:25:10.11Z" }
 wheels = [
@@ -484,7 +481,7 @@ name = "cuda-bindings"
 version = "13.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cuda-pathfinder", marker = "python_full_version < '3.15'" },
+    { name = "cuda-pathfinder" },
 ]
 wheels = [
     { url = "https://files.pythonhosted.org/packages/51/6b/457ca12dad3ee9bfcc9a545cfd6b64b359ba49de40f776f6e028e678f262/cuda_bindings-13.3.1-cp311-cp311-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:c5879712accf6e14bb01aa5e67440eb84998b8d104b509cc7a6dc0b8f656a474", size = 6053539, upload-time = "2026-05-29T23:11:43.19Z" },
@@ -570,7 +567,7 @@ dependencies = [
     { name = "packageurl-python" },
     { name = "py-serializable" },
     { name = "sortedcontainers" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/bd/32/3380dc26e6f07d6b14997c2af51ff66d7c2427cc902de76854ba047a9c3b/cyclonedx_python_lib-11.11.1.tar.gz", hash = "sha256:e41f52bf399fc6346accd520a2b9a6e5a48b59f4dc27a471cd536c8d621d99f4", size = 1443335, upload-time = "2026-08-10T13:05:27.003Z" }
 wheels = [
@@ -1169,12 +1166,12 @@ dependencies = [
     { name = "pydantic-settings" },
     { name = "pyjwt", extra = ["crypto"] },
     { name = "python-multipart" },
-    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
     { name = "sse-starlette" },
     { name = "starlette" },
     { name = "typing-extensions" },
     { name = "typing-inspection" },
-    { name = "uvicorn", marker = "sys_platform != 'emscripten' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "uvicorn", marker = "sys_platform != 'emscripten' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/30/d3/f9acc21dfc886e4f78e2add1a47db46ce16884346afde53f8a064c02c891/mcp-1.29.0.tar.gz", hash = "sha256:52d01f334de1868cc3bb2d6604931126a67631f99a6c5d3b82ba47290315ec36", size = 643148, upload-time = "2026-07-28T13:41:41.939Z" }
 wheels = [
@@ -1267,7 +1264,7 @@ name = "mypy"
 version = "1.20.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "librt", marker = "platform_python_implementation != 'PyPy' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "librt", marker = "platform_python_implementation != 'PyPy' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
     { name = "mypy-extensions" },
     { name = "pathspec" },
     { name = "typing-extensions" },
@@ -1872,7 +1869,7 @@ name = "portalocker"
 version = "3.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5e/77/65b857a69ed876e1951e88aaba60f5ce6120c33703f7cb61a3c894b8c1b6/portalocker-3.2.0.tar.gz", hash = "sha256:1f3002956a54a8c3730586c5c77bf18fae4149e07eaf1c29fc3faf4d5a3f89ac", size = 95644, upload-time = "2025-06-14T13:20:40.03Z" }
 wheels = [
@@ -2195,7 +2192,7 @@ name = "pytest"
 version = "9.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
     { name = "iniconfig" },
     { name = "packaging" },
     { name = "pluggy" },
@@ -2357,7 +2354,7 @@ name = "redis"
 version = "8.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "async-timeout", marker = "python_full_version < '3.11.3' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "async-timeout", marker = "python_full_version < '3.11.3' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a8/99/604f0b666d4c616d891cf77ebb9db6bb21601344c051aebf1b72b9ff915f/redis-8.1.0.tar.gz", hash = "sha256:6e1a19beef9225c83efd689c7e6b7da2d5215b1f42cd13b7fc3714d0a09c7b25", size = 5254356, upload-time = "2026-07-30T08:51:00.269Z" }
 wheels = [
@@ -2371,7 +2368,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "rpds-py" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/22/f5/df4e9027acead3ecc63e50fe1e36aca1523e1719559c499951bb4b53188f/referencing-0.37.0.tar.gz", hash = "sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8", size = 78036, upload-time = "2025-10-13T15:30:48.871Z" }
 wheels = [
@@ -2808,7 +2805,7 @@ version = "1.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b5/b4/205b0d5241d934e8add0c38aa924c4f9fb7330834ff11e5444db964ec3f9/starlette-1.6.0.tar.gz", hash = "sha256:d4e3ac5e546444960c710297a3c9fc3f7ebae1b7e963f3d36173b49da535be9b", size = 2716969, upload-time = "2026-08-08T18:27:57.512Z" }
 wheels = [
@@ -3053,7 +3050,7 @@ version = "2.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cuda-bindings", marker = "python_full_version < '3.15' and sys_platform == 'linux'" },
-    { name = "cuda-toolkit", extra = ["cublas", "cudart", "cufft", "cufile", "cupti", "curand", "cusolver", "cusparse", "nvjitlink", "nvrtc", "nvtx"], marker = "(sys_platform == 'linux' and extra == 'extra-13-tokito-dsvire-colsmol') or (sys_platform == 'linux' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "cuda-toolkit", extra = ["cublas", "cudart", "cufft", "cufile", "cupti", "curand", "cusolver", "cusparse", "nvjitlink", "nvrtc", "nvtx"], marker = "sys_platform == 'linux' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
     { name = "filelock" },
     { name = "fsspec" },
     { name = "jinja2" },
@@ -3127,7 +3124,7 @@ name = "tqdm"
 version = "4.70.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/21/3b/6c24bec5be5e743ffd99576daa5cc077722fc7d5bbc00bd133fa0c698dc6/tqdm-4.70.0.tar.gz", hash = "sha256:55b0b0dbd97462d06ebee91e4dac24ed4d4702be82b24f07e6c1d27e08cea220", size = 795438, upload-time = "2026-07-27T11:33:15.271Z" }
 wheels = [
@@ -3264,7 +3261,7 @@ standard = [
     { name = "httptools" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
-    { name = "uvloop", marker = "(platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32') or (platform_python_implementation == 'PyPy' and extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip') or (sys_platform == 'cygwin' and extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip') or (sys_platform == 'win32' and extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
+    { name = "uvloop", marker = "(platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32') or (platform_python_implementation == 'PyPy' and extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (platform_python_implementation == 'PyPy' and extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip') or (sys_platform == 'cygwin' and extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (sys_platform == 'cygwin' and extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip') or (sys_platform == 'win32' and extra == 'extra-13-tokito-dsvire-colqwen' and extra == 'extra-13-tokito-dsvire-openclip') or (sys_platform == 'win32' and extra == 'extra-13-tokito-dsvire-colsmol' and extra == 'extra-13-tokito-dsvire-openclip')" },
     { name = "watchfiles" },
     { name = "websockets" },
 ]
