@@ -373,9 +373,7 @@ def load_submission(value: Any, packet: Mapping[str, Any]) -> dict[str, Any]:
             if region["view"] not in {"top", "bottom", "not_applicable", "unknown"}:
                 raise RetrievalAuthoringError(f"{document_id}: invalid region view")
         if not set(REGION_TYPES) <= positives:
-            raise RetrievalAuthoringError(
-                f"{document_id}: all three positive intents required"
-            )
+            raise RetrievalAuthoringError(f"{document_id}: all three positive intents required")
         if negatives != set(NEGATIVE_KINDS):
             raise RetrievalAuthoringError(f"{document_id}: all four hard-negative kinds required")
         queries = document["queries"]
