@@ -112,8 +112,17 @@ def test_independent_builder_workflow_is_scheduled_attested_bounded_and_cleans_r
     assert "contents: read" in workflow
     assert "id-token: write" in workflow
     assert "attestations: write" in workflow
-    assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
-    assert "tokito-vps" in workflow and "private-build" in workflow
+    # Runs GitHub-hosted. This used to require the `tokito-vps` self-hosted
+    # runner, which is being decommissioned. Nothing in the job needs it: it
+    # only builds the image twice and diffs the root filesystems, and a hosted
+    # runner is a *cleaner* room for that than a long-lived box — every run gets
+    # a fresh machine, on top of the --pull --no-cache asserted below.
+    #
+    # What the self-hosted runner did buy was building on infrastructure
+    # distinct from release.yml's. That is now the same class of machine, so
+    # "independent" here means independent of the released artifact, not of the
+    # infrastructure that produced it.
+    assert "runs-on: ubuntu-latest" in workflow
     assert workflow.count("docker build --pull --no-cache") == 2
     assert "GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT" in workflow
     assert "if: always()" in workflow

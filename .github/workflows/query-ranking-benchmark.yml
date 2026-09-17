@@ -13,6 +13,17 @@ concurrency:
 
 jobs:
   benchmark:
+    # Stays on the self-hosted runner, unlike everything else in this repository,
+    # because the step below reads the warm corpus cache at
+    # /opt/actions-runner/.dsvire-benchmark-sources — a path that exists only
+    # there. That cache is what makes this benchmark affordable; without it every
+    # run re-fetches the whole datasheet corpus from vendor sites.
+    #
+    # The `tokito-vps` runner is being decommissioned, so this will stop being
+    # dispatchable. Nothing breaks on push — it is workflow_dispatch only — but
+    # reviving it means rehosting that cache somewhere the new CI can reach. It
+    # cannot simply become a repository artifact: docs/TECHNICAL_BIBLE.md forbids
+    # redistributing the PDFs.
     runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]
     timeout-minutes: 20
     steps:

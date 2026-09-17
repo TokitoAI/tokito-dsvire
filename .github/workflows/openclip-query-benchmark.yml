@@ -13,6 +13,17 @@ concurrency:
 
 jobs:
   benchmark:
+    # Stays on the self-hosted runner, unlike everything else in this repository,
+    # for two reasons the step below makes concrete: the warm corpus cache at
+    # /opt/actions-runner/.dsvire-benchmark-sources, and the pinned OpenCLIP
+    # weights at /opt/actions-runner/.dsvire-benchmark-models/<sha256>.safetensors
+    # — `--model` is required and takes a real path, so there is no hosted
+    # fallback. Both exist only on that machine.
+    #
+    # The `tokito-vps` runner is being decommissioned, so this will stop being
+    # dispatchable. Nothing breaks on push — it is workflow_dispatch only — but
+    # reviving it means rehosting both the corpus cache and the weights (the
+    # registry pins them by digest; see evaluation/visual_models.v1.json).
     runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]
     timeout-minutes: 20
     steps:
