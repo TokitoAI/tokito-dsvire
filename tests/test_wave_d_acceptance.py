@@ -18,7 +18,7 @@ def _decode(segment: str) -> dict[str, object]:
     return json.loads(base64.urlsafe_b64decode(padded))
 
 
-def test_acceptance_jwt_matches_tokito_ai_hs256_contract() -> None:
+def test_acceptance_jwt_matches_tokito_api_hs256_contract() -> None:
     token = wave_d.issue_acceptance_jwt("fixture-secret", 1000)
     header, payload, signature = token.split(".")
     assert _decode(header) == {"alg": "HS256", "typ": "JWT"}

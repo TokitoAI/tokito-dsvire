@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://tokito.ai/schemas/tokito.symbol-spec.v1.json",
   "title": "tokito.symbol-spec.v1",
-  "description": "Constrained JSON emitted by the tokito-ai symbol-extractor and consumed by the tokito-catalog symbol compiler. Hand-authored mirror of tokito_catalog::pipeline::spec::SymbolSpec (docs/CONTRACTS.md §2). Both must stay in sync; drift is a contract-break signal.",
+  "description": "Constrained JSON emitted by the tokito-api symbol-extractor and consumed by the tokito-catalog symbol compiler. Hand-authored mirror of tokito_catalog::pipeline::spec::SymbolSpec (docs/CONTRACTS.md §2). Both must stay in sync; drift is a contract-break signal.",
   "type": "object",
   "additionalProperties": false,
   "required": [

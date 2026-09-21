@@ -133,7 +133,7 @@ SPEC: dict = {
     "provenance": {
         "evidence_datasheet_id": "st-ds-h743-r09",
         "evidence_content_sha256": "b" * 64,
-        "extractor_version": "tokito-ai.symbol-extractor@0.1.0",
+        "extractor_version": "tokito-api.symbol-extractor@0.1.0",
         "model": "claude-sonnet-4-6",
         "extracted_at": "2026-08-08T07:12:00Z",
     },
@@ -157,7 +157,7 @@ PROVENANCE: dict = {
         "region_ids": ["r_pinout_01", "r_pin_table_01"],
     },
     "pipeline": {
-        "extractor_version": "tokito-ai.symbol-extractor@0.1.0",
+        "extractor_version": "tokito-api.symbol-extractor@0.1.0",
         "compiler_version": "tokito-catalog.compiler@0.1.0",
         "layout_policy_version": "layout@0.1.0",
         "extractor_model": "claude-sonnet-4-6",
