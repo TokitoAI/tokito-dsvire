@@ -23,8 +23,8 @@ def test_config_from_env_defaults() -> None:
     cfg = demo_run.Config.from_env({})
     assert cfg.extract_cmd == "tokito-symbol-extractor"
     assert cfg.compile_cmd == "tokito-symbol-compile"
-    assert cfg.tokito_ai_url == "https://api.tokito.dev"
-    assert cfg.tokito_ai_token is None
+    assert cfg.tokito_api_url == "https://api.tokito.dev"
+    assert cfg.tokito_api_token is None
     assert cfg.mcp_pack_cmd == "tokito-mcp-pack"
     assert cfg.mcp_url == "https://mcp.tokito.dev/mcp"
     assert cfg.mcp_db is None
@@ -34,17 +34,17 @@ def test_config_from_env_defaults() -> None:
 def test_config_from_env_overrides() -> None:
     cfg = demo_run.Config.from_env(
         {
-            "TOKITO_EXTRACT_CMD": "cargo run --manifest-path ../tokito-ai/Cargo.toml --bin sx --",
-            "TOKITO_AI_URL": "https://api.tokito.dev",
-            "TOKITO_AI_TOKEN": "jwt-xxx",
+            "TOKITO_EXTRACT_CMD": "cargo run --manifest-path ../tokito-api/Cargo.toml --bin sx --",
+            "TOKITO_API_URL": "https://api.tokito.dev",
+            "TOKITO_API_TOKEN": "jwt-xxx",
             "TOKITO_MCP_URL": "https://mcp.tokito.dev/mcp",
             "TOKITO_MCP_DB": "/srv/tokito/symbols.sqlite",
             "TOKITO_GENERATED_DB": "/srv/tokito/generated.sqlite",
         }
     )
     assert cfg.extract_cmd.startswith("cargo run")
-    assert cfg.tokito_ai_url == "https://api.tokito.dev"
-    assert cfg.tokito_ai_token == "jwt-xxx"
+    assert cfg.tokito_api_url == "https://api.tokito.dev"
+    assert cfg.tokito_api_token == "jwt-xxx"
     assert cfg.mcp_url == "https://mcp.tokito.dev/mcp"
     assert cfg.mcp_db == "/srv/tokito/symbols.sqlite"
     assert cfg.generated_db == "/srv/tokito/generated.sqlite"

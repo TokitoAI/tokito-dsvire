@@ -47,7 +47,7 @@ class Repositories:
         repos = cls(
             dsvire=root,
             tokito=siblings / "tokito",
-            ai=siblings / "tokito-ai",
+            ai=siblings / "tokito-api",
             catalog=siblings / "tokito-catalog",
             mcp=siblings / "tokito-mcp",
         )
@@ -176,7 +176,7 @@ def run(repos: Repositories, output: Path, report_path: Path | None = None) -> d
     )
     stage(
         "build Cloud API",
-        lambda: _run(["cargo", "build", "--locked", "--bin", "tokito-ai-api"], repos.ai),
+        lambda: _run(["cargo", "build", "--locked", "--bin", "tokito-api"], repos.ai),
     )
     stage(
         "build MCP packer/server",
@@ -200,12 +200,7 @@ def run(repos: Repositories, output: Path, report_path: Path | None = None) -> d
         / "debug"
         / ("tokito-symbol-compile.exe" if os.name == "nt" else "tokito-symbol-compile")
     )
-    api = (
-        repos.ai
-        / "target"
-        / "debug"
-        / ("tokito-ai-api.exe" if os.name == "nt" else "tokito-ai-api")
-    )
+    api = repos.ai / "target" / "debug" / ("tokito-api.exe" if os.name == "nt" else "tokito-api")
     packer = (
         repos.mcp
         / "target"
@@ -248,10 +243,10 @@ def run(repos: Repositories, output: Path, report_path: Path | None = None) -> d
     ai_env = os.environ.copy()
     ai_env.update(
         {
-            "TOKITO_AI_ADDR": f"127.0.0.1:{ai_port}",
-            "TOKITO_AI_DATA_DIR": str(output / "ai-data"),
-            "TOKITO_AI_JWT_SECRET": jwt_secret,
-            "TOKITO_AI_UPSTREAM_API_KEY": "acceptance-no-network",
+            "TOKITO_API_ADDR": f"127.0.0.1:{ai_port}",
+            "TOKITO_API_DATA_DIR": str(output / "ai-data"),
+            "TOKITO_API_JWT_SECRET": jwt_secret,
+            "TOKITO_API_UPSTREAM_API_KEY": "acceptance-no-network",
             "RUST_LOG": "warn",
         }
     )
@@ -274,8 +269,8 @@ def run(repos: Repositories, output: Path, report_path: Path | None = None) -> d
         cfg = demo_run.Config(
             extract_cmd="unused-seeded-fixture",
             compile_cmd=str(compiler),
-            tokito_ai_url=f"http://127.0.0.1:{ai_port}",
-            tokito_ai_token=token,
+            tokito_api_url=f"http://127.0.0.1:{ai_port}",
+            tokito_api_token=token,
             mcp_pack_cmd=str(packer),
             mcp_url="unused-until-server-starts",
             mcp_db=str(official_db),
