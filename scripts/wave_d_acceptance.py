@@ -200,12 +200,7 @@ def run(repos: Repositories, output: Path, report_path: Path | None = None) -> d
         / "debug"
         / ("tokito-symbol-compile.exe" if os.name == "nt" else "tokito-symbol-compile")
     )
-    api = (
-        repos.ai
-        / "target"
-        / "debug"
-        / ("tokito-api.exe" if os.name == "nt" else "tokito-api")
-    )
+    api = repos.ai / "target" / "debug" / ("tokito-api.exe" if os.name == "nt" else "tokito-api")
     packer = (
         repos.mcp
         / "target"
