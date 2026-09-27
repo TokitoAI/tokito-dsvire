@@ -61,34 +61,57 @@ def test_full_visual_benchmark_workflow_is_manual_pinned_and_evidence_only() -> 
 
 
 def test_full_corpus_query_workflow_is_manual_pinned_and_source_free() -> None:
+    # This benchmark moved off GitHub Actions to Buildkite: the self-hosted
+    # `tokito-vps` runner it required (for the warm corpus cache) is
+    # decommissioned. Buildkite has no workflow_dispatch, so "manual" here
+    # means TASK=query-ranking gates the single committed pipeline step
+    # rather than an `on:` trigger; nothing runs on push.
     root = Path(__file__).parents[1]
-    workflow = (root / ".github/workflows/query-ranking-benchmark.yml").read_text(encoding="utf-8")
-    assert "workflow_dispatch:" in workflow
-    assert "contents: read" in workflow
-    assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
-    assert "--cache-root /opt/actions-runner/.dsvire-benchmark-sources" in workflow
-    assert '--download-cache "$RUNNER_TEMP/dsvire-query-sources"' in workflow
-    assert "--ranking-out" not in workflow
-    assert "artifacts/*.json" in workflow
-    assert "retention-days: 30" in workflow
-    assert "artifacts/*.pdf" not in workflow
-    assert "actions/cache" not in workflow
+    upload = (root / ".buildkite/upload.sh").read_text(encoding="utf-8")
+    assert "query-ranking)" in upload
+    pipeline = (root / ".buildkite/benchmark-query-ranking.yml").read_text(encoding="utf-8")
+    assert "concurrency_group:" in pipeline
+    assert "concurrency: 1" in pipeline
+    assert "timeout_in_minutes: 20" in pipeline
+    assert "queue: linux" in pipeline
+    step = (root / ".buildkite/steps/query-ranking.sh").read_text(encoding="utf-8")
+    assert "require_benchmark_corpus" in step
+    assert '--cache-root "$BENCHMARK_CORPUS"' in step
+    assert '--download-cache "$BENCHMARK_SCRATCH/dsvire-query-sources"' in step
+    assert "--ranking-out" not in step
+    assert "ci-out" in step
+    assert "sha256sum" in step
+    assert "buildkite-agent artifact upload" in step
+    assert "artifacts/*.pdf" not in step
+    common = (root / ".buildkite/steps/common.sh").read_text(encoding="utf-8")
+    assert "/opt/tokito-benchmark-assets" in common
+    assert ".dsvire-benchmark-sources" in common
 
 
 def test_openclip_query_workflow_is_private_pinned_and_source_free() -> None:
+    # Same move as query-ranking, above: off the decommissioned self-hosted
+    # `tokito-vps` runner and onto Buildkite, gated by TASK=openclip-query
+    # instead of workflow_dispatch.
     root = Path(__file__).parents[1]
-    workflow = (root / ".github/workflows/openclip-query-benchmark.yml").read_text(encoding="utf-8")
-    assert "workflow_dispatch:" in workflow
-    assert "contents: read" in workflow
-    assert "runs-on: [self-hosted, Linux, X64, tokito-vps, private-build]" in workflow
-    assert "--extra openclip" in workflow
-    assert "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6" in workflow
-    assert "--ranking-out" not in workflow
-    assert "artifacts/*.json" in workflow
-    assert "retention-days: 30" in workflow
-    assert "artifacts/*.pdf" not in workflow
-    assert "artifacts/*.safetensors" not in workflow
-    assert "*.pdf" not in workflow
+    upload = (root / ".buildkite/upload.sh").read_text(encoding="utf-8")
+    assert "openclip-query)" in upload
+    pipeline = (root / ".buildkite/benchmark-openclip-query.yml").read_text(encoding="utf-8")
+    assert "concurrency_group:" in pipeline
+    assert "concurrency: 1" in pipeline
+    assert "timeout_in_minutes: 20" in pipeline
+    assert "queue: linux" in pipeline
+    step = (root / ".buildkite/steps/openclip-query.sh").read_text(encoding="utf-8")
+    assert "--extra openclip" in step
+    assert "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6" in step
+    assert "--ranking-out" not in step
+    assert "ci-out" in step
+    assert "sha256sum" in step
+    assert "buildkite-agent artifact upload" in step
+    assert "artifacts/*.pdf" not in step
+    assert "artifacts/*.safetensors" not in step
+    common = (root / ".buildkite/steps/common.sh").read_text(encoding="utf-8")
+    assert "/opt/tokito-benchmark-assets" in common
+    assert ".dsvire-benchmark-models" in step
 
 
 def test_openclip_model_registry_matches_the_fail_closed_runtime_contract() -> None:
