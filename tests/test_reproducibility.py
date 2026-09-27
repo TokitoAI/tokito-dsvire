@@ -65,7 +65,7 @@ def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
     # query-ranking.sh and .buildkite/steps/openclip-query.sh) because the
     # self-hosted `tokito-vps` runner they required is decommissioned; the
     # equivalent frozen-lock assertions for them now live in
-    # test_visual_packaging.py against those scripts.
+    # test_buildkite_benchmark_scripts_enforce_the_same_frozen_lock, below.
     for name in [
         "ci.yml",
         "release.yml",
@@ -87,6 +87,32 @@ def test_every_python_workflow_enforces_the_same_frozen_lock() -> None:
             assert "scripts/audit_runtime_licenses.py" in workflow
     release = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
     assert release.count("--require-release-ready") == 2
+
+
+def test_buildkite_benchmark_scripts_enforce_the_same_frozen_lock() -> None:
+    # The Buildkite half of the property the loop above checks for the
+    # remaining GitHub Actions workflows. query-ranking-benchmark.yml and
+    # openclip-query-benchmark.yml are gone; .buildkite/steps/query-ranking.sh
+    # and .buildkite/steps/openclip-query.sh are what runs in their place, and
+    # they need to keep installing from the same frozen lock just as much as
+    # anything still on GitHub Actions does.
+    #
+    # Buildkite has no setup-uv action to carry SETUP_UV's version pin, so the
+    # pin lives in common.sh's require_uv_version instead. Assert it is
+    # exactly 0.12.3 there, and that both step scripts actually call the
+    # function — that call is what stops the pin from being quietly dropped
+    # from a step without anyone noticing.
+    common = (ROOT / ".buildkite/steps/common.sh").read_text(encoding="utf-8")
+    assert 'want="0.12.3"' in common
+    assert "require_uv_version() {" in common
+
+    for name in ["openclip-query.sh", "query-ranking.sh"]:
+        step = (ROOT / ".buildkite/steps" / name).read_text(encoding="utf-8")
+        assert "require_uv_version" in step
+        assert "uv sync --locked" in step
+        assert "uv run --frozen --no-sync" in step
+        assert "pip install -e" not in step
+        assert "python scripts/check_dependency_lock.py" in step
 
 
 def test_ci_proves_image_rootfs_reproducibility_and_publishes_evidence() -> None:
