@@ -1,0 +1,30 @@
+# OpenCLIP query benchmark — Buildkite equivalent of
+# .github/workflows/openclip-query-benchmark.yml (workflow_dispatch only).
+#
+# Buildkite has no workflow_dispatch. This file is uploaded only when a build
+# is started with TASK=openclip-query (see .buildkite/upload.sh), and it
+# contains exactly the one step below — never `if:`-gated — so uploading it
+# can never produce a build that silently does nothing while still reporting
+# success.
+#
+# Runs directly on the build host, not in a container: the benchmark needs
+# the warm corpus cache and pinned OpenCLIP weights restored onto that host's
+# filesystem (see .buildkite/steps/common.sh), and the GitHub Actions job it
+# replaces ran directly on its self-hosted runner's filesystem too.
+#
+# permissions: contents: read (GitHub Actions job-level token scoping) has no
+# Buildkite pipeline-YAML equivalent and is dropped; nothing in this step
+# writes to the repository regardless.
+
+steps:
+  - label: ":mag: openclip query benchmark"
+    command: .buildkite/steps/openclip-query.sh
+    timeout_in_minutes: 20
+    agents:
+      queue: linux
+    # Buildkite needs both halves: a concurrency_group alone enforces
+    # nothing without a numeric limit alongside it. Mirrors the workflow's
+    # `concurrency: group: ..., cancel-in-progress: false` — one run of this
+    # benchmark at a time, later ones queued rather than cancelled.
+    concurrency_group: "tokito-dsvire/openclip-query-benchmark"
+    concurrency: 1
