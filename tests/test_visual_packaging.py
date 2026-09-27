@@ -103,6 +103,10 @@ def test_openclip_query_workflow_is_private_pinned_and_source_free() -> None:
     step = (root / ".buildkite/steps/openclip-query.sh").read_text(encoding="utf-8")
     assert "--extra openclip" in step
     assert "ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6" in step
+    # The missing-weights guard matters more than the corpus guard here:
+    # --model is required with no fallback, unlike --cache-root.
+    assert "require_benchmark_model" in step
+    assert ".dsvire-benchmark-models" in step
     assert "--ranking-out" not in step
     assert "ci-out" in step
     assert "sha256sum" in step
@@ -111,7 +115,7 @@ def test_openclip_query_workflow_is_private_pinned_and_source_free() -> None:
     assert "artifacts/*.safetensors" not in step
     common = (root / ".buildkite/steps/common.sh").read_text(encoding="utf-8")
     assert "/opt/tokito-benchmark-assets" in common
-    assert ".dsvire-benchmark-models" in step
+    assert "require_benchmark_model() {" in common
 
 
 def test_openclip_model_registry_matches_the_fail_closed_runtime_contract() -> None:
