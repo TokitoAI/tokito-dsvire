@@ -1,0 +1,35 @@
+{
+  "schema_version": "dsvire.model-manifest.v1",
+  "id": "vidore/colqwen2-v1.0-hf@ddc07d2317c80f75fc742b7362ee9ad1912908f9",
+  "license": "Apache-2.0",
+  "repositories": [
+    {
+      "name": "weights",
+      "repository": "vidore/colqwen2-v1.0-hf",
+      "revision": "ddc07d2317c80f75fc742b7362ee9ad1912908f9",
+      "license": "Apache-2.0",
+      "files": [
+        {"path": "chat_template.json", "bytes": 1049, "sha256": "94174d7176c52a7192f96fc34eb2cf23c7c2059d63cdbfadca1586ba89731fb7"},
+        {"path": "config.json", "bytes": 6081, "sha256": "2fd851f549b55214a59f4d5772e42cd542f89148226cf44dfb5d986c9fb122e6"},
+        {"path": "generation_config.json", "bytes": 215, "sha256": "b53ca354bf4089e57436bf497d66810946c1cc0c62b58dd8d2b7443a03a60197"},
+        {"path": "model.safetensors", "bytes": 4418454832, "sha256": "2f6dbf32fc2db5b045d74ae73b148425d6e03cc1106a047cdcc7e72b6dc53aba"},
+        {"path": "preprocessor_config.json", "bytes": 618, "sha256": "be69973e9e1f8404b6fb70f246ad8307086d614b31464e3048c387945ac66bf0"},
+        {"path": "special_tokens_map.json", "bytes": 613, "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"},
+        {"path": "tokenizer.json", "bytes": 11420371, "sha256": "091aa7594dc2fcfbfa06b9e3c22a5f0562ac14f30375c13af7309407a0e67b8a"},
+        {"path": "tokenizer_config.json", "bytes": 4298, "sha256": "955409fb4dab09a71b957ce69f8a8185bbbd3416b9ab5a47e01221545be39c6f"},
+        {"path": "vocab.json", "bytes": 2776833, "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"}
+      ]
+    }
+  ],
+  "runtime": {
+    "encoder": "colqwen2",
+    "embedding_dimension": 128,
+    "huggingface_hub": "1.5.0",
+    "model": "ColQwen2ForRetrieval",
+    "processor": "ColQwen2Processor",
+    "snapshot": "transformers-native",
+    "torch": "2.13.0",
+    "torchvision": "0.28.0",
+    "transformers": "5.5.0"
+  }
+}

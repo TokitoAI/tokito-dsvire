@@ -20,7 +20,7 @@ Rust: all types derive `Serialize, Deserialize` with `#[serde(deny_unknown_field
 
 ## 1. `dsvire.symbol-evidence.v2`
 
-Emitted by DS-ViRe query. Consumed by `tokito-ai::symbol-extractor`.
+Emitted by DS-ViRe query. Consumed by `tokito-api::symbol-extractor`.
 
 ```json
 {
@@ -182,7 +182,7 @@ Emitted by extractor. Consumed by compiler.
   "provenance": {
     "evidence_datasheet_id": "st-ds-h743-r09",
     "evidence_content_sha256": "b2f1...c3",
-    "extractor_version": "tokito-ai.symbol-extractor@0.1.0",
+    "extractor_version": "tokito-api.symbol-extractor@0.1.0",
     "model": "claude-sonnet-4-6",
     "extracted_at": "2026-08-08T07:12:00Z"
   }
@@ -274,7 +274,7 @@ Persisted alongside every published generated revision. Returned by `get_symbol_
     "region_ids": ["r_pinout_01", "r_pin_table_01"]
   },
   "pipeline": {
-    "extractor_version": "tokito-ai.symbol-extractor@0.1.0",
+    "extractor_version": "tokito-api.symbol-extractor@0.1.0",
     "compiler_version": "tokito-catalog.compiler@0.1.0",
     "layout_policy_version": "layout@0.1.0",
     "extractor_model": "claude-sonnet-4-6",

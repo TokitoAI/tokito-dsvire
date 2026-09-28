@@ -1,4 +1,4 @@
-"""Build a genuine ColSmol pack and rank the complete development corpus."""
+"""Build a genuine ColQwen2 pack and rank a frozen crop/query corpus."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from typing import Any
 import psutil
 from PIL import Image
 
-from dsvire.colsmol_encoder import ColSmolEncoder
+from dsvire.colqwen_encoder import ColQwenEncoder
 from dsvire.colsmol_reproduction import build_query_vector_artifact
 from dsvire.corpus_coverage import load_query_registry
 from dsvire.eval_sources import resolve_registered_sources
@@ -35,7 +35,7 @@ from dsvire.visual_adapters import render_registered_crop
 from dsvire.visual_registry import load_visual_registry_data
 
 ROOT = Path(__file__).resolve().parents[1]
-SYSTEM_ID = "dsvire.query-baseline.colsmol-hybrid@1.1.0"
+SYSTEM_ID = "dsvire.query-baseline.colqwen2-hybrid@1.0.0"
 
 
 def _mean(vectors: tuple[tuple[float, ...], ...]) -> list[float]:
@@ -43,7 +43,7 @@ def _mean(vectors: tuple[tuple[float, ...], ...]) -> list[float]:
     result = [math.fsum(row[index] for row in vectors) / len(vectors) for index in range(dimension)]
     norm = math.sqrt(math.fsum(item * item for item in result))
     if not math.isfinite(norm) or norm <= 0:
-        raise ValueError("ColSmol mean-pooled dense vector has invalid norm")
+        raise ValueError("ColQwen2 mean-pooled dense vector has invalid norm")
     return [item / norm for item in result]
 
 
@@ -74,7 +74,7 @@ def run(
         while not stop.wait(0.01):
             peak_rss = max(peak_rss, process.memory_info().rss)
 
-    sampler = threading.Thread(target=sample, name="colsmol-rss", daemon=True)
+    sampler = threading.Thread(target=sample, name="colqwen-rss", daemon=True)
     sampler.start()
     started = time.perf_counter()
     source_manifest: list[dict[str, Any]] = []
@@ -82,7 +82,7 @@ def run(
     encode_query_ms: list[float] = []
     regions: list[dict[str, Any]] = []
     try:
-        encoder = ColSmolEncoder(manifest, model_root, device=device)
+        encoder = ColQwenEncoder(manifest, model_root, device=device)
         for document in documents:
             payload = sources[document.content_sha256].read_bytes()
             if hashlib.sha256(payload).hexdigest() != document.content_sha256:
@@ -188,7 +188,7 @@ def run(
     artifact = load_full_corpus_ranking_artifact(raw, queries, visual)
     metrics_result = evaluate_full_corpus_rankings(queries, artifact)
     deterministic: dict[str, Any] = {
-        "schema_version": "dsvire.full-corpus-colsmol-result.v1",
+        "schema_version": "dsvire.full-corpus-colqwen-result.v1",
         "source": {
             "visual_registry_sha256": visual.content_sha256,
             "query_registry_sha256": queries.content_sha256,
@@ -209,8 +209,9 @@ def run(
         "by_query_type": metrics_result["by_query_type"],
         "limitations": metrics_result["limitations"]
         + [
-            "development-only corpus; publication remains disabled",
+            "ColQwen2 is the live late-interaction encoder; frozen cycle v5 still names ColSmol",
             "encoder receives only raw query strings and crop pixels",
+            "scores are not invented when load or inference fails",
         ],
     }
     deterministic["result_sha256"] = hashlib.sha256(
@@ -266,13 +267,13 @@ def main() -> int:
     )
     parser.add_argument("--queries", type=Path, default=ROOT / "evaluation/query_registry.v2.json")
     parser.add_argument(
-        "--manifest", type=Path, default=ROOT / "evaluation/models/colsmol-256m.v1.json"
+        "--manifest", type=Path, default=ROOT / "evaluation/models/colqwen2-v1.0-hf.json"
     )
     parser.add_argument("--model-root", type=Path, required=True)
     parser.add_argument("--cache-root", type=Path, action="append", default=[])
     parser.add_argument("--download-cache", type=Path)
     parser.add_argument("--offline", action="store_true")
-    parser.add_argument("--device", choices=("cpu", "cuda", "auto"), default="cpu")
+    parser.add_argument("--device", choices=("cpu", "cuda", "auto"), default="auto")
     parser.add_argument(
         "--split", choices=["development", "calibration", "evaluation"], default="development"
     )

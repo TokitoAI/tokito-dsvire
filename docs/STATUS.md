@@ -23,7 +23,8 @@ The current release is **v0.6.3**.
   local or authenticated S3-compatible object-store adapters;
 - Redis-compatible wake-up/fan-out and Qdrant derived-index adapters whose loss
   does not replace PostgreSQL or immutable object storage as authority;
-- pinned ColSmol-256M integration and reproducibility evidence;
+- pinned ColQwen2-2B (`vidore/colqwen2-v1.0-hf`) as the live late-interaction
+  encoder, with ColSmol-256M retained as the edge/historical path;
 - immutable dependency/model/source contracts, container build evidence,
   runtime license policy, and hostile-PDF regression gates;
 - Tokito Cloud upload/job integration and deterministic evidence-to-symbol

@@ -10,12 +10,12 @@ vars so the runner keeps working as teammates land their crates:
 
     TOKITO_EXTRACT_CMD    (default: tokito-symbol-extractor)
     TOKITO_COMPILE_CMD    (default: tokito-symbol-compile)
-    TOKITO_AI_URL         (default: https://api.tokito.dev)
-    TOKITO_AI_TOKEN       (required for the ingest stage)
+    TOKITO_API_URL         (default: https://api.tokito.dev)
+    TOKITO_API_TOKEN       (required for the ingest stage)
     TOKITO_MCP_PACK_CMD   (default: tokito-mcp-pack)
     TOKITO_MCP_URL        (default: https://mcp.tokito.dev/mcp)
     TOKITO_MCP_DB         (operator-only sync: served symbols.sqlite)
-    TOKITO_GENERATED_DB   (operator-only sync: tokito-ai generated.sqlite)
+    TOKITO_GENERATED_DB   (operator-only sync: tokito-api generated.sqlite)
 
 If a stage's tool is not on PATH or the endpoint is unreachable, the runner
 fails loudly with an actionable message — never a silent fallback or fabricated
@@ -53,8 +53,8 @@ ARTIFACTS_ROOT = REPO_ROOT / "artifacts"
 class Config:
     extract_cmd: str
     compile_cmd: str
-    tokito_ai_url: str
-    tokito_ai_token: str | None
+    tokito_api_url: str
+    tokito_api_token: str | None
     mcp_pack_cmd: str
     mcp_url: str
     mcp_db: str | None
@@ -66,8 +66,8 @@ class Config:
         return cls(
             extract_cmd=e.get("TOKITO_EXTRACT_CMD", "tokito-symbol-extractor"),
             compile_cmd=e.get("TOKITO_COMPILE_CMD", "tokito-symbol-compile"),
-            tokito_ai_url=e.get("TOKITO_AI_URL", "https://api.tokito.dev"),
-            tokito_ai_token=e.get("TOKITO_AI_TOKEN"),
+            tokito_api_url=e.get("TOKITO_API_URL", "https://api.tokito.dev"),
+            tokito_api_token=e.get("TOKITO_API_TOKEN"),
             mcp_pack_cmd=e.get("TOKITO_MCP_PACK_CMD", "tokito-mcp-pack"),
             mcp_url=e.get("TOKITO_MCP_URL", "https://mcp.tokito.dev/mcp"),
             mcp_db=e.get("TOKITO_MCP_DB"),
@@ -151,8 +151,8 @@ def stage_ingest(
     bundle_path: Path,
     out_dir: Path,
 ) -> Path:
-    if not cfg.tokito_ai_token:
-        raise StageError("TOKITO_AI_TOKEN is not set; ingest requires an authenticated JWT.")
+    if not cfg.tokito_api_token:
+        raise StageError("TOKITO_API_TOKEN is not set; ingest requires an authenticated JWT.")
     payload = {
         "spec": json.loads(spec_path.read_text(encoding="utf-8")),
         "evidence": json.loads(bundle_path.read_text(encoding="utf-8")),
@@ -161,9 +161,9 @@ def stage_ingest(
     payload_path.write_text(json.dumps(payload), encoding="utf-8")
     response_path = out_dir / "ingest_response.json"
     response = _http_json(
-        cfg.tokito_ai_url.rstrip("/") + "/v1/generated/ingest",
+        cfg.tokito_api_url.rstrip("/") + "/v1/generated/ingest",
         payload,
-        headers={"Authorization": f"Bearer {cfg.tokito_ai_token}"},
+        headers={"Authorization": f"Bearer {cfg.tokito_api_token}"},
     )
     response_path.write_text(json.dumps(response, indent=2), encoding="utf-8")
     if "revision_id" not in response:
@@ -176,7 +176,7 @@ def stage_sync(cfg: Config) -> None:
     if not cfg.mcp_db or not cfg.generated_db:
         raise StageError(
             "sync requires TOKITO_MCP_DB (served symbols.sqlite) and "
-            "TOKITO_GENERATED_DB (tokito-ai generated.sqlite)"
+            "TOKITO_GENERATED_DB (tokito-api generated.sqlite)"
         )
     command = [
         *shlex.split(cfg.mcp_pack_cmd),

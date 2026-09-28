@@ -76,9 +76,18 @@ colsmol = [
     "torchvision==0.28.0",
     "transformers==5.5.0",
 ]
+colqwen = [
+    "huggingface-hub==1.5.0",
+    "torch==2.13.0",
+    "torchvision==0.28.0",
+    "transformers==5.5.0",
+]
 
 [tool.uv]
-conflicts = [[{ extra = "colsmol" }, { extra = "openclip" }]]
+conflicts = [
+    [{ extra = "colsmol" }, { extra = "openclip" }],
+    [{ extra = "colqwen" }, { extra = "openclip" }],
+]
 
 [project.scripts]
 dsvire = "dsvire.cli:main"

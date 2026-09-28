@@ -23,7 +23,7 @@
   "provenance": {
     "evidence_datasheet_id": "ti-slvs632l",
     "evidence_content_sha256": "83074fc1265c8e5c6639511bdb9f83e96c6e6f993613deadea0d09c3a12a2c07",
-    "extractor_version": "tokito-ai.symbol-extractor@0.4.1",
+    "extractor_version": "tokito-api.symbol-extractor@0.4.1",
     "model": "frozen-wave-d-acceptance-fixture",
     "extracted_at": "2026-08-08T07:12:00Z"
   }

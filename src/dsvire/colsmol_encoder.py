@@ -21,6 +21,13 @@ from .model_manifest import (
     verify_materialized_adapter_config,
     verify_snapshot,
 )
+from .vision_device_map import (
+    ALLOWED_DEVICES,
+    VisionDeviceMapError,
+    json_safe_load_plan,
+    primary_input_device,
+    resolve_vision_load_plan,
+)
 
 MAX_QUERY_BYTES = 8_192
 MAX_BATCH = 4
@@ -49,6 +56,14 @@ def _query_text(query: str) -> str:
 
 class ColSmolEncoderError(RuntimeError):
     """The pinned offline encoder failed or violated its tensor contract."""
+
+
+def resolve_colsmol_load_plan(torch: Any, device: str) -> dict[str, Any]:
+    """Place weights with Accelerate auto-map: GPU first, then CPU RAM. No disk."""
+    try:
+        return resolve_vision_load_plan(torch, device)
+    except VisionDeviceMapError as exc:
+        raise ColSmolEncoderError(str(exc)) from exc
 
 
 def _require_runtime(manifest: ModelManifest) -> None:
@@ -138,8 +153,8 @@ class ColSmolEncoder:
     """Encode crop pixels and raw queries with verified local model bytes only."""
 
     def __init__(self, manifest: ModelManifest, model_root: Path, *, device: str = "cpu") -> None:
-        if device not in {"cpu", "cuda"}:
-            raise ColSmolEncoderError("device must be cpu or cuda")
+        if device not in ALLOWED_DEVICES:
+            raise ColSmolEncoderError("device must be cpu, cuda, or auto")
         repositories = {repository.name: repository for repository in manifest.repositories}
         if set(repositories) != {"adapter", "base"}:
             raise ColSmolEncoderError("manifest must contain adapter and base repositories")
@@ -176,8 +191,14 @@ class ColSmolEncoder:
             peft: Any = import_module("peft")
         except ImportError as exc:
             raise ColSmolEncoderError("install the pinned ColSmol runtime profile") from exc
-        if device == "cuda" and not torch.cuda.is_available():
-            raise ColSmolEncoderError("CUDA was requested but is unavailable")
+        plan = resolve_colsmol_load_plan(torch, device)
+        if plan["device_map"] == "auto":
+            try:
+                import_module("accelerate")
+            except ImportError as exc:
+                raise ColSmolEncoderError(
+                    "device_map=auto requires the pinned accelerate runtime"
+                ) from exc
         torch.set_num_threads(1)
         try:
             torch.set_num_interop_threads(1)
@@ -186,16 +207,18 @@ class ColSmolEncoder:
                 raise ColSmolEncoderError(
                     "Torch inter-op thread policy could not be applied"
                 ) from None
-        dtype = torch.float16 if device == "cuda" else torch.float32
         model_type, processor_type = _runtime_types(torch, transformers)
+        load_kwargs: dict[str, Any] = {
+            "torch_dtype": plan["dtype"],
+            "device_map": plan["device_map"],
+            "attn_implementation": "eager",
+            "local_files_only": True,
+            "low_cpu_mem_usage": True,
+        }
+        if plan["max_memory"] is not None:
+            load_kwargs["max_memory"] = dict(plan["max_memory"])
         try:
-            base_model = model_type.from_pretrained(
-                model_root / "base",
-                torch_dtype=dtype,
-                device_map=device,
-                attn_implementation="eager",
-                local_files_only=True,
-            )
+            base_model = model_type.from_pretrained(model_root / "base", **load_kwargs)
             self._model = peft.PeftModel.from_pretrained(
                 base_model,
                 model_root / "adapter",
@@ -219,10 +242,19 @@ class ColSmolEncoder:
             sentinel_ids = tuple(self._processor.tokenizer(_query_text(QUERY_SENTINEL)).input_ids)
             if sentinel_ids != QUERY_SENTINEL_IDS:
                 raise ColSmolEncoderError("ColSmol tokenizer contract drifted")
+        except ColSmolEncoderError:
+            raise
         except Exception as exc:
             raise ColSmolEncoderError("offline ColSmol load failed") from exc
         self._torch = torch
         self._device = device
+        self._load_plan = plan
+        device_map = getattr(self._model, "hf_device_map", None)
+        if not device_map:
+            inner = getattr(self._model, "get_base_model", lambda: None)()
+            device_map = getattr(inner, "hf_device_map", None) if inner is not None else None
+        self.hf_device_map = dict(device_map or {})
+        self._input_device = primary_input_device(self._model, torch, device)
         dimension = manifest.runtime.get("embedding_dimension")
         if (
             isinstance(dimension, bool)
@@ -235,11 +267,18 @@ class ColSmolEncoder:
         self.model_sha256 = manifest.content_sha256
 
     @property
+    def load_plan(self) -> dict[str, Any]:
+        return json_safe_load_plan(self._load_plan)
+
+    @property
     def implementation_sha256(self) -> str:
         source = "\n".join(
             inspect.getsource(component).replace("\r\n", "\n")
             for component in (
                 ColSmolEncoder,
+                resolve_colsmol_load_plan,
+                resolve_vision_load_plan,
+                primary_input_device,
                 _vectors,
                 _require_runtime,
                 _runtime_types,
@@ -256,7 +295,7 @@ class ColSmolEncoder:
         if not 1 <= len(images) <= MAX_BATCH:
             raise ColSmolEncoderError("image batch is outside its bounded range")
         try:
-            batch = self._processor.process_images(list(images)).to(self._device)
+            batch = self._processor.process_images(list(images)).to(self._input_device)
             with self._torch.inference_mode():
                 encoded = self._model(**batch)
             return _vectors(
@@ -269,7 +308,7 @@ class ColSmolEncoder:
         except ColSmolEncoderError:
             raise
         except Exception as exc:
-            raise ColSmolEncoderError("ColSmol image inference failed") from exc
+            raise ColSmolEncoderError(_inference_failure("image", exc)) from exc
 
     def encode_queries(self, queries: Sequence[str]) -> tuple[tuple[tuple[float, ...], ...], ...]:
         if not 1 <= len(queries) <= MAX_BATCH or any(
@@ -277,7 +316,7 @@ class ColSmolEncoder:
         ):
             raise ColSmolEncoderError("query batch is outside its bounded range")
         try:
-            batch = self._processor.process_queries(list(queries)).to(self._device)
+            batch = self._processor.process_queries(list(queries)).to(self._input_device)
             with self._torch.inference_mode():
                 encoded = self._model(**batch)
             return _vectors(
@@ -290,4 +329,14 @@ class ColSmolEncoder:
         except ColSmolEncoderError:
             raise
         except Exception as exc:
-            raise ColSmolEncoderError("ColSmol query inference failed") from exc
+            raise ColSmolEncoderError(_inference_failure("query", exc)) from exc
+
+
+def _inference_failure(kind: str, exc: BaseException) -> str:
+    text = str(exc).casefold()
+    if isinstance(exc, MemoryError) or "out of memory" in text:
+        return (
+            f"ColSmol {kind} inference ran out of memory under the selected device map; "
+            "fail closed, scores were not invented"
+        )
+    return f"ColSmol {kind} inference failed"
