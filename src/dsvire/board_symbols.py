@@ -4,25 +4,68 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 from pathlib import Path
 from typing import Any
 from uuid import UUID
 
-from .board_dataset import dataset_file, metadata, plan_board_symbols
+from .board_dataset import (
+    MAX_METADATA_BYTES,
+    bounded_read,
+    dataset_file,
+    metadata,
+    plan_board_symbols,
+)
 from .config import ServiceConfig
 from .pipeline import IdentityHint, RetrievalError
 from .worker import WorkerError, WorkerLimits, WorkerTimeout, run_symbol_job
 
 RESULT_SCHEMA = "dsvire.board-symbols.v1"
 MAX_PARTS = 8
+MAX_RESULT_BYTES = 4 * 1024 * 1024
+# Reserve room for all bounded identities, statuses and the board envelope.
+DRAFT_BUDGET_BYTES = MAX_RESULT_BYTES - 64 * 1024
+
+
+class BoardCapacityFull(RuntimeError):
+    """No admission slot was available before any dataset read began."""
+
+
+def _release_after_read(task: asyncio.Task[Any], admission: asyncio.Semaphore) -> None:
+    def release(completed: asyncio.Task[Any]) -> None:
+        admission.release()
+        if not completed.cancelled():
+            completed.exception()  # Consume errors from reads abandoned by cancelled requests.
+
+    if task.done():
+        release(task)
+    else:
+        # to_thread cannot stop a running file read; retain its slot until it actually ends.
+        task.add_done_callback(release)
+
+
+async def load_board_binding_admitted(
+    data_dir: Path,
+    tenant: UUID,
+    context_revision: str,
+    admission: asyncio.Semaphore,
+    admission_timeout: float,
+) -> dict[str, Any]:
+    try:
+        await asyncio.wait_for(admission.acquire(), admission_timeout)
+    except TimeoutError as exc:
+        raise BoardCapacityFull from exc
+    read = asyncio.create_task(
+        asyncio.to_thread(load_board_binding, data_dir, tenant, context_revision)
+    )
+    try:
+        return await asyncio.shield(read)
+    finally:
+        _release_after_read(read, admission)
 
 
 def _bounded_pdf(path: Path, maximum: int) -> bytes:
-    with path.open("rb") as handle:
-        payload = handle.read(maximum + 1)
-    if len(payload) > maximum:
-        raise RetrievalError("datasheet exceeds PDF byte limit")
-    return payload
+    return bounded_read(path, maximum)
 
 
 def load_board_binding(data_dir: Path, tenant: UUID, context_revision: str) -> dict[str, Any]:
@@ -38,10 +81,14 @@ def load_board_binding(data_dir: Path, tenant: UUID, context_revision: str) -> d
         or binding.get("review_status") != "approved"
         or not isinstance(binding.get("board_revision"), str)
         or not binding["board_revision"].strip()
+        or len(binding["board_revision"]) > 256
         or not isinstance(binding.get("reviewed_by"), str)
         or not binding["reviewed_by"].strip()
+        or len(binding["reviewed_by"]) > 256
     ):
         raise RetrievalError("board binding is not independently reviewed")
+    if not isinstance(binding.get("board_family"), str) or len(binding["board_family"]) > 128:
+        raise RetrievalError("invalid board family")
     dataset = data_dir / "board-dataset"
     plan = plan_board_symbols(dataset, binding.get("board_family", ""))
     sources = binding.get("dataset_sources")
@@ -53,9 +100,9 @@ def load_board_binding(data_dir: Path, tenant: UUID, context_revision: str) -> d
     if not isinstance(proof, dict) or proof.get("status") != "reviewed_exact":
         raise RetrievalError("exact physical specimen mapping is required")
     proof_path = dataset_file(dataset, proof.get("path", ""))
-    if proof_path.stat().st_size > 16 * 1024 * 1024:
-        raise RetrievalError("specimen match proof exceeds its byte limit")
-    if hashlib.sha256(proof_path.read_bytes()).hexdigest() != proof.get("sha256"):
+    if hashlib.sha256(bounded_read(proof_path, MAX_METADATA_BYTES)).hexdigest() != proof.get(
+        "sha256"
+    ):
         raise RetrievalError("specimen match proof digest mismatch")
     parts = binding.get("parts")
     if not isinstance(parts, list) or not 1 <= len(parts) <= MAX_PARTS:
@@ -65,16 +112,29 @@ def load_board_binding(data_dir: Path, tenant: UUID, context_revision: str) -> d
         if not isinstance(part, dict):
             raise RetrievalError("invalid reviewed component binding")
         reference = part.get("reference")
-        if not isinstance(reference, str) or not reference.strip() or reference in seen:
+        if (
+            not isinstance(reference, str)
+            or not reference.strip()
+            or len(reference) > 64
+            or reference in seen
+        ):
             raise RetrievalError("component references must be nonempty and unique")
         seen.add(reference)
-        for name in ("manufacturer", "mpn", "package"):
-            if not isinstance(part.get(name), str) or not part[name].strip():
+        for name, maximum in (("manufacturer", 160), ("mpn", 120), ("package", 120)):
+            if (
+                not isinstance(part.get(name), str)
+                or not part[name].strip()
+                or len(part[name]) > maximum
+            ):
                 raise RetrievalError("exact manufacturer, MPN and package are required")
         if part.get("catalog_status") not in {"missing", "resolved"}:
             raise RetrievalError("reviewed exact catalog resolution is required")
         if part["catalog_status"] == "resolved":
-            if not isinstance(part.get("catalog_revision"), str) or not part["catalog_revision"]:
+            if (
+                not isinstance(part.get("catalog_revision"), str)
+                or not part["catalog_revision"].strip()
+                or len(part["catalog_revision"]) > 256
+            ):
                 raise RetrievalError("existing catalog symbol must carry a revision")
             continue
         pins = part.get("expected_pin_numbers")
@@ -93,6 +153,7 @@ async def generate_board_symbols(
     binding: dict[str, Any], config: ServiceConfig, admission: asyncio.Semaphore
 ) -> dict[str, Any]:
     results: list[dict[str, Any]] = []
+    remaining = DRAFT_BUDGET_BYTES
     dataset = config.data_dir / "board-dataset"
     for part in binding["parts"]:
         entry = {
@@ -112,8 +173,9 @@ async def generate_board_symbols(
             except TimeoutError:
                 results.append({**entry, "status": "unavailable", "code": "capacity_full"})
                 continue
+            read = asyncio.create_task(asyncio.to_thread(_bounded_pdf, path, config.max_pdf_bytes))
             try:
-                pdf = await asyncio.to_thread(_bounded_pdf, path, config.max_pdf_bytes)
+                pdf = await asyncio.shield(read)
                 if hashlib.sha256(pdf).hexdigest() != document.get("sha256"):
                     raise RetrievalError("datasheet digest mismatch")
                 result = await run_symbol_job(
@@ -133,7 +195,7 @@ async def generate_board_symbols(
                     ),
                 )
             finally:
-                admission.release()
+                _release_after_read(read, admission)
             if result["identity"] != entry["identity"]:
                 raise RetrievalError("generated symbol identity mismatch")
             actual_pins = [pin["number"] for pin in result["pins"]]
@@ -144,14 +206,18 @@ async def generate_board_symbols(
                     "generated symbol does not match the complete reviewed pin set"
                 )
             public = {key: value for key, value in result.items() if key != "evidence"}
-            results.append(
-                {
-                    **entry,
-                    "status": "draft",
-                    "symbol": public,
-                    "document_sha256": document["sha256"],
-                }
-            )
+            draft = {
+                **entry,
+                "status": "draft",
+                "symbol": public,
+                "document_sha256": document["sha256"],
+            }
+            size = len(json.dumps(draft, ensure_ascii=False).encode("utf-8"))
+            if size > remaining:
+                results.append({**entry, "status": "unavailable", "code": "result_size_limit"})
+            else:
+                remaining -= size
+                results.append(draft)
         except (RetrievalError, OSError, ValueError, TypeError):
             results.append(
                 {**entry, "status": "abstained", "code": "insufficient_verified_evidence"}

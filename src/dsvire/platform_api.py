@@ -14,7 +14,7 @@ from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
-from .board_symbols import generate_board_symbols, load_board_binding
+from .board_symbols import BoardCapacityFull, generate_board_symbols, load_board_binding_admitted
 from .object_store import ObjectRef, ObjectStore
 from .pipeline import RetrievalError
 from .platform_db import JobConflict, JobNotFound, PlatformDatabase
@@ -32,15 +32,29 @@ async def board_symbols(
 ) -> dict[str, Any]:
     tenant = await _principal(request, authorization)
     config = request.app.state.config
-    try:
-        binding = await asyncio.to_thread(
-            load_board_binding, config.data_dir, tenant, context_revision
-        )
-    except (RetrievalError, OSError, ValueError, TypeError) as exc:
-        raise HTTPException(status_code=409, detail="reviewed board context unavailable") from exc
+
     # The request has no PDF, frame, bounding box, identity overrides or URL.
     # Only operator-installed, tenant-scoped, reviewed dataset data is executed.
-    task = asyncio.create_task(generate_board_symbols(binding, config, request.app.state.admission))
+    async def generate() -> dict[str, Any]:
+        try:
+            binding = await load_board_binding_admitted(
+                config.data_dir,
+                tenant,
+                context_revision,
+                request.app.state.admission,
+                config.admission_timeout_seconds,
+            )
+        except BoardCapacityFull as exc:
+            raise HTTPException(
+                status_code=503, detail="board processing capacity is full"
+            ) from exc
+        except (RetrievalError, OSError, ValueError, TypeError) as exc:
+            raise HTTPException(
+                status_code=409, detail="reviewed board context unavailable"
+            ) from exc
+        return await generate_board_symbols(binding, config, request.app.state.admission)
+
+    task = asyncio.create_task(generate())
     try:
         async with asyncio.timeout(min(config.job_timeout_seconds, 75.0)):
             while not task.done():

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -33,7 +34,9 @@ def test_worker_result_and_scratch_cleanup(tmp_path: Path) -> None:
             b"%PDF-test",
             DatasheetIdentity("Acme", "A1", "SOIC-8"),
             tmp_path,
-            timeout_seconds=2,
+            # Windows spawn must reimport the dependency graph before this trivial target runs.
+            # This test checks the result and cleanup; deadline enforcement has its own test.
+            timeout_seconds=10 if sys.platform == "win32" else 2,
             limits=_limits(),
             worker_target=_success_target,
         )

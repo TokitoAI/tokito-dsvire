@@ -24,15 +24,20 @@ def dataset_file(root: Path, relative: str) -> Path:
 
 def metadata(root: Path, relative: str) -> tuple[Any, dict[str, str]]:
     path = dataset_file(root, relative)
-    with path.open("rb") as handle:
-        payload = handle.read(MAX_METADATA_BYTES + 1)
-    if len(payload) > MAX_METADATA_BYTES:
-        raise RetrievalError("dataset metadata exceeds its byte limit")
+    payload = bounded_read(path, MAX_METADATA_BYTES)
     try:
         value = json.loads(payload)
     except (ValueError, UnicodeError) as exc:
         raise RetrievalError("invalid dataset metadata") from exc
     return value, {"path": relative, "sha256": hashlib.sha256(payload).hexdigest()}
+
+
+def bounded_read(path: Path, maximum: int) -> bytes:
+    with path.open("rb") as handle:
+        payload = handle.read(maximum + 1)
+    if len(payload) > maximum:
+        raise RetrievalError("dataset input exceeds its byte limit")
+    return payload
 
 
 def _identity_value(value: object) -> str | None:

@@ -43,6 +43,10 @@ The context revision is the phone's admitted board-reference revision, not a
 board-family guess. Bindings contain at most eight major components. Split
 larger reviewed contexts into separately reviewed batches in a future version;
 this version rejects larger bindings.
+Responses share the phone's four-MiB review limit. Completed drafts that do not
+fit the remaining response budget return `unavailable/result_size_limit`; earlier
+drafts and existing-symbol statuses are retained. Reviewed identity/reference
+fields are bounded so status-only responses always fit.
 
 Required binding fields:
 
@@ -79,6 +83,10 @@ equal the complete reviewed pin set. Unknowns and discrepancies abstain. File
 paths cannot escape the dataset root. A changed audited metadata file invalidates
 the binding. The authenticated endpoint caps the entire operation at 75 seconds,
 shares PDF admission limits, and cancels child work on disconnect or timeout.
+Binding metadata is admitted before it is read and is included in this deadline.
+Specimen proofs use bounded reads rather than a size-check/read pair. A running
+local file read cannot be interrupted by coroutine cancellation: its result is
+discarded, and its admission slot remains occupied until the read finishes.
 Multi-component requests can time out; lower the reviewed batch size rather
 than raising resource bounds indiscriminately.
 
