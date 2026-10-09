@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 from .ablation_gates import AblationGateError
+from .board_dataset import plan_board_symbols
 from .cycle_execution import CycleExecutionError
 from .pipeline import (
     MAX_PDF_BYTES,
@@ -48,6 +49,12 @@ def _read_pdf(path: Path) -> bytes:
 def main() -> int:
     parser = argparse.ArgumentParser(prog="dsvire")
     commands = parser.add_subparsers(dest="command", required=True)
+    board_plan = commands.add_parser(
+        "plan-board-symbols", help="audit app-dataset symbol candidates"
+    )
+    board_plan.add_argument("--dataset", required=True, type=Path)
+    board_plan.add_argument("--board", required=True)
+    board_plan.add_argument("--out", required=True, type=Path)
     evidence = commands.add_parser("extract-evidence")
     evidence.add_argument("pdf", type=Path)
     evidence.add_argument("--manufacturer", required=True)
@@ -71,6 +78,24 @@ def main() -> int:
     platform_init.add_argument("--label", default="initial")
     add_training_commands(commands)
     args = parser.parse_args()
+
+    if args.command == "plan-board-symbols":
+        try:
+            plan = plan_board_symbols(args.dataset, args.board)
+            args.out.parent.mkdir(parents=True, exist_ok=True)
+            args.out.write_text(json.dumps(plan, indent=2) + "\n", encoding="utf-8")
+        except (OSError, RetrievalError) as exc:
+            parser.error(str(exc))
+        print(
+            json.dumps(
+                {
+                    "board_family": args.board,
+                    "candidates": len(plan["components"]),
+                    "generation_ready_count": 0,
+                }
+            )
+        )
+        return 0
 
     if args.command in {
         "cycle-v4-status",

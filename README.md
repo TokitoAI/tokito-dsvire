@@ -150,6 +150,8 @@ live roadmap.
 
 ## Documentation
 
+- [Board scan symbol drafts](docs/BOARD_SYMBOLS.md) — dataset audit, reviewed tenant bindings, and optional Tokito app generation
+
 - [Usage](docs/USAGE.md) — CLI, service deployment, models, and verification
 - [Technical architecture](docs/TECHNICAL_BIBLE.md) — system design, retrieval cascade, packs, and SLOs
 - [Standalone service architecture](docs/SERVICE_ARCHITECTURE.md) — product surfaces, store ownership, publication, caching, tenancy, and deployment

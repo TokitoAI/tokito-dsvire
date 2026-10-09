@@ -6,7 +6,7 @@ import asyncio
 import json
 import re
 from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 from typing import Any, cast
 from uuid import UUID
 
@@ -14,12 +14,47 @@ from fastapi import APIRouter, Header, HTTPException, Query, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
+from .board_symbols import generate_board_symbols, load_board_binding
 from .object_store import ObjectRef, ObjectStore
+from .pipeline import RetrievalError
 from .platform_db import JobConflict, JobNotFound, PlatformDatabase
 
 platform_router = APIRouter(prefix="/v1/platform")
 _IDEMPOTENCY = re.compile(r"^[\x21-\x7e]{8,200}$")
 _MAX_BUNDLE_DOWNLOAD_BYTES = 128 * 1024 * 1024
+
+
+@platform_router.post("/board-symbols")
+async def board_symbols(
+    request: Request,
+    context_revision: str = Query(min_length=1, max_length=512),
+    authorization: str | None = Header(default=None),
+) -> dict[str, Any]:
+    tenant = await _principal(request, authorization)
+    config = request.app.state.config
+    try:
+        binding = await asyncio.to_thread(
+            load_board_binding, config.data_dir, tenant, context_revision
+        )
+    except (RetrievalError, OSError, ValueError, TypeError) as exc:
+        raise HTTPException(status_code=409, detail="reviewed board context unavailable") from exc
+    # The request has no PDF, frame, bounding box, identity overrides or URL.
+    # Only operator-installed, tenant-scoped, reviewed dataset data is executed.
+    task = asyncio.create_task(generate_board_symbols(binding, config, request.app.state.admission))
+    try:
+        async with asyncio.timeout(min(config.job_timeout_seconds, 75.0)):
+            while not task.done():
+                if await request.is_disconnected():
+                    raise HTTPException(status_code=499, detail="request cancelled")
+                await asyncio.sleep(0.1)
+            return await task
+    except TimeoutError as exc:
+        raise HTTPException(status_code=504, detail="board symbol deadline exceeded") from exc
+    finally:
+        if not task.done():
+            task.cancel()
+        with suppress(asyncio.CancelledError, Exception):
+            await task
 
 
 async def _principal(request: Request, authorization: str | None) -> UUID:
